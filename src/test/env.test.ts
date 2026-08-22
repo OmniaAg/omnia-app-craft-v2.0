@@ -1,20 +1,54 @@
 import { describe, expect, it } from 'vitest'
-import { parsePublicEnv } from '../shared/config/env'
+import {
+  getSupabasePublicKey,
+  parsePublicEnv,
+} from '../shared/config/env'
+
+const validEnvironment = {
+  VITE_APP_URL: 'http://localhost:5173',
+  VITE_SUPABASE_URL: 'http://127.0.0.1:56321',
+  VITE_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_local_test',
+}
 
 describe('public environment contract', () => {
-  it('accepts an absolute application URL', () => {
-    expect(
-      parsePublicEnv({ VITE_APP_URL: 'https://craft.omnia.example' }),
-    ).toEqual({ VITE_APP_URL: 'https://craft.omnia.example' })
+  it('accepts the local URL and one publishable key', () => {
+    expect(parsePublicEnv(validEnvironment)).toEqual(validEnvironment)
   })
 
-  it('uses the Phase 0 local default when no value exists', () => {
-    expect(parsePublicEnv({})).toEqual({
+  it('accepts the legacy anon key only as an exclusive fallback', () => {
+    const environment = parsePublicEnv({
       VITE_APP_URL: 'http://localhost:5173',
+      VITE_SUPABASE_URL: 'http://127.0.0.1:56321',
+      VITE_SUPABASE_ANON_KEY: 'legacy-local-anon-key',
     })
+
+    expect(getSupabasePublicKey(environment)).toBe('legacy-local-anon-key')
   })
 
   it('rejects malformed URLs', () => {
-    expect(() => parsePublicEnv({ VITE_APP_URL: 'omnia-craft' })).toThrow()
+    expect(() =>
+      parsePublicEnv({ ...validEnvironment, VITE_SUPABASE_URL: 'omnia-craft' }),
+    ).toThrow()
+  })
+
+  it('rejects missing or ambiguous public keys', () => {
+    const { VITE_SUPABASE_PUBLISHABLE_KEY: _, ...withoutKey } = validEnvironment
+
+    expect(() => parsePublicEnv(withoutKey)).toThrow()
+    expect(() =>
+      parsePublicEnv({
+        ...validEnvironment,
+        VITE_SUPABASE_ANON_KEY: 'legacy-local-anon-key',
+      }),
+    ).toThrow()
+  })
+
+  it('rejects privileged secrets in the frontend contract', () => {
+    expect(() =>
+      parsePublicEnv({
+        ...validEnvironment,
+        VITE_SUPABASE_SERVICE_ROLE_KEY: 'never-public',
+      }),
+    ).toThrow(/secret privilegiado/)
   })
 })

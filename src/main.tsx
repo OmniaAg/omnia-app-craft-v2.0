@@ -2,9 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import { env } from './shared/config/env'
+import { getPublicEnv } from './shared/config/env'
 
-void env
+getPublicEnv()
 
 const rootElement = document.getElementById('root')
 
