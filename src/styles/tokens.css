@@ -1,0 +1,346 @@
+/* src/styles/tokens.css */
+
+:root {
+  /* =========================================================
+     BRAND COLORS
+     ========================================================= */
+
+  --color-omnia-purple: #56167d;
+  --color-omnia-blue: #005b85;
+  --color-omnia-crimson: #c8003b;
+  --color-omnia-yellow: #fcbf4a;
+  --color-omnia-white: #fdfdfc;
+  --color-omnia-black: #161616;
+
+  /* =========================================================
+     RGB VALUES
+     Useful for opacity and rgba()
+     ========================================================= */
+
+  --rgb-omnia-purple: 86, 22, 125;
+  --rgb-omnia-blue: 0, 91, 133;
+  --rgb-omnia-crimson: 200, 0, 59;
+  --rgb-omnia-yellow: 252, 191, 74;
+  --rgb-omnia-white: 253, 253, 252;
+  --rgb-omnia-black: 22, 22, 22;
+
+  /* =========================================================
+     SEMANTIC COLORS
+     ========================================================= */
+
+  --color-background: var(--color-omnia-white);
+  --color-background-dark: var(--color-omnia-black);
+
+  --color-surface: #ffffff;
+  --color-surface-soft: #f7f6f8;
+  --color-surface-dark: #1d1d1d;
+  --color-surface-dark-soft: #242424;
+
+  --color-text: var(--color-omnia-black);
+  --color-text-soft: #414141;
+  --color-text-muted: #666666;
+  --color-text-inverse: var(--color-omnia-white);
+  --color-text-inverse-muted: #c8c8c8;
+
+  --color-primary: var(--color-omnia-purple);
+  --color-secondary: var(--color-omnia-blue);
+  --color-accent: var(--color-omnia-crimson);
+  --color-highlight: var(--color-omnia-yellow);
+
+  --color-border: rgba(var(--rgb-omnia-black), 0.14);
+  --color-border-strong: rgba(var(--rgb-omnia-black), 0.28);
+  --color-border-inverse: rgba(var(--rgb-omnia-white), 0.18);
+
+  --color-focus: var(--color-omnia-yellow);
+  --color-selection-background: var(--color-omnia-purple);
+  --color-selection-text: var(--color-omnia-white);
+
+  /* =========================================================
+     THEME ROLES
+     Dark is the visual source of truth and the no-script fallback.
+     ========================================================= */
+
+  --theme-color-scheme: dark;
+  --theme-page-background: var(--color-background-dark);
+  --theme-surface-primary: var(--color-surface-dark);
+  --theme-text-primary: var(--color-text-inverse);
+  --theme-text-secondary: var(--color-text-inverse-muted);
+  --theme-text-muted: var(--color-text-inverse-muted);
+  --theme-border: var(--color-border-inverse);
+  --theme-interactive-background: var(--color-omnia-white);
+  --theme-interactive-text: var(--color-omnia-black);
+  --theme-interactive-accent: var(--color-omnia-purple);
+  --theme-control-surface: var(--color-surface-dark);
+  --theme-control-border: var(--color-border-inverse);
+  --theme-control-muted: var(--color-text-inverse-muted);
+  --theme-control-active-surface: var(--color-omnia-white);
+  --theme-control-active-text: var(--color-omnia-black);
+  --theme-focus-companion: none;
+
+  /* =========================================================
+     TYPOGRAPHY
+     ========================================================= */
+
+  --font-display: "Lexend", Arial, sans-serif;
+  --font-body: "Quicksand", Arial, sans-serif;
+
+  --font-weight-thin: 100;
+  --font-weight-extra-light: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --font-weight-black: 900;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: clamp(1.75rem, 3vw, 2.5rem);
+  --font-size-3xl: clamp(2.25rem, 5vw, 4rem);
+  --font-size-4xl: clamp(3rem, 7vw, 6.5rem);
+
+  --line-height-tight: 1.05;
+  --line-height-heading: 1.15;
+  --line-height-body: 1.65;
+  --line-height-loose: 1.8;
+
+  --letter-spacing-tight: -0.035em;
+  --letter-spacing-heading: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.08em;
+  --letter-spacing-label: 0.14em;
+
+  /* =========================================================
+     GRADIENTS
+     ========================================================= */
+
+  --gradient-omnia:
+    linear-gradient(
+      90deg,
+      var(--color-omnia-blue) 0%,
+      var(--color-omnia-purple) 32%,
+      var(--color-omnia-crimson) 68%,
+      var(--color-omnia-yellow) 100%
+    );
+
+  --gradient-omnia-reverse:
+    linear-gradient(
+      90deg,
+      var(--color-omnia-yellow) 0%,
+      var(--color-omnia-crimson) 32%,
+      var(--color-omnia-purple) 68%,
+      var(--color-omnia-blue) 100%
+    );
+
+  --gradient-omnia-dark:
+    linear-gradient(
+      135deg,
+      var(--color-omnia-blue) 0%,
+      var(--color-omnia-purple) 46%,
+      var(--color-omnia-crimson) 100%
+    );
+
+  --gradient-omnia-purple-crimson:
+    linear-gradient(
+      135deg,
+      var(--color-omnia-purple) 0%,
+      var(--color-omnia-crimson) 100%
+    );
+
+  --gradient-omnia-blue-purple:
+    linear-gradient(
+      135deg,
+      var(--color-omnia-blue) 0%,
+      var(--color-omnia-purple) 100%
+    );
+
+  --gradient-omnia-crimson-yellow:
+    linear-gradient(
+      135deg,
+      var(--color-omnia-crimson) 0%,
+      var(--color-omnia-yellow) 100%
+    );
+
+  --gradient-light-purple:
+    linear-gradient(
+      180deg,
+      rgba(var(--rgb-omnia-white), 0) 0%,
+      rgba(var(--rgb-omnia-purple), 0.16) 100%
+    );
+
+  --gradient-light-blue:
+    linear-gradient(
+      180deg,
+      rgba(var(--rgb-omnia-white), 0) 0%,
+      rgba(var(--rgb-omnia-blue), 0.16) 100%
+    );
+
+  --gradient-light-crimson:
+    linear-gradient(
+      180deg,
+      rgba(var(--rgb-omnia-white), 0) 0%,
+      rgba(var(--rgb-omnia-crimson), 0.14) 100%
+    );
+
+  --gradient-dark-purple:
+    linear-gradient(
+      180deg,
+      rgba(var(--rgb-omnia-black), 0) 0%,
+      rgba(var(--rgb-omnia-purple), 0.72) 100%
+    );
+
+  --gradient-dark-blue:
+    linear-gradient(
+      180deg,
+      rgba(var(--rgb-omnia-black), 0) 0%,
+      rgba(var(--rgb-omnia-blue), 0.72) 100%
+    );
+
+  --gradient-dark-crimson:
+    linear-gradient(
+      180deg,
+      rgba(var(--rgb-omnia-black), 0) 0%,
+      rgba(var(--rgb-omnia-crimson), 0.68) 100%
+    );
+
+  /* =========================================================
+     LAYOUT
+     ========================================================= */
+
+  --container-max: 80rem;
+  --container-wide: 90rem;
+  --content-max: 68rem;
+  --text-max: 45rem;
+  --text-narrow: 36rem;
+
+  --page-padding:
+    clamp(1rem, 4vw, 4rem);
+
+  --section-space:
+    clamp(5rem, 10vw, 9rem);
+
+  --section-space-small:
+    clamp(3.5rem, 7vw, 6rem);
+
+  --content-gap:
+    clamp(1.5rem, 4vw, 3rem);
+
+  --grid-gap:
+    clamp(1rem, 3vw, 2rem);
+
+  /* =========================================================
+     SPACING SCALE
+     ========================================================= */
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* =========================================================
+     BORDERS AND RADII
+     ========================================================= */
+
+  --border-width: 1px;
+  --border-width-strong: 2px;
+
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.625rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-pill: 999px;
+
+  /* =========================================================
+     SHADOWS
+     Keep them restrained to preserve the minimal identity
+     ========================================================= */
+
+  --shadow-xs:
+    0 1px 2px rgba(var(--rgb-omnia-black), 0.06);
+
+  --shadow-sm:
+    0 8px 24px rgba(var(--rgb-omnia-black), 0.08);
+
+  --shadow-md:
+    0 18px 50px rgba(var(--rgb-omnia-black), 0.12);
+
+  --shadow-dark:
+    0 24px 64px rgba(0, 0, 0, 0.32);
+
+  --shadow-purple:
+    0 20px 60px rgba(var(--rgb-omnia-purple), 0.2);
+
+  /* =========================================================
+     MOTION
+     ========================================================= */
+
+  --duration-instant: 100ms;
+  --duration-fast: 160ms;
+  --duration-normal: 280ms;
+  --duration-slow: 600ms;
+  --duration-fluid: 900ms;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-omnia: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* =========================================================
+     LAYERS
+     ========================================================= */
+
+  --z-base: 0;
+  --z-content: 10;
+  --z-dropdown: 100;
+  --z-header: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* =========================================================
+     LOGO WATERMARK OPACITY
+     ========================================================= */
+
+  --watermark-light-min: 0.15;
+  --watermark-light-max: 0.3;
+  --watermark-dark-min: 0.4;
+  --watermark-dark-max: 0.5;
+}
+
+:root[data-theme="light"] {
+  --theme-color-scheme: light;
+  --theme-page-background: var(--color-surface-soft);
+  --theme-surface-primary: var(--color-background);
+  --theme-text-primary: var(--color-text);
+  --theme-text-secondary: var(--color-text-soft);
+  --theme-text-muted: var(--color-text-muted);
+  --theme-border: rgba(var(--rgb-omnia-black), 0.18);
+  --theme-interactive-background: var(--color-omnia-black);
+  --theme-interactive-text: var(--color-omnia-white);
+  --theme-interactive-accent: color-mix(
+    in srgb,
+    var(--color-omnia-purple) 45%,
+    var(--color-omnia-white)
+  );
+  --theme-control-surface: var(--color-background);
+  --theme-control-border: rgba(var(--rgb-omnia-black), 0.18);
+  --theme-control-muted: var(--color-text-muted);
+  --theme-control-active-surface: var(--color-omnia-black);
+  --theme-control-active-text: var(--color-omnia-white);
+  --theme-focus-companion: 0 0 0 5px rgba(var(--rgb-omnia-black), 0.28);
+}
