@@ -17,7 +17,7 @@ export function SharedPlaceholder({
   return (
     <main className="shared-placeholder">
       <img src={omniaMark} width="72" height="72" alt="" />
-      <h1>{title}</h1>
+      <h1 data-route-heading tabIndex={-1}>{title}</h1>
       <p>{description}</p>
       <Link className="primary-link" to={actionHref}>
         {actionLabel}

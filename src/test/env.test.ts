@@ -5,7 +5,7 @@ import {
 } from '../shared/config/env'
 
 const validEnvironment = {
-  VITE_APP_URL: 'http://localhost:5173',
+  VITE_APP_URL: 'http://localhost:53170',
   VITE_SUPABASE_URL: 'http://127.0.0.1:56321',
   VITE_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_local_test',
 }
@@ -17,7 +17,7 @@ describe('public environment contract', () => {
 
   it('accepts the legacy anon key only as an exclusive fallback', () => {
     const environment = parsePublicEnv({
-      VITE_APP_URL: 'http://localhost:5173',
+      VITE_APP_URL: 'http://localhost:53170',
       VITE_SUPABASE_URL: 'http://127.0.0.1:56321',
       VITE_SUPABASE_ANON_KEY: 'legacy-local-anon-key',
     })

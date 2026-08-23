@@ -52,8 +52,14 @@
   --color-border-inverse: rgba(var(--rgb-omnia-white), 0.18);
 
   --color-focus: var(--color-omnia-yellow);
+  --color-focus-on-light: var(--color-omnia-purple);
+  --shadow-focus-on-light: 0 0 0 5px rgba(var(--rgb-omnia-yellow), 0.72);
   --color-selection-background: var(--color-omnia-purple);
   --color-selection-text: var(--color-omnia-white);
+  --color-error-text: #800026;
+  --color-error-text-strong: #a00030;
+  --color-error-surface: rgba(var(--rgb-omnia-crimson), 0.09);
+  --color-error-surface-soft: rgba(var(--rgb-omnia-crimson), 0.075);
 
   /* =========================================================
      THEME ROLES

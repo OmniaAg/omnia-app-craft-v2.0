@@ -12,7 +12,7 @@ describe('Supabase browser adapter', () => {
       }),
     )
     const environment = parsePublicEnv({
-      VITE_APP_URL: 'http://localhost:5173',
+      VITE_APP_URL: 'http://localhost:53170',
       VITE_SUPABASE_URL: 'http://127.0.0.1:56321',
       VITE_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_local_test',
     })
@@ -41,7 +41,7 @@ describe('Supabase browser adapter', () => {
     )
     const client = createBrowserSupabaseClient(
       parsePublicEnv({
-        VITE_APP_URL: 'http://localhost:5173',
+        VITE_APP_URL: 'http://localhost:53170',
         VITE_SUPABASE_URL: 'http://127.0.0.1:56321',
         VITE_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_local_test',
       }),

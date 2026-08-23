@@ -10,13 +10,726 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      agencies: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          timezone: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          timezone?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          timezone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      agency_memberships: {
+        Row: {
+          agency_id: string
+          archived_at: string | null
+          classification: string
+          created_at: string
+          department_id: string
+          id: string
+          role_key: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          agency_id: string
+          archived_at?: string | null
+          classification?: string
+          created_at?: string
+          department_id: string
+          id?: string
+          role_key: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          agency_id?: string
+          archived_at?: string | null
+          classification?: string
+          created_at?: string
+          department_id?: string
+          id?: string
+          role_key?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agency_memberships_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agency_memberships_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agency_memberships_role_key_fkey"
+            columns: ["role_key"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "agency_memberships_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      audit_events: {
+        Row: {
+          actor_id: string | null
+          agency_id: string | null
+          correlation_id: string
+          domain_event_id: string
+          event_id: string
+          event_type: string
+          occurred_at: string
+          organization_id: string | null
+          payload: Json
+          resource_id: string
+          resource_type: string
+        }
+        Insert: {
+          actor_id?: string | null
+          agency_id?: string | null
+          correlation_id: string
+          domain_event_id: string
+          event_id?: string
+          event_type: string
+          occurred_at?: string
+          organization_id?: string | null
+          payload?: Json
+          resource_id: string
+          resource_type: string
+        }
+        Update: {
+          actor_id?: string | null
+          agency_id?: string | null
+          correlation_id?: string
+          domain_event_id?: string
+          event_id?: string
+          event_type?: string
+          occurred_at?: string
+          organization_id?: string | null
+          payload?: Json
+          resource_id?: string
+          resource_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_events_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "audit_events_domain_event_id_fkey"
+            columns: ["domain_event_id"]
+            isOneToOne: true
+            referencedRelation: "domain_events"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "audit_events_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      capabilities: {
+        Row: {
+          created_at: string
+          description: string
+          key: string
+          resource_scope_required: boolean
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          key: string
+          resource_scope_required?: boolean
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          key?: string
+          resource_scope_required?: boolean
+        }
+        Relationships: []
+      }
+      capability_grants: {
+        Row: {
+          agency_id: string
+          capability_key: string
+          created_at: string
+          expires_at: string | null
+          granted_by: string | null
+          id: string
+          organization_id: string | null
+          reason: string
+          revoked_at: string | null
+          scope_kind: string
+          user_id: string
+        }
+        Insert: {
+          agency_id: string
+          capability_key: string
+          created_at?: string
+          expires_at?: string | null
+          granted_by?: string | null
+          id?: string
+          organization_id?: string | null
+          reason: string
+          revoked_at?: string | null
+          scope_kind: string
+          user_id: string
+        }
+        Update: {
+          agency_id?: string
+          capability_key?: string
+          created_at?: string
+          expires_at?: string | null
+          granted_by?: string | null
+          id?: string
+          organization_id?: string | null
+          reason?: string
+          revoked_at?: string | null
+          scope_kind?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "capability_grants_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capability_grants_capability_key_fkey"
+            columns: ["capability_key"]
+            isOneToOne: false
+            referencedRelation: "capabilities"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "capability_grants_granted_by_fkey"
+            columns: ["granted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "capability_grants_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capability_grants_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      client_memberships: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          id: string
+          invited_by: string | null
+          organization_id: string
+          role_key: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          id?: string
+          invited_by?: string | null
+          organization_id: string
+          role_key: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          id?: string
+          invited_by?: string | null
+          organization_id?: string
+          role_key?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_memberships_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "client_memberships_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_memberships_role_key_fkey"
+            columns: ["role_key"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "client_memberships_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      departments: {
+        Row: {
+          agency_id: string
+          category: string
+          created_at: string
+          id: string
+          is_active: boolean
+          key: string
+          name: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          agency_id: string
+          category: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          key: string
+          name: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          agency_id?: string
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          key?: string
+          name?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "departments_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      domain_events: {
+        Row: {
+          actor_id: string | null
+          agency_id: string | null
+          correlation_id: string
+          event_id: string
+          event_type: string
+          idempotency_key: string | null
+          occurred_at: string
+          organization_id: string | null
+          payload: Json
+          resource_id: string
+          resource_type: string
+        }
+        Insert: {
+          actor_id?: string | null
+          agency_id?: string | null
+          correlation_id?: string
+          event_id?: string
+          event_type: string
+          idempotency_key?: string | null
+          occurred_at?: string
+          organization_id?: string | null
+          payload?: Json
+          resource_id: string
+          resource_type: string
+        }
+        Update: {
+          actor_id?: string | null
+          agency_id?: string | null
+          correlation_id?: string
+          event_id?: string
+          event_type?: string
+          idempotency_key?: string | null
+          occurred_at?: string
+          organization_id?: string | null
+          payload?: Json
+          resource_id?: string
+          resource_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "domain_events_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "domain_events_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invitations: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          agency_id: string
+          agency_role_key: string | null
+          classification: string | null
+          client_role_key: string | null
+          created_at: string
+          department_id: string | null
+          email: string
+          email_sent_at: string | null
+          expires_at: string
+          id: string
+          idempotency_key: string
+          invited_by: string
+          kind: string
+          organization_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          agency_id: string
+          agency_role_key?: string | null
+          classification?: string | null
+          client_role_key?: string | null
+          created_at?: string
+          department_id?: string | null
+          email: string
+          email_sent_at?: string | null
+          expires_at?: string
+          id?: string
+          idempotency_key: string
+          invited_by: string
+          kind: string
+          organization_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          agency_id?: string
+          agency_role_key?: string | null
+          classification?: string | null
+          client_role_key?: string | null
+          created_at?: string
+          department_id?: string | null
+          email?: string
+          email_sent_at?: string | null
+          expires_at?: string
+          id?: string
+          idempotency_key?: string
+          invited_by?: string
+          kind?: string
+          organization_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invitations_accepted_by_fkey"
+            columns: ["accepted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "invitations_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invitations_agency_role_key_fkey"
+            columns: ["agency_role_key"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "invitations_client_role_key_fkey"
+            columns: ["client_role_key"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "invitations_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invitations_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "invitations_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          agency_id: string
+          archived_at: string | null
+          created_at: string
+          id: string
+          lifecycle: string
+          name: string
+          timezone: string
+          updated_at: string
+        }
+        Insert: {
+          agency_id: string
+          archived_at?: string | null
+          created_at?: string
+          id?: string
+          lifecycle?: string
+          name: string
+          timezone?: string
+          updated_at?: string
+        }
+        Update: {
+          agency_id?: string
+          archived_at?: string | null
+          created_at?: string
+          id?: string
+          lifecycle?: string
+          name?: string
+          timezone?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organizations_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          timezone: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          timezone?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          timezone?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      role_capabilities: {
+        Row: {
+          capability_key: string
+          created_at: string
+          role_key: string
+        }
+        Insert: {
+          capability_key: string
+          created_at?: string
+          role_key: string
+        }
+        Update: {
+          capability_key?: string
+          created_at?: string
+          role_key?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_capabilities_capability_key_fkey"
+            columns: ["capability_key"]
+            isOneToOne: false
+            referencedRelation: "capabilities"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "role_capabilities_role_key_fkey"
+            columns: ["role_key"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      roles: {
+        Row: {
+          context: string
+          created_at: string
+          description: string
+          display_name: string
+          key: string
+        }
+        Insert: {
+          context: string
+          created_at?: string
+          description: string
+          display_name: string
+          key: string
+        }
+        Update: {
+          context?: string
+          created_at?: string
+          description?: string
+          display_name?: string
+          key?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      accept_invitation: { Args: { invitation_id: string }; Returns: string }
+      archive_client_membership: {
+        Args: { idempotency_key: string; membership_id: string }
+        Returns: string
+      }
+      create_invitation: {
+        Args: {
+          agency_role_key?: string
+          classification?: string
+          client_role_key?: string
+          department_key?: string
+          email: string
+          idempotency_key?: string
+          kind: string
+          organization_id?: string
+        }
+        Returns: {
+          invitation_id: string
+          invitation_kind: string
+          is_replay: boolean
+          normalized_email: string
+          was_dispatched: boolean
+        }[]
+      }
+      create_organization: {
+        Args: { idempotency_key: string; name: string; timezone: string }
+        Returns: string
+      }
+      has_capability: {
+        Args: {
+          agency_scope?: string
+          capability_key: string
+          organization_scope?: string
+        }
+        Returns: boolean
+      }
       health_check: { Args: never; Returns: Json }
+      mark_invitation_dispatched: {
+        Args: { invitation_id: string }
+        Returns: undefined
+      }
+      my_capabilities: {
+        Args: never
+        Returns: {
+          capability_key: string
+          scope_id: string
+          scope_kind: string
+        }[]
+      }
+      update_agency_membership: {
+        Args: {
+          classification: string
+          department_key: string
+          idempotency_key: string
+          membership_id: string
+          role_key: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

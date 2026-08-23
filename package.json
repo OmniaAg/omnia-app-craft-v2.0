@@ -15,20 +15,25 @@
     "lint": "oxlint src scripts vite.config.ts vitest.config.ts vitest.connectivity.config.ts",
     "test": "vitest run",
     "preview": "vite preview",
-    "db:start": "supabase start",
+    "db:start": "node scripts/start-local-supabase.mjs",
     "db:stop": "supabase stop --project-id omnia-craft",
-    "db:status": "supabase status",
+    "db:status": "node scripts/show-local-supabase-status.mjs",
     "db:reset": "supabase db reset --local",
     "db:test": "supabase test db supabase/tests/database --local",
     "db:lint": "supabase db lint --local --schema public,app_private --fail-on error",
     "db:types": "node scripts/generate-database-types.mjs",
-    "test:connectivity": "vitest run --config vitest.connectivity.config.ts"
+    "db:types:check": "node scripts/generate-database-types.mjs --check",
+    "functions:serve": "supabase functions serve invite-user",
+    "test:connectivity": "vitest run --config vitest.connectivity.config.ts",
+    "test:auth": "node scripts/test-auth-integration.mjs"
   },
   "dependencies": {
+    "@hookform/resolvers": "5.9.1",
     "@supabase/supabase-js": "2.112.3",
     "@tanstack/react-query": "^5.102.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-hook-form": "7.86.0",
     "react-router-dom": "^7.18.2",
     "zod": "^4.4.3"
   },

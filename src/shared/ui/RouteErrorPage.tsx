@@ -8,7 +8,7 @@ export function RouteErrorPage() {
 
   return (
     <main className="shared-placeholder" role="alert">
-      <h1>No pudimos abrir esta sección</h1>
+      <h1 data-route-heading tabIndex={-1}>No pudimos abrir esta sección</h1>
       <p>{description}</p>
       <Link className="primary-link" to="/">
         Volver al inicio

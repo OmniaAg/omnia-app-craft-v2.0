@@ -27,6 +27,7 @@ body {
 button,
 a {
   font: inherit;
+  touch-action: manipulation;
 }
 
 a {
@@ -165,8 +166,38 @@ button {
     background-color var(--duration-fast) var(--ease-standard);
 }
 
+.surface-nav button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid var(--theme-border);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--theme-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.surface-nav button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.surface-nav__error {
+  max-width: 18rem;
+  color: var(--color-omnia-yellow);
+  font-size: var(--font-size-xs);
+  line-height: 1.35;
+}
+
 .surface-nav a:hover,
-.surface-nav a.is-active {
+.surface-nav a.is-active,
+.surface-nav button:hover {
   background: rgba(var(--rgb-omnia-white), 0.1);
   color: var(--theme-text-primary);
 }

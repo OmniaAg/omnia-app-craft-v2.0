@@ -1,23 +1,43 @@
+import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import omniaLogo from '../../assets/images/brand/logos_omnia/OMNIA_Version_fullblanco.webp'
+
+type ShellNavItem = {
+  href: string
+  label: string
+}
 
 type FoundationShellProps = {
   title: string
   description: string
   accent: 'purple' | 'blue'
+  navItems: ShellNavItem[]
+  identityLabel: string
+  onSignOut: () => Promise<void>
 }
-
-const navItems = [
-  { href: '/app', label: 'Interno' },
-  { href: '/portal', label: 'Portal' },
-  { href: '/login', label: 'Acceso' },
-]
 
 export function FoundationShell({
   title,
   description,
   accent,
+  navItems,
+  identityLabel,
+  onSignOut,
 }: FoundationShellProps) {
+  const [signOutPending, setSignOutPending] = useState(false)
+  const [signOutError, setSignOutError] = useState<string | null>(null)
+
+  const handleSignOut = async () => {
+    setSignOutPending(true)
+    setSignOutError(null)
+    try {
+      await onSignOut()
+    } catch {
+      setSignOutError('No pudimos cerrar la sesión. Intenta de nuevo.')
+      setSignOutPending(false)
+    }
+  }
+
   return (
     <div className="app-surface" data-accent={accent}>
       <a className="skip-link" href="#main-content">
@@ -28,7 +48,7 @@ export function FoundationShell({
           <img src={omniaLogo} width="145" height="37" alt="OMNIA" />
           <span>Craft</span>
         </Link>
-        <nav className="surface-nav" aria-label="Navegación de foundation">
+        <nav className="surface-nav" aria-label="Navegación de contexto">
           {navItems.map((item) => (
             <NavLink
               key={item.href}
@@ -38,20 +58,33 @@ export function FoundationShell({
               {item.label}
             </NavLink>
           ))}
+          <button
+            type="button"
+            disabled={signOutPending}
+            aria-busy={signOutPending}
+            onClick={() => void handleSignOut()}
+          >
+            {signOutPending ? 'Cerrando…' : 'Cerrar sesión'}
+          </button>
+          {signOutError ? (
+            <span className="surface-nav__error" role="alert">
+              {signOutError}
+            </span>
+          ) : null}
         </nav>
       </header>
 
       <main id="main-content" className="app-main" tabIndex={-1}>
         <div className="surface-intro">
-          <h1>{title}</h1>
+          <h1 data-route-heading tabIndex={-1}>{title}</h1>
           <p className="surface-description">{description}</p>
         </div>
         <Outlet />
       </main>
 
       <footer className="app-footer">
-        <span>OMNIA Craft 2.0</span>
-        <span>Phase 0 · Architecture &amp; Developer Foundation</span>
+        <span>{identityLabel}</span>
+        <span>Phase 2 · Identity, Auth &amp; Authorization</span>
       </footer>
     </div>
   )
