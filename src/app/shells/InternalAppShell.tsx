@@ -13,6 +13,8 @@ export function Component() {
 
   const navItems = [
     { href: '/app', label: 'Interno' },
+    { href: '/app/my-space', label: 'Mi Espacio' },
+    { href: '/app/projects', label: 'Proyectos' },
     { href: '/app/crm/accounts', label: 'Organizations' },
     { href: '/app/crm/contacts', label: 'Contacts' },
     { href: '/app/crm/opportunities', label: 'Opportunities' },
@@ -30,7 +32,7 @@ export function Component() {
       identityLabel={auth.actor?.user.email ?? 'Sesión interna'}
       onSignOut={handleSignOut}
       showIntro={false}
-      footerLabel="Phase 3 · Agency Core + CRM + Clients"
+      footerLabel="Phase 4 · Projects + Work + My Space"
     />
   )
 }

@@ -35,7 +35,15 @@ export function FieldError({ id, message }: { id: string; message?: string }) {
 }
 
 export function StatusBadge({ value }: { value: string }) {
-  return <span className="crm-status" data-status={value}>{value.replaceAll('_', ' ')}</span>
+  const labels: Record<string, string> = {
+    active_client: 'Cliente activo', active: 'Activo', inactive: 'Inactivo', archived: 'Archivado',
+    planning: 'Planeación', on_hold: 'En pausa', completed: 'Completado',
+    todo: 'Por hacer', in_progress: 'En curso', blocked: 'Bloqueado', done: 'Completado', cancelled: 'Cancelado',
+    low: 'Baja', normal: 'Normal', high: 'Alta', urgent: 'Urgente', assigned: 'Asignado',
+    open: 'Abierto', won: 'Ganada', lost: 'Perdida', prospect: 'Prospecto',
+    note: 'Nota', reminder: 'Recordatorio', project: 'Proyecto', personal: 'Personal',
+  }
+  return <span className="crm-status" data-status={value}>{labels[value] ?? value.replaceAll('_', ' ')}</span>
 }
 
 export function Pagination({ page, pageSize, total, onPage }: { page: number; pageSize: number; total: number; onPage: (page: number) => void }) {
@@ -59,4 +67,3 @@ export function LoadingRows({ columns = 5 }: { columns?: number }) {
     </tr>
   )
 }
-

@@ -722,6 +722,63 @@ export type Database = {
           },
         ]
       }
+      milestones: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          due_date: string | null
+          id: string
+          name: string
+          project_id: string
+          sort_order: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          name: string
+          project_id: string
+          sort_order?: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          name?: string
+          project_id?: string
+          sort_order?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "milestones_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "milestones_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       opportunities: {
         Row: {
           archived_at: string | null
@@ -849,6 +906,59 @@ export type Database = {
           },
         ]
       }
+      personal_work_items: {
+        Row: {
+          archived_at: string | null
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          due_at: string | null
+          id: string
+          item_type: string
+          priority: string
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          archived_at?: string | null
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_at?: string | null
+          id?: string
+          item_type?: string
+          priority?: string
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          archived_at?: string | null
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_at?: string | null
+          id?: string
+          item_type?: string
+          priority?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "personal_work_items_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       pipeline_stages: {
         Row: {
           created_at: string
@@ -899,6 +1009,127 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      project_memberships: {
+        Row: {
+          created_at: string
+          created_by: string
+          id: string
+          member_type: string
+          project_id: string
+          responsibility: string
+          revoked_at: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          id?: string
+          member_type: string
+          project_id: string
+          responsibility: string
+          revoked_at?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          member_type?: string
+          project_id?: string
+          responsibility?: string
+          revoked_at?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_memberships_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "project_memberships_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_memberships_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          archived_at: string | null
+          brand_id: string
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          name: string
+          start_date: string | null
+          status: string
+          target_end_date: string | null
+          timezone: string | null
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          brand_id: string
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          name: string
+          start_date?: string | null
+          status?: string
+          target_end_date?: string | null
+          timezone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          brand_id?: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          name?: string
+          start_date?: string | null
+          status?: string
+          target_end_date?: string | null
+          timezone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "projects_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "projects_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
       }
       role_capabilities: {
         Row: {
@@ -957,18 +1188,267 @@ export type Database = {
         }
         Relationships: []
       }
+      work_item_assignees: {
+        Row: {
+          assigned_at: string
+          assigned_by: string
+          id: string
+          revoked_at: string | null
+          user_id: string
+          work_item_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          assigned_by: string
+          id?: string
+          revoked_at?: string | null
+          user_id: string
+          work_item_id: string
+        }
+        Update: {
+          assigned_at?: string
+          assigned_by?: string
+          id?: string
+          revoked_at?: string | null
+          user_id?: string
+          work_item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_item_assignees_assigned_by_fkey"
+            columns: ["assigned_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "work_item_assignees_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "work_item_assignees_work_item_id_fkey"
+            columns: ["work_item_id"]
+            isOneToOne: false
+            referencedRelation: "work_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      work_item_comments: {
+        Row: {
+          archived_at: string | null
+          author_id: string
+          body: string
+          created_at: string
+          edited_at: string | null
+          id: string
+          work_item_id: string
+        }
+        Insert: {
+          archived_at?: string | null
+          author_id: string
+          body: string
+          created_at?: string
+          edited_at?: string | null
+          id?: string
+          work_item_id: string
+        }
+        Update: {
+          archived_at?: string | null
+          author_id?: string
+          body?: string
+          created_at?: string
+          edited_at?: string | null
+          id?: string
+          work_item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_item_comments_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "work_item_comments_work_item_id_fkey"
+            columns: ["work_item_id"]
+            isOneToOne: false
+            referencedRelation: "work_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      work_item_events: {
+        Row: {
+          actor_id: string
+          domain_event_id: string
+          event_type: string
+          id: string
+          occurred_at: string
+          payload: Json
+          work_item_id: string
+        }
+        Insert: {
+          actor_id: string
+          domain_event_id: string
+          event_type: string
+          id?: string
+          occurred_at?: string
+          payload?: Json
+          work_item_id: string
+        }
+        Update: {
+          actor_id?: string
+          domain_event_id?: string
+          event_type?: string
+          id?: string
+          occurred_at?: string
+          payload?: Json
+          work_item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_item_events_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "work_item_events_domain_event_id_fkey"
+            columns: ["domain_event_id"]
+            isOneToOne: true
+            referencedRelation: "domain_events"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "work_item_events_work_item_id_fkey"
+            columns: ["work_item_id"]
+            isOneToOne: false
+            referencedRelation: "work_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      work_items: {
+        Row: {
+          archived_at: string | null
+          completed_at: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          due_at: string | null
+          id: string
+          milestone_id: string | null
+          priority: string
+          project_id: string
+          status: string
+          title: string
+          updated_at: string
+          visibility: string
+        }
+        Insert: {
+          archived_at?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          due_at?: string | null
+          id?: string
+          milestone_id?: string | null
+          priority?: string
+          project_id: string
+          status?: string
+          title: string
+          updated_at?: string
+          visibility?: string
+        }
+        Update: {
+          archived_at?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          due_at?: string | null
+          id?: string
+          milestone_id?: string | null
+          priority?: string
+          project_id?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_items_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "work_items_milestone_id_fkey"
+            columns: ["milestone_id"]
+            isOneToOne: false
+            referencedRelation: "milestones"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "work_items_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
       accept_invitation: { Args: { invitation_id: string }; Returns: string }
+      add_project_member: {
+        Args: {
+          idempotency_key: string
+          member_type: string
+          project_id: string
+          responsibility: string
+          user_id: string
+        }
+        Returns: string
+      }
       archive_client_membership: {
         Args: { idempotency_key: string; membership_id: string }
         Returns: string
       }
       archive_crm_resource: {
         Args: { resource_id: string; resource_type: string }
+        Returns: string
+      }
+      archive_personal_work_item: {
+        Args: { personal_item_id: string }
+        Returns: string
+      }
+      archive_project: {
+        Args: { idempotency_key: string; project_id: string }
+        Returns: string
+      }
+      archive_work_item: {
+        Args: { idempotency_key: string; work_item_id: string }
+        Returns: string
+      }
+      assign_work_item: {
+        Args: {
+          assignee_ids: string[]
+          idempotency_key: string
+          work_item_id: string
+        }
         Returns: string
       }
       change_opportunity_stage: {
@@ -993,6 +1473,21 @@ export type Database = {
         Returns: {
           organization_id: string
           organization_name: string
+          timezone: string
+        }[]
+      }
+      client_project_context: {
+        Args: { project_id?: string }
+        Returns: {
+          brand_id: string
+          brand_name: string
+          organization_id: string
+          organization_name: string
+          project_id: string
+          project_name: string
+          project_status: string
+          start_date: string
+          target_end_date: string
           timezone: string
         }[]
       }
@@ -1057,6 +1552,17 @@ export type Database = {
           was_dispatched: boolean
         }[]
       }
+      create_milestone: {
+        Args: {
+          description: string
+          due_date: string
+          idempotency_key: string
+          name: string
+          project_id: string
+          sort_order: number
+        }
+        Returns: string
+      }
       create_opportunity: {
         Args: {
           brand_id: string
@@ -1075,6 +1581,46 @@ export type Database = {
         Args: { idempotency_key: string; name: string; timezone: string }
         Returns: string
       }
+      create_personal_work_item: {
+        Args: {
+          description: string
+          due_local: string
+          item_type: string
+          priority: string
+          title: string
+        }
+        Returns: string
+      }
+      create_project: {
+        Args: {
+          brand_id: string
+          description: string
+          idempotency_key: string
+          name: string
+          start_date: string
+          status: string
+          target_end_date: string
+          timezone: string
+        }
+        Returns: string
+      }
+      create_work_item: {
+        Args: {
+          assignee_ids: string[]
+          description: string
+          due_local: string
+          idempotency_key: string
+          milestone_id: string
+          priority: string
+          project_id: string
+          title: string
+        }
+        Returns: string
+      }
+      create_work_item_comment: {
+        Args: { body: string; idempotency_key: string; work_item_id: string }
+        Returns: string
+      }
       has_capability: {
         Args: {
           agency_scope?: string
@@ -1084,6 +1630,29 @@ export type Database = {
         Returns: boolean
       }
       health_check: { Args: never; Returns: Json }
+      is_internal_actor: { Args: never; Returns: boolean }
+      list_projects: {
+        Args: {
+          page_limit?: number
+          page_offset?: number
+          search_text?: string
+          status_filter?: string
+        }
+        Returns: {
+          brand_id: string
+          brand_name: string
+          lead_name: string
+          organization_id: string
+          organization_name: string
+          project_description: string
+          project_id: string
+          project_name: string
+          project_status: string
+          start_date: string
+          target_end_date: string
+          total_count: number
+        }[]
+      }
       mark_invitation_dispatched: {
         Args: { invitation_id: string }
         Returns: undefined
@@ -1096,8 +1665,124 @@ export type Database = {
           scope_kind: string
         }[]
       }
+      my_space_items: {
+        Args: never
+        Returns: {
+          brand_name: string
+          bucket: string
+          description: string
+          due_at: string
+          item_id: string
+          item_kind: string
+          item_type: string
+          organization_name: string
+          priority: string
+          project_id: string
+          project_name: string
+          status: string
+          title: string
+        }[]
+      }
+      project_access_allowed: {
+        Args: { capability_key: string; project_id: string }
+        Returns: boolean
+      }
+      project_brand_options: {
+        Args: never
+        Returns: {
+          brand_id: string
+          brand_name: string
+          organization_id: string
+          organization_name: string
+          timezone: string
+        }[]
+      }
+      project_detail: {
+        Args: { project_id: string }
+        Returns: {
+          brand_id: string
+          brand_name: string
+          can_archive_project: boolean
+          can_assign_work: boolean
+          can_create_work: boolean
+          can_manage_members: boolean
+          can_manage_milestones: boolean
+          organization_id: string
+          organization_name: string
+          project_description: string
+          project_name: string
+          project_status: string
+          responsibility: string
+          start_date: string
+          target_end_date: string
+          timezone: string
+        }[]
+      }
+      project_member_candidates: {
+        Args: { project_id: string }
+        Returns: {
+          display_name: string
+          email: string
+          member_type: string
+          suggested_responsibility: string
+          user_id: string
+        }[]
+      }
+      project_members: {
+        Args: { project_id: string }
+        Returns: {
+          display_name: string
+          email: string
+          member_type: string
+          membership_id: string
+          responsibility: string
+          revoked_at: string
+          status: string
+          user_id: string
+        }[]
+      }
+      project_milestones: {
+        Args: { project_id: string }
+        Returns: {
+          description: string
+          due_date: string
+          milestone_id: string
+          milestone_name: string
+          sort_order: number
+          status: string
+        }[]
+      }
+      project_work_items: {
+        Args: { page_limit?: number; page_offset?: number; project_id: string }
+        Returns: {
+          archived_at: string
+          assignee_ids: string[]
+          assignee_names: string[]
+          can_archive: boolean
+          can_assign: boolean
+          can_transition: boolean
+          completed_at: string
+          description: string
+          due_at: string
+          milestone_id: string
+          milestone_name: string
+          priority: string
+          status: string
+          title: string
+          total_count: number
+          work_item_id: string
+        }[]
+      }
       promote_organization_to_client: {
         Args: { idempotency_key: string; organization_id: string }
+        Returns: string
+      }
+      revoke_project_member: {
+        Args: { idempotency_key: string; membership_id: string }
+        Returns: string
+      }
+      transition_work_item: {
+        Args: { idempotency_key: string; status: string; work_item_id: string }
         Returns: string
       }
       update_agency_membership: {
@@ -1110,6 +1795,17 @@ export type Database = {
         }
         Returns: string
       }
+      update_milestone: {
+        Args: {
+          description: string
+          due_date: string
+          milestone_id: string
+          name: string
+          sort_order: number
+          status: string
+        }
+        Returns: string
+      }
       update_organization: {
         Args: {
           domain: string
@@ -1119,6 +1815,48 @@ export type Database = {
           timezone: string
         }
         Returns: string
+      }
+      update_personal_work_item: {
+        Args: {
+          description: string
+          due_local: string
+          item_type: string
+          personal_item_id: string
+          priority: string
+          status: string
+          title: string
+        }
+        Returns: string
+      }
+      work_item_access_allowed: {
+        Args: { work_item_id: string }
+        Returns: boolean
+      }
+      work_item_comments_list: {
+        Args: {
+          page_limit?: number
+          page_offset?: number
+          work_item_id: string
+        }
+        Returns: {
+          author_id: string
+          author_name: string
+          body: string
+          comment_id: string
+          created_at: string
+          edited_at: string
+        }[]
+      }
+      work_item_event_list: {
+        Args: { page_limit?: number; work_item_id: string }
+        Returns: {
+          actor_id: string
+          actor_name: string
+          event_id: string
+          event_type: string
+          occurred_at: string
+          payload: Json
+        }[]
       }
     }
     Enums: {

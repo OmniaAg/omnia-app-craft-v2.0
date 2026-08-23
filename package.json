@@ -26,7 +26,8 @@
     "functions:serve": "supabase functions serve invite-user",
     "test:connectivity": "vitest run --config vitest.connectivity.config.ts",
     "test:auth": "node scripts/test-auth-integration.mjs",
-    "test:crm": "node scripts/test-crm-integration.mjs"
+    "test:crm": "node scripts/test-crm-integration.mjs",
+    "test:work": "node scripts/test-work-integration.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",

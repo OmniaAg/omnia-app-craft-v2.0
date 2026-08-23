@@ -57,6 +57,7 @@ export function FoundationShell({
             <NavLink
               key={item.href}
               to={item.href}
+              end={item.href === '/app' || item.href === '/portal'}
               className={({ isActive }) => (isActive ? 'is-active' : undefined)}
             >
               {item.label}

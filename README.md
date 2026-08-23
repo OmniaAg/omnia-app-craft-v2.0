@@ -1,8 +1,8 @@
 # OMNIA Craft 2.0
 
-Foundation local de Identity, Auth & Authorization y CRM operacional de OMNIA Craft. Phase 3 amplía Organizations y añade Brands, Contacts, Opportunities, pipeline controlado, CRM Activities, proyecciones cliente y comandos transaccionales auditados.
+Foundation local de Identity, Auth & Authorization, CRM y operación de proyectos de OMNIA Craft. Phase 4 completa `Organization → Brand → Project`, añade memberships explícitas, milestones, Work Items canónicos y My Space.
 
-No incluye Projects, dashboard, Realtime, Storage operacional ni configuración remota. Organization → Brand queda preparado para que Projects se añada únicamente en Phase 4.
+No incluye dashboard configurable, editorial, deliverables, reviews, Realtime, Storage operacional ni configuración remota.
 
 ## Requisitos
 
@@ -85,6 +85,7 @@ Analytics y pooler permanecen deshabilitados. El flujo local no requiere ni perm
 - `has_capability()` es la comprobación central del servidor. `my_capabilities()` sólo proyecta hints de UX; manipular React o una ruta no concede datos.
 - Un PM no recibe CRM global por rol. Los fixtures conceden a `pm.scoped@omnia.local` capabilities separadas y scope exclusivo para Organization A; `pm.basic@omnia.local` permanece sin CRM.
 - Los clientes no leen tablas internas de Organizations, Opportunities, pipeline o CRM Activities. `client_organization_context()` y `client_brand_context()` devuelven únicamente columnas públicas explícitas.
+- La membership de Organization no concede acceso a Projects. PMs, contributors y clients requieren `project_memberships` activas; los clients reciben únicamente `client_project_context()` y nunca Work Items, comentarios, eventos ni assignees.
 - RLS está habilitado y forzado. Los catálogos y eventos son server-managed; no hay escrituras genéricas desde el browser.
 - Invitaciones, aceptación y mutaciones sensibles usan comandos transaccionales, idempotencia y domain/audit events. La Edge Function valida sesión, origen, contrato y scope antes de usar credenciales server-side.
 
@@ -96,7 +97,9 @@ Analytics y pooler permanecen deshabilitados. El flujo local no requiere ni perm
 - PM sin grants y PM con capabilities CRM sólo para Organization A;
 - contributor clasificado como founder para probar que la clasificación no eleva privilegios;
 - client admin/reviewer/viewer en Organization A y viewer en Organization B;
-- seis departamentos, Organization A con Brand A1/Brand A2 y Organization B con Brand B1.
+- seis departamentos, Organization A con Brand A1/Brand A2 y Organization B con Brand B1;
+- Projects A1/A2/A3/B1, PM A/B, contributors A/B y client members explícitos para probar aislamiento cruzado;
+- milestones, Work Items asignados, comentarios y pendientes personales que cubren overdue/today/upcoming/no due date.
 
 Los usuarios seeded no tienen contraseña reutilizable. `npm run test:auth` asigna passwords aleatorias en memoria mediante la clave server local, nunca las imprime y sólo opera si API y Mailpit usan los puertos loopback esperados. El primer director existe por un bootstrap administrativo explícito del seed; ningún signup trigger concede membresía o rol. El bootstrap productivo se definirá en la fase de deployment, no aquí.
 
@@ -123,6 +126,20 @@ Las screens no consultan Supabase directamente. `AuthProvider` y el servicio de 
 
 Las rutas CRM se cargan de forma lazy. Las screens componen query options y mutations de la feature; no llaman `supabase.from()` directamente.
 
+## Projects, Work y My Space
+
+- `/app/projects` — proyectos autorizados con contexto Organization/Brand, búsqueda, estado y paginación.
+- `/app/projects/:projectId` — overview, miembros, milestones y lista de Work Items; el detalle de trabajo incluye asignación, transiciones válidas, comentarios e historial contextual.
+- `/app/my-space` — lectura agregada de trabajo asignado y pendientes personales, ordenada por overdue, today, upcoming y sin fecha.
+
+`work_items` es el núcleo canónico del trabajo de Project. Soporta múltiples assignees internos activos, estados `todo/in_progress/blocked/done/cancelled`, prioridad simple y deadlines como instantes UTC mostrados y capturados en `America/Mexico_City`. Las fechas de Project y milestone son `date` y no se convierten artificialmente a medianoche UTC.
+
+La creación puede dejar un Work Item sin assignees como backlog explícito. Una reasignación posterior exige al menos un miembro interno activo para evitar que una edición accidental retire toda la responsabilidad; sólo PM/Director autorizado ejecuta ese comando.
+
+Los pendientes personales viven en `personal_work_items`: la tabla separada hace explícito que un pendiente privado no es Project work, no admite assignees ni `project_id`, y mantiene RLS self-owned más pequeña. My Space los unifica sólo en su read model seguro.
+
+Crear, asignar, transicionar, comentar y archivar trabajo pasa por RPCs transaccionales. React no encadena escrituras directas; invalida caches de proyecto, trabajo o My Space de forma dirigida. No hay Realtime, polling, Kanban ni drag-and-drop.
+
 ## Verificación
 
 Con Supabase y `functions:serve` activos:
@@ -138,13 +155,14 @@ npm run test
 npm run test:connectivity
 npm run test:auth
 npm run test:crm
+npm run test:work
 npm run build
 ```
 
 | Comando | Evidencia |
 |---|---|
 | `npm run db:reset` | Reconstruye únicamente la DB local desde migrations + seed |
-| `npm run db:test` | Ejecuta pgTAP de schema, privilegios, RLS, roles, grants, aislamiento e invitaciones |
+| `npm run db:test` | Ejecuta pgTAP de schema, privilegios, RLS, roles, grants, aislamiento, Projects, Work y My Space |
 | `npm run db:lint` | Ejecuta `plpgsql_check` sobre `public` y `app_private` |
 | `npm run db:types` | Regenera `database.types.ts`; no se edita manualmente |
 | `npm run db:types:check` | Falla si los tipos generados no coinciden con la DB local |
@@ -152,6 +170,7 @@ npm run build
 | `npm run test:connectivity` | Cliente real contra la API local |
 | `npm run test:auth` | Bootstrap → login → recovery → invitaciones/Mailpit → aceptación → restore/logout → aislamiento A/B |
 | `npm run test:crm` | Flujos director/PM/client contra Auth, RLS, RPC, events y proyecciones locales |
+| `npm run test:work` | Flujo Director/PM/contributor/client: Project → members → milestone → assignment → My Space → transition/comment → archive, más aislamiento personal |
 | `npm run build` | TypeScript + bundle production de Vite |
 
 Para detener sólo este stack:

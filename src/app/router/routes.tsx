@@ -26,6 +26,18 @@ export const appRoutes: RouteObject[] = [
                 lazy: () => import('../../features/foundation/InternalHome'),
               },
               {
+                path: 'my-space',
+                lazy: () => import('../../features/my-space/screens/MySpaceScreen'),
+              },
+              {
+                path: 'projects',
+                lazy: () => import('../../features/projects/screens/ProjectsScreen'),
+              },
+              {
+                path: 'projects/:projectId',
+                lazy: () => import('../../features/projects/screens/ProjectDetailScreen'),
+              },
+              {
                 path: 'crm/accounts',
                 lazy: () => import('../../features/crm/screens/AccountsScreen'),
               },
