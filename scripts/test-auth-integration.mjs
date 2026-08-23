@@ -1,7 +1,6 @@
-import { execFileSync } from 'node:child_process'
 import { randomBytes, randomUUID } from 'node:crypto'
-import { resolve } from 'node:path'
 import { createClient } from '@supabase/supabase-js'
+import { waitForPostgrest } from './lib/local-supabase.mjs'
 
 const DIRECTOR_ID = '10000000-0000-0000-0000-000000000001'
 const DIRECTOR_EMAIL = 'director@omnia.local'
@@ -165,12 +164,7 @@ async function acceptInvitation({
 }
 
 async function main() {
-  const cli = resolve('node_modules', 'supabase', 'dist', 'supabase.js')
-  const status = JSON.parse(
-    execFileSync(process.execPath, [cli, 'status', '-o', 'json'], {
-      encoding: 'utf8',
-    }),
-  )
+  const { status } = await waitForPostgrest()
   const apiUrl = localUrl(status.API_URL, '56321', 'Supabase API').origin
   const mailpitUrl = localUrl(status.MAILPIT_URL, '56324', 'Mailpit').origin
   invariant(status.PUBLISHABLE_KEY, 'local publishable key is unavailable')

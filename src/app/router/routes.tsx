@@ -23,7 +23,7 @@ export const appRoutes: RouteObject[] = [
             children: [
               {
                 index: true,
-                lazy: () => import('../../features/foundation/InternalHome'),
+                lazy: () => import('../../features/dashboard/screens/DashboardScreen'),
               },
               {
                 path: 'my-space',

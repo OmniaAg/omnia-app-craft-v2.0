@@ -18,16 +18,17 @@
     "db:start": "node scripts/start-local-supabase.mjs",
     "db:stop": "supabase stop --project-id omnia-craft",
     "db:status": "node scripts/show-local-supabase-status.mjs",
-    "db:reset": "supabase db reset --local",
+    "db:reset": "node scripts/reset-local-supabase.mjs",
     "db:test": "supabase test db supabase/tests/database --local",
     "db:lint": "supabase db lint --local --schema public,app_private --fail-on error",
     "db:types": "node scripts/generate-database-types.mjs",
     "db:types:check": "node scripts/generate-database-types.mjs --check",
     "functions:serve": "supabase functions serve invite-user",
-    "test:connectivity": "vitest run --config vitest.connectivity.config.ts",
+    "test:connectivity": "node scripts/wait-for-postgrest.mjs && vitest run --config vitest.connectivity.config.ts",
     "test:auth": "node scripts/test-auth-integration.mjs",
     "test:crm": "node scripts/test-crm-integration.mjs",
-    "test:work": "node scripts/test-work-integration.mjs"
+    "test:work": "node scripts/test-work-integration.mjs",
+    "test:dashboard": "node scripts/test-dashboard-integration.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",
@@ -35,6 +36,7 @@
     "@tanstack/react-query": "^5.102.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-grid-layout": "2.2.4",
     "react-hook-form": "7.86.0",
     "react-router-dom": "^7.18.2",
     "zod": "^4.4.3"

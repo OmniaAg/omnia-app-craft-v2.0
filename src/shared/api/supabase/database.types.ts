@@ -508,6 +508,47 @@ export type Database = {
           },
         ]
       }
+      dashboard_user_configs: {
+        Row: {
+          created_at: string
+          dashboard_key: string
+          registry_version: number
+          responsive_layouts: Json
+          revision: number
+          updated_at: string
+          user_id: string
+          widget_instances: Json
+        }
+        Insert: {
+          created_at?: string
+          dashboard_key?: string
+          registry_version: number
+          responsive_layouts: Json
+          revision?: number
+          updated_at?: string
+          user_id: string
+          widget_instances: Json
+        }
+        Update: {
+          created_at?: string
+          dashboard_key?: string
+          registry_version?: number
+          responsive_layouts?: Json
+          revision?: number
+          updated_at?: string
+          user_id?: string
+          widget_instances?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dashboard_user_configs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       departments: {
         Row: {
           agency_id: string
@@ -1621,6 +1662,11 @@ export type Database = {
         Args: { body: string; idempotency_key: string; work_item_id: string }
         Returns: string
       }
+      dashboard_crm_summary: { Args: { max_items?: number }; Returns: Json }
+      dashboard_operational_summary: {
+        Args: { max_items?: number }
+        Returns: Json
+      }
       has_capability: {
         Args: {
           agency_scope?: string
@@ -1777,9 +1823,37 @@ export type Database = {
         Args: { idempotency_key: string; organization_id: string }
         Returns: string
       }
+      reset_dashboard_config: {
+        Args: { expected_revision: number }
+        Returns: boolean
+      }
       revoke_project_member: {
         Args: { idempotency_key: string; membership_id: string }
         Returns: string
+      }
+      save_dashboard_config: {
+        Args: {
+          expected_revision: number
+          registry_version: number
+          responsive_layouts: Json
+          widget_instances: Json
+        }
+        Returns: {
+          created_at: string
+          dashboard_key: string
+          registry_version: number
+          responsive_layouts: Json
+          revision: number
+          updated_at: string
+          user_id: string
+          widget_instances: Json
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "dashboard_user_configs"
+          isOneToOne: false
+          isSetofReturn: true
+        }
       }
       transition_work_item: {
         Args: { idempotency_key: string; status: string; work_item_id: string }

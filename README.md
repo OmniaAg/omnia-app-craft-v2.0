@@ -1,8 +1,8 @@
 # OMNIA Craft 2.0
 
-Foundation local de Identity, Auth & Authorization, CRM y operación de proyectos de OMNIA Craft. Phase 4 completa `Organization → Brand → Project`, añade memberships explícitas, milestones, Work Items canónicos y My Space.
+Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos y dashboard personalizable de OMNIA Craft. Phase 5 convierte `/app` en un espacio operativo personal, manteniendo los widgets en código y guardando sólo preferencias validadas por usuario.
 
-No incluye dashboard configurable, editorial, deliverables, reviews, Realtime, Storage operacional ni configuración remota.
+No incluye editorial, deliverables, reviews, Realtime, Storage operacional ni configuración remota.
 
 ## Requisitos
 
@@ -140,6 +140,18 @@ Los pendientes personales viven en `personal_work_items`: la tabla separada hace
 
 Crear, asignar, transicionar, comentar y archivar trabajo pasa por RPCs transaccionales. React no encadena escrituras directas; invalida caches de proyecto, trabajo o My Space de forma dirigida. No hay Realtime, polling, Kanban ni drag-and-drop.
 
+## Dashboard personalizable
+
+- `/app` carga de forma lazy el dashboard real con defaults en código y hasta 12 widgets.
+- `WidgetRegistry` versiona ocho widgets sobre My Space, Projects, CRM y accesos operativos; la base no almacena componentes, consultas ni definiciones ejecutables.
+- La personalización permite añadir, quitar, ordenar, mover y redimensionar. React Grid Layout v2 se usa sólo en desktop/tablet; mobile conserva una columna y controles accesibles alternativos al gesto.
+- `dashboard_user_configs` guarda un override self-owned. `save_dashboard_config()` aplica allowlist, schema estricto, tamaños, breakpoints, no-overlap, capabilities y límite de instancias antes de un compare-and-swap por `revision`.
+- `reset_dashboard_config()` elimina el override y recupera inmediatamente los defaults capability-aware del código.
+- Work y Projects comparten `dashboard_operational_summary()`; los widgets CRM comparten `dashboard_crm_summary()`. Un actor sin capabilities CRM no monta esos widgets ni ejecuta esa consulta.
+- La carga inicial hace 2 roundtrips para contributor (config + resumen operativo) y 3 para un actor con CRM (añade resumen CRM). No hay N+1 por widget.
+
+Los scripts de arranque, reset e integración esperan de forma acotada a que PostgREST publique `health_check`; reintentan sólo fallos transitorios y no convierten errores reales 4xx en esperas silenciosas.
+
 ## Verificación
 
 Con Supabase y `functions:serve` activos:
@@ -156,6 +168,7 @@ npm run test:connectivity
 npm run test:auth
 npm run test:crm
 npm run test:work
+npm run test:dashboard
 npm run build
 ```
 
@@ -171,6 +184,7 @@ npm run build
 | `npm run test:auth` | Bootstrap → login → recovery → invitaciones/Mailpit → aceptación → restore/logout → aislamiento A/B |
 | `npm run test:crm` | Flujos director/PM/client contra Auth, RLS, RPC, events y proyecciones locales |
 | `npm run test:work` | Flujo Director/PM/contributor/client: Project → members → milestone → assignment → My Space → transition/comment → archive, más aislamiento personal |
+| `npm run test:dashboard` | Flujo contributor/PM/client: guardar → recargar → mover/quitar/añadir → reset, gating CRM, RLS y conflicto CAS entre dos sesiones |
 | `npm run build` | TypeScript + bundle production de Vite |
 
 Para detener sólo este stack:

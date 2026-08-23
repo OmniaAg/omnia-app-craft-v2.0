@@ -1,7 +1,6 @@
-import { execFileSync } from 'node:child_process'
 import { randomBytes, randomUUID } from 'node:crypto'
-import { resolve } from 'node:path'
 import { createClient } from '@supabase/supabase-js'
+import { waitForPostgrest } from './lib/local-supabase.mjs'
 
 const USERS = {
   director: ['10000000-0000-0000-0000-000000000001', 'director@omnia.local'],
@@ -39,8 +38,7 @@ async function login(admin, apiUrl, key, [id, email]) {
 }
 
 async function main() {
-  const cli = resolve('node_modules', 'supabase', 'dist', 'supabase.js')
-  const status = JSON.parse(execFileSync(process.execPath, [cli, 'status', '-o', 'json'], { encoding: 'utf8' }))
+  const { status } = await waitForPostgrest()
   const admin = createClient(status.API_URL, status.SECRET_KEY, { auth: { persistSession: false } })
   const director = await login(admin, status.API_URL, status.PUBLISHABLE_KEY, USERS.director)
   const pmBasic = await login(admin, status.API_URL, status.PUBLISHABLE_KEY, USERS.pmBasic)
@@ -136,4 +134,3 @@ main().catch((error) => {
   console.error(`CRM integration failed: ${error.message}`)
   process.exitCode = 1
 })
-

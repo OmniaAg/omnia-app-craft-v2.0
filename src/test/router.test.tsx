@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import type { User } from '@supabase/supabase-js'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
 import { appRoutes } from '../app/router/routes'
@@ -49,10 +50,14 @@ function authValue(context: 'anonymous' | 'agency' | 'client'): AuthContextValue
 
 function renderRoute(path: string, context: 'anonymous' | 'agency' | 'client') {
   const router = createMemoryRouter(appRoutes, { initialEntries: [path] })
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } })
+  queryClient.setQueryData(['dashboard', 'config', 'main'], null)
   render(
-    <AuthContext.Provider value={authValue(context)}>
-      <RouterProvider router={router} />
-    </AuthContext.Provider>,
+    <QueryClientProvider client={queryClient}>
+      <AuthContext.Provider value={authValue(context)}>
+        <RouterProvider router={router} />
+      </AuthContext.Provider>
+    </QueryClientProvider>,
   )
 }
 
@@ -62,7 +67,7 @@ describe('application routes', () => {
     expect(
       await screen.findByRole('heading', {
         level: 1,
-        name: 'Espacio interno de OMNIA',
+        name: 'Tu dashboard',
       }),
     ).toBeTruthy()
   })
