@@ -13,6 +13,9 @@ export function Component() {
 
   const navItems = [
     { href: '/app', label: 'Interno' },
+    { href: '/app/crm/accounts', label: 'Organizations' },
+    { href: '/app/crm/contacts', label: 'Contacts' },
+    { href: '/app/crm/opportunities', label: 'Opportunities' },
     ...(auth.hasClientContext
       ? [{ href: '/portal', label: 'Portal cliente' }]
       : []),
@@ -26,6 +29,8 @@ export function Component() {
       navItems={navItems}
       identityLabel={auth.actor?.user.email ?? 'Sesión interna'}
       onSignOut={handleSignOut}
+      showIntro={false}
+      footerLabel="Phase 3 · Agency Core + CRM + Clients"
     />
   )
 }

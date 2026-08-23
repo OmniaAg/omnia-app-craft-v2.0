@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-22T18:47:52.6534147-06:00",
+  "title": "Design System: OMNIA Craft 2.0",
+  "extensions": {
+    "colorMeta": {
+      "omnia-purple": { "role": "primary", "displayName": "Morado OMNIA", "canonical": "#56167d", "tonalRamp": ["#1b0926", "#2f0e43", "#461268", "#56167d", "#7c3da0", "#a778c0", "#d6bde2", "#f4eaf8"] },
+      "omnia-blue": { "role": "secondary", "displayName": "Azul OMNIA", "canonical": "#005b85", "tonalRamp": ["#001b28", "#00354e", "#004d70", "#005b85", "#267ca0", "#65a6bf", "#afd3df", "#e8f3f7"] },
+      "omnia-crimson": { "role": "error", "displayName": "Carmesí OMNIA", "canonical": "#c8003b", "tonalRamp": ["#35000f", "#66001e", "#97002d", "#c8003b", "#db3c69", "#e97e9b", "#f5bdcc", "#fdebf0"] },
+      "omnia-yellow": { "role": "focus", "displayName": "Amarillo OMNIA", "canonical": "#fcbf4a", "tonalRamp": ["#352300", "#6b4905", "#a37414", "#d99f2d", "#fcbf4a", "#ffd57d", "#ffe8b4", "#fff7e2"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Lexend Display", "purpose": "Títulos y jerarquía institucional." },
+      "body": { "displayName": "Quicksand Body", "purpose": "Texto operativo, formularios y tablas." }
+    },
+    "shadows": [
+      { "name": "restrained-small", "value": "0 8px 24px rgba(22,22,22,0.08)", "purpose": "Feedback elevado puntual; no estructura de tarjetas." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.2,0,0,1)", "purpose": "Cambios de estado compactos." },
+      { "name": "ease-out", "value": "cubic-bezier(0.22,1,0.36,1)", "purpose": "Entrada única de páginas y respuesta de controles." }
+    ],
+    "breakpoints": [
+      { "name": "crm-stack", "value": "56rem" },
+      { "name": "shell-mobile", "value": "46rem" },
+      { "name": "crm-mobile", "value": "40rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal compacta y de alto contraste.",
+      "html": "<button class=\"ds-btn-primary\">Guardar cambios</button>",
+      "css": ".ds-btn-primary{min-height:2.75rem;padding:.5rem 1rem;border:1px solid var(--color-omnia-white);border-radius:var(--radius-sm);background:var(--color-omnia-white);color:var(--color-omnia-black);font:700 .875rem var(--font-body);transition:background-color 160ms var(--ease-standard),transform 160ms var(--ease-out)}.ds-btn-primary:hover{background:var(--color-omnia-yellow)}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:3px solid var(--color-focus);outline-offset:4px}"
+    },
+    {
+      "name": "CRM Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo oscuro con label visible y foco global de alto contraste.",
+      "html": "<label class=\"ds-field\">Organization<input value=\"Empresa YANA\"></label>",
+      "css": ".ds-field{display:grid;gap:.5rem;color:var(--color-text-inverse-muted);font:700 .875rem var(--font-body)}.ds-field input{min-height:2.75rem;padding:.5rem .75rem;border:1px solid var(--color-border-inverse);border-radius:var(--radius-xs);background:var(--color-surface-dark);color:var(--color-omnia-white);font:500 1rem var(--font-body)}.ds-field input:focus-visible{outline:3px solid var(--color-focus);outline-offset:4px}"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "description": "Estado textual compacto; el color nunca actúa solo.",
+      "html": "<span class=\"ds-status\">active client</span>",
+      "css": ".ds-status{display:inline-flex;align-items:center;min-height:1.75rem;padding:0 .5rem;border:1px solid rgba(252,191,74,.56);border-radius:999px;color:var(--color-omnia-yellow);font:700 .75rem var(--font-body);text-transform:capitalize}"
+    },
+    {
+      "name": "CRM Table",
+      "kind": "custom",
+      "description": "Superficie operacional plana con divisores y numerales tabulares.",
+      "html": "<table class=\"ds-table\"><thead><tr><th>Organization</th><th>Lifecycle</th></tr></thead><tbody><tr><th>Empresa YANA</th><td>Prospect</td></tr></tbody></table>",
+      "css": ".ds-table{width:100%;border-collapse:collapse;color:var(--color-omnia-white);font:500 .875rem var(--font-body);font-variant-numeric:tabular-nums}.ds-table th,.ds-table td{padding:.75rem 1rem;border-bottom:1px solid var(--color-border-inverse);text-align:left}.ds-table thead th{color:var(--color-text-inverse-muted);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}.ds-table tbody tr:hover{background:rgba(86,22,125,.13)}"
+    },
+    {
+      "name": "Context Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Navegación cápsula con contraste creciente en hover y activo.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Organizations</a><a class=\"is-active\" href=\"#\">Contacts</a></nav>",
+      "css": ".ds-nav{display:flex;gap:.5rem}.ds-nav a{display:inline-flex;align-items:center;min-height:2.75rem;padding:.5rem 1rem;border-radius:999px;color:var(--color-text-inverse-muted);font:700 .875rem var(--font-body);text-decoration:none}.ds-nav a:hover,.ds-nav a.is-active{background:rgba(253,253,252,.1);color:var(--color-omnia-white)}.ds-nav a:focus-visible{outline:3px solid var(--color-focus);outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Control sereno",
+    "overview": "OMNIA Craft conserva una identidad operativa, precisa y contenida. El fondo oscuro es la fuente visual de verdad y la CRM prioriza densidad, scanability y autoridad visible sin convertir cada bloque en tarjeta.",
+    "keyCharacteristics": ["dark-first", "jerarquía tipográfica amplia", "controles accesibles", "tablas operacionales planas", "contexto interno morado y cliente azul"],
+    "rules": [
+      { "name": "The Context Color Rule", "body": "Morado representa /app y azul representa /portal; el color nunca comunica autoridad por sí solo.", "section": "colors" },
+      { "name": "The Restrained Depth Rule", "body": "Las superficies permanecen planas salvo cuando una tarea o estado necesita profundidad.", "section": "elevation" }
+    ],
+    "dos": ["Preservar logos, Lexend, Quicksand y la paleta OMNIA.", "Mantener labels visibles, foco de alto contraste y targets de al menos 2.75rem.", "Tratar capabilities visibles como ayudas de UX; RLS y RPC siguen siendo la autoridad."],
+    "donts": ["Usar color, rutas visibles o metadata de usuario como prueba de autorización.", "Introducir tarjetas, sombras o gradientes sin función clara.", "Anticipar Projects, dashboards o Realtime dentro de la CRM Phase 3."]
+  }
+}

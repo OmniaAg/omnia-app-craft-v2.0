@@ -547,20 +547,20 @@ select set_config(
   true
 );
 
-select is((select count(*) from public.organizations), 1::bigint, 'Client A sees one organization');
+select is((select count(*) from public.organizations), 0::bigint, 'Client A cannot read the internal organization table');
 select ok(
   exists (
-    select 1 from public.organizations
-    where id = '30000000-0000-0000-0000-00000000000a'
+    select 1 from public.client_organization_context()
+    where organization_id = '30000000-0000-0000-0000-00000000000a'
   ),
-  'Client A sees Organization A'
+  'Client A sees Organization A through the explicit public projection'
 );
 select ok(
   not exists (
-    select 1 from public.organizations
-    where id = '30000000-0000-0000-0000-00000000000b'
+    select 1 from public.client_organization_context()
+    where organization_id = '30000000-0000-0000-0000-00000000000b'
   ),
-  'Client A cannot see Organization B'
+  'Client A projection excludes Organization B'
 );
 select ok(
   not public.has_capability(
@@ -603,20 +603,20 @@ select set_config(
   true
 );
 
-select is((select count(*) from public.organizations), 1::bigint, 'Client B sees one organization');
+select is((select count(*) from public.organizations), 0::bigint, 'Client B cannot read the internal organization table');
 select ok(
   exists (
-    select 1 from public.organizations
-    where id = '30000000-0000-0000-0000-00000000000b'
+    select 1 from public.client_organization_context()
+    where organization_id = '30000000-0000-0000-0000-00000000000b'
   ),
-  'Client B sees Organization B'
+  'Client B sees Organization B through the explicit public projection'
 );
 select ok(
   not exists (
-    select 1 from public.organizations
-    where id = '30000000-0000-0000-0000-00000000000a'
+    select 1 from public.client_organization_context()
+    where organization_id = '30000000-0000-0000-0000-00000000000a'
   ),
-  'Client B cannot see Organization A'
+  'Client B projection excludes Organization A'
 );
 
 reset role;

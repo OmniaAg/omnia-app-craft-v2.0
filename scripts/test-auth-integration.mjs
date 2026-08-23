@@ -374,13 +374,11 @@ async function main() {
     invitationId: clientInvite.payload.invitationId,
   })
   const { data: organizations, error: organizationsError } = await client.client
-    .from('organizations')
-    .select('id')
-    .order('id')
+    .rpc('client_organization_context')
   invariant(
     !organizationsError &&
       organizations?.length === 1 &&
-      organizations[0].id === ORGANIZATION_A,
+      organizations[0].organization_id === ORGANIZATION_A,
     'client organization isolation failed',
   )
   const { error: clientLogoutError } = await client.client.auth.signOut()

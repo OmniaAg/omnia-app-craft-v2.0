@@ -1,8 +1,8 @@
 # OMNIA Craft 2.0
 
-Foundation local de Identity, Auth & Authorization de OMNIA Craft. Phase 2 incorpora Supabase Auth, memberships internas y cliente, capabilities con scope explícito, RLS, comandos transaccionales, invitaciones por Edge Function, Mailpit, domain/audit events y las superficies React mínimas de acceso.
+Foundation local de Identity, Auth & Authorization y CRM operacional de OMNIA Craft. Phase 3 amplía Organizations y añade Brands, Contacts, Opportunities, pipeline controlado, CRM Activities, proyecciones cliente y comandos transaccionales auditados.
 
-No incluye CRM, Brands, Projects, dashboard ni configuración remota: esas áreas quedan fuera de Phase 2.
+No incluye Projects, dashboard, Realtime, Storage operacional ni configuración remota. Organization → Brand queda preparado para que Projects se añada únicamente en Phase 4.
 
 ## Requisitos
 
@@ -83,6 +83,8 @@ Analytics y pooler permanecen deshabilitados. El flujo local no requiere ni perm
 - `founder` es una clasificación organizacional, no un rol ni un bypass.
 - Los roles del servidor se mapean a capabilities; los grants explícitos conservan agency/organization scope y pueden expirar o revocarse.
 - `has_capability()` es la comprobación central del servidor. `my_capabilities()` sólo proyecta hints de UX; manipular React o una ruta no concede datos.
+- Un PM no recibe CRM global por rol. Los fixtures conceden a `pm.scoped@omnia.local` capabilities separadas y scope exclusivo para Organization A; `pm.basic@omnia.local` permanece sin CRM.
+- Los clientes no leen tablas internas de Organizations, Opportunities, pipeline o CRM Activities. `client_organization_context()` y `client_brand_context()` devuelven únicamente columnas públicas explícitas.
 - RLS está habilitado y forzado. Los catálogos y eventos son server-managed; no hay escrituras genéricas desde el browser.
 - Invitaciones, aceptación y mutaciones sensibles usan comandos transaccionales, idempotencia y domain/audit events. La Edge Function valida sesión, origen, contrato y scope antes de usar credenciales server-side.
 
@@ -91,10 +93,10 @@ Analytics y pooler permanecen deshabilitados. El flujo local no requiere ni perm
 `supabase/seed.sql` crea fixtures deterministas para pruebas:
 
 - una Directora OMNIA;
-- PM sin grants y PM con `client_user.invite` sólo para Organization A;
+- PM sin grants y PM con capabilities CRM sólo para Organization A;
 - contributor clasificado como founder para probar que la clasificación no eleva privilegios;
 - client admin/reviewer/viewer en Organization A y viewer en Organization B;
-- seis departamentos y dos organizaciones mínimas.
+- seis departamentos, Organization A con Brand A1/Brand A2 y Organization B con Brand B1.
 
 Los usuarios seeded no tienen contraseña reutilizable. `npm run test:auth` asigna passwords aleatorias en memoria mediante la clave server local, nunca las imprime y sólo opera si API y Mailpit usan los puertos loopback esperados. El primer director existe por un bootstrap administrativo explícito del seed; ningún signup trigger concede membresía o rol. El bootstrap productivo se definirá en la fase de deployment, no aquí.
 
@@ -112,6 +114,15 @@ React implementa:
 
 Las screens no consultan Supabase directamente. `AuthProvider` y el servicio de Auth coordinan el cliente tipado; PostgreSQL/RLS sigue siendo la autoridad.
 
+## CRM interno
+
+- `/app/crm/accounts` — Organizations paginadas, búsqueda, lifecycle y creación.
+- `/app/crm/accounts/:organizationId` — Overview, Brands, Contacts, Opportunities y Activity.
+- `/app/crm/contacts` — listado paginado y alta dentro de scope autorizado.
+- `/app/crm/opportunities` — listado paginado, creación y cambio de etapa server-side.
+
+Las rutas CRM se cargan de forma lazy. Las screens componen query options y mutations de la feature; no llaman `supabase.from()` directamente.
+
 ## Verificación
 
 Con Supabase y `functions:serve` activos:
@@ -126,6 +137,7 @@ npm run lint
 npm run test
 npm run test:connectivity
 npm run test:auth
+npm run test:crm
 npm run build
 ```
 
@@ -139,6 +151,7 @@ npm run build
 | `npm run test` | Unit/component tests sin depender de Docker |
 | `npm run test:connectivity` | Cliente real contra la API local |
 | `npm run test:auth` | Bootstrap → login → recovery → invitaciones/Mailpit → aceptación → restore/logout → aislamiento A/B |
+| `npm run test:crm` | Flujos director/PM/client contra Auth, RLS, RPC, events y proyecciones locales |
 | `npm run build` | TypeScript + bundle production de Vite |
 
 Para detener sólo este stack:

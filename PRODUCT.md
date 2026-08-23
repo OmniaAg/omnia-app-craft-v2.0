@@ -33,8 +33,8 @@ El producto separa explícitamente membership, capability y scope de recurso. La
 - `founder` y department son clasificación organizacional, no autoridad.
 - Profiles contienen identidad presentacional y nunca roles, permisos o scopes.
 - Lifecycle archive-first; audit history es inmutable.
-- Phase 2 incluye login, logout, recuperación, invitaciones, restauración de sesión y aislamiento Organization A/B.
-- Phase 2 excluye Brands, Projects, CRM, Work, Storage, Realtime, Billing, Analytics, AI e Integrations.
+- Phase 3 incluye login, autorización, Organizations, Brands, Contacts, Opportunities, pipeline, CRM Activities y aislamiento Organization/Brand A/B.
+- Phase 3 excluye Projects, Work, Storage, Realtime, Billing, Analytics, AI e Integrations.
 
 ## Brand Commitments
 

@@ -209,6 +209,12 @@ button {
   padding-block: clamp(5rem, 12vw, 10rem);
 }
 
+.app-main--content {
+  align-content: start;
+  gap: var(--space-8);
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
 .surface-intro {
   max-width: var(--text-max);
 }

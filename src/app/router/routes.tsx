@@ -25,6 +25,22 @@ export const appRoutes: RouteObject[] = [
                 index: true,
                 lazy: () => import('../../features/foundation/InternalHome'),
               },
+              {
+                path: 'crm/accounts',
+                lazy: () => import('../../features/crm/screens/AccountsScreen'),
+              },
+              {
+                path: 'crm/accounts/:organizationId',
+                lazy: () => import('../../features/crm/screens/OrganizationDetailScreen'),
+              },
+              {
+                path: 'crm/contacts',
+                lazy: () => import('../../features/crm/screens/ContactsScreen'),
+              },
+              {
+                path: 'crm/opportunities',
+                lazy: () => import('../../features/crm/screens/OpportunitiesScreen'),
+              },
             ],
           },
         ],

@@ -166,6 +166,50 @@ export type Database = {
           },
         ]
       }
+      brands: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          id: string
+          name: string
+          normalized_name: string | null
+          organization_id: string
+          status: string
+          timezone: string | null
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          normalized_name?: string | null
+          organization_id: string
+          status?: string
+          timezone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          normalized_name?: string | null
+          organization_id?: string
+          status?: string
+          timezone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brands_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       capabilities: {
         Row: {
           created_at: string
@@ -327,6 +371,140 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      contacts: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          job_title: string | null
+          normalized_email: string | null
+          notes: string | null
+          organization_id: string
+          phone: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          job_title?: string | null
+          normalized_email?: string | null
+          notes?: string | null
+          organization_id: string
+          phone?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          job_title?: string | null
+          normalized_email?: string | null
+          notes?: string | null
+          organization_id?: string
+          phone?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contacts_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_activities: {
+        Row: {
+          activity_type: string
+          brand_id: string | null
+          contact_id: string | null
+          created_at: string
+          created_by: string
+          details: string | null
+          id: string
+          is_system_generated: boolean
+          occurred_at: string
+          opportunity_id: string | null
+          organization_id: string
+          summary: string
+        }
+        Insert: {
+          activity_type: string
+          brand_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          created_by: string
+          details?: string | null
+          id?: string
+          is_system_generated?: boolean
+          occurred_at?: string
+          opportunity_id?: string | null
+          organization_id: string
+          summary: string
+        }
+        Update: {
+          activity_type?: string
+          brand_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          created_by?: string
+          details?: string | null
+          id?: string
+          is_system_generated?: boolean
+          occurred_at?: string
+          opportunity_id?: string | null
+          organization_id?: string
+          summary?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_activities_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_activities_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_activities_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "crm_activities_opportunity_id_fkey"
+            columns: ["opportunity_id"]
+            isOneToOne: false
+            referencedRelation: "opportunities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_activities_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -544,14 +722,96 @@ export type Database = {
           },
         ]
       }
+      opportunities: {
+        Row: {
+          archived_at: string | null
+          brand_id: string | null
+          closed_at: string | null
+          created_at: string
+          currency: string
+          estimated_value: number | null
+          expected_close_date: string | null
+          id: string
+          name: string
+          organization_id: string
+          owner_id: string
+          stage_key: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          brand_id?: string | null
+          closed_at?: string | null
+          created_at?: string
+          currency?: string
+          estimated_value?: number | null
+          expected_close_date?: string | null
+          id?: string
+          name: string
+          organization_id: string
+          owner_id: string
+          stage_key?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          brand_id?: string | null
+          closed_at?: string | null
+          created_at?: string
+          currency?: string
+          estimated_value?: number | null
+          expected_close_date?: string | null
+          id?: string
+          name?: string
+          organization_id?: string
+          owner_id?: string
+          stage_key?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "opportunities_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "opportunities_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "opportunities_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "opportunities_stage_key_fkey"
+            columns: ["stage_key"]
+            isOneToOne: false
+            referencedRelation: "pipeline_stages"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
       organizations: {
         Row: {
           agency_id: string
           archived_at: string | null
           created_at: string
+          domain: string | null
           id: string
           lifecycle: string
           name: string
+          normalized_domain: string | null
           timezone: string
           updated_at: string
         }
@@ -559,9 +819,11 @@ export type Database = {
           agency_id: string
           archived_at?: string | null
           created_at?: string
+          domain?: string | null
           id?: string
           lifecycle?: string
           name: string
+          normalized_domain?: string | null
           timezone?: string
           updated_at?: string
         }
@@ -569,9 +831,11 @@ export type Database = {
           agency_id?: string
           archived_at?: string | null
           created_at?: string
+          domain?: string | null
           id?: string
           lifecycle?: string
           name?: string
+          normalized_domain?: string | null
           timezone?: string
           updated_at?: string
         }
@@ -584,6 +848,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      pipeline_stages: {
+        Row: {
+          created_at: string
+          is_active: boolean
+          key: string
+          label: string
+          outcome: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          is_active?: boolean
+          key: string
+          label: string
+          outcome?: string
+          sort_order: number
+        }
+        Update: {
+          created_at?: string
+          is_active?: boolean
+          key?: string
+          label?: string
+          outcome?: string
+          sort_order?: number
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -676,6 +967,77 @@ export type Database = {
         Args: { idempotency_key: string; membership_id: string }
         Returns: string
       }
+      archive_crm_resource: {
+        Args: { resource_id: string; resource_type: string }
+        Returns: string
+      }
+      change_opportunity_stage: {
+        Args: {
+          idempotency_key: string
+          opportunity_id: string
+          stage_key: string
+        }
+        Returns: string
+      }
+      client_brand_context: {
+        Args: { organization_id?: string }
+        Returns: {
+          brand_id: string
+          brand_name: string
+          parent_organization_id: string
+          timezone: string
+        }[]
+      }
+      client_organization_context: {
+        Args: never
+        Returns: {
+          organization_id: string
+          organization_name: string
+          timezone: string
+        }[]
+      }
+      create_brand: {
+        Args: {
+          idempotency_key: string
+          name: string
+          organization_id: string
+          timezone: string
+        }
+        Returns: string
+      }
+      create_contact: {
+        Args: {
+          email: string
+          full_name: string
+          idempotency_key: string
+          job_title: string
+          notes: string
+          organization_id: string
+          phone: string
+        }
+        Returns: string
+      }
+      create_crm_activity: {
+        Args: {
+          activity_type: string
+          brand_id: string
+          contact_id: string
+          details: string
+          opportunity_id: string
+          organization_id: string
+          summary: string
+        }
+        Returns: string
+      }
+      create_crm_organization: {
+        Args: {
+          domain: string
+          idempotency_key: string
+          name: string
+          timezone: string
+        }
+        Returns: string
+      }
       create_invitation: {
         Args: {
           agency_role_key?: string
@@ -694,6 +1056,20 @@ export type Database = {
           normalized_email: string
           was_dispatched: boolean
         }[]
+      }
+      create_opportunity: {
+        Args: {
+          brand_id: string
+          currency: string
+          estimated_value: number
+          expected_close_date: string
+          idempotency_key: string
+          name: string
+          organization_id: string
+          owner_id: string
+          stage_key: string
+        }
+        Returns: string
       }
       create_organization: {
         Args: { idempotency_key: string; name: string; timezone: string }
@@ -720,6 +1096,10 @@ export type Database = {
           scope_kind: string
         }[]
       }
+      promote_organization_to_client: {
+        Args: { idempotency_key: string; organization_id: string }
+        Returns: string
+      }
       update_agency_membership: {
         Args: {
           classification: string
@@ -727,6 +1107,16 @@ export type Database = {
           idempotency_key: string
           membership_id: string
           role_key: string
+        }
+        Returns: string
+      }
+      update_organization: {
+        Args: {
+          domain: string
+          lifecycle: string
+          name: string
+          organization_id: string
+          timezone: string
         }
         Returns: string
       }

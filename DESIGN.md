@@ -137,6 +137,8 @@ Auth usa una composición de dos columnas: relato de marca oscuro a la izquierda
 
 Los shells comparten un contenedor máximo de `80rem`, header, contenido centrado y footer. El cuerpo usa padding fluido; a `46rem` el header se apila, la navegación puede desplazarse horizontalmente y los bloques de dos columnas pasan a una. Las áreas de lectura se limitan a aproximadamente `68ch`.
 
+Las superficies CRM usan modo Operate: encabezados más compactos, tablas semánticas de ancho completo y formularios laterales. A `56rem` el detalle de dos columnas pasa a una; bajo `40rem`, acciones y filas de formulario se apilan. Filtros, pestañas y paginación conservan su estado en la URL.
+
 ## Elevation & Depth
 
 La profundidad es contenida y funcional. El panel Auth usa una sombra oscura amplia para separarse del lienzo de marca; botones sólo elevan ligeramente en hover. Los shells prefieren gradientes radiales tenues, bordes translúcidos y capas tonales antes que tarjetas flotantes repetidas.
@@ -175,6 +177,12 @@ Los controles usan esquinas suavemente redondeadas (`0.625rem`), paneles princip
 - El cambio de contexto sólo aparece cuando la sesión realmente posee ambos memberships.
 - Logout bloquea doble envío, anuncia progreso y conserva un error local recuperable.
 
+### Data Tables & Status
+
+- Tablas CRM planas, con divisores finos, numerales tabulares y scroll horizontal contenido en pantallas estrechas.
+- Status usa chips compactos; color acompaña texto explícito y nunca es el único indicador.
+- Paginación y filtros tienen targets mínimos de `2.75rem`, labels visibles y estados vacíos con una siguiente acción concreta.
+
 ### States
 
 - Carga y restauración de sesión usan una superficie oscura centrada con pulso amarillo.
@@ -196,4 +204,4 @@ Los controles usan esquinas suavemente redondeadas (`0.625rem`), paneles princip
 - **Don't** usar color, rutas visibles o metadata de usuario como prueba de autorización.
 - **Don't** introducir tarjetas, sombras o gradientes sin una función clara.
 - **Don't** impedir pegado, autocompletado o password managers en formularios de acceso.
-- **Don't** extender este sistema en Phase 2 con dashboard, CRM, Projects u otros dominios aún fuera de alcance.
+- **Don't** anticipar Projects, dashboards, Realtime u otros dominios posteriores dentro de las superficies CRM de Phase 3.

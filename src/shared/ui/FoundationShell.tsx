@@ -14,6 +14,8 @@ type FoundationShellProps = {
   navItems: ShellNavItem[]
   identityLabel: string
   onSignOut: () => Promise<void>
+  showIntro?: boolean
+  footerLabel?: string
 }
 
 export function FoundationShell({
@@ -23,6 +25,8 @@ export function FoundationShell({
   navItems,
   identityLabel,
   onSignOut,
+  showIntro = true,
+  footerLabel = 'Phase 2 · Identity, Auth & Authorization',
 }: FoundationShellProps) {
   const [signOutPending, setSignOutPending] = useState(false)
   const [signOutError, setSignOutError] = useState<string | null>(null)
@@ -74,17 +78,19 @@ export function FoundationShell({
         </nav>
       </header>
 
-      <main id="main-content" className="app-main" tabIndex={-1}>
-        <div className="surface-intro">
-          <h1 data-route-heading tabIndex={-1}>{title}</h1>
-          <p className="surface-description">{description}</p>
-        </div>
+      <main id="main-content" className={showIntro ? 'app-main' : 'app-main app-main--content'} tabIndex={-1}>
+        {showIntro ? (
+          <div className="surface-intro">
+            <h1 data-route-heading tabIndex={-1}>{title}</h1>
+            <p className="surface-description">{description}</p>
+          </div>
+        ) : null}
         <Outlet />
       </main>
 
       <footer className="app-footer">
         <span>{identityLabel}</span>
-        <span>Phase 2 · Identity, Auth &amp; Authorization</span>
+        <span>{footerLabel}</span>
       </footer>
     </div>
   )
