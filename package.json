@@ -29,7 +29,8 @@
     "test:crm": "node scripts/test-crm-integration.mjs",
     "test:work": "node scripts/test-work-integration.mjs",
     "test:dashboard": "node scripts/test-dashboard-integration.mjs",
-    "test:editorial": "node scripts/test-editorial-integration.mjs"
+    "test:editorial": "node scripts/test-editorial-integration.mjs",
+    "test:deliverables": "node scripts/test-deliverables-integration.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",

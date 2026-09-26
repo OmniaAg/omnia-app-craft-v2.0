@@ -30,6 +30,18 @@ export const appRoutes: RouteObject[] = [
                 lazy: () => import('../../features/my-space/screens/MySpaceScreen'),
               },
               {
+                path: 'reviews',
+                lazy: () => import('../../features/reviews/screens/ReviewQueueScreen'),
+              },
+              {
+                path: 'deliverables/:workItemId',
+                lazy: () => import('../../features/reviews/screens/DeliverableScreen'),
+              },
+              {
+                path: 'projects/:projectId/reviews',
+                lazy: () => import('../../features/reviews/screens/ReviewConfigurationScreen'),
+              },
+              {
                 path: 'projects',
                 lazy: () => import('../../features/projects/screens/ProjectsScreen'),
               },

@@ -603,6 +603,128 @@ export type Database = {
           },
         ]
       }
+      deliverable_versions: {
+        Row: {
+          deliverable_id: string
+          id: string
+          notes: string
+          submission_key: string
+          submitted_at: string
+          submitted_by: string
+          version_number: number
+        }
+        Insert: {
+          deliverable_id: string
+          id?: string
+          notes: string
+          submission_key: string
+          submitted_at?: string
+          submitted_by: string
+          version_number: number
+        }
+        Update: {
+          deliverable_id?: string
+          id?: string
+          notes?: string
+          submission_key?: string
+          submitted_at?: string
+          submitted_by?: string
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deliverable_versions_deliverable_id_fkey"
+            columns: ["deliverable_id"]
+            isOneToOne: false
+            referencedRelation: "deliverables"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deliverable_versions_submitted_by_fkey"
+            columns: ["submitted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      deliverables: {
+        Row: {
+          archived_at: string | null
+          create_key: string
+          created_at: string
+          created_by: string
+          id: string
+          project_id: string
+          publish_key: string | null
+          published_at: string | null
+          published_by: string | null
+          status: string
+          title: string
+          updated_at: string
+          work_item_id: string
+        }
+        Insert: {
+          archived_at?: string | null
+          create_key: string
+          created_at?: string
+          created_by: string
+          id?: string
+          project_id: string
+          publish_key?: string | null
+          published_at?: string | null
+          published_by?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+          work_item_id: string
+        }
+        Update: {
+          archived_at?: string | null
+          create_key?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          project_id?: string
+          publish_key?: string | null
+          published_at?: string | null
+          published_by?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          work_item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deliverables_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "deliverables_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deliverables_published_by_fkey"
+            columns: ["published_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "deliverables_work_project_fk"
+            columns: ["work_item_id", "project_id"]
+            isOneToOne: false
+            referencedRelation: "work_items"
+            referencedColumns: ["id", "project_id"]
+          },
+        ]
+      }
       departments: {
         Row: {
           agency_id: string
@@ -1373,6 +1495,285 @@ export type Database = {
           },
         ]
       }
+      review_assignments: {
+        Row: {
+          created_at: string
+          id: string
+          requirement_id: string
+          requirement_scope: string
+          resolved_at: string | null
+          review_round_id: string
+          reviewer_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          requirement_id: string
+          requirement_scope: string
+          resolved_at?: string | null
+          review_round_id: string
+          reviewer_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          requirement_id?: string
+          requirement_scope?: string
+          resolved_at?: string | null
+          review_round_id?: string
+          reviewer_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_assignments_requirement_id_fkey"
+            columns: ["requirement_id"]
+            isOneToOne: false
+            referencedRelation: "review_requirements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_assignments_review_round_id_fkey"
+            columns: ["review_round_id"]
+            isOneToOne: false
+            referencedRelation: "review_rounds"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_assignments_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      review_decisions: {
+        Row: {
+          decided_at: string
+          decision: string
+          id: string
+          idempotency_key: string
+          reason: string | null
+          review_assignment_id: string
+          reviewer_id: string
+        }
+        Insert: {
+          decided_at?: string
+          decision: string
+          id?: string
+          idempotency_key: string
+          reason?: string | null
+          review_assignment_id: string
+          reviewer_id: string
+        }
+        Update: {
+          decided_at?: string
+          decision?: string
+          id?: string
+          idempotency_key?: string
+          reason?: string | null
+          review_assignment_id?: string
+          reviewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_decisions_review_assignment_id_fkey"
+            columns: ["review_assignment_id"]
+            isOneToOne: true
+            referencedRelation: "review_assignments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_decisions_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      review_overrides: {
+        Row: {
+          audit_event_id: string
+          deliverable_version_id: string
+          director_id: string
+          id: string
+          idempotency_key: string
+          overridden_at: string
+          reason: string
+          requirement_id: string
+          review_assignment_id: string
+          reviewer_id: string
+        }
+        Insert: {
+          audit_event_id: string
+          deliverable_version_id: string
+          director_id: string
+          id?: string
+          idempotency_key: string
+          overridden_at?: string
+          reason: string
+          requirement_id: string
+          review_assignment_id: string
+          reviewer_id: string
+        }
+        Update: {
+          audit_event_id?: string
+          deliverable_version_id?: string
+          director_id?: string
+          id?: string
+          idempotency_key?: string
+          overridden_at?: string
+          reason?: string
+          requirement_id?: string
+          review_assignment_id?: string
+          reviewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_overrides_audit_event_id_fkey"
+            columns: ["audit_event_id"]
+            isOneToOne: true
+            referencedRelation: "audit_events"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "review_overrides_deliverable_version_id_fkey"
+            columns: ["deliverable_version_id"]
+            isOneToOne: false
+            referencedRelation: "deliverable_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_overrides_director_id_fkey"
+            columns: ["director_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "review_overrides_requirement_id_fkey"
+            columns: ["requirement_id"]
+            isOneToOne: false
+            referencedRelation: "review_requirements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_overrides_review_assignment_id_fkey"
+            columns: ["review_assignment_id"]
+            isOneToOne: true
+            referencedRelation: "review_assignments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_overrides_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      review_requirements: {
+        Row: {
+          active: boolean
+          created_at: string
+          created_by: string
+          deliverable_id: string | null
+          id: string
+          project_id: string
+          retired_at: string | null
+          reviewer_id: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          created_by: string
+          deliverable_id?: string | null
+          id?: string
+          project_id: string
+          retired_at?: string | null
+          reviewer_id: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          created_by?: string
+          deliverable_id?: string | null
+          id?: string
+          project_id?: string
+          retired_at?: string | null
+          reviewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_requirements_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "review_requirements_deliverable_project_fk"
+            columns: ["deliverable_id", "project_id"]
+            isOneToOne: false
+            referencedRelation: "deliverables"
+            referencedColumns: ["id", "project_id"]
+          },
+          {
+            foreignKeyName: "review_requirements_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_requirements_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      review_rounds: {
+        Row: {
+          closed_at: string | null
+          context: string
+          deliverable_version_id: string
+          id: string
+          opened_at: string
+          status: string
+        }
+        Insert: {
+          closed_at?: string | null
+          context?: string
+          deliverable_version_id: string
+          id?: string
+          opened_at?: string
+          status?: string
+        }
+        Update: {
+          closed_at?: string | null
+          context?: string
+          deliverable_version_id?: string
+          id?: string
+          opened_at?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_rounds_deliverable_version_id_fkey"
+            columns: ["deliverable_version_id"]
+            isOneToOne: true
+            referencedRelation: "deliverable_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       role_capabilities: {
         Row: {
           capability_key: string
@@ -1791,6 +2192,15 @@ export type Database = {
           timezone: string
         }[]
       }
+      configure_review_requirements: {
+        Args: {
+          deliverable_id: string
+          idempotency_key: string
+          project_id: string
+          reviewer_ids: string[]
+        }
+        Returns: number
+      }
       create_brand: {
         Args: {
           idempotency_key: string
@@ -1841,6 +2251,10 @@ export type Database = {
           name: string
           timezone: string
         }
+        Returns: string
+      }
+      create_deliverable: {
+        Args: { idempotency_key: string; title: string; work_item_id: string }
         Returns: string
       }
       create_editorial_cycle: {
@@ -1960,6 +2374,11 @@ export type Database = {
         Args: { max_items?: number }
         Returns: Json
       }
+      deliverable_access_allowed: {
+        Args: { deliverable_id: string }
+        Returns: boolean
+      }
+      deliverable_detail: { Args: { work_item_id: string }; Returns: Json }
       editorial_applications: {
         Args: { item_id: string }
         Returns: {
@@ -2062,6 +2481,14 @@ export type Database = {
           title: string
         }[]
       }
+      override_review_requirement: {
+        Args: {
+          idempotency_key: string
+          reason: string
+          review_assignment_id: string
+        }
+        Returns: string
+      }
       project_access_allowed: {
         Args: { capability_key: string; project_id: string }
         Returns: boolean
@@ -2156,13 +2583,46 @@ export type Database = {
         Args: { idempotency_key: string; organization_id: string }
         Returns: string
       }
+      publish_deliverable_to_client: {
+        Args: { deliverable_id: string; idempotency_key: string }
+        Returns: string
+      }
       publish_editorial_available: {
         Args: { item_id: string }
+        Returns: string
+      }
+      record_review_decision: {
+        Args: {
+          decision: string
+          idempotency_key: string
+          reason: string
+          review_assignment_id: string
+        }
         Returns: string
       }
       reset_dashboard_config: {
         Args: { expected_revision: number }
         Returns: boolean
+      }
+      review_configuration: {
+        Args: { deliverable_id?: string; project_id: string }
+        Returns: Json
+      }
+      review_queue: {
+        Args: { page_limit?: number; page_offset?: number }
+        Returns: {
+          assignment_id: string
+          assignment_status: string
+          brand_name: string
+          deliverable_id: string
+          deliverable_title: string
+          project_id: string
+          project_name: string
+          submitted_at: string
+          version_number: number
+          work_item_id: string
+          work_title: string
+        }[]
       }
       revoke_project_member: {
         Args: { idempotency_key: string; membership_id: string }
@@ -2191,6 +2651,10 @@ export type Database = {
           isOneToOne: false
           isSetofReturn: true
         }
+      }
+      submit_deliverable_version: {
+        Args: { deliverable_id: string; idempotency_key: string; notes: string }
+        Returns: string
       }
       transition_work_item: {
         Args: { idempotency_key: string; status: string; work_item_id: string }

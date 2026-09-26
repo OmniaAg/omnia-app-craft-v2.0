@@ -2,7 +2,7 @@
 
 Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable y planificación editorial de OMNIA Craft.
 
-No incluye publicación real a redes sociales, deliverables, reviews, Realtime, Storage operacional ni configuración remota.
+No incluye publicación real a redes sociales, Client Portal de entregas, Realtime, Storage operacional ni configuración remota.
 
 ## Requisitos
 
@@ -162,6 +162,18 @@ Los scripts de arranque, reset e integración esperan de forma acotada a que Pos
 - My Space sigue leyendo el Work Item asignado mediante su read model existente. No hay publicación social, cuentas conectadas, tokens, archivos ni notificaciones en esta fase.
 - Calendar/list usa un RPC acotado por ventana visible de hasta 93 días y filtros de Project, estado y canal; la pantalla no carga todo Editorial ni usa Realtime.
 
+## Deliverables y revisión interna
+
+- Un `work_items` canónico admite como máximo un `deliverables`; Editorial llega a la entrega mediante su Work Item, sin tabla paralela.
+- Cada envío crea un snapshot inmutable en `deliverable_versions` con número reservado bajo lock en PostgreSQL. Las notas describen la entrega; todavía no hay Files, Storage ni adjuntos.
+- `review_requirements` guarda reviewers internos concretos por Project y permite reemplazarlos para un Deliverable. El MVP usa personas concretas, lo que simplifica el control de membresía y evita reglas de rol universales. Un cambio de configuración retira requirements anteriores; cada `review_rounds` conserva sus `review_assignments` originales.
+- La fixture local concede `review.configure` sólo al PM de Organization A mediante grant explícito; otros PM no reciben ese permiso por rol.
+- `record_review_decision` registra una sola decisión `approve` o `request_changes` por assignment. Cualquier solicitud de cambios cierra la ronda y devuelve la entrega a ejecución. Todas las aprobaciones requeridas, u overrides auditados, dejan la entrega `ready_for_client` y el Work Item `done`.
+- `override_review_requirement` es exclusivo de una Directora con capability `review.override`; exige razón, conserva reviewer/requisito/version y enlaza `review_overrides` con `audit_events`. No equivale a una aprobación.
+- `publish_deliverable_to_client` registra una transición server-side explícita. Phase 7 mantiene todas las tablas de revisión internas invisibles al cliente; la experiencia Client Portal aún no está implementada.
+- `/app/reviews` consulta sólo assignments pendientes del actor. `/app/deliverables/:workItemId` ofrece envío, historial de versiones, decisiones, timeline y override autorizado. `/app/projects/:projectId/reviews` configura los reviewers de Project o Deliverable.
+- `npm run test:deliverables` ejecuta el flujo completo y carreras con sesiones reales contra Supabase local. `npm run db:test` incluye pgTAP de schema, RLS, snapshots, transitions, idempotencia e inmutabilidad.
+
 ## Verificación
 
 Con Supabase y `functions:serve` activos:
@@ -180,6 +192,7 @@ npm run test:crm
 npm run test:work
 npm run test:dashboard
 npm run test:editorial
+npm run test:deliverables
 npm run build
 ```
 
@@ -197,6 +210,7 @@ npm run build
 | `npm run test:work` | Flujo Director/PM/contributor/client: Project → members → milestone → assignment → My Space → transition/comment → archive, más aislamiento personal |
 | `npm run test:dashboard` | Flujo contributor/PM/client: guardar → recargar → mover/quitar/añadir → reset, gating CRM, RLS y conflicto CAS entre dos sesiones |
 | `npm run test:editorial` | PM → ciclo/plantilla/pieza → disponible → dos postulaciones → aceptación → Work/My Space/events; dos sesiones PM compiten por aplicaciones distintas; aislamiento, revocación y asignación manual |
+| `npm run test:deliverables` | Configuración → entrega V1 → cambios → V2 → aprobación; retries, carreras de submit/decisión/override, publicación, aislamiento y auditoría |
 | `npm run build` | TypeScript + bundle production de Vite |
 
 Para detener sólo este stack:

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getSupabaseClient } from '../../../shared/api/supabase/client'
 import { CrmError, CrmSuccess, StatusBadge } from '../../crm/ui/CrmUi'
 import type { ProjectMember } from '../../projects/api/project-service'
@@ -101,6 +102,7 @@ export function WorkPanel({ projectId, item, members, onClose }: { projectId: st
         <div><dt>Hito</dt><dd>{item.milestone_name || 'Sin hito'}</dd></div>
         <div><dt>Vence</dt><dd>{item.due_at ? dateTime.format(new Date(item.due_at)) : 'Sin fecha'}</dd></div>
       </dl>
+      {!item.archived_at ? <Link className="crm-row-link" to={`/app/deliverables/${item.work_item_id}`}>Abrir entrega y revisiones</Link> : null}
       {mutationError ? <CrmError message={mutationError.message} /> : null}
       {feedback ? <CrmSuccess message={feedback} /> : null}
       {item.can_transition && !item.archived_at ? (

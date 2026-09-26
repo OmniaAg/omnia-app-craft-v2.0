@@ -121,6 +121,18 @@ insert into public.capability_grants (
   ('50000000-0000-0000-0000-00000000000f', '10000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000001', 'crm_activity.create', 'organization', '30000000-0000-0000-0000-00000000000a', '10000000-0000-0000-0000-000000000001', 'Phase 3 CRM scope for Organization A.'),
   ('50000000-0000-0000-0000-000000000010', '10000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000001', 'pipeline.view', 'organization', '30000000-0000-0000-0000-00000000000a', '10000000-0000-0000-0000-000000000001', 'Phase 3 CRM scope for Organization A.');
 
+-- Phase 7 fixture: one PM receives explicit Organization A review configuration scope.
+insert into public.capability_grants (
+  id,user_id,agency_id,capability_key,scope_kind,organization_id,granted_by,reason
+) values (
+  '50000000-0000-0000-0000-000000000011',
+  '10000000-0000-0000-0000-000000000003',
+  '20000000-0000-0000-0000-000000000001',
+  'review.configure','organization','30000000-0000-0000-0000-00000000000a',
+  '10000000-0000-0000-0000-000000000001',
+  'Phase 7: scoped PM reviewer configuration for Organization A only.'
+);
+
 insert into public.brands (id, organization_id, name, status) values
   ('31000000-0000-0000-0000-0000000000a1', '30000000-0000-0000-0000-00000000000a', 'Brand A1', 'active'),
   ('31000000-0000-0000-0000-0000000000a2', '30000000-0000-0000-0000-00000000000a', 'Brand A2', 'active'),

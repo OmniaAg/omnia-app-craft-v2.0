@@ -49,6 +49,7 @@ export function Component() {
   return (
     <section className="crm-page my-space-page">
       <CrmPageHeader title="Mi Espacio" description="Trabajo asignado y elementos personales, ordenados por el calendario de Ciudad de México." action={<button className="crm-button crm-button--primary" type="button" aria-expanded={showCreate} onClick={() => { setEditingItem(null); setShowCreate((value) => !value) }}>{showCreate ? 'Cerrar formulario' : 'Nuevo elemento'}</button>} />
+      <p><Link className="crm-row-link" to="/app/reviews">Ver revisiones pendientes</Link></p>
       {success ? <CrmSuccess message={success} /> : null}
       {mutationError ? <CrmError message={mutationError.message} /> : null}
       {showCreate ? <section className="crm-editor" aria-labelledby="personal-work-title"><h2 id="personal-work-title">Crear elemento personal</h2><PersonalWorkForm pending={createMutation.isPending} onSubmit={(values) => createMutation.mutateAsync(values).then(() => undefined)} /></section> : null}
