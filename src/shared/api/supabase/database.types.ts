@@ -427,6 +427,60 @@ export type Database = {
           },
         ]
       }
+      content_templates: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          created_by: string
+          default_brief: string | null
+          default_channel: string | null
+          default_format: string | null
+          id: string
+          name: string
+          project_id: string
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          created_by: string
+          default_brief?: string | null
+          default_channel?: string | null
+          default_format?: string | null
+          id?: string
+          name: string
+          project_id: string
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string
+          default_brief?: string | null
+          default_channel?: string | null
+          default_format?: string | null
+          id?: string
+          name?: string
+          project_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_templates_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "content_templates_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       crm_activities: {
         Row: {
           activity_type: string
@@ -647,6 +701,153 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "organizations"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      editorial_cycles: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          created_by: string
+          end_date: string
+          id: string
+          name: string
+          project_id: string
+          start_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          created_by: string
+          end_date: string
+          id?: string
+          name: string
+          project_id: string
+          start_date: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string
+          end_date?: string
+          id?: string
+          name?: string
+          project_id?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "editorial_cycles_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "editorial_cycles_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      editorial_items: {
+        Row: {
+          archived_at: string | null
+          brief: string | null
+          channel: string
+          created_at: string
+          created_by: string
+          cycle_id: string
+          format: string
+          id: string
+          planning_state: string
+          project_id: string
+          scheduled_date: string
+          scheduled_time: string | null
+          template_id: string | null
+          title: string
+          updated_at: string
+          work_item_id: string
+        }
+        Insert: {
+          archived_at?: string | null
+          brief?: string | null
+          channel: string
+          created_at?: string
+          created_by: string
+          cycle_id: string
+          format: string
+          id?: string
+          planning_state?: string
+          project_id: string
+          scheduled_date: string
+          scheduled_time?: string | null
+          template_id?: string | null
+          title: string
+          updated_at?: string
+          work_item_id: string
+        }
+        Update: {
+          archived_at?: string | null
+          brief?: string | null
+          channel?: string
+          created_at?: string
+          created_by?: string
+          cycle_id?: string
+          format?: string
+          id?: string
+          planning_state?: string
+          project_id?: string
+          scheduled_date?: string
+          scheduled_time?: string | null
+          template_id?: string | null
+          title?: string
+          updated_at?: string
+          work_item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "editorial_items_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "editorial_items_cycle_project_fk"
+            columns: ["cycle_id", "project_id"]
+            isOneToOne: false
+            referencedRelation: "editorial_cycles"
+            referencedColumns: ["id", "project_id"]
+          },
+          {
+            foreignKeyName: "editorial_items_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "editorial_items_template_project_fk"
+            columns: ["template_id", "project_id"]
+            isOneToOne: false
+            referencedRelation: "content_templates"
+            referencedColumns: ["id", "project_id"]
+          },
+          {
+            foreignKeyName: "editorial_items_work_project_fk"
+            columns: ["work_item_id", "project_id"]
+            isOneToOne: false
+            referencedRelation: "work_items"
+            referencedColumns: ["id", "project_id"]
           },
         ]
       }
@@ -1229,6 +1430,58 @@ export type Database = {
         }
         Relationships: []
       }
+      work_applications: {
+        Row: {
+          applicant_id: string
+          created_at: string
+          editorial_item_id: string
+          id: string
+          resolved_at: string | null
+          resolved_by: string | null
+          status: string
+        }
+        Insert: {
+          applicant_id: string
+          created_at?: string
+          editorial_item_id: string
+          id?: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+        }
+        Update: {
+          applicant_id?: string
+          created_at?: string
+          editorial_item_id?: string
+          id?: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_applications_applicant_id_fkey"
+            columns: ["applicant_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "work_applications_editorial_item_id_fkey"
+            columns: ["editorial_item_id"]
+            isOneToOne: false
+            referencedRelation: "editorial_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "work_applications_resolved_by_fkey"
+            columns: ["resolved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       work_item_assignees: {
         Row: {
           assigned_at: string
@@ -1453,6 +1706,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_editorial_application: {
+        Args: { application_id: string }
+        Returns: string
+      }
       accept_invitation: { Args: { invitation_id: string }; Returns: string }
       add_project_member: {
         Args: {
@@ -1464,6 +1721,7 @@ export type Database = {
         }
         Returns: string
       }
+      apply_to_editorial_work: { Args: { item_id: string }; Returns: string }
       archive_client_membership: {
         Args: { idempotency_key: string; membership_id: string }
         Returns: string
@@ -1472,6 +1730,7 @@ export type Database = {
         Args: { resource_id: string; resource_type: string }
         Returns: string
       }
+      archive_editorial_item: { Args: { item_id: string }; Returns: string }
       archive_personal_work_item: {
         Args: { personal_item_id: string }
         Returns: string
@@ -1553,6 +1812,16 @@ export type Database = {
         }
         Returns: string
       }
+      create_content_template: {
+        Args: {
+          default_brief: string
+          default_channel: string
+          default_format: string
+          name: string
+          project_id: string
+        }
+        Returns: string
+      }
       create_crm_activity: {
         Args: {
           activity_type: string
@@ -1571,6 +1840,30 @@ export type Database = {
           idempotency_key: string
           name: string
           timezone: string
+        }
+        Returns: string
+      }
+      create_editorial_cycle: {
+        Args: {
+          end_date: string
+          name: string
+          project_id: string
+          start_date: string
+        }
+        Returns: string
+      }
+      create_editorial_item: {
+        Args: {
+          brief: string
+          channel: string
+          cycle_id: string
+          format: string
+          idempotency_key: string
+          project_id: string
+          scheduled_date: string
+          scheduled_time: string
+          template_id: string
+          title: string
         }
         Returns: string
       }
@@ -1666,6 +1959,46 @@ export type Database = {
       dashboard_operational_summary: {
         Args: { max_items?: number }
         Returns: Json
+      }
+      editorial_applications: {
+        Args: { item_id: string }
+        Returns: {
+          applicant_id: string
+          applicant_name: string
+          application_id: string
+          created_at: string
+          resolved_at: string
+          status: string
+        }[]
+      }
+      editorial_calendar: {
+        Args: {
+          channel_filter?: string
+          date_from: string
+          date_to: string
+          project_filter?: string
+          state_filter?: string
+        }
+        Returns: {
+          assignee_names: string[]
+          brand_name: string
+          brief: string
+          can_apply: boolean
+          can_manage: boolean
+          channel: string
+          cycle_id: string
+          format: string
+          item_id: string
+          own_application_status: string
+          planning_state: string
+          project_id: string
+          project_name: string
+          scheduled_date: string
+          scheduled_time: string
+          template_id: string
+          title: string
+          work_item_id: string
+        }[]
       }
       has_capability: {
         Args: {
@@ -1823,6 +2156,10 @@ export type Database = {
         Args: { idempotency_key: string; organization_id: string }
         Returns: string
       }
+      publish_editorial_available: {
+        Args: { item_id: string }
+        Returns: string
+      }
       reset_dashboard_config: {
         Args: { expected_revision: number }
         Returns: boolean
@@ -1866,6 +2203,39 @@ export type Database = {
           idempotency_key: string
           membership_id: string
           role_key: string
+        }
+        Returns: string
+      }
+      update_content_template: {
+        Args: {
+          archive?: boolean
+          default_brief: string
+          default_channel: string
+          default_format: string
+          name: string
+          template_id: string
+        }
+        Returns: string
+      }
+      update_editorial_cycle: {
+        Args: {
+          cycle_id: string
+          end_date: string
+          name: string
+          start_date: string
+          status: string
+        }
+        Returns: string
+      }
+      update_editorial_item: {
+        Args: {
+          brief: string
+          channel: string
+          format: string
+          item_id: string
+          scheduled_date: string
+          scheduled_time: string
+          title: string
         }
         Returns: string
       }

@@ -41,6 +41,7 @@ export function StatusBadge({ value }: { value: string }) {
     todo: 'Por hacer', in_progress: 'En curso', blocked: 'Bloqueado', done: 'Completado', cancelled: 'Cancelado',
     low: 'Baja', normal: 'Normal', high: 'Alta', urgent: 'Urgente', assigned: 'Asignado',
     open: 'Abierto', won: 'Ganada', lost: 'Perdida', prospect: 'Prospecto',
+    planned: 'Planificado', available: 'Disponible', pending: 'Pendiente', accepted: 'Aceptada', rejected: 'No seleccionada',
     note: 'Nota', reminder: 'Recordatorio', project: 'Proyecto', personal: 'Personal',
   }
   return <span className="crm-status" data-status={value}>{labels[value] ?? value.replaceAll('_', ' ')}</span>

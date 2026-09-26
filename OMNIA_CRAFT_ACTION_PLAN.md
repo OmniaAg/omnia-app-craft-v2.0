@@ -677,29 +677,7 @@ Fuente: [Supabase CORS](https://supabase.com/docs/guides/functions/cors).
 
 ## 19. Migration Strategy
 
-La aplicación nueva nace independiente de los datos legacy. La migración ocurre después del hardening y antes del release:
-
-```text
-export autorizado y cifrado
-  → perfilado/anonimización en staging
-  → mapping explícito legacy → dominio nuevo
-  → transformaciones idempotentes
-  → validación de conteos, FK, estados, montos y archivos
-  → import a staging
-  → reconciliación con stakeholders
-  → ensayo de cutover + rollback
-  → ventana final, delta y cutover
-```
-
-Reglas:
-
-- no adaptar el esquema nuevo para copiar las 20 tablas;
-- no leer datos reales hasta contar con autorización y minimización;
-- mapear roles legacy a memberships revisadas, nunca copiar `profiles.role`;
-- descargar, verificar hash/MIME y reubicar archivos en buckets privados; no conservar URLs públicas como autoridad;
-- convertir entregas/reviews parciales a un estado explícito de excepción;
-- toda importación usa external IDs y tabla de reconciliation para poder reanudar sin duplicar;
-- mantener el legacy read-only durante un periodo de reconciliación y definir rollback antes del cutover.
+**Phase 16 — Legacy Data Migration: REMOVED / NOT APPLICABLE.** La aplicación legacy sólo contenía información de prueba. No existe información productiva que recuperar ni migrar. Las migrations de producción del esquema nuevo siguen requiriendo dry-run, pruebas, backup/restore y rollback de despliegue antes del release.
 
 ## 20. Realtime Strategy
 
@@ -1994,75 +1972,9 @@ Action Plan security/storage/realtime/testing/risks, schema completo, policies/R
 
 Henry, Twenty/Plane/Refine, legacy features no migradas, ideas Later no incluidas en release.
 
-### Phase 16 — Legacy Data Migration
+### Phase 16 — Legacy Data Migration — REMOVED / NOT APPLICABLE
 
-#### Objective
-
-Migrar únicamente datos autorizados al modelo estable mediante proceso repetible y reconciliable.
-
-#### Product capabilities
-
-Usuarios trabajan con historia/datos aprobados; legacy queda read-only durante reconciliación.
-
-#### Domain
-
-Sólo boundaries con datos reales aprobados.
-
-#### Database
-
-Staging/import schemas temporales, `legacy_id_map`, import batches, reconciliation reports y constraints activas.
-
-#### Authorization
-
-Proceso privilegiado offline/administrativo; ningún import endpoint público; memberships se reconstruyen y revisan.
-
-#### Frontend
-
-Herramienta interna de reporte/reconciliación sólo si CSV/report no basta; no UI de migración genérica.
-
-#### Backend
-
-Export→transform→validate→import→reconcile scripts idempotentes; asset relocation con checksum; delta/cutover/rollback.
-
-#### Dependencies
-
-Herramientas ETL mínimas y fijadas; no conectar la app runtime al legacy.
-
-#### Environment
-
-Credenciales temporales fuera de repo, rotadas al terminar; staging aislado; exports cifrados con retención.
-
-#### Reference repos
-
-Ninguno. Usar análisis legacy, mapping aprobado y documentación del export autorizado.
-
-#### Agent Skills
-
-`supabase`, `supabase-postgres-best-practices`, `code-security`, `verification-before-completion`.
-
-#### Tests
-
-Dry runs, conteos/hashes/FK/status/montos, duplicate replay, corrupted row quarantine, cross-client membership sampling, asset download y rollback rehearsal.
-
-#### Definition of Done
-
-Reconciliación firmada por owners, discrepancias explicadas, rollback probado, credenciales/exports tratados según retención y legacy no dicta schema.
-
-#### Depends on
-
-Phase 15 y aprobación humana del mapping/cutover.
-
-#### Risks
-
-PII, datos corruptos/desconocidos, URLs muertas, roles inseguros copiados, ventana de delta.
-
-#### Context to load
-
-Action Plan §19 y Phase 16, análisis legacy sólo secciones de tablas/spec/unknowns, schema destino, mapping y runbooks.
-
-#### Context NOT to load
-
-Repos externos, UI/design skills, legacy frontend, fases Later no migradas.
+La aplicación legacy sólo contenía información de prueba. No existe información productiva que recuperar ni migrar. Esta fase no tiene implementación, dependencias ni gate de release.
 
 ### Phase 17 — Production Release & Operations
 
@@ -2120,7 +2032,7 @@ Release checklist firmado, métricas/alertas sanas, rollback viable, soporte/on-
 
 #### Depends on
 
-Phase 15; Phase 16 si se migran datos.
+Phase 15. Phase 16 fue removida y no bloquea el release.
 
 #### Risks
 
@@ -2140,7 +2052,7 @@ Las listas `Context to load` y `Context NOT to load` de cada fase son vinculante
 
 1. Cargar la sección de la fase, sus ADRs y sólo las migrations/features que modifica.
 2. Cargar `supabase` y `supabase-postgres-best-practices` antes de cualquier SQL; consultar changelog/docs actuales, no memoria.
-3. No volver a leer el legacy completo. Usar §3 de este plan; sólo Phase 16 abre las secciones legacy concretas de mapping.
+3. No volver a leer el legacy completo. Usar §3 de este plan para lecciones de producto; Phase 16 no se ejecuta.
 4. No clonar repos de referencia. Abrir únicamente archivos/docs nombrados en `Reference repos` de la fase.
 5. No leer `.claude/skills/`: duplica `.agents/skills/` al corte.
 6. Leer sólo `SKILL.md` primero; referencias adicionales sólo cuando la fase ejecute el trabajo que las requiere.
@@ -2167,7 +2079,7 @@ Las listas `Context to load` y `Context NOT to load` de cada fase son vinculante
 | 13 | One approved provider | Todos los providers posibles |
 | 14 | SW/push/mobile | Legacy PWA code |
 | 15 | Whole release surface/evidence | Future roadmap |
-| 16 | Approved mapping/legacy data sections | External benchmarks |
+| 16 | REMOVED / NOT APPLICABLE | No cargar contexto de migración legacy |
 | 17 | Runbooks/pipeline/deploy config | Product ideation |
 
 ## 27. Risks
@@ -2189,7 +2101,6 @@ Las listas `Context to load` y `Context NOT to load` de cada fase son vinculante
 | npm migration rompe entorno | Baja | Medio | Cambio único en Phase 0, clean install, lockfile audit |
 | Organization membership escala a Projects | Media | Crítico | `project_memberships` explícitas y fixtures same-organization/different-project |
 | Acciones destructivas u override sin rastro | Media | Crítico | Archive-first; RPC/capability/reason/audit obligatorios incluso para dirección |
-| Migración legacy contaminante | Media | Alto | Después de hardening; mapping y staging separado |
 | Falta de operación/owners | Media | Alto | Runbooks/SLO/alerts/ownership antes de release |
 
 ## 28. Open Product Decisions
@@ -2203,7 +2114,6 @@ Estas decisiones requieren respuesta humana; no deben resolverse implícitamente
 5. **⚠️ Product decision required — automatizaciones:** primeras tres reglas concretas y acciones que requieren aprobación.
 6. **⚠️ Product decision required — PWA:** install/push solamente o offline; si offline, qué recursos y retención en dispositivo.
 7. **⚠️ Product decision required — compliance/operación:** retención, backups, región, MFA, audit export y responsable de seguridad.
-8. **⚠️ Product decision required — migración:** qué datos/archivos legacy se conservan y quién firma reconciliación/cutover.
 
 ### Closed Product Decisions
 
@@ -2214,6 +2124,7 @@ Estas decisiones requieren respuesta humana; no deben resolverse implícitamente
 - Clientes no ven work items internos; contributors sólo crean items personales propios, no asignan trabajo a terceros.
 - Review requirements son configurables; override de dirección y permanent delete son comandos excepcionales auditados.
 - Semana editorial es una vista derivada de fechas; no existe `editorial_week` ni límite de cuatro semanas.
+- Phase 16 — Legacy Data Migration está removida: la aplicación legacy sólo contenía información de prueba y no hay datos productivos que recuperar.
 - Organization → Brand → Project es la jerarquía canónica; Documents usan asociaciones Organization/Project explícitas.
 - Billing es operational payment tracking, fuera de contabilidad/fiscalidad.
 - Timezone base `America/Mexico_City`, UTC para instantes y contexto temporal preservado.
@@ -2234,6 +2145,7 @@ Estas decisiones requieren respuesta humana; no deben resolverse implícitamente
 ### Datos y autorización
 
 - DB se reconstruye desde cero con migrations + seed.
+- No se requiere migración de datos legacy; las migrations del esquema nuevo se prueban antes de producción.
 - `profiles`, founder metadata y departments no contienen autoridad; memberships agency/organization/project y capabilities están documentadas y probadas.
 - Todas las tablas/views/functions/Storage/Realtime expuestas tienen grants y RLS correctos.
 - Suite prueba positivo, negativo, cross-client y privilege escalation por capability.

@@ -38,6 +38,14 @@ export const appRoutes: RouteObject[] = [
                 lazy: () => import('../../features/projects/screens/ProjectDetailScreen'),
               },
               {
+                path: 'projects/:projectId/editorial',
+                lazy: () => import('../../features/editorial/screens/EditorialScreen'),
+              },
+              {
+                path: 'editorial/calendar',
+                lazy: () => import('../../features/editorial/screens/EditorialScreen'),
+              },
+              {
                 path: 'crm/accounts',
                 lazy: () => import('../../features/crm/screens/AccountsScreen'),
               },

@@ -1,8 +1,8 @@
 # OMNIA Craft 2.0
 
-Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos y dashboard personalizable de OMNIA Craft. Phase 5 convierte `/app` en un espacio operativo personal, manteniendo los widgets en código y guardando sólo preferencias validadas por usuario.
+Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable y planificación editorial de OMNIA Craft.
 
-No incluye editorial, deliverables, reviews, Realtime, Storage operacional ni configuración remota.
+No incluye publicación real a redes sociales, deliverables, reviews, Realtime, Storage operacional ni configuración remota.
 
 ## Requisitos
 
@@ -152,6 +152,16 @@ Crear, asignar, transicionar, comentar y archivar trabajo pasa por RPCs transacc
 
 Los scripts de arranque, reset e integración esperan de forma acotada a que PostgREST publique `health_check`; reintentan sólo fallos transitorios y no convierten errores reales 4xx en esperas silenciosas.
 
+## Editorial
+
+- `/app/editorial/calendar` ofrece agenda accesible y calendario mensual de los Projects autorizados; `/app/projects/:projectId/editorial` fija el scope de un Project. En mobile la agenda tiene prioridad.
+- Los ciclos son intervalos `date` con inicio y fin libres. Las semanas son filas visuales derivadas de fechas; no existe tabla de semanas ni límite de cuatro.
+- Plantillas de Project guardan sólo defaults de canal, formato e instrucciones. Se pueden crear, editar y archivar. Crear una pieza desde una plantilla crea atómicamente su `work_items` canónico y un único `editorial_items` relacionado por FKs de Project.
+- Una pieza guarda fecha editorial `date` y hora local opcional sin convertir fechas puras a UTC. El estado de planificación (`planned`, `available`, `assigned`, `cancelled`) es independiente del estado operativo del Work Item.
+- `available` significa que contributors internos, activos y miembros del Project pueden postularse. El PM o Director autorizado ve postulantes y acepta uno mediante RPC transaccional; las otras postulaciones se resuelven y `work_item_assignees` sigue siendo la fuente de asignación. Una asignación manual desde Work también resuelve postulaciones pendientes.
+- My Space sigue leyendo el Work Item asignado mediante su read model existente. No hay publicación social, cuentas conectadas, tokens, archivos ni notificaciones en esta fase.
+- Calendar/list usa un RPC acotado por ventana visible de hasta 93 días y filtros de Project, estado y canal; la pantalla no carga todo Editorial ni usa Realtime.
+
 ## Verificación
 
 Con Supabase y `functions:serve` activos:
@@ -169,6 +179,7 @@ npm run test:auth
 npm run test:crm
 npm run test:work
 npm run test:dashboard
+npm run test:editorial
 npm run build
 ```
 
@@ -185,6 +196,7 @@ npm run build
 | `npm run test:crm` | Flujos director/PM/client contra Auth, RLS, RPC, events y proyecciones locales |
 | `npm run test:work` | Flujo Director/PM/contributor/client: Project → members → milestone → assignment → My Space → transition/comment → archive, más aislamiento personal |
 | `npm run test:dashboard` | Flujo contributor/PM/client: guardar → recargar → mover/quitar/añadir → reset, gating CRM, RLS y conflicto CAS entre dos sesiones |
+| `npm run test:editorial` | PM → ciclo/plantilla/pieza → disponible → dos postulaciones → aceptación → Work/My Space/events; dos sesiones PM compiten por aplicaciones distintas; aislamiento, revocación y asignación manual |
 | `npm run build` | TypeScript + bundle production de Vite |
 
 Para detener sólo este stack:

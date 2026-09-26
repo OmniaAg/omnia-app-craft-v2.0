@@ -15,6 +15,7 @@ export function Component() {
     { href: '/app', label: 'Interno' },
     { href: '/app/my-space', label: 'Mi Espacio' },
     { href: '/app/projects', label: 'Proyectos' },
+    { href: '/app/editorial/calendar', label: 'Editorial' },
     { href: '/app/crm/accounts', label: 'Organizations' },
     { href: '/app/crm/contacts', label: 'Contacts' },
     { href: '/app/crm/opportunities', label: 'Opportunities' },
@@ -32,7 +33,7 @@ export function Component() {
       identityLabel={auth.actor?.user.email ?? 'Sesión interna'}
       onSignOut={handleSignOut}
       showIntro={false}
-      footerLabel="Phase 4 · Projects + Work + My Space"
+      footerLabel="OMNIA · Operaciones internas"
     />
   )
 }
