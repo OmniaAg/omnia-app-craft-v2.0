@@ -1584,6 +1584,8 @@ Inbox/popover, unread counters, message views, reconnect/offline indicators, inv
 
 Outbox processor, Broadcast/private channels o Postgres Changes elegido por caso; retry/dead-letter/observability; no push aún.
 
+**Decisión de implementación Phase 10:** la entrega in-app ocurre dentro de la transacción del mensaje o del evento existente y `notification_outbox` conserva la intención deduplicada como entregada. No se necesita un worker, reintentos asíncronos ni dead-letter mientras el único medio sea la bandeja persistida. Para actualizaciones vivas se eligió Postgres Changes con filtros por canal/destinatario y RLS; sólo `messages` y `notifications` entran en la publicación. El cliente reconcilia contra la base al reconectar.
+
 #### Dependencies
 
 Realtime Supabase existente; virtualización sólo con volumen; no websocket library extra.

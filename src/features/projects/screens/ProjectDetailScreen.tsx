@@ -8,6 +8,7 @@ import { projectWorkQuery, workKeys } from '../../work/api/queries'
 import type { WorkItemFormValues } from '../../work/model/schemas'
 import { WorkItemForm } from '../../work/ui/WorkForms'
 import { WorkPanel } from '../../work/ui/WorkPanel'
+import { createProjectChannel } from '../../messaging/api/messaging-service'
 import { addProjectMember, archiveProject, createMilestone, revokeProjectMember } from '../api/project-service'
 import { projectCandidatesQuery, projectDetailQuery, projectKeys, projectMembersQuery, projectMilestonesQuery } from '../api/queries'
 import type { MilestoneFormValues, ProjectMemberFormValues } from '../model/schemas'
@@ -76,6 +77,13 @@ export function Component() {
     onMutate: () => setSuccess(null),
     onSuccess: async () => { await invalidateProject(); navigate('/app/projects') },
   })
+  const channelMutation = useMutation({
+    mutationFn: () => createProjectChannel(projectId),
+    onSuccess: async (channelId) => {
+      await queryClient.invalidateQueries({ queryKey: ['messaging', 'channels'] })
+      navigate(`/app/messages/${channelId}`)
+    },
+  })
   const selectedWork = work.data?.find((item) => item.work_item_id === selectedWorkId)
   const error = project.error ?? members.error ?? milestones.error ?? work.error
 
@@ -104,9 +112,16 @@ export function Component() {
         description={`${detail.organization_name} · ${detail.brand_name} · ${detail.timezone}`}
         action={<div className="project-header-actions"><Link className="crm-row-link" to={`/app/projects/${projectId}/editorial`}>Editorial</Link><Link className="crm-row-link" to={`/app/content-manager?project=${projectId}`}>Archivos</Link><Link className="crm-row-link" to={`/app/projects/${projectId}/reviews`}>Revisores</Link><StatusBadge value={detail.project_status} />{detail.can_archive_project && !isArchived ? <button className="work-danger-action" type="button" disabled={archiveMutation.isPending} onClick={() => { if (window.confirm(`¿Archivar “${detail.project_name}”?`)) archiveMutation.mutate() }}>{archiveMutation.isPending ? 'Archivando…' : 'Archivar proyecto'}</button> : null}</div>}
       />
+      {detail.can_manage_members && !isArchived ? <div className="project-header-actions">
+        <button className="crm-button" type="button" disabled={channelMutation.isPending}
+          onClick={() => channelMutation.mutate()}>
+          {channelMutation.isPending ? 'Abriendo canal…' : 'Abrir canal de mensajes'}
+        </button>
+      </div> : null}
       {error ? <CrmError message={error.message} /> : null}
       {success ? <CrmSuccess message={success} /> : null}
       {archiveMutation.error ? <CrmError message={archiveMutation.error.message} /> : null}
+      {channelMutation.error ? <CrmError message={channelMutation.error.message} /> : null}
       <div className="crm-tabs" aria-label="Secciones del proyecto">
         <button type="button" aria-pressed={tab === 'overview'} onClick={() => setTab('overview')}>Resumen</button>
         <button type="button" aria-pressed={tab === 'work'} onClick={() => setTab('work')}>Trabajo</button>

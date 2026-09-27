@@ -74,7 +74,7 @@ async function invite(apiUrl, publishableKey, client, body, origin) {
   return { response, payload }
 }
 
-async function waitForMail(mailpitUrl, recipient) {
+async function waitForMail(mailpitUrl, recipient, sentAfter = 0) {
   const deadline = Date.now() + 20_000
 
   while (Date.now() < deadline) {
@@ -82,7 +82,7 @@ async function waitForMail(mailpitUrl, recipient) {
     invariant(response.ok, 'Mailpit message list is unavailable')
     const list = await response.json()
     const message = list.messages?.find((candidate) =>
-      candidate.To?.some(
+      new Date(candidate.Created).getTime() >= sentAfter - 1000 && candidate.To?.some(
         (address) => address.Address?.toLowerCase() === recipient.toLowerCase(),
       ),
     )
@@ -197,18 +197,19 @@ async function main() {
   console.log('ok - director login')
 
   const recovery = browserClient(apiUrl, status.PUBLISHABLE_KEY)
+  const recoveryRequestedAt = Date.now()
   const { error: recoveryRequestError } =
     await recovery.auth.resetPasswordForEmail(DIRECTOR_EMAIL, {
       redirectTo: `${APP_ORIGIN}/reset-password`,
     })
   invariant(!recoveryRequestError, 'password recovery request failed')
-  const recoveryMail = await waitForMail(mailpitUrl, DIRECTOR_EMAIL)
+  const recoveryMail = await waitForMail(mailpitUrl, DIRECTOR_EMAIL, recoveryRequestedAt)
   await sessionFromActionLink(recovery, actionLink(recoveryMail))
-  const recoveredDirectorPassword = password()
+  const recoveredDirectorPassword = `${TEST_PASSWORD}${randomBytes(8).toString('hex')}`
   const { error: recoveryUpdateError } = await recovery.auth.updateUser({
     password: recoveredDirectorPassword,
   })
-  invariant(!recoveryUpdateError, 'password recovery update failed')
+  invariant(!recoveryUpdateError, `password recovery update failed: ${recoveryUpdateError?.message ?? ''}`)
   const { error: recoveryLogoutError } = await recovery.auth.signOut()
   invariant(!recoveryLogoutError, 'password recovery session logout failed')
   const { error: reloginError } = await director.auth.signInWithPassword({

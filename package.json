@@ -33,6 +33,7 @@
     "test:deliverables": "node scripts/test-deliverables-integration.mjs",
     "test:files": "node scripts/test-files-integration.mjs",
     "test:portal": "node scripts/test-portal-integration.mjs",
+    "test:messaging": "node scripts/test-messaging-integration.mjs",
     "db:files:diagnose": "node scripts/diagnose-file-storage.mjs"
   },
   "dependencies": {

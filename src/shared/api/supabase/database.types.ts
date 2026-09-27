@@ -309,6 +309,116 @@ export type Database = {
           },
         ]
       }
+      channel_memberships: {
+        Row: {
+          added_by: string | null
+          channel_id: string
+          created_at: string
+          id: string
+          last_read_at: string | null
+          member_kind: string
+          removed_at: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          added_by?: string | null
+          channel_id: string
+          created_at?: string
+          id?: string
+          last_read_at?: string | null
+          member_kind: string
+          removed_at?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          added_by?: string | null
+          channel_id?: string
+          created_at?: string
+          id?: string
+          last_read_at?: string | null
+          member_kind?: string
+          removed_at?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "channel_memberships_added_by_fkey"
+            columns: ["added_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "channel_memberships_channel_id_fkey"
+            columns: ["channel_id"]
+            isOneToOne: false
+            referencedRelation: "channels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "channel_memberships_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      channels: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          kind: string
+          organization_id: string
+          project_id: string | null
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind: string
+          organization_id: string
+          project_id?: string | null
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          organization_id?: string
+          project_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "channels_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "channels_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "channels_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       client_feedback: {
         Row: {
           author_id: string
@@ -1461,6 +1571,48 @@ export type Database = {
           },
         ]
       }
+      messages: {
+        Row: {
+          author_user_id: string
+          body: string
+          channel_id: string
+          client_message_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          author_user_id: string
+          body: string
+          channel_id: string
+          client_message_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          author_user_id?: string
+          body?: string
+          channel_id?: string
+          client_message_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_author_user_id_fkey"
+            columns: ["author_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "messages_channel_id_fkey"
+            columns: ["channel_id"]
+            isOneToOne: false
+            referencedRelation: "channels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       milestones: {
         Row: {
           archived_at: string | null
@@ -1518,38 +1670,144 @@ export type Database = {
           },
         ]
       }
-      notifications: {
+      notification_outbox: {
         Row: {
           created_at: string
-          deliverable_id: string
           domain_event_id: string
           id: string
           kind: string
-          project_id: string
-          read_at: string | null
+          medium: string
+          notification_id: string
           recipient_id: string
+          status: string
         }
         Insert: {
           created_at?: string
-          deliverable_id: string
           domain_event_id: string
           id?: string
           kind: string
-          project_id: string
-          read_at?: string | null
+          medium?: string
+          notification_id: string
           recipient_id: string
+          status?: string
         }
         Update: {
           created_at?: string
-          deliverable_id?: string
           domain_event_id?: string
           id?: string
           kind?: string
-          project_id?: string
-          read_at?: string | null
+          medium?: string
+          notification_id?: string
           recipient_id?: string
+          status?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "notification_outbox_domain_event_id_fkey"
+            columns: ["domain_event_id"]
+            isOneToOne: false
+            referencedRelation: "domain_events"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "notification_outbox_notification_id_fkey"
+            columns: ["notification_id"]
+            isOneToOne: false
+            referencedRelation: "notifications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notification_outbox_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      notification_preferences: {
+        Row: {
+          approvals: boolean
+          deliverable_updates: boolean
+          messages: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          approvals?: boolean
+          deliverable_updates?: boolean
+          messages?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          approvals?: boolean
+          deliverable_updates?: boolean
+          messages?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_preferences_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          channel_id: string | null
+          created_at: string
+          deliverable_id: string | null
+          domain_event_id: string
+          id: string
+          kind: string
+          message_id: string | null
+          project_id: string | null
+          publication_id: string | null
+          read_at: string | null
+          recipient_id: string
+          work_item_id: string | null
+        }
+        Insert: {
+          channel_id?: string | null
+          created_at?: string
+          deliverable_id?: string | null
+          domain_event_id: string
+          id?: string
+          kind: string
+          message_id?: string | null
+          project_id?: string | null
+          publication_id?: string | null
+          read_at?: string | null
+          recipient_id: string
+          work_item_id?: string | null
+        }
+        Update: {
+          channel_id?: string | null
+          created_at?: string
+          deliverable_id?: string | null
+          domain_event_id?: string
+          id?: string
+          kind?: string
+          message_id?: string | null
+          project_id?: string | null
+          publication_id?: string | null
+          read_at?: string | null
+          recipient_id?: string
+          work_item_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_channel_id_fkey"
+            columns: ["channel_id"]
+            isOneToOne: false
+            referencedRelation: "channels"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "notifications_deliverable_id_fkey"
             columns: ["deliverable_id"]
@@ -1565,10 +1823,24 @@ export type Database = {
             referencedColumns: ["event_id"]
           },
           {
+            foreignKeyName: "notifications_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "notifications_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_publication_id_fkey"
+            columns: ["publication_id"]
+            isOneToOne: false
+            referencedRelation: "client_publications"
             referencedColumns: ["id"]
           },
           {
@@ -1577,6 +1849,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "notifications_work_item_id_fkey"
+            columns: ["work_item_id"]
+            isOneToOne: false
+            referencedRelation: "work_items"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -2592,6 +2871,10 @@ export type Database = {
         Returns: string
       }
       accept_invitation: { Args: { invitation_id: string }; Returns: string }
+      add_channel_member: {
+        Args: { p_channel: string; p_user: string }
+        Returns: string
+      }
       add_client_feedback: {
         Args: { body: string; idempotency_key: string; publication_id: string }
         Returns: string
@@ -2644,6 +2927,32 @@ export type Database = {
           stage_key: string
         }
         Returns: string
+      }
+      channel_members: {
+        Args: { p_channel: string }
+        Returns: {
+          display_name: string
+          member_kind: string
+          status: string
+          user_id: string
+        }[]
+      }
+      channel_messages: {
+        Args: {
+          p_before_at?: string
+          p_before_id?: string
+          p_channel: string
+          p_limit?: number
+        }
+        Returns: {
+          author_name: string
+          author_user_id: string
+          body: string
+          channel_id: string
+          client_message_id: string
+          created_at: string
+          id: string
+        }[]
       }
       client_brand_context: {
         Args: { organization_id?: string }
@@ -2841,6 +3150,7 @@ export type Database = {
         }
         Returns: string
       }
+      create_project_channel: { Args: { p_project: string }; Returns: string }
       create_work_item: {
         Args: {
           assignee_ids: string[]
@@ -2988,6 +3298,8 @@ export type Database = {
           total_count: number
         }[]
       }
+      mark_all_notifications_read: { Args: never; Returns: number }
+      mark_channel_read: { Args: { p_channel: string }; Returns: undefined }
       mark_invitation_dispatched: {
         Args: { invitation_id: string }
         Returns: undefined
@@ -3002,6 +3314,19 @@ export type Database = {
           capability_key: string
           scope_id: string
           scope_kind: string
+        }[]
+      }
+      my_channels: {
+        Args: never
+        Returns: {
+          id: string
+          kind: string
+          label: string
+          last_message_at: string
+          last_message_preview: string
+          organization_id: string
+          project_id: string
+          unread_count: number
         }[]
       }
       my_space_items: {
@@ -3258,6 +3583,10 @@ export type Database = {
         }
         Returns: string
       }
+      remove_channel_member: {
+        Args: { p_channel: string; p_user: string }
+        Returns: undefined
+      }
       request_file_permanent_delete: {
         Args: { asset_id: string }
         Returns: string
@@ -3313,6 +3642,10 @@ export type Database = {
           isOneToOne: false
           isSetofReturn: true
         }
+      }
+      send_message: {
+        Args: { p_body: string; p_channel: string; p_client_message_id: string }
+        Returns: string
       }
       submit_deliverable_version: {
         Args: {

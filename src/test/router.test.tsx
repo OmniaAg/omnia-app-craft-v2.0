@@ -14,6 +14,8 @@ import type {
   ClientMembership,
 } from '../features/auth/model/authorization'
 
+vi.mock('../features/messaging/ui/NotificationBadge', () => ({ NotificationBadge: () => null }))
+
 function authValue(context: 'anonymous' | 'agency' | 'client'): AuthContextValue {
   const agencyMemberships = context === 'agency'
     ? [{ status: 'active' } as AgencyMembership]

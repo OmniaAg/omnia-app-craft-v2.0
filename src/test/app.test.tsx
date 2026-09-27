@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { expect, it, vi } from 'vitest'
 
 const fakeClient = vi.hoisted(() => ({
+  removeAllChannels: vi.fn(async () => []),
   auth: {
     getSession: vi.fn(async () => ({ data: { session: null }, error: null })),
     onAuthStateChange: vi.fn(() => ({

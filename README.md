@@ -1,8 +1,8 @@
 # OMNIA Craft 2.0
 
-Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable, planificación editorial, entregables, archivos privados y Client Portal de OMNIA Craft.
+Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable, planificación editorial, entregables, archivos privados, Client Portal, mensajería y notificaciones de OMNIA Craft.
 
-No incluye publicación real a redes sociales, Realtime, chat ni configuración remota.
+No incluye publicación real a redes sociales ni configuración remota.
 
 ## Requisitos
 
@@ -153,7 +153,7 @@ La creación puede dejar un Work Item sin assignees como backlog explícito. Una
 
 Los pendientes personales viven en `personal_work_items`: la tabla separada hace explícito que un pendiente privado no es Project work, no admite assignees ni `project_id`, y mantiene RLS self-owned más pequeña. My Space los unifica sólo en su read model seguro.
 
-Crear, asignar, transicionar, comentar y archivar trabajo pasa por RPCs transaccionales. React no encadena escrituras directas; invalida caches de proyecto, trabajo o My Space de forma dirigida. No hay Realtime, polling, Kanban ni drag-and-drop.
+Crear, asignar, transicionar, comentar y archivar trabajo pasa por RPCs transaccionales. React no encadena escrituras directas; invalida caches de proyecto, trabajo o My Space de forma dirigida. Work no usa Realtime ni polling.
 
 ## Dashboard personalizable
 
@@ -207,8 +207,18 @@ Los scripts de arranque, reset e integración esperan de forma acotada a que Pos
 - `/portal/approvals` consulta sólo las asignaciones pendientes del actor. `/portal/deliverables/:publicationId` muestra la versión publicada exacta, sus archivos, feedback contextual y la decisión del reviewer asignado. `client_viewer` sólo consulta; `client_reviewer` asignado puede aprobar o pedir cambios. `client_admin` no invita usuarios automáticamente ni obtiene aprobación por su rol.
 - `client_publications`, `client_reviews`, `client_review_assignments` y `client_review_decisions` conservan el historial. `record_client_decision` comprueba rol, dos memberships, publicación y assignment bajo locks; la solicitud de cambios permite V3 sin alterar V2. La decisión es inmutable e idempotente. OMNIA consulta ese historial en el detalle interno de la entrega.
 - `/portal/documents` lista sólo documentos enlazados a versiones publicadas. Storage mantiene el bucket privado `project-files`; el cliente no puede leer archivos internos, archivados, ajenos o aún no publicados.
-- `/portal/settings` ofrece perfil, zona horaria base y cierre de sesión. Las notificaciones mínimas se persisten a partir de eventos y se consultan sin Realtime. Chat, live counters, push, preferencias avanzadas y mensajería son Phase 10.
+- `/portal/settings` ofrece perfil, zona horaria base y cierre de sesión. El centro de notificaciones y las preferencias están en `/portal/notifications`.
 - `npm run test:portal` prueba con sesiones Auth reales la secuencia V1 interna → V2 publicada → cambios cliente → V3 publicada → aprobación, además de descarga privada, aislamiento entre usuarios y organizaciones, feedback, reintentos y denegación de dominios internos. Ejecuta `db:reset` antes de integrar si necesitas los fixtures limpios; las suites de integración mutan la DB local.
+
+## Mensajería, notificaciones y Realtime
+
+- `/app/messages` y `/portal/messages` muestran canales autorizados, conversación paginada y contador de no leídos. `/app/notifications` y `/portal/notifications` muestran la bandeja, lectura individual o total, enlaces al recurso y preferencias por categoría.
+- Cada Organization cliente activa tiene exactamente un canal general. La migración incorpora a sus miembros cliente activos y los triggers incorporan a los futuros; una membresía suspendida o revocada pierde acceso. La Directora se incorpora como miembro interno. Los canales de Project se crean explícitamente desde el detalle del proyecto y sólo admiten miembros añadidos de forma explícita, con project membership vigente y permisos del actor.
+- `send_message` valida sesión, membresía activa, contexto Organization/Project, cuerpo de 1–4000 caracteres y clave de idempotencia. El servidor fija el autor, persiste mensaje, evento y fan-out de notificaciones en una transacción. Los mensajes son inmutables: no hay edición ni borrado. La lectura usa cursor `(created_at,id)` estable y límite de 30.
+- La tabla `notifications` de Phase 9 conserva las entregas y aprobaciones y ahora añade mensajes, contexto para enlaces a publicación/entrega y preferencias por usuario. El remitente no recibe aviso propio; el servidor deriva los destinatarios de membresías. `notification_outbox` registra un intento in-app entregado por evento/destinatario/tipo y deduplica reintentos. No hay transporte externo ni worker de entrega en esta fase.
+- Sólo `messages` y `notifications` se publican para Supabase Postgres Changes. Cada suscripción usa filtro de canal o destinatario y SELECT RLS. Al reconectar se invalidan consultas para recuperar el estado persistido; al cambiar sesión se eliminan canales Realtime y caché. No hay suscripción global, polling periódico ni Realtime para Work, CRM o Editorial.
+- `npm run test:messaging` usa sesiones Auth reales y comprueba mensajes en dos direcciones sin recarga, notificaciones, reintentos, evento ajeno denegado, revocación y alta/suspensión automática del canal general. Necesita stack local y fixtures frescos (`npm run db:reset`); muta la DB local.
+- Para revisar visualmente, inicia `npm run dev`, abre `/app/messages`, `/portal/messages` y ambos centros de notificaciones, y prueba con ventanas de 1440, 768 y 390 px. En dos sesiones, envía mensajes, corta/restaura la red y comprueba la reconciliación. `playwright-cli` permite repetir este flujo con browser automatizado.
 
 ## Verificación
 
@@ -231,6 +241,7 @@ npm run test:editorial
 npm run test:deliverables
 npm run test:files
 npm run test:portal
+npm run test:messaging
 npm run db:files:diagnose
 npm run build
 ```
@@ -252,6 +263,7 @@ npm run build
 | `npm run test:deliverables` | Configuración → entrega V1 → cambios → V2 → aprobación; retries, carreras de submit/decisión/override, publicación, aislamiento y auditoría |
 | `npm run test:files` | Storage API real, metadata, RLS, ataques de path/overwrite, V1/V2 con archivos y eliminación restringida |
 | `npm run test:portal` | Auth real, publicación exacta, archivos privados, cambios V2→V3, aprobación e aislamiento cliente |
+| `npm run test:messaging` | Auth real, Realtime bidireccional, notificaciones, idempotencia, revocación y auto-membership local |
 | `npm run db:files:diagnose` | Diagnóstico local de drift DB ↔ Storage sin mutar objetos |
 | `npm run build` | TypeScript + bundle production de Vite |
 

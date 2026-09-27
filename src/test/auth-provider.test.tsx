@@ -23,6 +23,7 @@ const session = {
 function createSessionClient() {
   const unsubscribe = vi.fn()
   const client = {
+    removeAllChannels: vi.fn(async () => []),
     auth: {
       getSession: vi.fn(async () => ({ data: { session }, error: null })),
       getUser: vi.fn(async () => ({ data: { user }, error: null })),

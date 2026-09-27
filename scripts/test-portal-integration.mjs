@@ -1,4 +1,4 @@
-import { randomBytes, randomUUID } from 'node:crypto'
+import { randomUUID } from 'node:crypto'
 import { TEST_PASSWORD } from './test-fixtures/credentials.mjs'
 import { execFileSync } from 'node:child_process'
 import { createClient } from '@supabase/supabase-js'
@@ -117,6 +117,11 @@ async function main() {
   const pending = ok(await reviewer.rpc('portal_approvals'), 'reviewer queue')
   const assignment = pending.find(row => row.deliverable_id === deliverable)
   assert(assignment?.version_number === 2, 'published approval is not V2')
+  const approvalNotice = ok(await reviewer.from('notifications')
+    .select('publication_id,work_item_id').eq('deliverable_id', deliverable)
+    .eq('kind', 'approval_pending').single(), 'approval notification context')
+  assert(approvalNotice.publication_id === assignment.publication_id && approvalNotice.work_item_id === work,
+    'approval notification does not link to the published delivery')
   assert(!ok(await viewer.rpc('portal_approvals'), 'viewer queue').some(row => row.deliverable_id === deliverable),
     'viewer gained approval')
   assert((await viewer.rpc('record_client_decision', { assignment_id: assignment.assignment_id,
@@ -146,6 +151,11 @@ async function main() {
       decision: 'request_changes', reason: 'Please refine the opening', idempotency_key: changesKey }),
   ])
   assert(ok(change, 'request changes') === ok(changeRetry, 'concurrent request retry'), 'decision retry duplicated')
+  const changeNotice = ok(await pm.from('notifications')
+    .select('publication_id,work_item_id').eq('deliverable_id', deliverable)
+    .eq('kind', 'client_changes_requested').single(), 'change notification context')
+  assert(changeNotice.publication_id === assignment.publication_id && changeNotice.work_item_id === work,
+    'change notification does not link to the reviewed delivery')
   assert(ok(await director.rpc('deliverable_detail', { work_item_id: work }), 'changes state').deliverable.status === 'changes_requested',
     'agency cannot see changes state')
   console.log('ok - V1 internal changes, V2 publication, exact private file, feedback and retry-safe client changes')

@@ -65,12 +65,13 @@ export function AuthProvider({
   const clearSession = useCallback(() => {
     operationVersion.current += 1
     currentUserId.current = null
+    void client.removeAllChannels()
     queryClient.clear()
     setSession(null)
     setActor(null)
     setError(null)
     setStatus('anonymous')
-  }, [queryClient])
+  }, [client, queryClient])
 
   const hydrateSession = useCallback(
     async (nextSession: Session): Promise<AuthorizationProjection> => {
@@ -85,6 +86,7 @@ export function AuthProvider({
 
         if (operationVersion.current === version) {
           if (currentUserId.current !== user.id) {
+            void client.removeAllChannels()
             queryClient.clear()
             currentUserId.current = user.id
           }
@@ -97,6 +99,7 @@ export function AuthProvider({
       } catch (caughtError) {
         if (operationVersion.current === version) {
           currentUserId.current = null
+          void client.removeAllChannels()
           queryClient.clear()
           setSession(null)
           setActor(null)

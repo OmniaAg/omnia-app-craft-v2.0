@@ -1,12 +1,15 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../features/auth/context/AuthContext'
 import logo from '../../assets/images/brand/logos_omnia/OMNIA_Version_fullblanco.webp'
+import { NotificationBadge } from '../../features/messaging/ui/NotificationBadge'
 import '../../features/portal/ui/portal.css'
 
 const links = [
   { to: '/portal', label: 'Resumen', end: true },
   { to: '/portal/projects', label: 'Proyectos', end: false },
   { to: '/portal/approvals', label: 'Aprobaciones', end: false },
+  { to: '/portal/messages', label: 'Mensajes', end: false },
+  { to: '/portal/notifications', label: 'Notificaciones', end: false },
   { to: '/portal/documents', label: 'Documentos', end: false },
   { to: '/portal/settings', label: 'Configuración', end: false },
 ]
@@ -21,6 +24,7 @@ export function Component() {
   }
 
   return <div className="portal-shell">
+    <NotificationBadge />
     <a className="skip-link" href="#portal-main">Saltar al contenido</a>
     <header className="portal-header">
       <div className="portal-header__inner">
