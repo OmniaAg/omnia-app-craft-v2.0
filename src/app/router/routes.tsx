@@ -34,6 +34,10 @@ export const appRoutes: RouteObject[] = [
                 lazy: () => import('../../features/reviews/screens/ReviewQueueScreen'),
               },
               {
+                path: 'content-manager',
+                lazy: () => import('../../features/files/screens/ContentManagerScreen'),
+              },
+              {
                 path: 'deliverables/:workItemId',
                 lazy: () => import('../../features/reviews/screens/DeliverableScreen'),
               },

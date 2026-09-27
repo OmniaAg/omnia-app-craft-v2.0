@@ -1,0 +1,29 @@
+.files-page { display: grid; gap: 1.5rem; }
+.files-toolbar { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1rem; }
+.files-toolbar label, .file-uploader label, .file-row-controls label { display: grid; gap: .35rem; font-weight: 700; }
+.files-search { display: grid; gap: .35rem; align-content: end; }
+.files-toolbar input, .files-toolbar select, .file-row-controls select, .file-uploader input { min-height: 2.75rem; width: 100%; }
+.files-upload-section { border-block: 1px solid var(--border-color, #777); padding-block: 1.25rem; }
+.file-uploader { display: grid; gap: .75rem; max-width: 38rem; }
+.file-help, .file-row p { margin: 0; }
+.file-list { list-style: none; padding: 0; display: grid; gap: 0; }
+.file-row { border-block-start: 1px solid var(--border-color, #777); padding: 1rem 0; display: grid; gap: .65rem; min-width: 0; }
+.file-row-main { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.file-row-main strong { overflow-wrap: anywhere; }
+.file-row-main span { font-size: .85rem; }
+.file-row dl { display: grid; grid-template-columns: max-content 1fr; gap: .25rem .75rem; overflow-wrap: anywhere; }
+.file-row dd { margin: 0; }
+.file-actions, .file-row-controls, .files-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.file-row-controls label { flex: 1 1 15rem; }
+.file-editorial-picker { display: grid; gap: .5rem; flex: 1 1 22rem; min-width: 0; }
+.file-editorial-picker form { display: flex; flex-wrap: wrap; align-items: end; gap: .5rem; }
+.file-editorial-picker form label { flex: 1 1 12rem; }
+.file-editorial-picker input, .file-editorial-picker select { min-height: 2.75rem; width: 100%; }
+.file-preview { width: 100%; display: grid; gap: .5rem; }
+.file-preview img, .file-preview iframe { max-width: 100%; width: min(100%, 45rem); max-height: 34rem; min-height: 20rem; object-fit: contain; }
+.file-list button:focus-visible, .files-toolbar button:focus-visible, .files-pagination button:focus-visible, .file-uploader button:focus-visible { outline: 3px solid var(--omnia-yellow, #fcbf4a); outline-offset: 2px; }
+.file-error { color: var(--error-text, #c8003b); }
+.file-success { font-weight: 700; }
+.file-delete { justify-self: start; }
+.files-pagination { justify-content: space-between; }
+@media (max-width: 40rem) { .file-row-main { align-items: start; flex-direction: column; } .file-row-controls { align-items: stretch; flex-direction: column; } }

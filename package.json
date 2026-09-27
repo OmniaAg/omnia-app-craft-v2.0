@@ -30,7 +30,9 @@
     "test:work": "node scripts/test-work-integration.mjs",
     "test:dashboard": "node scripts/test-dashboard-integration.mjs",
     "test:editorial": "node scripts/test-editorial-integration.mjs",
-    "test:deliverables": "node scripts/test-deliverables-integration.mjs"
+    "test:deliverables": "node scripts/test-deliverables-integration.mjs",
+    "test:files": "node scripts/test-files-integration.mjs",
+    "db:files:diagnose": "node scripts/diagnose-file-storage.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",

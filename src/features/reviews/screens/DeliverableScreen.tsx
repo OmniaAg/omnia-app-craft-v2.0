@@ -4,6 +4,11 @@ import { Link, useParams } from 'react-router-dom'
 import { getSupabaseClient } from '../../../shared/api/supabase/client'
 import { useAuth } from '../../auth/context/AuthContext'
 import { CrmError, CrmPageHeader, CrmSuccess, StatusBadge } from '../../crm/ui/CrmUi'
+import { fileKeys, readyFilesQuery, versionFilesQuery } from '../../files/api/queries'
+import { FILE_PAGE_SIZE, type FileAsset } from '../../files/api/file-service'
+import { FileActions } from '../../files/ui/FileActions'
+import { FileUploader } from '../../files/ui/FileUploader'
+import '../../files/ui/files.css'
 import { workKeys } from '../../work/api/queries'
 import { deliverableDetailQuery, reviewKeys } from '../api/queries'
 import { createDeliverable, overrideRequirement, publishDeliverable, recordDecision, submitVersion,
@@ -35,25 +40,48 @@ function CreateForm({ pending, onCreate }: { pending: boolean; onCreate: (title:
   </form>
 }
 
-function SubmissionForm({ pending, onSubmit }: { pending: boolean; onSubmit: (notes: string, key: string) => Promise<unknown> }) {
+function SubmissionForm({ projectId, pending, onSubmit }: { projectId: string; pending: boolean; onSubmit: (notes: string, key: string, assetIds: string[]) => Promise<unknown> }) {
   const [notes, setNotes] = useState('')
+  const [selected, setSelected] = useState<string[]>([])
+  const [fileSearch, setFileSearch] = useState('')
+  const [filePage, setFilePage] = useState(0)
   const [error, setError] = useState('')
   const key = useRef<string | null>(null)
+  const files = useQuery(readyFilesQuery(projectId, fileSearch, filePage))
   const submit = async (event: FormEvent) => {
     event.preventDefault()
     if (!notes.trim()) { setError('Describe lo que entregas en esta versión.'); return }
-    try { await onSubmit(notes.trim(), key.current ??= crypto.randomUUID()); key.current = null; setNotes('') }
+    try { await onSubmit(notes.trim(), key.current ??= crypto.randomUUID(), selected); key.current = null; setNotes(''); setSelected([]) }
     catch (cause) { setError(cause instanceof Error ? cause.message : 'No pudimos enviar la versión.') }
   }
-  return <form className="review-form" onSubmit={submit}>
-    <h2>Enviar nueva versión</h2>
+  return <section className="review-form"><h2>Enviar nueva versión</h2>
+    <FileUploader projectId={projectId} onUploaded={(asset) => setSelected((current) => [...current, asset.id])} />
+    <form className="review-file-search" onSubmit={(event) => { event.preventDefault(); setFilePage(0); setFileSearch(String(new FormData(event.currentTarget).get('fileSearch') ?? '').trim()) }}>
+      <label>Buscar archivo<input name="fileSearch" type="search" defaultValue={fileSearch} autoComplete="off" /></label>
+      <button type="submit" className="crm-button">Buscar</button>
+    </form>
+    <form onSubmit={submit}>
     <label htmlFor="version-notes">Notas de entrega</label>
     <textarea id="version-notes" value={notes} required maxLength={12000} rows={5} disabled={pending}
       onChange={(event) => { setNotes(event.target.value); setError(''); key.current = null }} />
+    <fieldset className="review-file-picker"><legend>Archivos de esta versión</legend>
+      {files.isPending ? <p role="status">Cargando archivos disponibles…</p> : null}
+      {files.error ? <CrmError message={files.error.message} /> : null}
+      {files.data?.items.length === 0 ? <p>No hay archivos disponibles para esta búsqueda.</p> : null}
+      {files.data?.items.map((asset) => <label key={asset.id}><input type="checkbox" checked={selected.includes(asset.id)} disabled={pending}
+        onChange={(event) => { setSelected((current) => event.target.checked ? [...current, asset.id] : current.filter((id) => id !== asset.id)); key.current = null }} />{asset.original_filename}</label>)}
+      <p>{selected.length} archivo(s) seleccionados para esta versión.</p>
+      {files.data && files.data.total > FILE_PAGE_SIZE ? <div className="review-actions">
+        <button type="button" className="crm-button" disabled={filePage === 0} onClick={() => setFilePage((value) => value - 1)}>Anterior</button>
+        <span>Página {filePage + 1} de {Math.ceil(files.data.total / FILE_PAGE_SIZE)}</span>
+        <button type="button" className="crm-button" disabled={(filePage + 1) * FILE_PAGE_SIZE >= files.data.total} onClick={() => setFilePage((value) => value + 1)}>Siguiente</button>
+      </div> : null}
+    </fieldset>
     <p>El contenido enviado quedará en el historial de versiones.</p>
     {error ? <CrmError message={error} /> : null}
     <button className="crm-button crm-button--primary" type="submit" disabled={pending}>{pending ? 'Enviando…' : 'Enviar a revisión'}</button>
-  </form>
+    </form>
+  </section>
 }
 
 function DecisionForm({ assignment, pending, onDecide }: {
@@ -107,8 +135,9 @@ function OverrideForm({ assignment, pending, onOverride }: {
   </form>
 }
 
-function VersionCard({ version, actorId, canOverride, pending, decide, override }: {
+function VersionCard({ version, assets, actorId, canOverride, pending, decide, override }: {
   version: ReviewVersion; actorId: string | undefined; canOverride: boolean; pending: boolean
+  assets: FileAsset[]
   decide: (assignmentId: string, decision: 'approve' | 'request_changes', reason: string, key: string) => Promise<unknown>
   override: (assignmentId: string, reason: string, key: string) => Promise<unknown>
 }) {
@@ -116,6 +145,10 @@ function VersionCard({ version, actorId, canOverride, pending, decide, override 
     <header><h3>Versión {version.version_number}</h3><StatusBadge value={version.round.status} /></header>
     <p className="review-meta">{version.submitter_name} · <time dateTime={version.submitted_at}>{dateTime.format(new Date(version.submitted_at))}</time></p>
     <p className="review-notes">{version.notes}</p>
+    <h4>Archivos de esta versión</h4>
+    {assets.length ? <ul className="review-version-files">{assets.map((asset) => <li key={asset.id}>
+      <strong>{asset.original_filename}</strong><FileActions asset={asset} />
+    </li>)}</ul> : <p>Sin archivos adjuntos.</p>}
     <h4>Revisión interna</h4>
     <ul className="review-assignees">
       {version.round.assignments.map((assignment) => <li key={assignment.id}>
@@ -139,12 +172,15 @@ export function Component() {
   const queryClient = useQueryClient()
   const [success, setSuccess] = useState('')
   const detail = useQuery(deliverableDetailQuery(workItemId))
+  const versionIds = detail.data?.versions.map((version) => version.id) ?? []
+  const versionFiles = useQuery(versionFilesQuery(versionIds))
   const refresh = async () => {
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: reviewKeys.detail(workItemId) }),
       queryClient.invalidateQueries({ queryKey: reviewKeys.queueRoot() }),
       queryClient.invalidateQueries({ queryKey: workKeys.all }),
       queryClient.invalidateQueries({ queryKey: ['my-space'] }),
+      queryClient.invalidateQueries({ queryKey: fileKeys.all }),
     ])
   }
   const create = useMutation({
@@ -152,7 +188,7 @@ export function Component() {
     onSuccess: async () => { await refresh(); setSuccess('Entrega creada.') },
   })
   const submit = useMutation({
-    mutationFn: ({ id, notes, key }: { id: string; notes: string; key: string }) => submitVersion(getSupabaseClient(), id, notes, key),
+    mutationFn: ({ id, notes, key, assetIds }: { id: string; notes: string; key: string; assetIds: string[] }) => submitVersion(getSupabaseClient(), id, notes, key, assetIds),
     onSuccess: async () => { await refresh(); setSuccess('Versión enviada a revisión.') },
   })
   const decision = useMutation({
@@ -183,8 +219,8 @@ export function Component() {
         <Link className="crm-row-link" to={`/app/projects/${data.work.project_id}/reviews${data.deliverable ? `?deliverableId=${data.deliverable.id}` : ''}`}>Configurar reviewers</Link>
       </div>
       {data.can_create ? <CreateForm pending={pending} onCreate={(title, key) => create.mutateAsync({ title, key })} /> : null}
-      {data.can_submit && data.deliverable ? <SubmissionForm pending={pending}
-        onSubmit={(notes, key) => submit.mutateAsync({ id: data.deliverable!.id, notes, key })} /> : null}
+      {data.can_submit && data.deliverable ? <SubmissionForm projectId={data.work.project_id} pending={pending}
+        onSubmit={(notes, key, assetIds) => submit.mutateAsync({ id: data.deliverable!.id, notes, key, assetIds })} /> : null}
       {data.can_publish && data.deliverable ? <section className="review-publish" aria-labelledby="review-publish-title">
         <h2 id="review-publish-title">Revisión interna completa</h2><p>La versión aprobada está lista para publicar al cliente.</p>
         <button className="crm-button crm-button--primary" type="button" disabled={pending}
@@ -192,7 +228,9 @@ export function Component() {
       </section> : null}
       <section aria-labelledby="review-history-title"><h2 id="review-history-title">Historial de versiones</h2>
         {data.versions.length === 0 ? <p>La primera versión aún no se ha enviado.</p> : null}
+        {versionFiles.error ? <CrmError message={versionFiles.error.message} /> : null}
         <ol className="review-history">{data.versions.map((version) => <VersionCard key={version.id} version={version}
+          assets={versionFiles.data?.filter((entry) => entry.deliverable_version_id === version.id).map((entry) => entry.file_assets).filter((asset): asset is FileAsset => Boolean(asset)) ?? []}
           actorId={actorId} canOverride={data.can_override} pending={pending}
           decide={(id, value, reason, key) => decision.mutateAsync({ id, value, reason, key })}
           override={(id, reason, key) => override.mutateAsync({ id, reason, key })} />)}</ol>

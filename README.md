@@ -1,8 +1,8 @@
 # OMNIA Craft 2.0
 
-Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable y planificación editorial de OMNIA Craft.
+Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable, planificación editorial, entregables y archivos privados de OMNIA Craft.
 
-No incluye publicación real a redes sociales, Client Portal de entregas, Realtime, Storage operacional ni configuración remota.
+No incluye publicación real a redes sociales, Client Portal de entregas, Realtime ni configuración remota.
 
 ## Requisitos
 
@@ -165,7 +165,7 @@ Los scripts de arranque, reset e integración esperan de forma acotada a que Pos
 ## Deliverables y revisión interna
 
 - Un `work_items` canónico admite como máximo un `deliverables`; Editorial llega a la entrega mediante su Work Item, sin tabla paralela.
-- Cada envío crea un snapshot inmutable en `deliverable_versions` con número reservado bajo lock en PostgreSQL. Las notas describen la entrega; todavía no hay Files, Storage ni adjuntos.
+- Cada envío crea un snapshot inmutable en `deliverable_versions` con número reservado bajo lock en PostgreSQL. Las notas y el conjunto exacto de `deliverable_files` quedan fijados en la misma transacción.
 - `review_requirements` guarda reviewers internos concretos por Project y permite reemplazarlos para un Deliverable. El MVP usa personas concretas, lo que simplifica el control de membresía y evita reglas de rol universales. Un cambio de configuración retira requirements anteriores; cada `review_rounds` conserva sus `review_assignments` originales.
 - La fixture local concede `review.configure` sólo al PM de Organization A mediante grant explícito; otros PM no reciben ese permiso por rol.
 - `record_review_decision` registra una sola decisión `approve` o `request_changes` por assignment. Cualquier solicitud de cambios cierra la ronda y devuelve la entrega a ejecución. Todas las aprobaciones requeridas, u overrides auditados, dejan la entrega `ready_for_client` y el Work Item `done`.
@@ -173,6 +173,17 @@ Los scripts de arranque, reset e integración esperan de forma acotada a que Pos
 - `publish_deliverable_to_client` registra una transición server-side explícita. Phase 7 mantiene todas las tablas de revisión internas invisibles al cliente; la experiencia Client Portal aún no está implementada.
 - `/app/reviews` consulta sólo assignments pendientes del actor. `/app/deliverables/:workItemId` ofrece envío, historial de versiones, decisiones, timeline y override autorizado. `/app/projects/:projectId/reviews` configura los reviewers de Project o Deliverable.
 - `npm run test:deliverables` ejecuta el flujo completo y carreras con sesiones reales contra Supabase local. `npm run db:test` incluye pgTAP de schema, RLS, snapshots, transitions, idempotencia e inmutabilidad.
+
+## Archivos privados y Content Manager
+
+- `/app/content-manager` lista metadata autorizada con paginación de 20 registros, búsqueda por nombre original y filtros de proyecto, tipo y estado. Desde allí se sube, descarga, previsualiza imagen/PDF, archiva y vincula un asset listo a una pieza editorial. El detalle de una entrega permite subir y seleccionar archivos del mismo proyecto y muestra los archivos exactos de cada versión.
+- El único bucket de Phase 8 es `project-files`, privado, con límite global y de bucket de **50 MiB**. Admite JPEG, PNG, WebP, MP4, MOV, PDF, DOC/DOCX, XLS/XLSX y PPT/PPTX. No hay bucket público ni `getPublicUrl()` para estos archivos. El path canónico es `<project_uuid>/<asset_uuid>`; el nombre original sólo se usa para presentar y descargar.
+- `prepare_file_asset` valida actor, proyecto, capability, tamaño, MIME declarado y extensión; genera el UUID/path y deja metadata `pending`. La subida real usa Storage API con `upsert: false`. `finalize_file_asset` verifica objeto, bucket/path, MIME y tamaño de la metadata de Storage antes de marcar `ready` y crear `project_files`. Un upload fallido o incompleto no queda utilizable.
+- `file_assets` contiene metadata canónica; `project_files`, `content_asset_links` y `deliverable_files` explican cada relación. `submit_deliverable_version` valida assets listos del mismo proyecto y crea los enlaces de versión, ronda y assignments en una transacción. V1 conserva sus archivos al crear V2. Storage no permite UPDATE de objetos; nuevos bytes exigen nuevo asset.
+- Las descargas y vistas previas usan la descarga autenticada del bucket privado bajo RLS. La policy permite sólo las operaciones Storage necesarias para listar, leer y borrar mediante comando; bloquea la creación de URLs firmadas incluso para un actor autorizado. No se crean ni cachean URLs firmadas. La policy exige metadata canónica, permiso y scope de proyecto. Clients no reciben acceso a archivos por ser miembros de Organization o Project. **Client Portal para archivos no está implementado todavía.**
+- El archivo se archiva primero. Sólo `agency_director` con `file.delete_permanently` puede solicitar eliminación física de un asset sin enlaces históricos. El comando pasa por `deleting`, Storage API elimina el objeto y un segundo RPC confirma ausencia y deja metadata `deleted`; si una etapa falla, el estado permite reintentar. `domain_events` y `audit_events` registran el cambio. Nunca se elimina permanentemente un asset de una versión enviada.
+- `npm run db:files:diagnose` compara metadata y objetos del stack **local** y reporta pendientes con más de una hora, objetos sin metadata y metadata lista sin objeto. La limpieza de huérfanos exige revisión humana y Storage API. No hay scheduler automático ni malware scanning. MIME y tamaño se validan por metadata declarada y restricciones del bucket; no existe content sniffing confiable ni verificación criptográfica de bytes en esta arquitectura. La subida estándar de Supabase no ofrece progreso de bytes ni cancelación en su API actual; la interfaz anuncia estado y error, y permite cambiar la selección antes de enviar.
+- `npm run test:files` prueba upload real, finalize, aislamiento Project/Client, descarga, URL firmada ajena, rutas arbitrarias, overwrite, submit V1/V2, historia y borrado. `npm run db:test` agrega pgTAP de Storage policies y privilegios.
 
 ## Verificación
 
@@ -193,6 +204,8 @@ npm run test:work
 npm run test:dashboard
 npm run test:editorial
 npm run test:deliverables
+npm run test:files
+npm run db:files:diagnose
 npm run build
 ```
 
@@ -211,6 +224,8 @@ npm run build
 | `npm run test:dashboard` | Flujo contributor/PM/client: guardar → recargar → mover/quitar/añadir → reset, gating CRM, RLS y conflicto CAS entre dos sesiones |
 | `npm run test:editorial` | PM → ciclo/plantilla/pieza → disponible → dos postulaciones → aceptación → Work/My Space/events; dos sesiones PM compiten por aplicaciones distintas; aislamiento, revocación y asignación manual |
 | `npm run test:deliverables` | Configuración → entrega V1 → cambios → V2 → aprobación; retries, carreras de submit/decisión/override, publicación, aislamiento y auditoría |
+| `npm run test:files` | Storage API real, metadata, RLS, ataques de path/overwrite, V1/V2 con archivos y eliminación restringida |
+| `npm run db:files:diagnose` | Diagnóstico local de drift DB ↔ Storage sin mutar objetos |
 | `npm run build` | TypeScript + bundle production de Vite |
 
 Para detener sólo este stack:

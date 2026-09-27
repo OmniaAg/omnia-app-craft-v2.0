@@ -15,6 +15,7 @@ export function Component() {
     { href: '/app', label: 'Interno' },
     { href: '/app/my-space', label: 'Mi Espacio' },
     { href: '/app/reviews', label: 'Mis revisiones' },
+    { href: '/app/content-manager', label: 'Archivos' },
     { href: '/app/projects', label: 'Proyectos' },
     { href: '/app/editorial/calendar', label: 'Editorial' },
     { href: '/app/crm/accounts', label: 'Organizations' },

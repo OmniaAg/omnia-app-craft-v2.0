@@ -705,6 +705,8 @@ Supabase recomienda Broadcast para escalabilidad/seguridad; Postgres Changes es 
 | `deliverables` | Privado | `<project_id>/<deliverable_id>/<version_id>/<asset_uuid>` | tipos por deliverable, límites explícitos |
 | `content-assets` | Privado | `<organization_id>/<content_item_id>/<asset_uuid>` | media; evaluar resumable upload |
 
+**Ajuste implementado en Phase 8:** los tres usos internos comparten el bucket privado `project-files` con path `<project_id>/<asset_uuid>` y asociaciones explícitas en PostgreSQL. Phase 7 crea `deliverable_versions` sólo al enviar; exigir `version_id` en el path habría requerido una versión borrador mutable o mover el objeto después. La autorización consulta metadata, capability y relación de Project; los enlaces a la versión se fijan transaccionalmente al enviar. Los buckets de la tabla permanecen propuestas conceptuales para necesidades posteriores.
+
 ### Controles
 
 - `file_assets` guarda nombre original para display, nombre/UUID canónico, MIME detectado, tamaño, checksum, uploader, resource scope y estado de scan.

@@ -76,8 +76,8 @@ export async function createDeliverable(client: OmniaSupabaseClient, workItemId:
   return unwrap(data, error, 'No pudimos crear la entrega.')
 }
 
-export async function submitVersion(client: OmniaSupabaseClient, deliverableId: string, notes: string, key: string) {
-  const { data, error } = await client.rpc('submit_deliverable_version', { deliverable_id: deliverableId, notes, idempotency_key: key })
+export async function submitVersion(client: OmniaSupabaseClient, deliverableId: string, notes: string, key: string, assetIds: string[] = []) {
+  const { data, error } = await client.rpc('submit_deliverable_version', { deliverable_id: deliverableId, notes, idempotency_key: key, asset_ids: assetIds })
   return unwrap(data, error, 'No pudimos enviar la versión. Confirma que hay revisores configurados y activos.')
 }
 

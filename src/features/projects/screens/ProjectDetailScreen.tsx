@@ -102,7 +102,7 @@ export function Component() {
       <CrmPageHeader
         title={detail.project_name}
         description={`${detail.organization_name} · ${detail.brand_name} · ${detail.timezone}`}
-        action={<div className="project-header-actions"><Link className="crm-row-link" to={`/app/projects/${projectId}/editorial`}>Editorial</Link><Link className="crm-row-link" to={`/app/projects/${projectId}/reviews`}>Revisores</Link><StatusBadge value={detail.project_status} />{detail.can_archive_project && !isArchived ? <button className="work-danger-action" type="button" disabled={archiveMutation.isPending} onClick={() => { if (window.confirm(`¿Archivar “${detail.project_name}”?`)) archiveMutation.mutate() }}>{archiveMutation.isPending ? 'Archivando…' : 'Archivar proyecto'}</button> : null}</div>}
+        action={<div className="project-header-actions"><Link className="crm-row-link" to={`/app/projects/${projectId}/editorial`}>Editorial</Link><Link className="crm-row-link" to={`/app/content-manager?project=${projectId}`}>Archivos</Link><Link className="crm-row-link" to={`/app/projects/${projectId}/reviews`}>Revisores</Link><StatusBadge value={detail.project_status} />{detail.can_archive_project && !isArchived ? <button className="work-danger-action" type="button" disabled={archiveMutation.isPending} onClick={() => { if (window.confirm(`¿Archivar “${detail.project_name}”?`)) archiveMutation.mutate() }}>{archiveMutation.isPending ? 'Archivando…' : 'Archivar proyecto'}</button> : null}</div>}
       />
       {error ? <CrmError message={error.message} /> : null}
       {success ? <CrmSuccess message={success} /> : null}

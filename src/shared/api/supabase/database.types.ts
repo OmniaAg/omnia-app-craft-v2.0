@@ -427,6 +427,52 @@ export type Database = {
           },
         ]
       }
+      content_asset_links: {
+        Row: {
+          asset_id: string
+          editorial_item_id: string
+          linked_at: string
+          linked_by: string
+          project_id: string
+        }
+        Insert: {
+          asset_id: string
+          editorial_item_id: string
+          linked_at?: string
+          linked_by: string
+          project_id: string
+        }
+        Update: {
+          asset_id?: string
+          editorial_item_id?: string
+          linked_at?: string
+          linked_by?: string
+          project_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_asset_links_asset_id_project_id_fkey"
+            columns: ["asset_id", "project_id"]
+            isOneToOne: false
+            referencedRelation: "file_assets"
+            referencedColumns: ["id", "project_id"]
+          },
+          {
+            foreignKeyName: "content_asset_links_editorial_item_id_project_id_fkey"
+            columns: ["editorial_item_id", "project_id"]
+            isOneToOne: false
+            referencedRelation: "editorial_items"
+            referencedColumns: ["id", "project_id"]
+          },
+          {
+            foreignKeyName: "content_asset_links_linked_by_fkey"
+            columns: ["linked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       content_templates: {
         Row: {
           archived_at: string | null
@@ -600,6 +646,39 @@ export type Database = {
             isOneToOne: true
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      deliverable_files: {
+        Row: {
+          asset_id: string
+          deliverable_version_id: string
+          ordinal: number
+        }
+        Insert: {
+          asset_id: string
+          deliverable_version_id: string
+          ordinal: number
+        }
+        Update: {
+          asset_id?: string
+          deliverable_version_id?: string
+          ordinal?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deliverable_files_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "file_assets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deliverable_files_deliverable_version_id_fkey"
+            columns: ["deliverable_version_id"]
+            isOneToOne: false
+            referencedRelation: "deliverable_versions"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -970,6 +1049,69 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "work_items"
             referencedColumns: ["id", "project_id"]
+          },
+        ]
+      }
+      file_assets: {
+        Row: {
+          archived_at: string | null
+          bucket_id: string
+          created_at: string
+          deleted_at: string | null
+          finalized_at: string | null
+          id: string
+          mime_type: string
+          object_path: string
+          original_filename: string
+          project_id: string
+          size_bytes: number
+          status: string
+          uploaded_by: string
+        }
+        Insert: {
+          archived_at?: string | null
+          bucket_id?: string
+          created_at?: string
+          deleted_at?: string | null
+          finalized_at?: string | null
+          id?: string
+          mime_type: string
+          object_path: string
+          original_filename: string
+          project_id: string
+          size_bytes: number
+          status?: string
+          uploaded_by: string
+        }
+        Update: {
+          archived_at?: string | null
+          bucket_id?: string
+          created_at?: string
+          deleted_at?: string | null
+          finalized_at?: string | null
+          id?: string
+          mime_type?: string
+          object_path?: string
+          original_filename?: string
+          project_id?: string
+          size_bytes?: number
+          status?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "file_assets_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "file_assets_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -1373,6 +1515,49 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      project_files: {
+        Row: {
+          asset_id: string
+          linked_at: string
+          linked_by: string
+          project_id: string
+        }
+        Insert: {
+          asset_id: string
+          linked_at?: string
+          linked_by: string
+          project_id: string
+        }
+        Update: {
+          asset_id?: string
+          linked_at?: string
+          linked_by?: string
+          project_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_files_asset_id_project_id_fkey"
+            columns: ["asset_id", "project_id"]
+            isOneToOne: false
+            referencedRelation: "file_assets"
+            referencedColumns: ["id", "project_id"]
+          },
+          {
+            foreignKeyName: "project_files_linked_by_fkey"
+            columns: ["linked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "project_files_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       project_memberships: {
         Row: {
@@ -2132,6 +2317,7 @@ export type Database = {
         Returns: string
       }
       archive_editorial_item: { Args: { item_id: string }; Returns: string }
+      archive_file_asset: { Args: { asset_id: string }; Returns: string }
       archive_personal_work_item: {
         Args: { personal_item_id: string }
         Returns: string
@@ -2200,6 +2386,10 @@ export type Database = {
           reviewer_ids: string[]
         }
         Returns: number
+      }
+      confirm_file_permanent_delete: {
+        Args: { asset_id: string }
+        Returns: string
       }
       create_brand: {
         Args: {
@@ -2419,6 +2609,46 @@ export type Database = {
           work_item_id: string
         }[]
       }
+      file_director_access_allowed: {
+        Args: { project_id: string }
+        Returns: boolean
+      }
+      file_object_delete_allowed: {
+        Args: { bucket: string; path: string }
+        Returns: boolean
+      }
+      file_object_insert_allowed: {
+        Args: { bucket: string; path: string }
+        Returns: boolean
+      }
+      file_object_read_allowed: {
+        Args: { bucket: string; path: string }
+        Returns: boolean
+      }
+      finalize_file_asset: {
+        Args: { asset_id: string }
+        Returns: {
+          archived_at: string | null
+          bucket_id: string
+          created_at: string
+          deleted_at: string | null
+          finalized_at: string | null
+          id: string
+          mime_type: string
+          object_path: string
+          original_filename: string
+          project_id: string
+          size_bytes: number
+          status: string
+          uploaded_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "file_assets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       has_capability: {
         Args: {
           agency_scope?: string
@@ -2429,6 +2659,10 @@ export type Database = {
       }
       health_check: { Args: never; Returns: Json }
       is_internal_actor: { Args: never; Returns: boolean }
+      link_content_asset: {
+        Args: { asset_id: string; item_id: string }
+        Returns: string
+      }
       list_projects: {
         Args: {
           page_limit?: number
@@ -2488,6 +2722,39 @@ export type Database = {
           review_assignment_id: string
         }
         Returns: string
+      }
+      phase7_submit_deliverable_version: {
+        Args: { deliverable_id: string; idempotency_key: string; notes: string }
+        Returns: string
+      }
+      prepare_file_asset: {
+        Args: {
+          mime_type: string
+          original_filename: string
+          project_id: string
+          size_bytes: number
+        }
+        Returns: {
+          archived_at: string | null
+          bucket_id: string
+          created_at: string
+          deleted_at: string | null
+          finalized_at: string | null
+          id: string
+          mime_type: string
+          object_path: string
+          original_filename: string
+          project_id: string
+          size_bytes: number
+          status: string
+          uploaded_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "file_assets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       project_access_allowed: {
         Args: { capability_key: string; project_id: string }
@@ -2600,6 +2867,10 @@ export type Database = {
         }
         Returns: string
       }
+      request_file_permanent_delete: {
+        Args: { asset_id: string }
+        Returns: string
+      }
       reset_dashboard_config: {
         Args: { expected_revision: number }
         Returns: boolean
@@ -2653,7 +2924,12 @@ export type Database = {
         }
       }
       submit_deliverable_version: {
-        Args: { deliverable_id: string; idempotency_key: string; notes: string }
+        Args: {
+          asset_ids?: string[]
+          deliverable_id: string
+          idempotency_key: string
+          notes: string
+        }
         Returns: string
       }
       transition_work_item: {

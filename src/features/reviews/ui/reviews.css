@@ -19,6 +19,11 @@
 .review-form textarea { resize: vertical; }
 .review-form :is(input,textarea,button):focus-visible { outline: 3px solid #70549d; outline-offset: 2px; }
 .review-form .review-choice { display: flex; align-items: center; gap: .6rem; font-weight: 400; }
+.review-file-search { display: flex; align-items: end; flex-wrap: wrap; gap: .75rem; }
+.review-file-search label { flex: 1 1 14rem; display: grid; gap: .35rem; }
+.review-file-picker label { display: flex; align-items: center; gap: .5rem; overflow-wrap: anywhere; }
+.review-version-files { list-style: none; padding: 0; display: grid; gap: .75rem; }
+.review-version-files li { overflow-wrap: anywhere; }
 .review-form--override { background: #fff8ec; border-color: #c99449; }
 .review-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
 .review-exception { border-left: 3px solid #b47727; padding-left: .75rem; white-space: pre-wrap; }
