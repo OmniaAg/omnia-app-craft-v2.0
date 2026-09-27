@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from 'react'
 import type { Session } from '@supabase/supabase-js'
+import { useQueryClient } from '@tanstack/react-query'
 import {
   getSupabaseClient,
   type OmniaSupabaseClient,
@@ -58,14 +59,18 @@ export function AuthProvider({
   const [actor, setActor] = useState<AuthenticatedActor | null>(null)
   const [error, setError] = useState<string | null>(null)
   const operationVersion = useRef(0)
+  const currentUserId = useRef<string | null>(null)
+  const queryClient = useQueryClient()
 
   const clearSession = useCallback(() => {
     operationVersion.current += 1
+    currentUserId.current = null
+    queryClient.clear()
     setSession(null)
     setActor(null)
     setError(null)
     setStatus('anonymous')
-  }, [])
+  }, [queryClient])
 
   const hydrateSession = useCallback(
     async (nextSession: Session): Promise<AuthorizationProjection> => {
@@ -79,6 +84,10 @@ export function AuthProvider({
         const projection = await loadAuthorizationProjection(client, user.id)
 
         if (operationVersion.current === version) {
+          if (currentUserId.current !== user.id) {
+            queryClient.clear()
+            currentUserId.current = user.id
+          }
           setSession(nextSession)
           setActor({ user, ...projection })
           setStatus('authenticated')
@@ -87,6 +96,8 @@ export function AuthProvider({
         return projection
       } catch (caughtError) {
         if (operationVersion.current === version) {
+          currentUserId.current = null
+          queryClient.clear()
           setSession(null)
           setActor(null)
           setError(messageFrom(caughtError))
@@ -95,7 +106,7 @@ export function AuthProvider({
         throw caughtError
       }
     },
-    [client],
+    [client, queryClient],
   )
 
   useEffect(() => {

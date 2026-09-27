@@ -1,4 +1,5 @@
 import { randomBytes } from 'node:crypto'
+import { TEST_PASSWORD } from './test-fixtures/credentials.mjs'
 import { createClient } from '@supabase/supabase-js'
 import { waitForPostgrest } from './lib/local-supabase.mjs'
 
@@ -13,7 +14,7 @@ function invariant(condition, message) {
 }
 
 function password() {
-  return `OmniaDash9!${randomBytes(18).toString('base64url')}`
+  return TEST_PASSWORD
 }
 
 function browserClient(apiUrl, key) {

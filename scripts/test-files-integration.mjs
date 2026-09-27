@@ -1,4 +1,5 @@
 import { randomBytes, randomUUID } from 'node:crypto'
+import { TEST_PASSWORD } from './test-fixtures/credentials.mjs'
 import { createClient } from '@supabase/supabase-js'
 import { waitForPostgrest } from './lib/local-supabase.mjs'
 
@@ -24,7 +25,7 @@ async function main() {
   check(new URL(status.API_URL).hostname === '127.0.0.1', 'local loopback only')
   const admin = createClient(status.API_URL, status.SECRET_KEY, { auth: { persistSession: false } })
   async function actor([id, email]) {
-    const password = `OmniaFiles9!${randomBytes(18).toString('base64url')}`
+    const password = TEST_PASSWORD
     ok(await admin.auth.admin.updateUserById(id, { password, email_confirm: true }), `bootstrap ${email}`)
     const client = createClient(status.API_URL, status.PUBLISHABLE_KEY, { auth: { persistSession: false, autoRefreshToken: false } })
     check(!(await client.auth.signInWithPassword({ email, password })).error, `login ${email}`)

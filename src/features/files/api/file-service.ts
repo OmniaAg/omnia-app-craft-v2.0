@@ -64,7 +64,7 @@ export async function getPrivateBlob(client: OmniaSupabaseClient, asset: Pick<Fi
   return data
 }
 
-export async function downloadFileAsset(client: OmniaSupabaseClient, asset: FileAsset) {
+export async function downloadFileAsset(client: OmniaSupabaseClient, asset: Pick<FileAsset, 'bucket_id' | 'object_path' | 'original_filename'>) {
   const blob = await getPrivateBlob(client, asset)
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')

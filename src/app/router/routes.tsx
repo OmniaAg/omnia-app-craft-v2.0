@@ -90,8 +90,14 @@ export const appRoutes: RouteObject[] = [
             children: [
               {
                 index: true,
-                lazy: () => import('../../features/foundation/PortalHome'),
+                lazy: () => import('../../features/portal/screens/PortalOverviewScreen'),
               },
+              { path: 'projects', lazy: () => import('../../features/portal/screens/PortalProjectsScreen') },
+              { path: 'projects/:projectId', lazy: () => import('../../features/portal/screens/PortalProjectScreen') },
+              { path: 'deliverables/:publicationId', lazy: () => import('../../features/portal/screens/PortalDeliverableScreen') },
+              { path: 'approvals', lazy: () => import('../../features/portal/screens/PortalApprovalsScreen') },
+              { path: 'documents', lazy: () => import('../../features/portal/screens/PortalDocumentsScreen') },
+              { path: 'settings', lazy: () => import('../../features/portal/screens/PortalSettingsScreen') },
             ],
           },
         ],

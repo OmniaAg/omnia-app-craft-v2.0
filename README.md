@@ -1,8 +1,8 @@
 # OMNIA Craft 2.0
 
-Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable, planificación editorial, entregables y archivos privados de OMNIA Craft.
+Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable, planificación editorial, entregables, archivos privados y Client Portal de OMNIA Craft.
 
-No incluye publicación real a redes sociales, Client Portal de entregas, Realtime ni configuración remota.
+No incluye publicación real a redes sociales, Realtime, chat ni configuración remota.
 
 ## Requisitos
 
@@ -101,7 +101,22 @@ Analytics y pooler permanecen deshabilitados. El flujo local no requiere ni perm
 - Projects A1/A2/A3/B1, PM A/B, contributors A/B y client members explícitos para probar aislamiento cruzado;
 - milestones, Work Items asignados, comentarios y pendientes personales que cubren overdue/today/upcoming/no due date.
 
-Los usuarios seeded no tienen contraseña reutilizable. `npm run test:auth` asigna passwords aleatorias en memoria mediante la clave server local, nunca las imprime y sólo opera si API y Mailpit usan los puertos loopback esperados. El primer director existe por un bootstrap administrativo explícito del seed; ningún signup trigger concede membresía o rol. El bootstrap productivo se definirá en la fase de deployment, no aquí.
+Los usuarios seeded tienen la contraseña determinista `OmniaTest!2026` configurada después de `db:reset`. `npm run test:auth` verifica login y aislamiento de roles. El primer director existe por un bootstrap administrativo explícito del seed; ningún signup trigger concede membresía o rol. El bootstrap productivo se definirá en la fase de deployment, no aquí.
+
+### Local Test Accounts
+
+**TEST ONLY — NEVER USE IN PRODUCTION**
+
+| Role | Email | Password | Scope |
+| ---- | ----- | -------- | ----- |
+| Agency Director | director@omnia.local | OmniaTest!2026 | Full agency access |
+| Project Manager | pm.scoped@omnia.local | OmniaTest!2026 | Assigned projects |
+| Contributor | contributor@omnia.local | OmniaTest!2026 | Assigned tasks |
+| Client Admin | client.admin.a@omnia.local | OmniaTest!2026 | Org A invitations |
+| Client Reviewer | client.reviewer.a@omnia.local | OmniaTest!2026 | Org A approvals |
+| Client Viewer | client.viewer.a@omnia.local | OmniaTest!2026 | Org A view only |
+| Cross-Client | client.user.b@omnia.local | OmniaTest!2026 | Org B view only |
+
 
 ## Auth local
 
@@ -170,7 +185,7 @@ Los scripts de arranque, reset e integración esperan de forma acotada a que Pos
 - La fixture local concede `review.configure` sólo al PM de Organization A mediante grant explícito; otros PM no reciben ese permiso por rol.
 - `record_review_decision` registra una sola decisión `approve` o `request_changes` por assignment. Cualquier solicitud de cambios cierra la ronda y devuelve la entrega a ejecución. Todas las aprobaciones requeridas, u overrides auditados, dejan la entrega `ready_for_client` y el Work Item `done`.
 - `override_review_requirement` es exclusivo de una Directora con capability `review.override`; exige razón, conserva reviewer/requisito/version y enlaza `review_overrides` con `audit_events`. No equivale a una aprobación.
-- `publish_deliverable_to_client` registra una transición server-side explícita. Phase 7 mantiene todas las tablas de revisión internas invisibles al cliente; la experiencia Client Portal aún no está implementada.
+- `publish_deliverable_to_client` exige la última versión aprobada internamente, registra su `version_id` exacto y crea una revisión cliente separada. Las tablas de revisión interna permanecen invisibles al cliente.
 - `/app/reviews` consulta sólo assignments pendientes del actor. `/app/deliverables/:workItemId` ofrece envío, historial de versiones, decisiones, timeline y override autorizado. `/app/projects/:projectId/reviews` configura los reviewers de Project o Deliverable.
 - `npm run test:deliverables` ejecuta el flujo completo y carreras con sesiones reales contra Supabase local. `npm run db:test` incluye pgTAP de schema, RLS, snapshots, transitions, idempotencia e inmutabilidad.
 
@@ -180,10 +195,20 @@ Los scripts de arranque, reset e integración esperan de forma acotada a que Pos
 - El único bucket de Phase 8 es `project-files`, privado, con límite global y de bucket de **50 MiB**. Admite JPEG, PNG, WebP, MP4, MOV, PDF, DOC/DOCX, XLS/XLSX y PPT/PPTX. No hay bucket público ni `getPublicUrl()` para estos archivos. El path canónico es `<project_uuid>/<asset_uuid>`; el nombre original sólo se usa para presentar y descargar.
 - `prepare_file_asset` valida actor, proyecto, capability, tamaño, MIME declarado y extensión; genera el UUID/path y deja metadata `pending`. La subida real usa Storage API con `upsert: false`. `finalize_file_asset` verifica objeto, bucket/path, MIME y tamaño de la metadata de Storage antes de marcar `ready` y crear `project_files`. Un upload fallido o incompleto no queda utilizable.
 - `file_assets` contiene metadata canónica; `project_files`, `content_asset_links` y `deliverable_files` explican cada relación. `submit_deliverable_version` valida assets listos del mismo proyecto y crea los enlaces de versión, ronda y assignments en una transacción. V1 conserva sus archivos al crear V2. Storage no permite UPDATE de objetos; nuevos bytes exigen nuevo asset.
-- Las descargas y vistas previas usan la descarga autenticada del bucket privado bajo RLS. La policy permite sólo las operaciones Storage necesarias para listar, leer y borrar mediante comando; bloquea la creación de URLs firmadas incluso para un actor autorizado. No se crean ni cachean URLs firmadas. La policy exige metadata canónica, permiso y scope de proyecto. Clients no reciben acceso a archivos por ser miembros de Organization o Project. **Client Portal para archivos no está implementado todavía.**
+- Las descargas y vistas previas usan la descarga autenticada del bucket privado bajo RLS. La policy permite sólo las operaciones Storage necesarias para listar, leer y borrar mediante comando; bloquea la creación de URLs firmadas incluso para un actor autorizado. No se crean ni cachean URLs firmadas. El cliente sólo puede descargar un asset `ready` enlazado a una versión publicada de un proyecto con membership cliente activa; conocer el path o pertenecer a la Organization no basta.
 - El archivo se archiva primero. Sólo `agency_director` con `file.delete_permanently` puede solicitar eliminación física de un asset sin enlaces históricos. El comando pasa por `deleting`, Storage API elimina el objeto y un segundo RPC confirma ausencia y deja metadata `deleted`; si una etapa falla, el estado permite reintentar. `domain_events` y `audit_events` registran el cambio. Nunca se elimina permanentemente un asset de una versión enviada.
 - `npm run db:files:diagnose` compara metadata y objetos del stack **local** y reporta pendientes con más de una hora, objetos sin metadata y metadata lista sin objeto. La limpieza de huérfanos exige revisión humana y Storage API. No hay scheduler automático ni malware scanning. MIME y tamaño se validan por metadata declarada y restricciones del bucket; no existe content sniffing confiable ni verificación criptográfica de bytes en esta arquitectura. La subida estándar de Supabase no ofrece progreso de bytes ni cancelación en su API actual; la interfaz anuncia estado y error, y permite cambiar la selección antes de enviar.
 - `npm run test:files` prueba upload real, finalize, aislamiento Project/Client, descarga, URL firmada ajena, rutas arbitrarias, overwrite, submit V1/V2, historia y borrado. `npm run db:test` agrega pgTAP de Storage policies y privilegios.
+
+## Client Portal (MVP)
+
+- `/portal` resume proyectos asignados, aprobaciones personales, entregas recientes y notificaciones persistidas.
+- `/portal/projects` y `/portal/projects/:projectId` muestran sólo proyectos con `client_memberships` y `project_memberships` activas. Hitos y actividad usan proyecciones explícitas; no se exponen Work Items, Editorial, CRM ni revisiones internas.
+- `/portal/approvals` consulta sólo las asignaciones pendientes del actor. `/portal/deliverables/:publicationId` muestra la versión publicada exacta, sus archivos, feedback contextual y la decisión del reviewer asignado. `client_viewer` sólo consulta; `client_reviewer` asignado puede aprobar o pedir cambios. `client_admin` no invita usuarios automáticamente ni obtiene aprobación por su rol.
+- `client_publications`, `client_reviews`, `client_review_assignments` y `client_review_decisions` conservan el historial. `record_client_decision` comprueba rol, dos memberships, publicación y assignment bajo locks; la solicitud de cambios permite V3 sin alterar V2. La decisión es inmutable e idempotente. OMNIA consulta ese historial en el detalle interno de la entrega.
+- `/portal/documents` lista sólo documentos enlazados a versiones publicadas. Storage mantiene el bucket privado `project-files`; el cliente no puede leer archivos internos, archivados, ajenos o aún no publicados.
+- `/portal/settings` ofrece perfil, zona horaria base y cierre de sesión. Las notificaciones mínimas se persisten a partir de eventos y se consultan sin Realtime. Chat, live counters, push, preferencias avanzadas y mensajería son Phase 10.
+- `npm run test:portal` prueba con sesiones Auth reales la secuencia V1 interna → V2 publicada → cambios cliente → V3 publicada → aprobación, además de descarga privada, aislamiento entre usuarios y organizaciones, feedback, reintentos y denegación de dominios internos. Ejecuta `db:reset` antes de integrar si necesitas los fixtures limpios; las suites de integración mutan la DB local.
 
 ## Verificación
 
@@ -205,6 +230,7 @@ npm run test:dashboard
 npm run test:editorial
 npm run test:deliverables
 npm run test:files
+npm run test:portal
 npm run db:files:diagnose
 npm run build
 ```
@@ -225,6 +251,7 @@ npm run build
 | `npm run test:editorial` | PM → ciclo/plantilla/pieza → disponible → dos postulaciones → aceptación → Work/My Space/events; dos sesiones PM compiten por aplicaciones distintas; aislamiento, revocación y asignación manual |
 | `npm run test:deliverables` | Configuración → entrega V1 → cambios → V2 → aprobación; retries, carreras de submit/decisión/override, publicación, aislamiento y auditoría |
 | `npm run test:files` | Storage API real, metadata, RLS, ataques de path/overwrite, V1/V2 con archivos y eliminación restringida |
+| `npm run test:portal` | Auth real, publicación exacta, archivos privados, cambios V2→V3, aprobación e aislamiento cliente |
 | `npm run db:files:diagnose` | Diagnóstico local de drift DB ↔ Storage sin mutar objetos |
 | `npm run build` | TypeScript + bundle production de Vite |
 

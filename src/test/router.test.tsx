@@ -77,7 +77,7 @@ describe('application routes', () => {
     expect(
       await screen.findByRole('heading', {
         level: 1,
-        name: 'Un espacio separado para clientes',
+        name: 'Tu espacio con OMNIA',
       }),
     ).toBeTruthy()
   })

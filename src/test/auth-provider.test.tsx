@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { Session, User } from '@supabase/supabase-js'
 import { describe, expect, it, vi } from 'vitest'
 import type { OmniaSupabaseClient } from '../shared/api/supabase/client'
@@ -94,10 +95,11 @@ function AuthProbe() {
 describe('AuthProvider', () => {
   it('restores a verified session and its authorization projection', async () => {
     const { client } = createSessionClient()
+    const queryClient = new QueryClient()
     render(
-      <AuthProvider client={client}>
-        <AuthProbe />
-      </AuthProvider>,
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider client={client}><AuthProbe /></AuthProvider>
+      </QueryClientProvider>,
     )
 
     await waitFor(() => {
@@ -109,13 +111,31 @@ describe('AuthProvider', () => {
 
   it('unsubscribes the auth listener when the provider unmounts', () => {
     const { client, unsubscribe } = createSessionClient()
+    const queryClient = new QueryClient()
     const view = render(
-      <AuthProvider client={client}>
-        <AuthProbe />
-      </AuthProvider>,
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider client={client}><AuthProbe /></AuthProvider>
+      </QueryClientProvider>,
     )
 
     view.unmount()
     expect(unsubscribe).toHaveBeenCalledOnce()
+  })
+
+  it('clears cached portal data when the session ends', async () => {
+    const { client } = createSessionClient()
+    const queryClient = new QueryClient()
+    render(
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider client={client}><AuthProbe /></AuthProvider>
+      </QueryClientProvider>,
+    )
+    await waitFor(() => expect(screen.getByText('authenticated')).toBeTruthy())
+    queryClient.setQueryData(['portal', 'projects', 0], [{ id: 'private-project' }])
+    const listener = vi.mocked(client.auth.onAuthStateChange).mock.calls[0]?.[0]
+    expect(listener).toBeDefined()
+    listener?.('SIGNED_OUT', null)
+    await waitFor(() => expect(screen.getByText('anonymous')).toBeTruthy())
+    expect(queryClient.getQueryData(['portal', 'projects', 0])).toBeUndefined()
   })
 })

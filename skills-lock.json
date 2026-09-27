@@ -25,6 +25,12 @@
       "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
       "computedHash": "016f12709bff30a27419e8add978a9be70f5ca1fb6738b3be6793038e0aba631"
     },
+    "playwright-cli": {
+      "source": "microsoft/playwright-cli",
+      "sourceType": "github",
+      "skillPath": "skills/playwright-cli/SKILL.md",
+      "computedHash": "09eed98ea76073cf14ca967ed222db08c42407b4db02149a7b4be04b2736ae6f"
+    },
     "supabase": {
       "source": "supabase/agent-skills",
       "sourceType": "github",

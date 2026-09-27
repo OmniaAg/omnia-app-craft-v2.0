@@ -44,7 +44,7 @@ export function StatusBadge({ value }: { value: string }) {
     planned: 'Planificado', available: 'Disponible', pending: 'Pendiente', accepted: 'Aceptada', rejected: 'No seleccionada',
     note: 'Nota', reminder: 'Recordatorio', project: 'Proyecto', personal: 'Personal',
     draft: 'Borrador', in_review: 'En revisión', changes_requested: 'Cambios solicitados',
-    ready_for_client: 'Lista para cliente', published_to_client: 'Publicada',
+    ready_for_client: 'Lista para cliente', published_to_client: 'Publicada', client_approved: 'Aprobada por cliente',
     approved: 'Aprobada', overridden: 'Omitida por Dirección',
   }
   return <span className="crm-status" data-status={value}>{labels[value] ?? value.replaceAll('_', ' ')}</span>

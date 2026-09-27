@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getSupabaseClient } from '../../../shared/api/supabase/client'
 import { downloadFileAsset, getPrivateBlob, type FileAsset } from '../api/file-service'
 
-export function FileActions({ asset }: { asset: FileAsset }) {
+export function FileActions({ asset }: { asset: Pick<FileAsset, 'bucket_id' | 'object_path' | 'original_filename' | 'mime_type'> }) {
   const [previewUrl, setPreviewUrl] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)

@@ -1,4 +1,5 @@
 import { randomBytes, randomUUID } from 'node:crypto'
+import { TEST_PASSWORD } from './test-fixtures/credentials.mjs'
 import { createClient } from '@supabase/supabase-js'
 import { waitForPostgrest } from './lib/local-supabase.mjs'
 
@@ -31,7 +32,7 @@ function localUrl(value, expectedPort, label) {
 }
 
 function password() {
-  return `OmniaAa9!${randomBytes(24).toString('base64url')}`
+  return TEST_PASSWORD
 }
 
 function memoryStorage() {

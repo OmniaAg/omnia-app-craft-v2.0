@@ -1,4 +1,5 @@
 import { randomBytes, randomUUID } from 'node:crypto'
+import { TEST_PASSWORD } from './test-fixtures/credentials.mjs'
 import { createClient } from '@supabase/supabase-js'
 import { waitForPostgrest } from './lib/local-supabase.mjs'
 
@@ -18,7 +19,7 @@ async function main() {
   invariant(new URL(status.API_URL).hostname === '127.0.0.1', 'local loopback API required')
   const admin = createClient(status.API_URL, status.SECRET_KEY, { auth: { persistSession: false } })
   async function actor([id, email], password) {
-    const secret = password ?? `OmniaEdit9!${randomBytes(18).toString('base64url')}`
+    const secret = password ?? TEST_PASSWORD
     if (!password) {
       const { error } = await admin.auth.admin.updateUserById(id, { password: secret, email_confirm: true })
       invariant(!error, `password bootstrap failed for ${email}`)

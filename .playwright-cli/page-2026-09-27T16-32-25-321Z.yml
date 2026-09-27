@@ -1,0 +1,57 @@
+- generic [ref=e3]:
+  - link "Saltar al contenido" [ref=e4] [cursor=pointer]:
+    - /url: "#portal-main"
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "OMNIA, ir al resumen del portal" [ref=e7] [cursor=pointer]:
+        - /url: /portal
+        - img "OMNIA" [ref=e8]
+        - generic [ref=e9]: Portal cliente
+      - generic [ref=e10]:
+        - generic [ref=e11]: client.reviewer.a@omnia.local
+        - button "Cerrar sesión" [ref=e12] [cursor=pointer]
+    - navigation "Navegación del portal" [ref=e13]:
+      - link "Resumen" [ref=e14] [cursor=pointer]:
+        - /url: /portal
+      - link "Proyectos" [ref=e15] [cursor=pointer]:
+        - /url: /portal/projects
+      - link "Aprobaciones" [ref=e16] [cursor=pointer]:
+        - /url: /portal/approvals
+      - link "Documentos" [ref=e17] [cursor=pointer]:
+        - /url: /portal/documents
+      - link "Configuración" [ref=e18] [cursor=pointer]:
+        - /url: /portal/settings
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e22]:
+        - heading "Tu espacio con OMNIA" [level=1] [ref=e23]
+        - paragraph [ref=e24]: Proyectos, entregas y decisiones reunidos en un solo lugar.
+      - generic [ref=e25]:
+        - region [ref=e26]:
+          - generic [ref=e27]:
+            - heading "Necesita tu atención" [level=2] [ref=e28]
+            - link "Ver aprobaciones" [ref=e29] [cursor=pointer]:
+              - /url: /portal/approvals
+          - paragraph [ref=e30]: No tienes aprobaciones pendientes.
+        - region [ref=e31]:
+          - heading "Novedades" [level=2] [ref=e33]
+          - status [ref=e34]: Cargando información…
+      - region [ref=e35]:
+        - generic [ref=e36]:
+          - heading "Tus proyectos" [level=2] [ref=e37]
+          - link "Ver todos" [ref=e38] [cursor=pointer]:
+            - /url: /portal/projects
+        - article [ref=e40]:
+          - generic [ref=e41]:
+            - paragraph [ref=e42]: Brand A2
+            - heading [level=3] [ref=e43]:
+              - link "Project A3" [ref=e44] [cursor=pointer]:
+                - /url: /portal/projects/60000000-0000-0000-0000-0000000000a3
+            - paragraph [ref=e45]: Sin hitos publicados
+          - generic [ref=e46]: Activo
+      - region [ref=e48]:
+        - heading "Entregas recientes" [level=2] [ref=e50]
+        - paragraph [ref=e51]: Aún no hay entregas publicadas para ti.
+  - contentinfo [ref=e52]:
+    - generic [ref=e53]: OMNIA · Tu espacio de trabajo compartido
+    - generic [ref=e54]: Los proyectos y archivos visibles dependen de tu acceso asignado.

@@ -309,6 +309,48 @@ export type Database = {
           },
         ]
       }
+      client_feedback: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          idempotency_key: string
+          publication_id: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          id?: string
+          idempotency_key: string
+          publication_id: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          idempotency_key?: string
+          publication_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_feedback_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "client_feedback_publication_id_fkey"
+            columns: ["publication_id"]
+            isOneToOne: false
+            referencedRelation: "client_publications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       client_memberships: {
         Row: {
           archived_at: string | null
@@ -371,6 +413,187 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      client_publications: {
+        Row: {
+          deliverable_id: string
+          id: string
+          idempotency_key: string
+          project_id: string
+          published_at: string
+          published_by: string
+          version_id: string
+        }
+        Insert: {
+          deliverable_id: string
+          id?: string
+          idempotency_key: string
+          project_id: string
+          published_at?: string
+          published_by: string
+          version_id: string
+        }
+        Update: {
+          deliverable_id?: string
+          id?: string
+          idempotency_key?: string
+          project_id?: string
+          published_at?: string
+          published_by?: string
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_publications_deliverable_id_fkey"
+            columns: ["deliverable_id"]
+            isOneToOne: false
+            referencedRelation: "deliverables"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_publications_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_publications_published_by_fkey"
+            columns: ["published_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "client_publications_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: true
+            referencedRelation: "deliverable_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_review_assignments: {
+        Row: {
+          assigned_at: string
+          client_review_id: string
+          id: string
+          resolved_at: string | null
+          reviewer_id: string
+          status: string
+        }
+        Insert: {
+          assigned_at?: string
+          client_review_id: string
+          id?: string
+          resolved_at?: string | null
+          reviewer_id: string
+          status?: string
+        }
+        Update: {
+          assigned_at?: string
+          client_review_id?: string
+          id?: string
+          resolved_at?: string | null
+          reviewer_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_review_assignments_client_review_id_fkey"
+            columns: ["client_review_id"]
+            isOneToOne: false
+            referencedRelation: "client_reviews"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_review_assignments_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      client_review_decisions: {
+        Row: {
+          assignment_id: string
+          decided_at: string
+          decision: string
+          id: string
+          idempotency_key: string
+          reason: string | null
+          reviewer_id: string
+        }
+        Insert: {
+          assignment_id: string
+          decided_at?: string
+          decision: string
+          id?: string
+          idempotency_key: string
+          reason?: string | null
+          reviewer_id: string
+        }
+        Update: {
+          assignment_id?: string
+          decided_at?: string
+          decision?: string
+          id?: string
+          idempotency_key?: string
+          reason?: string | null
+          reviewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_review_decisions_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: true
+            referencedRelation: "client_review_assignments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_review_decisions_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      client_reviews: {
+        Row: {
+          closed_at: string | null
+          context: string
+          id: string
+          opened_at: string
+          publication_id: string
+          status: string
+        }
+        Insert: {
+          closed_at?: string | null
+          context?: string
+          id?: string
+          opened_at?: string
+          publication_id: string
+          status?: string
+        }
+        Update: {
+          closed_at?: string | null
+          context?: string
+          id?: string
+          opened_at?: string
+          publication_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_reviews_publication_id_fkey"
+            columns: ["publication_id"]
+            isOneToOne: true
+            referencedRelation: "client_publications"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -738,6 +961,7 @@ export type Database = {
           publish_key: string | null
           published_at: string | null
           published_by: string | null
+          published_version_id: string | null
           status: string
           title: string
           updated_at: string
@@ -753,6 +977,7 @@ export type Database = {
           publish_key?: string | null
           published_at?: string | null
           published_by?: string | null
+          published_version_id?: string | null
           status?: string
           title: string
           updated_at?: string
@@ -768,6 +993,7 @@ export type Database = {
           publish_key?: string | null
           published_at?: string | null
           published_by?: string | null
+          published_version_id?: string | null
           status?: string
           title?: string
           updated_at?: string
@@ -794,6 +1020,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "deliverables_published_version_id_fkey"
+            columns: ["published_version_id"]
+            isOneToOne: false
+            referencedRelation: "deliverable_versions"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "deliverables_work_project_fk"
@@ -1282,6 +1515,68 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "projects"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          deliverable_id: string
+          domain_event_id: string
+          id: string
+          kind: string
+          project_id: string
+          read_at: string | null
+          recipient_id: string
+        }
+        Insert: {
+          created_at?: string
+          deliverable_id: string
+          domain_event_id: string
+          id?: string
+          kind: string
+          project_id: string
+          read_at?: string | null
+          recipient_id: string
+        }
+        Update: {
+          created_at?: string
+          deliverable_id?: string
+          domain_event_id?: string
+          id?: string
+          kind?: string
+          project_id?: string
+          read_at?: string | null
+          recipient_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_deliverable_id_fkey"
+            columns: ["deliverable_id"]
+            isOneToOne: false
+            referencedRelation: "deliverables"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_domain_event_id_fkey"
+            columns: ["domain_event_id"]
+            isOneToOne: false
+            referencedRelation: "domain_events"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "notifications_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -2297,6 +2592,10 @@ export type Database = {
         Returns: string
       }
       accept_invitation: { Args: { invitation_id: string }; Returns: string }
+      add_client_feedback: {
+        Args: { body: string; idempotency_key: string; publication_id: string }
+        Returns: string
+      }
       add_project_member: {
         Args: {
           idempotency_key: string
@@ -2658,6 +2957,10 @@ export type Database = {
         Returns: boolean
       }
       health_check: { Args: never; Returns: Json }
+      internal_client_review_history: {
+        Args: { work_item_id: string }
+        Returns: Json
+      }
       is_internal_actor: { Args: never; Returns: boolean }
       link_content_asset: {
         Args: { asset_id: string; item_id: string }
@@ -2687,6 +2990,10 @@ export type Database = {
       }
       mark_invitation_dispatched: {
         Args: { invitation_id: string }
+        Returns: undefined
+      }
+      mark_portal_notification_read: {
+        Args: { notification_id: string }
         Returns: undefined
       }
       my_capabilities: {
@@ -2726,6 +3033,81 @@ export type Database = {
       phase7_submit_deliverable_version: {
         Args: { deliverable_id: string; idempotency_key: string; notes: string }
         Returns: string
+      }
+      portal_approvals: {
+        Args: { page_limit?: number; page_offset?: number }
+        Returns: {
+          assignment_id: string
+          deliverable_id: string
+          project_id: string
+          project_name: string
+          publication_id: string
+          published_at: string
+          title: string
+          version_number: number
+        }[]
+      }
+      portal_deliverable_detail: {
+        Args: { publication_id: string }
+        Returns: Json
+      }
+      portal_deliverables: {
+        Args: {
+          p_project_id?: string
+          page_limit?: number
+          page_offset?: number
+        }
+        Returns: {
+          brand_name: string
+          deliverable_id: string
+          my_assignment_id: string
+          my_assignment_status: string
+          project_id: string
+          project_name: string
+          publication_id: string
+          published_at: string
+          review_status: string
+          title: string
+          version_number: number
+        }[]
+      }
+      portal_documents: {
+        Args: {
+          p_project_id?: string
+          page_limit?: number
+          page_offset?: number
+        }
+        Returns: {
+          asset_id: string
+          bucket_id: string
+          deliverable_title: string
+          mime_type: string
+          object_path: string
+          original_filename: string
+          project_id: string
+          project_name: string
+          publication_id: string
+          published_at: string
+          size_bytes: number
+          version_number: number
+        }[]
+      }
+      portal_project_detail: { Args: { project_id: string }; Returns: Json }
+      portal_projects: {
+        Args: { page_limit?: number; page_offset?: number }
+        Returns: {
+          brand_name: string
+          milestones_done: number
+          milestones_total: number
+          next_milestone_date: string
+          pending_approvals: number
+          project_id: string
+          project_name: string
+          project_status: string
+          published_count: number
+          start_date: string
+          target_end_date: string
+        }[]
       }
       prepare_file_asset: {
         Args: {
@@ -2856,6 +3238,15 @@ export type Database = {
       }
       publish_editorial_available: {
         Args: { item_id: string }
+        Returns: string
+      }
+      record_client_decision: {
+        Args: {
+          assignment_id: string
+          decision: string
+          idempotency_key: string
+          reason: string
+        }
         Returns: string
       }
       record_review_decision: {

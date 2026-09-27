@@ -162,6 +162,10 @@ select is((select count(*) from public.audit_events where event_type='review.dec
   and resource_id in (select id from public.review_decisions where review_assignment_id in
     (current_setting('test.phase7_pm_assignment')::uuid,current_setting('test.phase7_director_assignment')::uuid,
       current_setting('test.phase7_v2_assignment')::uuid))),3::bigint,'decisions audited once');
+select is(public.add_project_member('60000000-0000-0000-0000-0000000000a1',
+  '10000000-0000-0000-0000-000000000006','client','client_member',
+  '77000000-0000-0000-0000-000000000029') is not null,true,
+  'publication requires an explicitly assigned client reviewer');
 select is(public.publish_deliverable_to_client(current_setting('test.phase7_deliverable')::uuid,
   '77000000-0000-0000-0000-000000000020'),current_setting('test.phase7_deliverable')::uuid,
   'Director publishes explicitly');

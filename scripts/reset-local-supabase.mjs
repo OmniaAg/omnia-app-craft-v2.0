@@ -11,6 +11,9 @@ try {
   })
   const { attempts } = await waitForPostgrest(getLocalSupabaseStatus())
   console.log(`Local database reset complete; PostgREST ready in ${attempts} attempt${attempts === 1 ? '' : 's'}.`)
+  
+  const { setupTestCredentials } = await import('./test-fixtures/credentials.mjs')
+  await setupTestCredentials()
 } catch (error) {
   const status = typeof error?.status === 'number' ? error.status : 1
   if (!(error instanceof Error && error.message.includes('PostgREST'))) {

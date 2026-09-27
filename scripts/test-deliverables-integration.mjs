@@ -1,4 +1,5 @@
 import { randomBytes, randomUUID } from 'node:crypto'
+import { TEST_PASSWORD } from './test-fixtures/credentials.mjs'
 import { createClient } from '@supabase/supabase-js'
 import { waitForPostgrest } from './lib/local-supabase.mjs'
 
@@ -8,6 +9,7 @@ const users = {
   pm: ['10000000-0000-0000-0000-000000000003', 'pm.scoped@omnia.local'],
   contributor: ['10000000-0000-0000-0000-000000000004', 'contributor@omnia.local'],
   client: ['10000000-0000-0000-0000-000000000005', 'client.admin.a@omnia.local'],
+  clientReviewer: ['10000000-0000-0000-0000-000000000006', 'client.reviewer.a@omnia.local'],
 }
 const projectA = '60000000-0000-0000-0000-0000000000a1'
 const workA = '63000000-0000-0000-0000-0000000000a1'
@@ -22,7 +24,7 @@ async function main() {
   assert(new URL(status.API_URL).hostname === '127.0.0.1', 'loopback API required')
   const admin = createClient(status.API_URL, status.SECRET_KEY, { auth: { persistSession: false } })
   async function actor([id, email], password) {
-    const secret = password ?? `OmniaRev9!${randomBytes(18).toString('base64url')}`
+    const secret = password ?? TEST_PASSWORD
     if (!password) ok(await admin.auth.admin.updateUserById(id, { password: secret, email_confirm: true }), `bootstrap ${email}`)
     const client = createClient(status.API_URL, status.PUBLISHABLE_KEY, {
       auth: { persistSession: false, autoRefreshToken: false },
@@ -226,6 +228,10 @@ async function main() {
   assert(finalAssignments?.length === 1 && ['approved', 'overridden'].includes(finalAssignments[0].status), 'race corrupted assignment')
   console.log('ok - competing version submission and override vs decision serialize coherently')
 
+  ok(await director.rpc('add_project_member', {
+    project_id: projectA, user_id: users.clientReviewer[0], member_type: 'client',
+    responsibility: 'client_member', idempotency_key: randomUUID(),
+  }), 'assign client reviewer before publication')
   ok(await director.rpc('publish_deliverable_to_client', { deliverable_id: deliverable, idempotency_key: randomUUID() }), 'publish')
   assert(!(await client.from('deliverables').select('id').eq('id', deliverable)).data?.length, 'client sees internal deliverable')
   assert((await pm.rpc('record_review_decision', {

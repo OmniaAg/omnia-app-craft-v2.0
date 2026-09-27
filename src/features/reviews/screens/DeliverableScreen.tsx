@@ -16,6 +16,10 @@ import { createDeliverable, overrideRequirement, publishDeliverable, recordDecis
 import '../ui/reviews.css'
 import '../../crm/ui/crm.css'
 
+type ClientHistory = { publication_id: string; version_number: number; published_at: string;
+  review_status: string; decisions: { decision: string; reason: string | null; decided_at: string; reviewer_name: string }[];
+  feedback: { body: string; created_at: string; author_name: string }[] }[]
+
 const dateTime = new Intl.DateTimeFormat('es-MX', {
   dateStyle: 'medium', timeStyle: 'short', timeZone: 'America/Mexico_City',
 })
@@ -172,6 +176,12 @@ export function Component() {
   const queryClient = useQueryClient()
   const [success, setSuccess] = useState('')
   const detail = useQuery(deliverableDetailQuery(workItemId))
+  const clientHistory = useQuery({ queryKey: ['internal-client-history', workItemId], enabled: Boolean(detail.data?.deliverable),
+    queryFn: async () => {
+      const { data, error } = await getSupabaseClient().rpc('internal_client_review_history', { work_item_id: workItemId })
+      if (error) throw new Error(error.message)
+      return (data ?? []) as ClientHistory
+    } })
   const versionIds = detail.data?.versions.map((version) => version.id) ?? []
   const versionFiles = useQuery(versionFilesQuery(versionIds))
   const refresh = async () => {
@@ -181,6 +191,7 @@ export function Component() {
       queryClient.invalidateQueries({ queryKey: workKeys.all }),
       queryClient.invalidateQueries({ queryKey: ['my-space'] }),
       queryClient.invalidateQueries({ queryKey: fileKeys.all }),
+      queryClient.invalidateQueries({ queryKey: ['internal-client-history', workItemId] }),
     ])
   }
   const create = useMutation({
@@ -202,7 +213,7 @@ export function Component() {
   })
   const publish = useMutation({
     mutationFn: ({ id, key }: { id: string; key: string }) => publishDeliverable(getSupabaseClient(), id, key),
-    onSuccess: async () => { await refresh(); setSuccess('Publicación registrada.') },
+    onSuccess: async () => { publishKey.current = null; await refresh(); setSuccess('Publicación registrada.') },
   })
   const publishKey = useRef<string | null>(null)
   const data = detail.data
@@ -225,7 +236,20 @@ export function Component() {
         <h2 id="review-publish-title">Revisión interna completa</h2><p>La versión aprobada está lista para publicar al cliente.</p>
         <button className="crm-button crm-button--primary" type="button" disabled={pending}
           onClick={() => publish.mutate({ id: data.deliverable!.id, key: publishKey.current ??= crypto.randomUUID() })}>Publicar entrega</button>
+        {publish.error ? <CrmError message={publish.error.message} /> : null}
       </section> : null}
+      {clientHistory.data?.length ? <section className="review-client-history" aria-labelledby="review-client-history-title">
+        <h2 id="review-client-history-title">Historial de revisión cliente</h2>
+        <ol className="review-history">{clientHistory.data.map(publication => <li className="review-version" key={publication.publication_id}>
+          <header><h3>Versión publicada {publication.version_number}</h3><StatusBadge value={publication.review_status} /></header>
+          <p className="review-meta">{dateTime.format(new Date(publication.published_at))}</p>
+          {publication.decisions.map((item, index) => <p key={`${item.decided_at}-${index}`}>
+            <strong>{item.reviewer_name}:</strong> {item.decision === 'approve' ? 'Aprobó' : 'Solicitó cambios'}
+            {item.reason ? ` · ${item.reason}` : ''}</p>)}
+          {publication.feedback.map((item, index) => <p key={`${item.created_at}-${index}`}>
+            <strong>{item.author_name} comentó:</strong> {item.body}</p>)}
+        </li>)}</ol></section> : null}
+      {clientHistory.error ? <CrmError message={clientHistory.error.message} /> : null}
       <section aria-labelledby="review-history-title"><h2 id="review-history-title">Historial de versiones</h2>
         {data.versions.length === 0 ? <p>La primera versión aún no se ha enviado.</p> : null}
         {versionFiles.error ? <CrmError message={versionFiles.error.message} /> : null}
