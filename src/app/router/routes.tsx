@@ -80,6 +80,10 @@ export const appRoutes: RouteObject[] = [
                 path: 'crm/opportunities',
                 lazy: () => import('../../features/crm/screens/OpportunitiesScreen'),
               },
+              {
+                path: 'billing',
+                lazy: () => import('../../features/billing/screens/BillingScreen'),
+              },
             ],
           },
         ],

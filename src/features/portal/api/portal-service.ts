@@ -66,6 +66,14 @@ export async function listPortalDocuments(client: OmniaSupabaseClient, page: num
   return unwrap(data, error, 'No pudimos cargar los documentos.')
 }
 
+export async function listPortalBillingDocuments(client: OmniaSupabaseClient, page: number) {
+  const { data, error } = await client.from('client_billing_projections')
+    .select('*')
+    .order('published_at', { ascending: false })
+    .range(page * PORTAL_PAGE_SIZE, (page + 1) * PORTAL_PAGE_SIZE - 1)
+  return unwrap(data, error, 'No pudimos cargar los documentos de facturación.')
+}
+
 export async function listPortalNotifications(client: OmniaSupabaseClient, page = 0) {
   const { data, error } = await client.from('notifications')
     .select('id,kind,project_id,deliverable_id,created_at,read_at')

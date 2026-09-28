@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query'
 import { getSupabaseClient } from '../../../shared/api/supabase/client'
 import { getPortalDeliverable, getPortalProject, listPortalApprovals,
-  listPortalDeliverables, listPortalDocuments, listPortalNotifications, listPortalProjects } from './portal-service'
+  listPortalDeliverables, listPortalDocuments, listPortalNotifications, listPortalProjects, listPortalBillingDocuments } from './portal-service'
 
 export const portalKeys = {
   all: ['portal'] as const,
@@ -11,6 +11,7 @@ export const portalKeys = {
   deliverable: (id: string) => ['portal', 'deliverable', id] as const,
   approvals: (page: number) => ['portal', 'approvals', page] as const,
   documents: (projectId: string | undefined, page: number) => ['portal', 'documents', projectId ?? 'all', page] as const,
+  billingDocuments: (page: number) => ['portal', 'billing_documents', page] as const,
   notifications: (page: number) => ['portal', 'notifications', page] as const,
 }
 export const portalQueries = {
@@ -20,5 +21,6 @@ export const portalQueries = {
   deliverable: (id: string) => queryOptions({ queryKey: portalKeys.deliverable(id), queryFn: () => getPortalDeliverable(getSupabaseClient(), id) }),
   approvals: (page: number) => queryOptions({ queryKey: portalKeys.approvals(page), queryFn: () => listPortalApprovals(getSupabaseClient(), page) }),
   documents: (projectId: string | undefined, page: number) => queryOptions({ queryKey: portalKeys.documents(projectId, page), queryFn: () => listPortalDocuments(getSupabaseClient(), page, projectId) }),
+  billingDocuments: (page: number) => queryOptions({ queryKey: portalKeys.billingDocuments(page), queryFn: () => listPortalBillingDocuments(getSupabaseClient(), page) }),
   notifications: (page: number) => queryOptions({ queryKey: portalKeys.notifications(page), queryFn: () => listPortalNotifications(getSupabaseClient(), page) }),
 }

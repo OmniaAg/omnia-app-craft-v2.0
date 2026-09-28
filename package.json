@@ -34,6 +34,7 @@
     "test:files": "node scripts/test-files-integration.mjs",
     "test:portal": "node scripts/test-portal-integration.mjs",
     "test:messaging": "node scripts/test-messaging-integration.mjs",
+    "test:billing": "node scripts/test-billing-integration.mjs",
     "db:files:diagnose": "node scripts/diagnose-file-storage.mjs"
   },
   "dependencies": {
@@ -56,6 +57,7 @@
     "@vitejs/plugin-react": "^6.0.4",
     "jsdom": "^30.0.1",
     "oxlint": "^1.75.0",
+    "playwright": "^1.63.0",
     "supabase": "2.115.0",
     "typescript": "~6.0.2",
     "vite": "^8.2.0",

@@ -11,7 +11,28 @@ export function Component() {
   const [page, setPage] = useState(0)
   const projectId = params.get('project') ?? undefined
   const query = useQuery(portalQueries.documents(projectId, page))
-  return <div className="portal-page"><PortalHeading title="Documentos" description="Archivos de documento vinculados a versiones publicadas para ti." />
+  const billingQuery = useQuery(portalQueries.billingDocuments(page))
+  
+  return <div className="portal-page">
+    <PortalHeading title="Documentos y Facturación" description="Archivos vinculados a entregas y documentos operativos/financieros." />
+    
+    <div style={{ marginBottom: '2rem' }}>
+      <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1rem' }}>Documentos de Facturación</h3>
+      <PortalState loading={billingQuery.isLoading} error={billingQuery.error}>
+        {billingQuery.data?.length ? <div className="portal-list">{billingQuery.data.map(item =>
+          <article className="portal-list__row" key={`billing-${item.id}`}>
+            <div>
+              <p className="portal-list__meta">{item.type?.replace('_', ' ').toUpperCase()} {item.number ? `· ${item.number}` : ''}</p>
+              <h2>{item.total_amount} {item.currency}</h2>
+              <p className="portal-list__detail">Publicado el {formatPortalDate(item.published_at)} · Estado: {item.status?.replace('_', ' ')} · Pagado: {item.total_paid} {item.currency}</p>
+            </div>
+          </article>)}</div> :
+          <p className="portal-empty">Todavía no hay documentos de facturación publicados.</p>}
+      </PortalState>
+    </div>
+
+    <div>
+      <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1rem' }}>Archivos de Entregas</h3>
     <PortalState loading={query.isLoading} error={query.error}>
       {query.data?.length ? <><div className="portal-list">{query.data.map(item =>
         <article className="portal-list__row" key={`${item.publication_id}-${item.asset_id}`}>
@@ -21,5 +42,7 @@ export function Component() {
           <FileActions asset={item} />
         </article>)}</div><PortalPager page={page} count={query.data.length} onPage={setPage} /></> :
         <p className="portal-empty">Todavía no hay documentos publicados para este acceso.</p>}
-    </PortalState></div>
+      </PortalState>
+    </div>
+  </div>
 }

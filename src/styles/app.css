@@ -213,6 +213,7 @@ button {
 
 .app-main {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-content: center;
   gap: clamp(3rem, 8vw, 7rem);
   padding-block: clamp(5rem, 12vw, 10rem);

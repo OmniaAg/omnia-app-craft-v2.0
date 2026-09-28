@@ -166,6 +166,228 @@ export type Database = {
           },
         ]
       }
+      billing_document_files: {
+        Row: {
+          billing_document_id: string
+          file_asset_id: string
+        }
+        Insert: {
+          billing_document_id: string
+          file_asset_id: string
+        }
+        Update: {
+          billing_document_id?: string
+          file_asset_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_document_files_billing_document_id_fkey"
+            columns: ["billing_document_id"]
+            isOneToOne: false
+            referencedRelation: "billing_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_document_files_billing_document_id_fkey"
+            columns: ["billing_document_id"]
+            isOneToOne: false
+            referencedRelation: "client_billing_projections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_document_files_file_asset_id_fkey"
+            columns: ["file_asset_id"]
+            isOneToOne: false
+            referencedRelation: "file_assets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_document_items: {
+        Row: {
+          billing_document_id: string
+          created_at: string
+          description: string
+          id: string
+          line_total: number
+          quantity: number
+          sort_order: number
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          billing_document_id: string
+          created_at?: string
+          description: string
+          id?: string
+          line_total?: number
+          quantity?: number
+          sort_order?: number
+          unit_price?: number
+          updated_at?: string
+        }
+        Update: {
+          billing_document_id?: string
+          created_at?: string
+          description?: string
+          id?: string
+          line_total?: number
+          quantity?: number
+          sort_order?: number
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_document_items_billing_document_id_fkey"
+            columns: ["billing_document_id"]
+            isOneToOne: false
+            referencedRelation: "billing_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_document_items_billing_document_id_fkey"
+            columns: ["billing_document_id"]
+            isOneToOne: false
+            referencedRelation: "client_billing_projections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_documents: {
+        Row: {
+          archived_at: string | null
+          brand_id: string | null
+          cancelled_at: string | null
+          cancelled_by: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          date: string
+          due_date: string | null
+          id: string
+          issued_at: string | null
+          issued_by: string | null
+          notes: string | null
+          number: string | null
+          opportunity_id: string | null
+          organization_id: string
+          project_id: string | null
+          published_at: string | null
+          published_to_client: boolean
+          status: Database["public"]["Enums"]["billing_document_status"]
+          subtotal_amount: number
+          tax_amount: number
+          total_amount: number
+          type: Database["public"]["Enums"]["billing_document_type"]
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          brand_id?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          date?: string
+          due_date?: string | null
+          id?: string
+          issued_at?: string | null
+          issued_by?: string | null
+          notes?: string | null
+          number?: string | null
+          opportunity_id?: string | null
+          organization_id: string
+          project_id?: string | null
+          published_at?: string | null
+          published_to_client?: boolean
+          status?: Database["public"]["Enums"]["billing_document_status"]
+          subtotal_amount?: number
+          tax_amount?: number
+          total_amount?: number
+          type?: Database["public"]["Enums"]["billing_document_type"]
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          brand_id?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          date?: string
+          due_date?: string | null
+          id?: string
+          issued_at?: string | null
+          issued_by?: string | null
+          notes?: string | null
+          number?: string | null
+          opportunity_id?: string | null
+          organization_id?: string
+          project_id?: string | null
+          published_at?: string | null
+          published_to_client?: boolean
+          status?: Database["public"]["Enums"]["billing_document_status"]
+          subtotal_amount?: number
+          tax_amount?: number
+          total_amount?: number
+          type?: Database["public"]["Enums"]["billing_document_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_documents_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_documents_cancelled_by_fkey"
+            columns: ["cancelled_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "billing_documents_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "billing_documents_issued_by_fkey"
+            columns: ["issued_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "billing_documents_opportunity_id_fkey"
+            columns: ["opportunity_id"]
+            isOneToOne: false
+            referencedRelation: "opportunities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_documents_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_documents_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       brands: {
         Row: {
           archived_at: string | null
@@ -1986,6 +2208,138 @@ export type Database = {
           },
         ]
       }
+      payment_records: {
+        Row: {
+          amount: number
+          billing_document_id: string
+          created_at: string
+          currency: string
+          file_asset_id: string | null
+          id: string
+          method: Database["public"]["Enums"]["payment_method"]
+          notes: string | null
+          received_at: string
+          recorded_by: string
+          reference: string | null
+          updated_at: string
+          void_reason: string | null
+          voided_at: string | null
+          voided_by: string | null
+        }
+        Insert: {
+          amount: number
+          billing_document_id: string
+          created_at?: string
+          currency: string
+          file_asset_id?: string | null
+          id?: string
+          method: Database["public"]["Enums"]["payment_method"]
+          notes?: string | null
+          received_at: string
+          recorded_by: string
+          reference?: string | null
+          updated_at?: string
+          void_reason?: string | null
+          voided_at?: string | null
+          voided_by?: string | null
+        }
+        Update: {
+          amount?: number
+          billing_document_id?: string
+          created_at?: string
+          currency?: string
+          file_asset_id?: string | null
+          id?: string
+          method?: Database["public"]["Enums"]["payment_method"]
+          notes?: string | null
+          received_at?: string
+          recorded_by?: string
+          reference?: string | null
+          updated_at?: string
+          void_reason?: string | null
+          voided_at?: string | null
+          voided_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_records_billing_document_id_fkey"
+            columns: ["billing_document_id"]
+            isOneToOne: false
+            referencedRelation: "billing_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_records_billing_document_id_fkey"
+            columns: ["billing_document_id"]
+            isOneToOne: false
+            referencedRelation: "client_billing_projections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_records_file_asset_id_fkey"
+            columns: ["file_asset_id"]
+            isOneToOne: false
+            referencedRelation: "file_assets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_records_recorded_by_fkey"
+            columns: ["recorded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "payment_records_voided_by_fkey"
+            columns: ["voided_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      payment_schedules: {
+        Row: {
+          billing_document_id: string
+          created_at: string
+          id: string
+          installments: Json
+          type: Database["public"]["Enums"]["payment_schedule_type"]
+          updated_at: string
+        }
+        Insert: {
+          billing_document_id: string
+          created_at?: string
+          id?: string
+          installments?: Json
+          type?: Database["public"]["Enums"]["payment_schedule_type"]
+          updated_at?: string
+        }
+        Update: {
+          billing_document_id?: string
+          created_at?: string
+          id?: string
+          installments?: Json
+          type?: Database["public"]["Enums"]["payment_schedule_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_schedules_billing_document_id_fkey"
+            columns: ["billing_document_id"]
+            isOneToOne: false
+            referencedRelation: "billing_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_schedules_billing_document_id_fkey"
+            columns: ["billing_document_id"]
+            isOneToOne: false
+            referencedRelation: "client_billing_projections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       personal_work_items: {
         Row: {
           archived_at: string | null
@@ -2863,7 +3217,76 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      client_billing_projections: {
+        Row: {
+          brand_id: string | null
+          currency: string | null
+          date: string | null
+          due_date: string | null
+          id: string | null
+          number: string | null
+          organization_id: string | null
+          project_id: string | null
+          published_at: string | null
+          status: Database["public"]["Enums"]["billing_document_status"] | null
+          total_amount: number | null
+          total_paid: number | null
+          type: Database["public"]["Enums"]["billing_document_type"] | null
+        }
+        Insert: {
+          brand_id?: string | null
+          currency?: string | null
+          date?: string | null
+          due_date?: string | null
+          id?: string | null
+          number?: string | null
+          organization_id?: string | null
+          project_id?: string | null
+          published_at?: string | null
+          status?: Database["public"]["Enums"]["billing_document_status"] | null
+          total_amount?: number | null
+          total_paid?: never
+          type?: Database["public"]["Enums"]["billing_document_type"] | null
+        }
+        Update: {
+          brand_id?: string | null
+          currency?: string | null
+          date?: string | null
+          due_date?: string | null
+          id?: string | null
+          number?: string | null
+          organization_id?: string | null
+          project_id?: string | null
+          published_at?: string | null
+          status?: Database["public"]["Enums"]["billing_document_status"] | null
+          total_amount?: number | null
+          total_paid?: never
+          type?: Database["public"]["Enums"]["billing_document_type"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_documents_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_documents_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_documents_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       accept_editorial_application: {
@@ -3272,6 +3695,10 @@ export type Database = {
         Returns: Json
       }
       is_internal_actor: { Args: never; Returns: boolean }
+      issue_billing_document: {
+        Args: { p_document_id: string; p_idempotency_key: string }
+        Returns: string
+      }
       link_content_asset: {
         Args: { asset_id: string; item_id: string }
         Returns: string
@@ -3557,6 +3984,10 @@ export type Database = {
         Args: { idempotency_key: string; organization_id: string }
         Returns: string
       }
+      publish_billing_document: {
+        Args: { p_document_id: string; p_idempotency_key: string }
+        Returns: string
+      }
       publish_deliverable_to_client: {
         Args: { deliverable_id: string; idempotency_key: string }
         Returns: string
@@ -3571,6 +4002,19 @@ export type Database = {
           decision: string
           idempotency_key: string
           reason: string
+        }
+        Returns: string
+      }
+      record_payment: {
+        Args: {
+          p_amount: number
+          p_document_id: string
+          p_file_asset_id: string
+          p_idempotency_key: string
+          p_method: Database["public"]["Enums"]["payment_method"]
+          p_notes: string
+          p_received_at: string
+          p_reference: string
         }
         Returns: string
       }
@@ -3736,6 +4180,14 @@ export type Database = {
         }
         Returns: string
       }
+      void_payment: {
+        Args: {
+          p_idempotency_key: string
+          p_payment_id: string
+          p_reason: string
+        }
+        Returns: string
+      }
       work_item_access_allowed: {
         Args: { work_item_id: string }
         Returns: boolean
@@ -3768,7 +4220,22 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      billing_document_status:
+        | "draft"
+        | "issued"
+        | "partially_paid"
+        | "paid"
+        | "cancelled"
+        | "archived"
+      billing_document_type:
+        | "quote"
+        | "estimate"
+        | "invoice_like"
+        | "payment_request"
+        | "receipt"
+        | "other"
+      payment_method: "transfer" | "cash" | "card" | "other"
+      payment_schedule_type: "100_percent" | "50_50" | "custom"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -3895,7 +4362,26 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      billing_document_status: [
+        "draft",
+        "issued",
+        "partially_paid",
+        "paid",
+        "cancelled",
+        "archived",
+      ],
+      billing_document_type: [
+        "quote",
+        "estimate",
+        "invoice_like",
+        "payment_request",
+        "receipt",
+        "other",
+      ],
+      payment_method: ["transfer", "cash", "card", "other"],
+      payment_schedule_type: ["100_percent", "50_50", "custom"],
+    },
   },
 } as const
 
