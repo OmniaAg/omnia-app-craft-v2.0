@@ -188,13 +188,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "billing_document_files_billing_document_id_fkey"
-            columns: ["billing_document_id"]
-            isOneToOne: false
-            referencedRelation: "client_billing_projections"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "billing_document_files_file_asset_id_fkey"
             columns: ["file_asset_id"]
             isOneToOne: false
@@ -243,13 +236,6 @@ export type Database = {
             columns: ["billing_document_id"]
             isOneToOne: false
             referencedRelation: "billing_documents"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "billing_document_items_billing_document_id_fkey"
-            columns: ["billing_document_id"]
-            isOneToOne: false
-            referencedRelation: "client_billing_projections"
             referencedColumns: ["id"]
           },
         ]
@@ -2269,13 +2255,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "payment_records_billing_document_id_fkey"
-            columns: ["billing_document_id"]
-            isOneToOne: false
-            referencedRelation: "client_billing_projections"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "payment_records_file_asset_id_fkey"
             columns: ["file_asset_id"]
             isOneToOne: false
@@ -2329,13 +2308,6 @@ export type Database = {
             columns: ["billing_document_id"]
             isOneToOne: false
             referencedRelation: "billing_documents"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "payment_schedules_billing_document_id_fkey"
-            columns: ["billing_document_id"]
-            isOneToOne: false
-            referencedRelation: "client_billing_projections"
             referencedColumns: ["id"]
           },
         ]
@@ -2542,6 +2514,64 @@ export type Database = {
           {
             foreignKeyName: "project_memberships_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      project_reports: {
+        Row: {
+          created_at: string
+          created_by: string
+          from_date: string
+          id: string
+          project_id: string
+          published_at: string | null
+          published_by: string | null
+          title: string
+          to_date: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          from_date: string
+          id?: string
+          project_id: string
+          published_at?: string | null
+          published_by?: string | null
+          title: string
+          to_date: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          from_date?: string
+          id?: string
+          project_id?: string
+          published_at?: string | null
+          published_by?: string | null
+          title?: string
+          to_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_reports_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "project_reports_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_reports_published_by_fkey"
+            columns: ["published_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
@@ -3233,59 +3263,7 @@ export type Database = {
           total_paid: number | null
           type: Database["public"]["Enums"]["billing_document_type"] | null
         }
-        Insert: {
-          brand_id?: string | null
-          currency?: string | null
-          date?: string | null
-          due_date?: string | null
-          id?: string | null
-          number?: string | null
-          organization_id?: string | null
-          project_id?: string | null
-          published_at?: string | null
-          status?: Database["public"]["Enums"]["billing_document_status"] | null
-          total_amount?: number | null
-          total_paid?: never
-          type?: Database["public"]["Enums"]["billing_document_type"] | null
-        }
-        Update: {
-          brand_id?: string | null
-          currency?: string | null
-          date?: string | null
-          due_date?: string | null
-          id?: string | null
-          number?: string | null
-          organization_id?: string | null
-          project_id?: string | null
-          published_at?: string | null
-          status?: Database["public"]["Enums"]["billing_document_status"] | null
-          total_amount?: number | null
-          total_paid?: never
-          type?: Database["public"]["Enums"]["billing_document_type"] | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "billing_documents_brand_id_fkey"
-            columns: ["brand_id"]
-            isOneToOne: false
-            referencedRelation: "brands"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "billing_documents_organization_id_fkey"
-            columns: ["organization_id"]
-            isOneToOne: false
-            referencedRelation: "organizations"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "billing_documents_project_id_fkey"
-            columns: ["project_id"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Functions: {
@@ -3311,6 +3289,115 @@ export type Database = {
           user_id: string
         }
         Returns: string
+      }
+      analytics_billing: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_currency?: string
+          p_from: string
+          p_organization?: string
+          p_project?: string
+          p_to: string
+        }
+        Returns: Json
+      }
+      analytics_billing_details: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_currency?: string
+          p_from: string
+          p_limit?: number
+          p_offset?: number
+          p_organization?: string
+          p_project?: string
+          p_to: string
+        }
+        Returns: Json
+      }
+      analytics_editorial: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_from: string
+          p_organization?: string
+          p_project?: string
+          p_to: string
+        }
+        Returns: Json
+      }
+      analytics_filter_options: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_kind?: string
+          p_limit?: number
+          p_offset?: number
+          p_organization?: string
+          p_search?: string
+        }
+        Returns: Json
+      }
+      analytics_overview: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_from: string
+          p_organization?: string
+          p_project?: string
+          p_to: string
+        }
+        Returns: Json
+      }
+      analytics_projects: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_from: string
+          p_limit?: number
+          p_offset?: number
+          p_organization?: string
+          p_project?: string
+          p_to: string
+        }
+        Returns: Json
+      }
+      analytics_reviews: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_from: string
+          p_organization?: string
+          p_project?: string
+          p_to: string
+        }
+        Returns: Json
+      }
+      analytics_work: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_from: string
+          p_organization?: string
+          p_project?: string
+          p_to: string
+        }
+        Returns: Json
+      }
+      analytics_work_details: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_filter?: string
+          p_from: string
+          p_limit?: number
+          p_offset?: number
+          p_organization?: string
+          p_project?: string
+          p_to: string
+        }
+        Returns: Json
       }
       apply_to_editorial_work: { Args: { item_id: string }; Returns: string }
       archive_client_membership: {
@@ -3377,6 +3464,24 @@ export type Database = {
           id: string
         }[]
       }
+      client_billing_documents: {
+        Args: never
+        Returns: {
+          brand_id: string
+          currency: string
+          date: string
+          due_date: string
+          id: string
+          number: string
+          organization_id: string
+          project_id: string
+          published_at: string
+          status: Database["public"]["Enums"]["billing_document_status"]
+          total_amount: number
+          total_paid: number
+          type: Database["public"]["Enums"]["billing_document_type"]
+        }[]
+      }
       client_brand_context: {
         Args: { organization_id?: string }
         Returns: {
@@ -3409,6 +3514,7 @@ export type Database = {
           timezone: string
         }[]
       }
+      client_project_report: { Args: { p_report: string }; Returns: Json }
       configure_review_requirements: {
         Args: {
           deliverable_id: string
@@ -3574,6 +3680,15 @@ export type Database = {
         Returns: string
       }
       create_project_channel: { Args: { p_project: string }; Returns: string }
+      create_project_report: {
+        Args: {
+          p_from: string
+          p_project: string
+          p_title: string
+          p_to: string
+        }
+        Returns: string
+      }
       create_work_item: {
         Args: {
           assignee_ids: string[]
@@ -3641,6 +3756,19 @@ export type Database = {
           work_item_id: string
         }[]
       }
+      export_analytics: {
+        Args: {
+          p_agency?: string
+          p_brand?: string
+          p_currency?: string
+          p_from: string
+          p_organization?: string
+          p_project?: string
+          p_section: string
+          p_to: string
+        }
+        Returns: Json
+      }
       file_director_access_allowed: {
         Args: { project_id: string }
         Returns: boolean
@@ -3702,6 +3830,10 @@ export type Database = {
       link_content_asset: {
         Args: { asset_id: string; item_id: string }
         Returns: string
+      }
+      list_project_reports: {
+        Args: { p_limit?: number; p_offset?: number; p_project?: string }
+        Returns: Json
       }
       list_projects: {
         Args: {
@@ -4089,6 +4221,10 @@ export type Database = {
       }
       send_message: {
         Args: { p_body: string; p_channel: string; p_client_message_id: string }
+        Returns: string
+      }
+      set_project_report_publication: {
+        Args: { p_publish: boolean; p_report: string }
         Returns: string
       }
       submit_deliverable_version: {

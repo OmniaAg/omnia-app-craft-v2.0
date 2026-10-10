@@ -1,0 +1,30 @@
+[
+    {
+        "exit":  0,
+        "command":  "db:start"
+    },
+    {
+        "exit":  0,
+        "command":  "db:reset"
+    },
+    {
+        "exit":  0,
+        "command":  "db:test"
+    },
+    {
+        "exit":  0,
+        "command":  "test:analytics"
+    },
+    {
+        "exit":  0,
+        "command":  "db:lint"
+    },
+    {
+        "exit":  0,
+        "command":  "db:types"
+    },
+    {
+        "exit":  0,
+        "command":  "db:types:check"
+    }
+]

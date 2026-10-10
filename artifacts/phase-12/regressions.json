@@ -1,0 +1,46 @@
+[
+  {
+    "command": "test:connectivity",
+    "passed": true
+  },
+  {
+    "command": "test:auth",
+    "passed": true
+  },
+  {
+    "command": "test:crm",
+    "passed": true
+  },
+  {
+    "command": "test:work",
+    "passed": true
+  },
+  {
+    "command": "test:dashboard",
+    "passed": true
+  },
+  {
+    "command": "test:editorial",
+    "passed": true
+  },
+  {
+    "command": "test:deliverables",
+    "passed": true
+  },
+  {
+    "command": "test:files",
+    "passed": true
+  },
+  {
+    "command": "test:portal",
+    "passed": true
+  },
+  {
+    "command": "test:messaging",
+    "passed": true
+  },
+  {
+    "command": "test:billing",
+    "passed": true
+  }
+]

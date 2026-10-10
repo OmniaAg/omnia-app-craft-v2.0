@@ -220,7 +220,123 @@ Los scripts de arranque, reset e integración esperan de forma acotada a que Pos
 - `npm run test:messaging` usa sesiones Auth reales y comprueba mensajes en dos direcciones sin recarga, notificaciones, reintentos, evento ajeno denegado, revocación y alta/suspensión automática del canal general. Necesita stack local y fixtures frescos (`npm run db:reset`); muta la DB local.
 - Para revisar visualmente, inicia `npm run dev`, abre `/app/messages`, `/portal/messages` y ambos centros de notificaciones, y prueba con ventanas de 1440, 768 y 390 px. En dos sesiones, envía mensajes, corta/restaura la red y comprueba la reconciliación. `playwright-cli` permite repetir este flujo con browser automatizado.
 
-## Verificación
+## Analytics y reporting (Phase 12)
+
+`/app/analytics` ofrece Resumen, Proyectos, Trabajo, Editorial, Entregas y revisiones,
+Cobros operativos y Reportes cliente. Es una superficie agregada independiente del
+dashboard personal. **Analytics are descriptive, not predictive. Billing analytics
+are operational and non-accounting.** No se calcula revenue contable, profit, FX,
+forecast ni desempeño individual.
+
+Los RPC especializados `analytics_overview`, `analytics_projects`, `analytics_work`,
+`analytics_work_details`, `analytics_editorial`, `analytics_reviews`, `analytics_billing`
+y `analytics_billing_details` agregan en PostgreSQL. No se descargan tablas completas,
+no hay materialized views, snapshots ni trabajadores de analytics. Los read models
+usan `search_path=''`, parámetros SQL y un conjunto de Projects autorizado materializado
+en cada consulta. Los datos financieros se consultan por separado. Los drilldowns de
+Projects, Work y documentos usan paginación servidor de 20 filas, máximo API 100.
+
+Filtros: Agency (scope del actor o `agency` en URL), Organization, Brand y Project;
+periodos inclusivos de 7/30/90 días o fechas personalizadas, hasta **366 días**.
+`from`, `to`, `organization`, `brand`, `project`, `currency`, `section` y el drilldown
+de Overview quedan en URL. Las opciones se buscan y paginan en servidor sobre el
+scope autorizado, sin enumerar catálogos completos. Moneda permite MXN/USD en la
+interfaz, y cualquier código ISO de tres letras mediante API/URL. Nunca se suman
+monedas distintas. No se convierte moneda.
+
+Las fechas civiles permanecen `date`; instantes `timestamptz` usan límites
+`[from 00:00, to+1 00:00)` en `America/Mexico_City`. Series de completados: diario
+hasta 31 días, semanal hasta 181, mensual después; buckets sin completados son cero.
+El primer bucket semanal/mensual puede empezar antes del rango, pero sólo incluye
+instantes dentro de éste. La comparación de completados utiliza el periodo anterior
+con igual número de días; no atribuye significancia ni predice resultados.
+
+Todas las métricas se recalculan al consultar y muestran datos actuales, no una
+fotografía histórica. TanStack Query usa keys con actor, scope, fechas, moneda,
+filtro y página; freshness de 60 segundos. Los comandos marcan analytics stale sin
+polling. Actualizar vuelve a consultar las queries activas. Logout/cambio de actor
+conserva el borrado de caché existente. No se añade Realtime para Analytics.
+
+| Métrica | Fuente / fórmula | Base temporal | Owner / scope |
+|---|---|---|---|
+| Clientes activos | Organizations `active_client` distintas en Projects autorizados | Estado actual | Dirección / Projects visibles, no catálogo CRM total |
+| Projects por estado | Conteos por `projects.status` | Estado actual | Dirección, PM / Projects autorizados |
+| Hitos completos / pendientes | No archivados; `completed/closed` versus `planned/in_progress` | Estado actual | PM / Project |
+| Trabajo abierto | Work no archivado, status distinto de `done/cancelled` | Estado actual | PM / Projects |
+| Trabajo vencido | Abierto y `due_at < now()` (deadline es instante, no date) | Instante actual | PM / Projects |
+| Trabajo bloqueado / prioridad | `blocked`; prioridad de abiertos | Estado actual | PM / Projects |
+| Completados / throughput | Work actualmente `done` con `completed_at` en ventana | `completed_at` | PM / Projects |
+| Duración de finalización | Mediana `completed_at - created_at`, excluye negativos | Finalizaciones de ventana | PM / Projects; no mediana de eventos históricos reabiertos |
+| Antigüedad de abiertos | Mediana `now() - created_at` | Estado actual | PM / Projects |
+| Actividad de Project | Conteo / última fecha de `work_item_events` en ventana | `occurred_at` | PM / Project; actividad de Work, no audit total |
+| Producción editorial | Planning states actuales, canales y formatos | `scheduled_date` en ventana | PM / Projects; cancelados separados |
+| Versiones enviadas | Conteo de versiones, sin joins a reviewers | `submitted_at` en ventana | PM / Projects |
+| Revisiones aprobadas / cambios | Conteo de rondas por resultado; interno y cliente separados | `closed_at` en ventana | PM / Projects |
+| Publicaciones | Conteo de versiones publicadas a cliente | `published_at` en ventana | PM / Projects |
+| Revisiones pendientes | Rondas actualmente `pending` | Estado actual | PM / Projects |
+| Tiempo de revisión | Mediana `closed_at - opened_at`; internos/clientes separados, sin negativos | Cierres en ventana | PM / Projects |
+| Iteraciones | Mediana de versiones por entrega no archivada | Estado actual, todas sus versiones | PM / Projects; no juicio de desempeño |
+| Total documentado | Suma de `total_amount` de documentos `issued/partially_paid/paid` | `billing_documents.date` en ventana | Dirección / scope financiero, por currency |
+| Registrado como pagado | Pagos no anulados de esos documentos, currency coincidente | Estado actual de cohorte documental | Dirección / scope financiero, por currency |
+| Saldo pendiente | `greatest(total_amount - pagos, 0)` por documento, luego suma | Estado actual de cohorte documental | Dirección / scope financiero, por currency |
+| Documentos vencidos / próximos | Saldo positivo, `due_date < hoy México` / hoy hasta hoy+7 | Fecha civil actual | Dirección / scope financiero, por currency |
+
+Authorization: Dirección tiene capabilities de lectura, finanzas, export y publicación;
+su Agency limita el scope. PM recibe `analytics.view`, **sólo Projects con membership
+interna activa**, nunca toda la Agency. Finanzas requiere conjuntamente
+`analytics.view_billing` y `billing.view`, además de acceso al Project; no se concede
+automáticamente a PM. Documentos sin Project se incluyen sólo para Dirección con
+capabilities financieras en su scope. Contributor no recibe analytics por defecto;
+el read model operativo sólo admite roles Dirección/PM. Client no puede invocar
+analytics interno. Los filtros explícitos ajenos fallan; el agregado sin filtros
+opera sólo sobre Projects autorizados, sin revelar totales de otros clientes.
+
+`/portal/reports` lista **sólo reportes explícitamente publicados** de Projects con
+client membership de Organization y Project activas. Organization membership por sí
+sola no concede acceso al Project. `project_reports` almacena definición/título/rango
+y publicación; no duplica métricas. Crear borrador, publicar o retirar exige
+`report.publish`. Las publicaciones/retiros generan domain events; no se auditan
+lecturas. La consulta `client_project_report` permite exclusivamente estado de Project,
+conteos de hitos, Deliverables publicados distintos, aprobaciones cliente y documentos
+publicados. No incluye Work, Editorial, revisiones internas, CRM, identidades internas,
+auditoría ni importes. El texto **Reporte actual** distingue su lectura dinámica de
+un snapshot inmutable. La lista también tiene RLS y grants por columnas seguras.
+
+La reparación de `client_billing_projections` conserva el contrato de Phase 11,
+pero usa `security_invoker=true` sobre `client_billing_documents`, una proyección
+autorizada. Documentos de Project exigen ambas memberships; documentos únicamente
+de Organization conservan su membership correspondiente. Draft/cancelled/archived
+quedan excluidos y los pagos anulados no se cuentan.
+
+Exportar resumen CSV requiere `analytics.export` reevaluado en servidor y llama al
+mismo RPC/filtros actuales. Exporta sólo agregados del tab visible, no drilldowns ni
+datasets completos. Disponible en Resumen, Trabajo, Editorial, Revisiones y Billing;
+Projects y reportes cliente no tienen export. CSV escapa comillas, delimitadores,
+saltos y prefijos de fórmula `= + - @`, incluso tras whitespace/caracteres de control.
+No existe PDF, almacenamiento de exports ni diseñador de reportes.
+
+Verificación específica: `npm run db:reset`, `npm run db:test`, `npm run test:analytics`,
+`npm run db:lint`, `npm run db:types`, `npm run db:types:check`,
+`npx supabase db advisors --local`, y los gates frontend/regresiones de abajo.
+`test:analytics` carga fixtures dedicados desde el bloque de fixtures pgTAP (sin
+alterar `seed.sql`) y usa las credenciales deterministas. Sus filas persistentes
+quedan en el Project **Analytics fixture** hasta el siguiente reset; la prueba de
+volumen de 2,400 Work Items y 300 documentos con 600 líneas y 600 pagos ocurre
+en transacción con rollback. Ejecútalo sobre DB
+limpia; las regresiones mutantes se ejecutan secuencialmente con resets apropiados.
+`node scripts/verify-phase12-regressions.mjs` ejecuta las once suites anteriores
+con un reset local entre cada una y guarda evidencia en `artifacts/phase-12`.
+
+QA: `npm run dev`; `npx playwright cli` sobre `/app/analytics` y `/portal/reports`,
+1440/768/390 px, login `director@omnia.local` o `client.admin.a@omnia.local` con
+password fijo del harness (`scripts/test-fixtures/credentials.mjs`). Fixtures conocidos:
+Project `60000000-0000-0000-0000-0000000012a1`, ventana `2026-09-01`–`2026-09-30`,
+MXN documentado 15,000/pagado 5,000/pendiente 10,000; USD documentado 1,000.
+Con el navegador CLI abierto (`npx playwright cli open`), ejecutar
+`npx playwright cli run-code --filename=scripts/qa-phase12-playwright.js` reproduce
+la comprobación de filtros, gráficos, export, estados y responsive.
+
+## Gates de verificación
 
 Con Supabase y `functions:serve` activos:
 
@@ -242,6 +358,8 @@ npm run test:deliverables
 npm run test:files
 npm run test:portal
 npm run test:messaging
+npm run test:billing
+npm run test:analytics
 npm run db:files:diagnose
 npm run build
 ```

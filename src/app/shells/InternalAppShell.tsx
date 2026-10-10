@@ -21,6 +21,7 @@ export function Component() {
     { href: '/app/messages', label: 'Mensajes' },
     { href: '/app/notifications', label: 'Notificaciones' },
     { href: '/app/editorial/calendar', label: 'Editorial' },
+    ...(auth.hasCapability('analytics.view') ? [{ href: '/app/analytics', label: 'Analytics' }] : []),
     { href: '/app/crm/accounts', label: 'Organizations' },
     { href: '/app/crm/contacts', label: 'Contacts' },
     { href: '/app/crm/opportunities', label: 'Opportunities' },

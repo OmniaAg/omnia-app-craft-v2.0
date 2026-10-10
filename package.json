@@ -35,6 +35,7 @@
     "test:portal": "node scripts/test-portal-integration.mjs",
     "test:messaging": "node scripts/test-messaging-integration.mjs",
     "test:billing": "node scripts/test-billing-integration.mjs",
+    "test:analytics": "node scripts/test-analytics-integration.mjs",
     "db:files:diagnose": "node scripts/diagnose-file-storage.mjs"
   },
   "dependencies": {

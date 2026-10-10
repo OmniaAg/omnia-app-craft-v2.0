@@ -11,6 +11,7 @@ const links = [
   { to: '/portal/messages', label: 'Mensajes', end: false },
   { to: '/portal/notifications', label: 'Notificaciones', end: false },
   { to: '/portal/documents', label: 'Documentos', end: false },
+  { to: '/portal/reports', label: 'Reportes', end: false },
   { to: '/portal/settings', label: 'Configuración', end: false },
 ]
 
