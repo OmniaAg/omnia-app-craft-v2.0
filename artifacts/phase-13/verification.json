@@ -1,0 +1,82 @@
+[
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 52.325
+  },
+  {
+    "command": "db:test",
+    "passed": true,
+    "seconds": 6.982
+  },
+  {
+    "command": "db:lint",
+    "passed": true,
+    "seconds": 2.134
+  },
+  {
+    "command": "db:types",
+    "passed": true,
+    "seconds": 6.676
+  },
+  {
+    "command": "db:types:check",
+    "passed": true,
+    "seconds": 5.375
+  },
+  {
+    "command": "advisors",
+    "passed": true,
+    "seconds": 1.955
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 50.142
+  },
+  {
+    "command": "test:automations",
+    "passed": true,
+    "seconds": 9.282
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 50.968
+  },
+  {
+    "command": "test:integrations",
+    "passed": true,
+    "seconds": 8.06
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 49.823
+  },
+  {
+    "command": "test:ai",
+    "passed": true,
+    "seconds": 7.105
+  },
+  {
+    "command": "typecheck",
+    "passed": true,
+    "seconds": 11.71
+  },
+  {
+    "command": "lint",
+    "passed": true,
+    "seconds": 0.631
+  },
+  {
+    "command": "test",
+    "passed": true,
+    "seconds": 13.271
+  },
+  {
+    "command": "build",
+    "passed": true,
+    "seconds": 12.382
+  }
+]

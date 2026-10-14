@@ -102,6 +102,130 @@ export type Database = {
           },
         ]
       }
+      ai_project_consents: {
+        Row: {
+          consented_by: string
+          enabled: boolean
+          project_id: string
+          updated_at: string
+        }
+        Insert: {
+          consented_by: string
+          enabled?: boolean
+          project_id: string
+          updated_at?: string
+        }
+        Update: {
+          consented_by?: string
+          enabled?: boolean
+          project_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_project_consents_consented_by_fkey"
+            columns: ["consented_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "ai_project_consents_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: true
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_runs: {
+        Row: {
+          actor_id: string
+          approved_work_item_id: string | null
+          context_counts: Json
+          correlation_id: string
+          finished_at: string | null
+          id: string
+          input_tokens: number | null
+          model: string
+          output_tokens: number | null
+          project_id: string
+          provider: string
+          request_key: string
+          result: Json | null
+          safe_error: string | null
+          started_at: string
+          status: string
+          task_type: string
+          template_key: string
+          template_version: number
+        }
+        Insert: {
+          actor_id: string
+          approved_work_item_id?: string | null
+          context_counts: Json
+          correlation_id?: string
+          finished_at?: string | null
+          id?: string
+          input_tokens?: number | null
+          model: string
+          output_tokens?: number | null
+          project_id: string
+          provider: string
+          request_key: string
+          result?: Json | null
+          safe_error?: string | null
+          started_at?: string
+          status?: string
+          task_type: string
+          template_key: string
+          template_version: number
+        }
+        Update: {
+          actor_id?: string
+          approved_work_item_id?: string | null
+          context_counts?: Json
+          correlation_id?: string
+          finished_at?: string | null
+          id?: string
+          input_tokens?: number | null
+          model?: string
+          output_tokens?: number | null
+          project_id?: string
+          provider?: string
+          request_key?: string
+          result?: Json | null
+          safe_error?: string | null
+          started_at?: string
+          status?: string
+          task_type?: string
+          template_key?: string
+          template_version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_runs_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "ai_runs_approved_work_item_id_fkey"
+            columns: ["approved_work_item_id"]
+            isOneToOne: false
+            referencedRelation: "work_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_runs_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_events: {
         Row: {
           actor_id: string | null
@@ -163,6 +287,236 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "organizations"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      automation_definitions: {
+        Row: {
+          actions: Json
+          conditions: Json
+          create_key: string
+          created_at: string
+          created_by: string
+          enabled: boolean
+          event_type: string | null
+          id: string
+          name: string
+          project_id: string
+          revision: number
+          trigger_type: string
+          updated_at: string
+        }
+        Insert: {
+          actions: Json
+          conditions?: Json
+          create_key: string
+          created_at?: string
+          created_by: string
+          enabled?: boolean
+          event_type?: string | null
+          id?: string
+          name: string
+          project_id: string
+          revision?: number
+          trigger_type: string
+          updated_at?: string
+        }
+        Update: {
+          actions?: Json
+          conditions?: Json
+          create_key?: string
+          created_at?: string
+          created_by?: string
+          enabled?: boolean
+          event_type?: string | null
+          id?: string
+          name?: string
+          project_id?: string
+          revision?: number
+          trigger_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_definitions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "automation_definitions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      automation_run_steps: {
+        Row: {
+          action: Json
+          attempt: number
+          attempts: Json
+          finished_at: string | null
+          id: string
+          position: number
+          result_resource_id: string | null
+          run_id: string
+          safe_error: string | null
+          started_at: string | null
+          status: string
+        }
+        Insert: {
+          action: Json
+          attempt?: number
+          attempts?: Json
+          finished_at?: string | null
+          id?: string
+          position: number
+          result_resource_id?: string | null
+          run_id: string
+          safe_error?: string | null
+          started_at?: string | null
+          status?: string
+        }
+        Update: {
+          action?: Json
+          attempt?: number
+          attempts?: Json
+          finished_at?: string | null
+          id?: string
+          position?: number
+          result_resource_id?: string | null
+          run_id?: string
+          safe_error?: string | null
+          started_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_run_steps_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "automation_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      automation_runs: {
+        Row: {
+          actions_snapshot: Json
+          attempt: number
+          automation_id: string
+          causation_id: string | null
+          claim_token: string | null
+          correlation_id: string
+          created_at: string
+          definition_snapshot: Json
+          depth: number
+          event_id: string | null
+          finished_at: string | null
+          id: string
+          lease_until: string | null
+          manual_retries: number
+          max_attempt: number
+          next_attempt_at: string
+          owner_id: string
+          project_id: string
+          request_key: string | null
+          requested_by: string | null
+          revision: number
+          safe_error: string | null
+          started_at: string | null
+          status: string
+        }
+        Insert: {
+          actions_snapshot: Json
+          attempt?: number
+          automation_id: string
+          causation_id?: string | null
+          claim_token?: string | null
+          correlation_id?: string
+          created_at?: string
+          definition_snapshot: Json
+          depth?: number
+          event_id?: string | null
+          finished_at?: string | null
+          id?: string
+          lease_until?: string | null
+          manual_retries?: number
+          max_attempt?: number
+          next_attempt_at?: string
+          owner_id: string
+          project_id: string
+          request_key?: string | null
+          requested_by?: string | null
+          revision: number
+          safe_error?: string | null
+          started_at?: string | null
+          status?: string
+        }
+        Update: {
+          actions_snapshot?: Json
+          attempt?: number
+          automation_id?: string
+          causation_id?: string | null
+          claim_token?: string | null
+          correlation_id?: string
+          created_at?: string
+          definition_snapshot?: Json
+          depth?: number
+          event_id?: string | null
+          finished_at?: string | null
+          id?: string
+          lease_until?: string | null
+          manual_retries?: number
+          max_attempt?: number
+          next_attempt_at?: string
+          owner_id?: string
+          project_id?: string
+          request_key?: string | null
+          requested_by?: string | null
+          revision?: number
+          safe_error?: string | null
+          started_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_runs_automation_id_fkey"
+            columns: ["automation_id"]
+            isOneToOne: false
+            referencedRelation: "automation_definitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "automation_runs_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "domain_events"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "automation_runs_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "automation_runs_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "automation_runs_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -1403,39 +1757,51 @@ export type Database = {
         Row: {
           actor_id: string | null
           agency_id: string | null
+          automation_depth: number
+          causation_id: string | null
           correlation_id: string
           event_id: string
           event_type: string
           idempotency_key: string | null
           occurred_at: string
           organization_id: string | null
+          origin_run_id: string | null
           payload: Json
+          project_id: string | null
           resource_id: string
           resource_type: string
         }
         Insert: {
           actor_id?: string | null
           agency_id?: string | null
+          automation_depth?: number
+          causation_id?: string | null
           correlation_id?: string
           event_id?: string
           event_type: string
           idempotency_key?: string | null
           occurred_at?: string
           organization_id?: string | null
+          origin_run_id?: string | null
           payload?: Json
+          project_id?: string | null
           resource_id: string
           resource_type: string
         }
         Update: {
           actor_id?: string | null
           agency_id?: string | null
+          automation_depth?: number
+          causation_id?: string | null
           correlation_id?: string
           event_id?: string
           event_type?: string
           idempotency_key?: string | null
           occurred_at?: string
           organization_id?: string | null
+          origin_run_id?: string | null
           payload?: Json
+          project_id?: string | null
           resource_id?: string
           resource_type?: string
         }
@@ -1452,6 +1818,20 @@ export type Database = {
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "domain_events_origin_run_id_fkey"
+            columns: ["origin_run_id"]
+            isOneToOne: false
+            referencedRelation: "automation_runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "domain_events_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
             referencedColumns: ["id"]
           },
         ]
@@ -1663,6 +2043,85 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      integration_connections: {
+        Row: {
+          consented_at: string
+          consented_by: string
+          create_key: string
+          created_at: string
+          created_by: string
+          credentials_version: number
+          display_name: string
+          event_allowlist: string[]
+          id: string
+          last_config_key: string | null
+          last_health_check: string | null
+          last_health_status: string | null
+          project_id: string
+          provider: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          consented_at?: string
+          consented_by: string
+          create_key: string
+          created_at?: string
+          created_by: string
+          credentials_version?: number
+          display_name: string
+          event_allowlist?: string[]
+          id?: string
+          last_config_key?: string | null
+          last_health_check?: string | null
+          last_health_status?: string | null
+          project_id: string
+          provider?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          consented_at?: string
+          consented_by?: string
+          create_key?: string
+          created_at?: string
+          created_by?: string
+          credentials_version?: number
+          display_name?: string
+          event_allowlist?: string[]
+          id?: string
+          last_config_key?: string | null
+          last_health_check?: string | null
+          last_health_status?: string | null
+          project_id?: string
+          provider?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_connections_consented_by_fkey"
+            columns: ["consented_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "integration_connections_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "integration_connections_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -2974,6 +3433,96 @@ export type Database = {
         }
         Relationships: []
       }
+      webhook_deliveries: {
+        Row: {
+          attempt: number
+          attempts: Json
+          connection_id: string
+          created_at: string
+          event_id: string | null
+          finished_at: string | null
+          id: string
+          last_http_status: number | null
+          payload: Json
+          project_id: string
+          request_key: string | null
+          requested_by: string | null
+          safe_error: string | null
+          status: string
+          step_id: string | null
+        }
+        Insert: {
+          attempt?: number
+          attempts?: Json
+          connection_id: string
+          created_at?: string
+          event_id?: string | null
+          finished_at?: string | null
+          id?: string
+          last_http_status?: number | null
+          payload: Json
+          project_id: string
+          request_key?: string | null
+          requested_by?: string | null
+          safe_error?: string | null
+          status?: string
+          step_id?: string | null
+        }
+        Update: {
+          attempt?: number
+          attempts?: Json
+          connection_id?: string
+          created_at?: string
+          event_id?: string | null
+          finished_at?: string | null
+          id?: string
+          last_http_status?: number | null
+          payload?: Json
+          project_id?: string
+          request_key?: string | null
+          requested_by?: string | null
+          safe_error?: string | null
+          status?: string
+          step_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhook_deliveries_connection_id_fkey"
+            columns: ["connection_id"]
+            isOneToOne: false
+            referencedRelation: "integration_connections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "webhook_deliveries_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "domain_events"
+            referencedColumns: ["event_id"]
+          },
+          {
+            foreignKeyName: "webhook_deliveries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "webhook_deliveries_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "webhook_deliveries_step_id_fkey"
+            columns: ["step_id"]
+            isOneToOne: true
+            referencedRelation: "automation_run_steps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       work_applications: {
         Row: {
           applicant_id: string
@@ -3913,6 +4462,142 @@ export type Database = {
           review_assignment_id: string
         }
         Returns: string
+      }
+      phase13_access: {
+        Args: { p_capability: string; p_project: string }
+        Returns: boolean
+      }
+      phase13_ai_consent: {
+        Args: { p_enabled: boolean; p_project: string }
+        Returns: undefined
+      }
+      phase13_approve_ai_draft: { Args: { p_run: string }; Returns: string }
+      phase13_claim_run: { Args: { p_run?: string }; Returns: Json }
+      phase13_complete_ai: {
+        Args: {
+          p_actor: string
+          p_error?: string
+          p_input_tokens?: number
+          p_output_tokens?: number
+          p_result: Json
+          p_run: string
+        }
+        Returns: undefined
+      }
+      phase13_delivery_material: {
+        Args: {
+          p_actor?: string
+          p_delivery: string
+          p_run?: string
+          p_token?: string
+        }
+        Returns: Json
+      }
+      phase13_disable_connection: {
+        Args: { p_connection: string }
+        Returns: undefined
+      }
+      phase13_finish_delivery: {
+        Args: {
+          p_actor?: string
+          p_delivery: string
+          p_error: string
+          p_http_status: number
+          p_run?: string
+          p_token?: string
+        }
+        Returns: undefined
+      }
+      phase13_finish_run: {
+        Args: { p_run: string; p_token: string }
+        Returns: undefined
+      }
+      phase13_finish_step: {
+        Args: {
+          p_error?: string
+          p_position: number
+          p_run: string
+          p_token: string
+        }
+        Returns: undefined
+      }
+      phase13_history: {
+        Args: {
+          p_kind: string
+          p_limit?: number
+          p_offset?: number
+          p_project: string
+        }
+        Returns: Json
+      }
+      phase13_manual_run: {
+        Args: { p_automation: string; p_key: string }
+        Returns: string
+      }
+      phase13_prepare_step: {
+        Args: { p_position: number; p_run: string; p_token: string }
+        Returns: Json
+      }
+      phase13_projects: {
+        Args: { p_capability: string }
+        Returns: {
+          can_manage: boolean
+          can_run: boolean
+          id: string
+          name: string
+          organization_id: string
+          organization_name: string
+        }[]
+      }
+      phase13_replay_event: { Args: { p_event: string }; Returns: number }
+      phase13_retry_run: { Args: { p_run: string }; Returns: undefined }
+      phase13_run_detail: { Args: { p_run: string }; Returns: Json }
+      phase13_save_automation: {
+        Args: {
+          p_actions: Json
+          p_conditions: Json
+          p_enabled: boolean
+          p_event: string
+          p_id?: string
+          p_key: string
+          p_name: string
+          p_project: string
+          p_trigger: string
+        }
+        Returns: string
+      }
+      phase13_save_connection: {
+        Args: {
+          p_events?: string[]
+          p_id?: string
+          p_key: string
+          p_name: string
+          p_project: string
+        }
+        Returns: string
+      }
+      phase13_start_ai: {
+        Args: {
+          p_actor: string
+          p_key: string
+          p_project: string
+          p_task: string
+        }
+        Returns: Json
+      }
+      phase13_store_credentials: {
+        Args: {
+          p_actor: string
+          p_cipher: Json
+          p_connection: string
+          p_key: string
+          p_url: string
+        }
+        Returns: undefined
+      }
+      phase13_test_connection: {
+        Args: { p_actor: string; p_connection: string; p_key: string }
+        Returns: Json
       }
       phase7_submit_deliverable_version: {
         Args: { deliverable_id: string; idempotency_key: string; notes: string }

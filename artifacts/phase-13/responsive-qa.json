@@ -1,0 +1,28 @@
+{
+  "surfaces": 3,
+  "widths": [
+    1440,
+    768,
+    390
+  ],
+  "requestCounts": {
+    "automations": [
+      "phase13_projects",
+      "phase13_history",
+      "phase13_history"
+    ],
+    "integrations": [
+      "phase13_projects",
+      "phase13_history",
+      "phase13_history"
+    ],
+    "ai": [
+      "phase13_access",
+      "phase13_access",
+      "project_access_allowed",
+      "ai_project_consents",
+      "phase13_history"
+    ]
+  },
+  "screenshots": 21
+}

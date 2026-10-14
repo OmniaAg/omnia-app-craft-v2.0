@@ -1,0 +1,122 @@
+[
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 51.861
+  },
+  {
+    "command": "test:connectivity",
+    "passed": true,
+    "seconds": 3.856
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 50.641
+  },
+  {
+    "command": "test:auth",
+    "passed": false,
+    "seconds": 3.695
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 49.978
+  },
+  {
+    "command": "test:crm",
+    "passed": true,
+    "seconds": 5.829
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 51.432
+  },
+  {
+    "command": "test:work",
+    "passed": true,
+    "seconds": 5.728
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 50.235
+  },
+  {
+    "command": "test:dashboard",
+    "passed": true,
+    "seconds": 4.986
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 51.788
+  },
+  {
+    "command": "test:editorial",
+    "passed": true,
+    "seconds": 6.636
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 52.075
+  },
+  {
+    "command": "test:deliverables",
+    "passed": true,
+    "seconds": 7.405
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 48.506
+  },
+  {
+    "command": "test:files",
+    "passed": true,
+    "seconds": 7.197
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 49.575
+  },
+  {
+    "command": "test:portal",
+    "passed": true,
+    "seconds": 8.691
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 51.344
+  },
+  {
+    "command": "test:messaging",
+    "passed": false,
+    "seconds": 240.022
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 51.317
+  },
+  {
+    "command": "test:billing",
+    "passed": true,
+    "seconds": 6.129
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 51.637
+  },
+  {
+    "command": "test:analytics",
+    "passed": true,
+    "seconds": 6.228
+  }
+]

@@ -391,4 +391,175 @@ Para detener sólo este stack:
 npm run db:stop
 ```
 
+## Phase 13 — Automations, AI & External Integrations
+
+Phase 13 añade workflows internos y conexiones **por Project**; Organization y
+Agency se derivan del Project. Reutiliza capabilities, memberships, `domain_events`,
+`audit_events` y los comandos existentes de Work. No introduce un segundo modelo
+de autorización. Dirección recibe las siete capabilities nuevas; PM requiere
+grants explícitos y membership interna activa del Project. Contributor sólo puede
+usar IA con `ai.use` y contexto autorizado. Clientes no tienen acceso. Configurar
+secretos y consentimientos de IA exige Dirección.
+
+### Automatizaciones
+
+`automation_definitions` guarda una definición estructurada y versionada. Triggers:
+manual o `work.created`, `work.completed`, `work.status_changed`,
+`deliverable.published_to_client`, `review.changes_requested`. Hasta cinco
+condiciones AND sobre event type, Project, resource type o status; operadores
+`equals`, `contains`, `exists`. Hasta cinco acciones ordenadas: crear Work en el
+mismo Project mediante el comando authoritative existente, o enviar webhook a
+una conexión activa del mismo Project con evento permitido. No se aceptan SQL,
+código, URLs ni providers arbitrarios en las acciones.
+
+El trigger de DB inserta `automation_runs` transaccionalmente con el domain event.
+Ésta es la cola persistente de ejecución, siguiendo el patrón de outbox de Phase
+10; `notification_outbox` conserva su contrato. La definición y sus acciones se
+capturan en el run para preservar historia. La UI pagina definiciones y runs, y
+permite configurar, habilitar/deshabilitar, ejecutar manualmente, inspeccionar
+pasos y reintentar fallos. La ejecución manual de una definición de evento prueba
+sus acciones con un evento `automation.manual`, sin evaluar condiciones del evento.
+
+Lifecycle: `pending → running → succeeded/failed/cancelled`. Claim con
+`FOR UPDATE SKIP LOCKED`, token de fencing y lease de 60 segundos; cada paso
+revalida owner, capabilities, scope y definición habilitada. Los pasos completados
+se conservan. Tres intentos automáticos por ciclo, backoff exponencial desde 5 hasta 300 segundos para
+timeout, 429 y 5xx; errores permanentes no se reintentan automáticamente. Hasta
+tres ciclos adicionales de retry manual autorizado. Runs agotados quedan en
+`failed` con diagnóstico seguro e historial, sin borrar registros.
+
+Deduplicación por `(automation_id,event_id)`, `(requested_by,manual_key)` y paso
+estable para Work/webhooks. Replay no aplica definiciones habilitadas/revisadas
+después del evento. Correlation/causation y profundidad viajan con los
+eventos de Work creados por automatización. Se suprime auto-origen y se limita la
+cadena a profundidad 3; las pruebas incluyen ciclos A→B→A. Deshabilitar un
+workflow o revocar permisos impide nuevos efectos. Límites por actor: 10 manual
+runs y 10 retries por minuto.
+
+### Integraciones y secretos
+
+Único provider implementado: `generic_webhook` outbound. `integration_connections`
+contiene metadata segura, allowlist de eventos y salud. URL privada y credenciales
+se guardan en `app_private.integration_credentials`, cifradas por Edge con
+AES-256-GCM, nonce aleatorio de 12 bytes y AAD ligada al ID de conexión/versión.
+RLS y grants deniegan lectura directa incluso al cliente service-role; únicamente
+RPCs service-only controlados acceden al material. La clave de cifrado y el token
+de worker viven exclusivamente en environment de servidor. El browser admite un
+input de secreto sólo escritura, lo limpia al guardar/cancelar y nunca lo recibe
+en respuestas, historial o auditoría.
+
+Los destinos requieren HTTPS, un origen exacto permitido por servidor y DNS de
+confianza controlado. Se rechazan direcciones privadas, metadata, credenciales o
+query/fragment en URL y redirects; timeout de 8 segundos. HTTP sólo se permite
+con flag explícito para el receptor local determinista. La validación DNS se hace
+antes de cada envío; no hay conexión HTTP con resolución IP fijada, por lo que
+la allowlist debe contener únicamente hosts con DNS bajo control de confianza.
+
+Payload v1 mínimo: event ID/type, Project, resource ID/type, correlation y delivery
+ID. Headers: `x-omnia-event-id`, `x-omnia-delivery-id`, `idempotency-key`,
+`x-omnia-timestamp`, `x-omnia-signature`. Firma `v1=<hex HMAC-SHA256>` sobre
+`timestamp.deliveryId.body`, con el body exacto. El delivery ID permanece estable
+en retries. Transporte **at least once**: el receptor debe validar firma, ventana
+temporal y deduplicar delivery ID para evitar efectos duplicados. El receptor de
+prueba valida una ventana de 5 minutos, firmas forjadas/expiradas y replay.
+
+`webhook_deliveries` conserva intentos, HTTP status y safe error; no conserva
+respuestas externas crudas. Test Connection requiere confirmación de envío y
+tiene límite de cinco tests por actor/minuto. Deshabilitar una conexión detiene
+los envíos siguientes y conserva historia. No se implementan inbound a OMNIA,
+OAuth, sincronización ni IDs/cursors externos: el Action Plan no especifica un
+provider o mapping de dominio inbound para este alcance.
+
+El envelope actual admite `key_version=1`. Rotar el secreto de firma se hace en
+Configurar conexión. Para cambiar la clave maestra: conservar la clave vigente,
+reconfigurar las conexiones con credenciales nuevas y migrar el material cifrado
+con un procedimiento de servidor antes de retirar la clave anterior. Cambiar
+únicamente la variable rompe el descifrado del historial de credenciales; no existe
+keyring/rotación automática en este MVP.
+
+### IA del Project
+
+`/app/projects/:projectId/assistant` implementa resumen y borrador de Work.
+`AIProvider` separa generación de autorización. El único provider disponible es
+`local_deterministic`, modelo `omnia-local-v1`, plantillas versionadas en código
+v1 y schemas estrictos Zod + validación DB. No usa proveedores pagados, llamadas
+externas ni tool calling autónomo. El texto del usuario es dato, sin autoridad.
+
+Contexto obtenido por RPC service-only que revalida actor/scope: nombre de Project,
+conteos y hasta 20 títulos de Work visibles; Contributor sólo ve trabajo asignado.
+No se incluyen conversaciones, archivos, finanzas ni Projects ajenos. Límite de
+entrada 2,000 caracteres, salida 8 KiB, timeout 8 segundos, 10 solicitudes por
+actor/minuto y dos en curso. Las entradas y contexto crudos no se persisten; el
+run conserva provenance, resultado validado, conteos y usage nullable (el provider
+local no cuenta tokens). Resultados propios paginados, consentimiento de Project
+y autorización reevaluados después de la generación.
+
+Generar un borrador no crea Work. La persona revisa, marca consentimiento y
+aprueba mediante `phase13_approve_ai_draft`; éste exige actor dueño, `ai.use`,
+`work.create`, consentimiento vigente y llama al comando Work existente una vez.
+IA no puede publicar, enviar comunicaciones, borrar, cambiar permisos ni mutar Billing.
+
+### Edge y desarrollo local
+
+`automation-api` valida JWT con Auth, input estricto y errores seguros. Las
+operaciones de browser usan comandos autorizados; `dispatch` exige token privado
+de worker. CORS exacto para los dos orígenes locales y origins adicionales de
+servidor. `db:start`/`db:reset` configuran el plugin CORS del servicio Functions de
+Kong local para que no sustituya el origen exacto por `*`. No cambia otros servicios.
+
+```bash
+npm run db:start
+npm run db:reset
+npm run phase13:prepare
+npm run functions:serve:phase13:test
+# En otra terminal:
+npm run dev
+npm run worker:once -- --env-file=supabase/.env.phase13-test.local
+# Dispatcher local opcional, una invocación de cola cada 2 segundos:
+npm run worker:watch -- --env-file=supabase/.env.phase13-test.local
+```
+
+`phase13:prepare` establece passwords de fixtures y genera exclusivamente
+`supabase/.env.phase13-test.local` ignorado, con claves aleatorias y receptor local
+permitido. Ejecutarlo antes de iniciar Functions; regenerarlo requiere reiniciar
+Functions. No sobrescribe `supabase/.env.local`. Para configuración propia copiar
+`supabase/.env.example` a `.env.local` en esa carpeta, generar 32 bytes aleatorios
+base64 para `INTEGRATION_ENCRYPTION_KEY`, token aleatorio de al menos 32 caracteres
+para `AUTOMATION_WORKER_TOKEN`, y servir con `functions:serve:phase13`.
+`worker:once/watch` leen `.env.local` por defecto o el path de `--env-file=` explícito.
+No hay cron ni polling frontend de tablas de negocio; domain events encolan y el
+dispatcher procesa claims de la cola. La actualización de historial es explícita.
+
+```bash
+npm run verify:phase13
+npm run verify:phase13:regressions
+# Suites mutantes secuenciales; reset entre ellas:
+npm run test:automations
+npm run test:integrations
+npm run test:ai
+```
+
+Las suites usan Auth, RPCs y Edge reales del stack local. `test:integrations` inicia
+y cierra su propio receptor firmado en 56413. Evidencias en `artifacts/phase-13`.
+Las regresiones se ejecutan una a una con reset entre suites; no ejecutarlas en
+paralelo con otras pruebas que mutan la DB.
+
+Para el gate de configuración ausente, detener únicamente el proceso Functions
+propio, ejecutar `node scripts/test-phase13-edge-config.mjs --prepare`, servir con
+`supabase functions serve --env-file supabase/.env.phase13-missing.local` y ejecutar
+`node scripts/test-phase13-edge-config.mjs`. Después restaurar el environment
+normal. Verifica provider/key/token ausentes sin mutación ni datos sensibles.
+
+QA funcional y visual reproducible: DB limpia, `phase13:prepare`, Functions de test,
+`test:ai` para crear el Project fixture, `npm run webhook:receiver`, Vite y
+`playwright-cli open http://127.0.0.1:53170/login`. Después:
+`node scripts/run-phase13-browser-qa.mjs` (usa `playwright-cli` y guarda resultados).
+Prueba creación/toggle/manual/retry, configuración/test/secreto oculto, resumen,
+borrador/revisión/aprobación, PM sin grants y cliente; screenshots 1440/768/390,
+overflow, labels, focus, console/network y ausencia de polling. No dejar el receptor
+de QA activo durante `test:integrations`, que necesita el mismo puerto.
+`scripts/capture-phase13-responsive.js` permite repetir sólo las capturas visuales
+y conteos de queries. `node scripts/check-phase13-secrets.mjs` verifica el bundle
+compilado y la evidencia contra las claves privadas locales sin imprimirlas.
+
 La fuente arquitectónica y de secuencia es [OMNIA_CRAFT_ACTION_PLAN.md](./OMNIA_CRAFT_ACTION_PLAN.md).

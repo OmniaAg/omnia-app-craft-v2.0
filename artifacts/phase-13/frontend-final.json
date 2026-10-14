@@ -1,0 +1,22 @@
+[
+  {
+    "command": "typecheck",
+    "passed": true,
+    "seconds": 6.828
+  },
+  {
+    "command": "lint",
+    "passed": true,
+    "seconds": 0.416
+  },
+  {
+    "command": "test",
+    "passed": true,
+    "seconds": 8.685
+  },
+  {
+    "command": "build",
+    "passed": true,
+    "seconds": 10.736
+  }
+]

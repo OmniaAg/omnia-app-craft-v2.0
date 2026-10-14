@@ -1,0 +1,62 @@
+[
+  {
+    "command": "test:connectivity",
+    "passed": true,
+    "seconds": 3.856
+  },
+  {
+    "command": "test:auth",
+    "passed": true,
+    "seconds": 9.078
+  },
+  {
+    "command": "test:crm",
+    "passed": true,
+    "seconds": 5.829
+  },
+  {
+    "command": "test:work",
+    "passed": true,
+    "seconds": 5.728
+  },
+  {
+    "command": "test:dashboard",
+    "passed": true,
+    "seconds": 4.986
+  },
+  {
+    "command": "test:editorial",
+    "passed": true,
+    "seconds": 6.636
+  },
+  {
+    "command": "test:deliverables",
+    "passed": true,
+    "seconds": 7.405
+  },
+  {
+    "command": "test:files",
+    "passed": true,
+    "seconds": 7.197
+  },
+  {
+    "command": "test:portal",
+    "passed": true,
+    "seconds": 8.691
+  },
+  {
+    "command": "test:messaging",
+    "passed": true,
+    "seconds": 18.056
+  },
+  {
+    "command": "test:billing",
+    "passed": true,
+    "seconds": 6.129
+  },
+  {
+    "command": "test:analytics",
+    "passed": true,
+    "seconds": 6.228
+  }
+]

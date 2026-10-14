@@ -22,6 +22,8 @@ export function Component() {
     { href: '/app/notifications', label: 'Notificaciones' },
     { href: '/app/editorial/calendar', label: 'Editorial' },
     ...(auth.hasCapability('analytics.view') ? [{ href: '/app/analytics', label: 'Analytics' }] : []),
+    ...(auth.hasCapability('automation.view') ? [{ href: '/app/automations', label: 'Automatizaciones' }] : []),
+    ...(auth.hasCapability('integration.view') ? [{ href: '/app/integrations', label: 'Integraciones' }] : []),
     { href: '/app/crm/accounts', label: 'Organizations' },
     { href: '/app/crm/contacts', label: 'Contacts' },
     { href: '/app/crm/opportunities', label: 'Opportunities' },

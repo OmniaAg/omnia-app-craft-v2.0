@@ -10,6 +10,7 @@ try {
     stdio: ['ignore', 'pipe', 'pipe'],
   })
   const { attempts } = await waitForPostgrest(getLocalSupabaseStatus())
+  await import('./configure-local-functions-cors.mjs')
   console.log(`Supabase local stack is running for project omnia-craft; PostgREST ready in ${attempts} attempt${attempts === 1 ? '' : 's'}.`)
 } catch (error) {
   const status = typeof error.status === 'number' ? error.status : 1

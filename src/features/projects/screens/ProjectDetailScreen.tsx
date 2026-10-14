@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useAuth } from '../../auth/context/AuthContext'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { getSupabaseClient } from '../../../shared/api/supabase/client'
@@ -25,6 +26,7 @@ const responsibilityLabel = (value: string) => responsibilityLabels[value] ?? va
 
 export function Component() {
   const { projectId = '' } = useParams()
+  const auth = useAuth()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const focusedProjectId = useRef<string | null>(null)
@@ -118,6 +120,7 @@ export function Component() {
           {channelMutation.isPending ? 'Abriendo canal…' : 'Abrir canal de mensajes'}
         </button>
       </div> : null}
+      {auth.hasCapability('ai.use') && !isArchived ? <Link className="crm-row-link" to={`/app/projects/${projectId}/assistant`}>Asistente del proyecto</Link> : null}
       {error ? <CrmError message={error.message} /> : null}
       {success ? <CrmSuccess message={success} /> : null}
       {archiveMutation.error ? <CrmError message={archiveMutation.error.message} /> : null}

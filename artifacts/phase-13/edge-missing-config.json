@@ -1,0 +1,11 @@
+{
+  "passed": 6,
+  "checks": [
+    "Missing AI provider fails closed with safe 503",
+    "Missing encryption key fails before metadata mutation",
+    "Missing worker token fails closed with safe 503",
+    "Unauthenticated request remains rejected",
+    "Invalid payload remains rejected",
+    "Configuration failure created no connection"
+  ]
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 51.032
+  },
+  {
+    "command": "db:test",
+    "passed": true,
+    "seconds": 7.772
+  },
+  {
+    "command": "db:lint",
+    "passed": true,
+    "seconds": 2.059
+  },
+  {
+    "command": "db:types:check",
+    "passed": true,
+    "seconds": 6.31
+  },
+  {
+    "command": "test:auth",
+    "passed": true,
+    "seconds": 9.078
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 48.425
+  },
+  {
+    "command": "test:messaging",
+    "passed": true,
+    "seconds": 18.056
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 68.246
+  },
+  {
+    "command": "test:automations",
+    "passed": true,
+    "seconds": 13.886
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 70.192
+  },
+  {
+    "command": "test:integrations",
+    "passed": true,
+    "seconds": 13.763
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 76.89
+  },
+  {
+    "command": "test:ai",
+    "passed": true,
+    "seconds": 13.446
+  },
+  {
+    "command": "typecheck",
+    "passed": true,
+    "seconds": 13.735
+  },
+  {
+    "command": "lint",
+    "passed": true,
+    "seconds": 5.97
+  },
+  {
+    "command": "test",
+    "passed": false,
+    "seconds": 64.144
+  },
+  {
+    "command": "build",
+    "passed": true,
+    "seconds": 21.575
+  }
+]

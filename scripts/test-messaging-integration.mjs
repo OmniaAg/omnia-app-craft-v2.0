@@ -7,6 +7,7 @@ import { TEST_PASSWORD, TEST_USERS } from './test-fixtures/credentials.mjs'
 
 const PROJECT_A = '60000000-0000-0000-0000-0000000000a1'
 const ORGANIZATION_A = '30000000-0000-0000-0000-00000000000a'
+const clients = []
 
 function ok(result, label) {
   assert.equal(result.error, null, `${label}: ${result.error?.message}`)
@@ -17,11 +18,13 @@ async function main() {
   const { status } = await waitForPostgrest()
   assert.equal(new URL(status.API_URL).hostname, '127.0.0.1')
   const admin = createClient(status.API_URL, status.SECRET_KEY, { auth: { persistSession: false } })
+  clients.push(admin)
   async function login(name) {
     const [id, email] = TEST_USERS[name]
     ok(await admin.auth.admin.updateUserById(id, { password: TEST_PASSWORD, email_confirm: true }), `bootstrap ${name}`)
     const client = createClient(status.API_URL, status.PUBLISHABLE_KEY,
       { auth: { persistSession: false, autoRefreshToken: false } })
+    clients.push(client)
     ok(await client.auth.signInWithPassword({ email, password: TEST_PASSWORD }), `login ${name}`)
     return client
   }
@@ -51,6 +54,7 @@ async function main() {
   })
   const subscription = reviewer.channel(`test-messages:${channel}`)
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages', filter: `channel_id=eq.${channel}` }, received)
+    .on('system', {}, payload => console.log(`Realtime messages: ${payload.extension}/${payload.status}`))
   let notificationReceived
   const notificationPromise = new Promise((resolve, reject) => {
     const timeout = setTimeout(() => reject(new Error('live notification not received')), 20000)
@@ -121,6 +125,7 @@ async function main() {
   localSql(`insert into public.client_memberships(user_id,organization_id,role_key,status) values('${newcomerUser.id}','${ORGANIZATION_A}','client_viewer','active')`)
   const newcomer = createClient(status.API_URL, status.PUBLISHABLE_KEY,
     { auth: { persistSession: false, autoRefreshToken: false } })
+  clients.push(newcomer)
   ok(await newcomer.auth.signInWithPassword({ email: newcomerEmail, password: TEST_PASSWORD }), 'new client login')
   const general = ok(await newcomer.rpc('my_channels'), 'new client channels')
     .find(row => row.kind === 'organization' && row.organization_id === ORGANIZATION_A)
@@ -135,3 +140,4 @@ async function main() {
 }
 
 main().catch(error => { console.error(error); process.exitCode = 1 })
+  .finally(() => { for (const client of clients) client.realtime.disconnect() })
