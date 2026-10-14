@@ -99,14 +99,14 @@ async function main() {
   const issueKey = randomUUID()
   const issuedId = ok(await pm.rpc('issue_billing_document', { p_document_id: doc.id, p_idempotency_key: issueKey }), 'issue document')
   const issuedIdRetry = ok(await pm.rpc('issue_billing_document', { p_document_id: doc.id, p_idempotency_key: issueKey }), 'issue retry idempotency')
-  assert(issuedId === doc.id, 'issue returned wrong id')
+  assert(issuedId === doc.id && issuedIdRetry === doc.id, 'issue and replay must return the same id')
   
   const issuedDoc = ok(await pm.from('billing_documents').select('*').eq('id', doc.id).single(), 'fetch issued')
   assert(issuedDoc.status === 'issued' && issuedDoc.number !== null, 'document should be issued and numbered')
 
   // 5. Freeze test
-  const updateRes = await pm.from('billing_documents').update({ subtotal_amount: 500 }).eq('id', doc.id)
-  assert(updateRes.error && updateRes.error.message.includes('Cannot modify commercial fields'), 'updating commercial fields on issued doc should fail')
+  const updateRes = await pm.from('billing_documents').update({ subtotal_amount: 500 }).eq('id', doc.id).select()
+  assert(updateRes.error || updateRes.data.length === 0, 'issued commercial fields must be immutable through RLS or trigger')
 
   const updateItemRes = await pm.from('billing_document_items').update({ unit_price: 500 }).eq('billing_document_id', doc.id).select()
   assert(!updateItemRes.error && updateItemRes.data.length === 0, 'updating items on issued doc should silently fail via RLS')
@@ -123,6 +123,7 @@ async function main() {
     p_file_asset_id: null,
     p_idempotency_key: p1Key
   }), 'partial payment')
+  assert(typeof p1 === 'string', 'partial payment must return an authoritative payment id')
   
   ok(await director.rpc('record_payment', {
     p_document_id: doc.id,
@@ -247,7 +248,7 @@ async function main() {
   ok(await pm.rpc('issue_billing_document', { p_document_id: cpDoc.id, p_idempotency_key: randomUUID() }), 'issue cpDoc')
 
   const cpResult = await Promise.allSettled([
-    director.rpc('record_payment', {
+    directorSecond.rpc('record_payment', {
       p_document_id: cpDoc.id,
       p_amount: 7500,
       p_method: 'transfer',
@@ -268,6 +269,7 @@ async function main() {
       p_idempotency_key: randomUUID()
     })
   ])
+  assert(cpResult.every(result => result.status === 'fulfilled' && !result.value.error), 'both concurrent payments must succeed')
   
   const cpDocState = ok(await pm.from('billing_documents').select('status, total_amount').eq('id', cpDoc.id).single(), 'fetch cpDoc state')
   const cpPayments = ok(await pm.from('payment_records').select('amount').eq('billing_document_id', cpDoc.id).is('voided_at', null), 'fetch cp payments')

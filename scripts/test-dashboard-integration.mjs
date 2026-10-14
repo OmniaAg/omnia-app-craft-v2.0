@@ -1,4 +1,3 @@
-import { randomBytes } from 'node:crypto'
 import { TEST_PASSWORD } from './test-fixtures/credentials.mjs'
 import { createClient } from '@supabase/supabase-js'
 import { waitForPostgrest } from './lib/local-supabase.mjs'

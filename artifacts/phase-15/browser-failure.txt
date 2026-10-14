@@ -1,0 +1,56 @@
+Saltar al contenido
+CRAFT
+Interno
+Mi Espacio
+Mis revisiones
+Archivos
+Proyectos
+Mensajes
+Notificaciones
+Configuración
+Billing
+Editorial
+Analytics
+Automatizaciones
+Integraciones
+Organizations
+Contacts
+Opportunities
+Cerrar sesión
+← Volver al trabajo
+Phase15 review fixture
+
+Trabajo: Phase15 <img src=x onerror=alert(1)> 1791962132646
+
+Decisión registrada.
+Lista Para Cliente
+Trabajo: Completado
+Configurar reviewers
+Revisión interna completa
+
+La versión aprobada está lista para publicar al cliente.
+
+Publicar entrega
+client_reviewers_missing
+Historial de versiones
+Versión 1
+Aprobada
+
+Miembro · 14 oct 2026, 1:15 a.m.
+
+Versión de QA local sin archivo privado.
+
+Archivos de esta versión
+
+Sin archivos adjuntos.
+
+Revisión interna
+Miembro
+Aprobada
+
+Requisito del proyecto
+
+Aprobó
+
+director@omnia.local
+OMNIA · Operaciones internas

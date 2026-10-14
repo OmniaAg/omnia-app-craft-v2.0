@@ -1,11 +1,12 @@
 import { createClient } from '@supabase/supabase-js'
 import webpush from 'web-push'
 import { z } from 'zod'
+import { edgeAllowedOrigins } from '../_shared/edge-origins.ts'
 import { limitedJson, SafeError } from '../_shared/phase13-security.ts'
 import { pushEndpoint, pushOutcome } from '../_shared/push-security.ts'
 
 const input = z.object({ operation:z.enum(['configuration','dispatch']) }).strict()
-const origins = new Set(['http://localhost:53170','http://127.0.0.1:53170',...(Deno.env.get('APP_ALLOWED_ORIGINS') ?? '').split(',').filter(Boolean)])
+const origins = edgeAllowedOrigins(Deno.env.get('APP_ALLOWED_ORIGINS'),Deno.env.get('SUPABASE_URL'))
 const headers = (origin: string | null) => ({ 'Access-Control-Allow-Origin':origin && origins.has(origin) ? origin : 'null',
   'Access-Control-Allow-Headers':'authorization,apikey,content-type,x-client-info,x-push-worker-token',
   'Access-Control-Allow-Methods':'POST,OPTIONS', 'Cache-Control':'no-store', Vary:'Origin' })

@@ -1,5 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getSupabaseClient } from '../../shared/api/supabase/client'
+import { useAuth } from '../auth/context/AuthContext'
+
+export const BILLING_PAGE_SIZE = 25
 
 export type BillingDocument = {
   id: string
@@ -19,23 +22,26 @@ export type BillingDocument = {
   published_at: string | null
 }
 
-export function useBillingDocuments(organizationId?: string, projectId?: string) {
+export function useBillingDocuments(organizationId?: string, projectId?: string, page = 0) {
+  const actorId = useAuth().actor?.user.id
   return useQuery({
-    queryKey: ['billing_documents', organizationId, projectId],
+    queryKey: ['billing_documents', actorId, organizationId, projectId, page],
+    enabled: Boolean(actorId),
     queryFn: async () => {
       const supabase = getSupabaseClient()
       let query = supabase.from('billing_documents').select(`
         *,
         organizations(name),
         projects(name)
-      `).order('created_at', { ascending: false })
+      `).order('created_at', { ascending: false }).order('id', { ascending: false })
+        .range(page * BILLING_PAGE_SIZE, page * BILLING_PAGE_SIZE + BILLING_PAGE_SIZE)
       
       if (organizationId) query = query.eq('organization_id', organizationId)
       if (projectId) query = query.eq('project_id', projectId)
       
       const { data, error } = await query
       if (error) throw error
-      return data
+      return {items: data.slice(0, BILLING_PAGE_SIZE), hasMore: data.length > BILLING_PAGE_SIZE}
     }
   })
 }

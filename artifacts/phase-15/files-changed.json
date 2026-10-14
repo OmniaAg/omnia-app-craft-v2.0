@@ -1,0 +1,756 @@
+{
+  "base": "e912123",
+  "scope": "uncommitted Phase 15 worktree; ignored local logs not in git path inventory",
+  "files": [
+    {
+      "file": ".gitignore",
+      "purpose": "Exclude disposable rotation env",
+      "impact": "Avoid committing server credentials"
+    },
+    {
+      "file": "artifacts/phase-15/ai-integration.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-billing-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-billing-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-billing-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-billing-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-home-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-home-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-home-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-home-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-messages-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-messages-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-messages-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-messages-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-projects-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-projects-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-projects-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-projects-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-settings-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-settings-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-settings-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/app-settings-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/automations-integration.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/backend-gates.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/billing-load.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/BRIEF.md",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/browser-failure.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/browser-failure.txt",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/browser-responsive.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/browser-workflows.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/bundle-after.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/bundle-before.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/COMPLETION_REPORT.md",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/completion-verification.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/concurrency.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/database-inventory-after.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/database-inventory-before.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/dependency-audit-before.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/dependency-audit.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/dependency-baseline/package-lock.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/dependency-baseline/package.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/edge-audit/package-lock.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/edge-audit/package.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/edge-dependency-audit.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/files-changed.json",
+      "purpose": "Exact source/evidence path inventory",
+      "impact": "Reviewability"
+    },
+    {
+      "file": "artifacts/phase-15/frontend-gates.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/headers-preview.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/integrations-integration.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/key-rotation.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/performance-budgets.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/permission-matrix.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-home-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-home-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-home-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-home-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-messages-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-messages-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-messages-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-messages-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-projects-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-projects-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-projects-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-projects-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-reports-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-reports-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-reports-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-reports-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-settings-1440.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-settings-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-settings-390.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-settings-768.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/portal-standalone-375.png",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/precache.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/PRODUCTION_HANDOFF.md",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/push-integration.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/pwa-integration.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/regressions-gates.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/responsive-runner.mjs",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/restore.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/routes-after.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/routes-before.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/secret-scan-offline.json",
+      "purpose": "Final delivery verification evidence",
+      "impact": "Explicit evidence provenance"
+    },
+    {
+      "file": "artifacts/phase-15/secret-scan.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/SECURITY_INVENTORY.md",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/security-gates.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/security-http.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/sql-after.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/sql-before.json",
+      "purpose": "Local actual execution evidence or audit/report",
+      "impact": "Traceability; fixture limitations documented"
+    },
+    {
+      "file": "artifacts/phase-15/visual-completion.json",
+      "purpose": "Final delivery verification evidence",
+      "impact": "Explicit evidence provenance"
+    },
+    {
+      "file": "OMNIA_CRAFT_STATUS.md",
+      "purpose": "Replace stale Phase 5 status with verified Phase 15 status",
+      "impact": "Visible production prerequisites"
+    },
+    {
+      "file": "package-lock.json",
+      "purpose": "Fix vulnerable source-map-js and undici within existing ranges",
+      "impact": "Remove reported vulnerable versions"
+    },
+    {
+      "file": "package.json",
+      "purpose": "Expose Phase 15 audit/security/performance/restore commands",
+      "impact": "Reproducible verification"
+    },
+    {
+      "file": "README.md",
+      "purpose": "Local reproducible gates and production boundaries",
+      "impact": "Operator runbook"
+    },
+    {
+      "file": "scripts/audit-phase15.mjs",
+      "purpose": "Catalog/database/bundle inventory before/after",
+      "impact": "Concrete audit and asset evidence"
+    },
+    {
+      "file": "scripts/build-pwa.mjs",
+      "purpose": "Precache bootstrap/Auth/error dependency graph only",
+      "impact": "38 static resources; private APIs excluded"
+    },
+    {
+      "file": "scripts/check-phase15-secrets.mjs",
+      "purpose": "Value-aware source/build/evidence secret scan",
+      "impact": "Detect leakage without printing credentials"
+    },
+    {
+      "file": "scripts/diagnose-phase15-realtime.mjs",
+      "purpose": "Diagnose/warm actual local subscription and replication slot",
+      "impact": "Address cold CDC readiness without mocked events"
+    },
+    {
+      "file": "scripts/phase15-completion-evidence.mjs",
+      "purpose": "Validate all recorded gates and counts before report",
+      "impact": "Prevent unsupported completion claims"
+    },
+    {
+      "file": "scripts/phase15-permission-matrix.mjs",
+      "purpose": "Catalog actual functions/grants/policies/delegates",
+      "impact": "Authorization audit traceability"
+    },
+    {
+      "file": "scripts/prepare-phase13-local.mjs",
+      "purpose": "Configure explicit local trusted webhook endpoint",
+      "impact": "Deterministic tests satisfy stricter endpoint policy"
+    },
+    {
+      "file": "scripts/profile-billing-load.mjs",
+      "purpose": "Controlled rollback dataset and EXPLAIN index comparison",
+      "impact": "Measure RLS-active 2000-row list"
+    },
+    {
+      "file": "scripts/profile-phase15.mjs",
+      "purpose": "Nine SQL plans and six production-route profiles",
+      "impact": "Evidence and lab performance budgets"
+    },
+    {
+      "file": "scripts/retry-phase15-regressions.mjs",
+      "purpose": "Supervise local runtime and preserve failed attempt metadata",
+      "impact": "Sequential verifiable retries after watcher instability"
+    },
+    {
+      "file": "scripts/retry-phase15-security.mjs",
+      "purpose": "Supervise local runtime and preserve failed attempt metadata",
+      "impact": "Sequential verifiable retries after watcher instability"
+    },
+    {
+      "file": "scripts/rotate-integration-keys-local.mjs",
+      "purpose": "Local-only transactional CAS re-encryption",
+      "impact": "Versioned credential rotation without printing plaintext"
+    },
+    {
+      "file": "scripts/run-phase15-browser-qa.mjs",
+      "purpose": "Responsive QA plus real cross-role workflows",
+      "impact": "Production artifacts and scope checks"
+    },
+    {
+      "file": "scripts/security-headers.d.mts",
+      "purpose": "Shared CSP/MIME/frame/referrer/permissions/HSTS policy and types",
+      "impact": "Production preview enforcement"
+    },
+    {
+      "file": "scripts/security-headers.mjs",
+      "purpose": "Shared CSP/MIME/frame/referrer/permissions/HSTS policy and types",
+      "impact": "Production preview enforcement"
+    },
+    {
+      "file": "scripts/test-billing-integration.mjs",
+      "purpose": "Assert both concurrent valid payments and replay identity",
+      "impact": "Stronger transaction regression"
+    },
+    {
+      "file": "scripts/test-concurrency-phase15.mjs",
+      "purpose": "Real independent session races and late worker tests",
+      "impact": "Prove locks/leases/fencing"
+    },
+    {
+      "file": "scripts/test-dashboard-integration.mjs",
+      "purpose": "Remove unused import",
+      "impact": "Zero lint warnings"
+    },
+    {
+      "file": "scripts/test-deliverables-integration.mjs",
+      "purpose": "Remove unused query binding",
+      "impact": "Zero lint warnings"
+    },
+    {
+      "file": "scripts/test-editorial-integration.mjs",
+      "purpose": "Remove unused query binding",
+      "impact": "Zero lint warnings"
+    },
+    {
+      "file": "scripts/test-files-integration.mjs",
+      "purpose": "Remove unused query binding",
+      "impact": "Zero lint warnings"
+    },
+    {
+      "file": "scripts/test-fixtures/credentials.mjs",
+      "purpose": "Remove unused query binding",
+      "impact": "Zero lint warnings"
+    },
+    {
+      "file": "scripts/test-key-rotation-local.mjs",
+      "purpose": "Actual local version transition and idempotent rerun",
+      "impact": "Prove keyring/old reader rollback compatibility"
+    },
+    {
+      "file": "scripts/test-messaging-integration.mjs",
+      "purpose": "Revoke member on a still-open subscription then emit new event",
+      "impact": "Prove no post-revocation Realtime delivery"
+    },
+    {
+      "file": "scripts/test-phase13-edge-config.mjs",
+      "purpose": "Provide trusted endpoint fixture",
+      "impact": "Preserve strict webhook policy in QA"
+    },
+    {
+      "file": "scripts/test-phase15-headers.mjs",
+      "purpose": "Sandboxed blob iframe compatibility test",
+      "impact": "Preserve private preview under CSP"
+    },
+    {
+      "file": "scripts/test-phase15-security.mjs",
+      "purpose": "Run local gates sequentially with captured exit codes/logs",
+      "impact": "Reproducible full verification"
+    },
+    {
+      "file": "scripts/test-restore-local.mjs",
+      "purpose": "Isolated scratch local dump/restore in memory",
+      "impact": "Verify data/RLS/ACL without writing secrets"
+    },
+    {
+      "file": "scripts/test-security-integration.mjs",
+      "purpose": "Direct Auth/PostgREST/RPC/Edge adversarial checks",
+      "impact": "127 checks across eight actors"
+    },
+    {
+      "file": "scripts/verify-phase15.mjs",
+      "purpose": "Run local gates sequentially with captured exit codes/logs",
+      "impact": "Reproducible full verification"
+    },
+    {
+      "file": "scripts/warm-local-realtime.mjs",
+      "purpose": "Diagnose/warm actual local subscription and replication slot",
+      "impact": "Address cold CDC readiness without mocked events"
+    },
+    {
+      "file": "scripts/write-phase15-migration.mjs",
+      "purpose": "Generate one new migration from audited baseline definitions",
+      "impact": "Preserve older migration history"
+    },
+    {
+      "file": "src/features/auth/api/auth-service.ts",
+      "purpose": "Load invitation schema only for invitation command",
+      "impact": "Avoid eager schema request on bootstrap"
+    },
+    {
+      "file": "src/features/auth/context/AuthProvider.tsx",
+      "purpose": "Guard deferred Auth events and clear old actor before verification",
+      "impact": "Prevent stale identity/cache after logout or switch"
+    },
+    {
+      "file": "src/features/billing/api.ts",
+      "purpose": "Stable 25-row actor-scoped query with lookahead",
+      "impact": "Bound response size and preserve RLS"
+    },
+    {
+      "file": "src/features/billing/screens/BillingScreen.tsx",
+      "purpose": "Pagination, pending/error feedback",
+      "impact": "Bound existing financial list"
+    },
+    {
+      "file": "src/features/work/model/schemas.ts",
+      "purpose": "Accept canonical GUIDs used by actual DB/seed",
+      "impact": "Fix form rejection; server authorization preserved"
+    },
+    {
+      "file": "src/features/work/ui/WorkForms.tsx",
+      "purpose": "Show nested assignee validation error",
+      "impact": "Prevent silent submit failure"
+    },
+    {
+      "file": "src/shared/config/env.ts",
+      "purpose": "Validate public config and privileged variable names",
+      "impact": "Prevent server-only keys under public config"
+    },
+    {
+      "file": "src/shared/config/public-key.ts",
+      "purpose": "Reject secret keys and non-anon JWT public key values",
+      "impact": "Shared build/runtime validation"
+    },
+    {
+      "file": "src/styles/app.css",
+      "purpose": "Wrap navigation and accessible pagination buttons",
+      "impact": "Responsive usability"
+    },
+    {
+      "file": "src/test/auth-provider.test.tsx",
+      "purpose": "Meaningful regression/security tests",
+      "impact": "Evidence for actual vulnerabilities and Work form failure"
+    },
+    {
+      "file": "src/test/env.test.ts",
+      "purpose": "Meaningful regression/security tests",
+      "impact": "Evidence for actual vulnerabilities and Work form failure"
+    },
+    {
+      "file": "src/test/phase13-security.test.ts",
+      "purpose": "Meaningful regression/security tests",
+      "impact": "Evidence for actual vulnerabilities and Work form failure"
+    },
+    {
+      "file": "src/test/phase15-security.test.ts",
+      "purpose": "Meaningful regression/security tests",
+      "impact": "Evidence for actual vulnerabilities and Work form failure"
+    },
+    {
+      "file": "src/test/setup.ts",
+      "purpose": "Allow bounded lazy transform wait in Testing Library",
+      "impact": "Reliable asynchronous tests"
+    },
+    {
+      "file": "src/test/work-form.test.tsx",
+      "purpose": "Meaningful regression/security tests",
+      "impact": "Evidence for actual vulnerabilities and Work form failure"
+    },
+    {
+      "file": "supabase/functions/_shared/edge-origins.ts",
+      "purpose": "Exact environment-aware CORS origins",
+      "impact": "No inherited localhost allowance in Cloud"
+    },
+    {
+      "file": "supabase/functions/_shared/phase13-security.ts",
+      "purpose": "Bound JSON time/bytes, fixed webhook endpoints, versioned keyring",
+      "impact": "Edge/network/cryptographic hardening"
+    },
+    {
+      "file": "supabase/functions/automation-api/index.ts",
+      "purpose": "Use environment origins and versioned encryption reader/writer",
+      "impact": "Correct secret version and CORS enforcement"
+    },
+    {
+      "file": "supabase/functions/invite-user/index.ts",
+      "purpose": "Bound JSON and exact origins; no-store/nosniff",
+      "impact": "Protect privileged invite endpoint"
+    },
+    {
+      "file": "supabase/functions/push-api/index.ts",
+      "purpose": "Reuse exact environment-aware origins",
+      "impact": "Push endpoint CORS boundary"
+    },
+    {
+      "file": "supabase/migrations/20261014052637_phase_15_security_performance.sql",
+      "purpose": "New additive Billing/ACL/active-membership/key envelope/index migration",
+      "impact": "Security correctness and measured SQL performance"
+    },
+    {
+      "file": "supabase/tests/database/0015_phase_15_security.test.sql",
+      "purpose": "34 adversarial/catalog pgTAP assertions",
+      "impact": "Prove RLS/ACL/scope/replay integrity"
+    },
+    {
+      "file": "vite.config.ts",
+      "purpose": "Production manifest, public env guard and preview headers",
+      "impact": "CSP/security boundary and asset inspection"
+    },
+    {
+      "file": "vitest.config.ts",
+      "purpose": "Bound workers on shared Windows host",
+      "impact": "Stable test execution without removing tests"
+    },
+    {
+      "file": "artifacts/phase-15/report-validation.json",
+      "purpose": "Final sections/links/scope verification",
+      "impact": "Reviewable delivery evidence"
+    }
+  ]
+}

@@ -1,0 +1,438 @@
+{
+  "assets": [
+    {
+      "name": "index-CeoE_6nn.js",
+      "bytes": 534537,
+      "gzipBytes": 155101
+    },
+    {
+      "name": "DashboardGrid-B7Pn-hFO.js",
+      "bytes": 74066,
+      "gzipBytes": 20324
+    },
+    {
+      "name": "schemas-DBGTGzq7.js",
+      "bytes": 70333,
+      "gzipBytes": 18640
+    },
+    {
+      "name": "zod-BnWcluwp.js",
+      "bytes": 31872,
+      "gzipBytes": 11371
+    },
+    {
+      "name": "EditorialScreen-BGNTKMlp.js",
+      "bytes": 21975,
+      "gzipBytes": 5753
+    },
+    {
+      "name": "ProjectDetailScreen-C_lQaWtz.js",
+      "bytes": 21327,
+      "gzipBytes": 5442
+    },
+    {
+      "name": "AnalyticsScreen-DW1BE6eZ.js",
+      "bytes": 18200,
+      "gzipBytes": 5503
+    },
+    {
+      "name": "DashboardScreen-DW_z5ZN-.js",
+      "bytes": 14244,
+      "gzipBytes": 4640
+    },
+    {
+      "name": "CrmForms-DzCRPsyi.js",
+      "bytes": 13690,
+      "gzipBytes": 3611
+    },
+    {
+      "name": "DeliverableScreen-ChBj80xs.js",
+      "bytes": 12923,
+      "gzipBytes": 3838
+    },
+    {
+      "name": "AutomationsScreen-CnFnnfIV.js",
+      "bytes": 11281,
+      "gzipBytes": 3408
+    },
+    {
+      "name": "analytics-RlJDovpZ.js",
+      "bytes": 8972,
+      "gzipBytes": 3299
+    },
+    {
+      "name": "OrganizationDetailScreen-2SA0Fp5D.js",
+      "bytes": 8326,
+      "gzipBytes": 2441
+    },
+    {
+      "name": "MySpaceScreen-CKjIsAM6.js",
+      "bytes": 8214,
+      "gzipBytes": 2912
+    },
+    {
+      "name": "BillingScreen-CMgV4c67.js",
+      "bytes": 8197,
+      "gzipBytes": 2551
+    },
+    {
+      "name": "react-SIfiwpqq.js",
+      "bytes": 8185,
+      "gzipBytes": 3162
+    },
+    {
+      "name": "useQuery-eUzI-QSY.js",
+      "bytes": 8157,
+      "gzipBytes": 2984
+    },
+    {
+      "name": "MessagesScreen-nuHrJnOP.js",
+      "bytes": 7973,
+      "gzipBytes": 2934
+    },
+    {
+      "name": "ui-D648PZ-w.js",
+      "bytes": 7657,
+      "gzipBytes": 3110
+    },
+    {
+      "name": "ContentManagerScreen-BU6L37mf.js",
+      "bytes": 7053,
+      "gzipBytes": 2297
+    },
+    {
+      "name": "IntegrationsScreen-CyvoawWT.js",
+      "bytes": 6616,
+      "gzipBytes": 2447
+    },
+    {
+      "name": "FileActions-C506Ny7y.js",
+      "bytes": 5809,
+      "gzipBytes": 2108
+    },
+    {
+      "name": "ProjectAssistantScreen-B3DNQ2oj.js",
+      "bytes": 5661,
+      "gzipBytes": 2302
+    },
+    {
+      "name": "projects-kmSlo8F-.js",
+      "bytes": 5307,
+      "gzipBytes": 1413
+    },
+    {
+      "name": "OpportunitiesScreen-BydQc-j5.js",
+      "bytes": 5010,
+      "gzipBytes": 1985
+    },
+    {
+      "name": "ProjectsScreen-Bfpi0gRn.js",
+      "bytes": 5000,
+      "gzipBytes": 1990
+    },
+    {
+      "name": "PortalDeliverableScreen-CJH6BZOK.js",
+      "bytes": 4862,
+      "gzipBytes": 1786
+    },
+    {
+      "name": "AccountsScreen-DmaAATgj.js",
+      "bytes": 4036,
+      "gzipBytes": 1608
+    },
+    {
+      "name": "ContactsScreen-YmYnT0gx.js",
+      "bytes": 3890,
+      "gzipBytes": 1593
+    },
+    {
+      "name": "NotificationsScreen-ZOUeD-_W.js",
+      "bytes": 3848,
+      "gzipBytes": 1507
+    },
+    {
+      "name": "PortalProjectScreen-BdPgaRD3.js",
+      "bytes": 3790,
+      "gzipBytes": 1222
+    },
+    {
+      "name": "InternalAppShell-hlAPXGfK.js",
+      "bytes": 3611,
+      "gzipBytes": 1555
+    },
+    {
+      "name": "project-service-fY4KM03N.js",
+      "bytes": 3595,
+      "gzipBytes": 1366
+    },
+    {
+      "name": "PortalOverviewScreen-BuvmBNyq.js",
+      "bytes": 3332,
+      "gzipBytes": 1087
+    },
+    {
+      "name": "PortalPrimitives-CgH4FdYK.js",
+      "bytes": 3129,
+      "gzipBytes": 1224
+    },
+    {
+      "name": "DeviceSettings-CfoTXk49.js",
+      "bytes": 3045,
+      "gzipBytes": 1324
+    },
+    {
+      "name": "queries-BGK7aryV.js",
+      "bytes": 2933,
+      "gzipBytes": 892
+    },
+    {
+      "name": "ReviewConfigurationScreen-C0t1ndmh.js",
+      "bytes": 2931,
+      "gzipBytes": 1372
+    },
+    {
+      "name": "AcceptInviteScreen-DDDvdw2y.js",
+      "bytes": 2845,
+      "gzipBytes": 1248
+    },
+    {
+      "name": "messaging-service-BVFD3O2a.js",
+      "bytes": 2714,
+      "gzipBytes": 939
+    },
+    {
+      "name": "PortalReportsScreen-70jxR6KJ.js",
+      "bytes": 2669,
+      "gzipBytes": 1126
+    },
+    {
+      "name": "PortalDocumentsScreen-DQa6cUrn.js",
+      "bytes": 2631,
+      "gzipBytes": 1032
+    },
+    {
+      "name": "ClientPortalShell-BWWjjYHh.js",
+      "bytes": 2580,
+      "gzipBytes": 1126
+    },
+    {
+      "name": "ResetPasswordScreen-BS9j15a9.js",
+      "bytes": 2559,
+      "gzipBytes": 1082
+    },
+    {
+      "name": "crm-D_rNlWVN.js",
+      "bytes": 2538,
+      "gzipBytes": 1102
+    },
+    {
+      "name": "files-ZNBjMYIF.js",
+      "bytes": 2391,
+      "gzipBytes": 1140
+    },
+    {
+      "name": "useMutation-C_QixsJ2.js",
+      "bytes": 2332,
+      "gzipBytes": 953
+    },
+    {
+      "name": "LoginScreen-CrFqleB9.js",
+      "bytes": 2321,
+      "gzipBytes": 1099
+    },
+    {
+      "name": "queries-DGEs_iEd.js",
+      "bytes": 2320,
+      "gzipBytes": 855
+    },
+    {
+      "name": "reviews-Xi2hAS_2.js",
+      "bytes": 2294,
+      "gzipBytes": 828
+    },
+    {
+      "name": "ForgotPasswordScreen-HcAzB-4T.js",
+      "bytes": 2180,
+      "gzipBytes": 1065
+    },
+    {
+      "name": "AuthLayout-Bqilu3BO.js",
+      "bytes": 2029,
+      "gzipBytes": 867
+    },
+    {
+      "name": "ReviewQueueScreen-BKpDIerH.js",
+      "bytes": 1998,
+      "gzipBytes": 944
+    },
+    {
+      "name": "queries-B9zbqXTp.js",
+      "bytes": 1712,
+      "gzipBytes": 776
+    },
+    {
+      "name": "queries-Cgsq4_Rm.js",
+      "bytes": 1698,
+      "gzipBytes": 731
+    },
+    {
+      "name": "CrmWidget-BkeM8Qo5.js",
+      "bytes": 1583,
+      "gzipBytes": 657
+    },
+    {
+      "name": "PortalSettingsScreen-DMEG28KG.js",
+      "bytes": 1515,
+      "gzipBytes": 724
+    },
+    {
+      "name": "ForbiddenScreen-Buo2dNlN.js",
+      "bytes": 1419,
+      "gzipBytes": 790
+    },
+    {
+      "name": "PortalApprovalsScreen-B6Oa89XB.js",
+      "bytes": 1393,
+      "gzipBytes": 671
+    },
+    {
+      "name": "ProjectsWidget-B1jviDQm.js",
+      "bytes": 1310,
+      "gzipBytes": 638
+    },
+    {
+      "name": "WorkListWidget-BfXZ3dRc.js",
+      "bytes": 1253,
+      "gzipBytes": 705
+    },
+    {
+      "name": "PushDestinationScreen-CWmQatFA.js",
+      "bytes": 1173,
+      "gzipBytes": 695
+    },
+    {
+      "name": "useMessagingRealtime-D3qX-KBv.js",
+      "bytes": 1171,
+      "gzipBytes": 496
+    },
+    {
+      "name": "schemas-Xz3gW2ib.js",
+      "bytes": 1068,
+      "gzipBytes": 607
+    },
+    {
+      "name": "SummaryWidget-J8PoZer3.js",
+      "bytes": 1020,
+      "gzipBytes": 504
+    },
+    {
+      "name": "queries-Db5YFbNv.js",
+      "bytes": 860,
+      "gzipBytes": 406
+    },
+    {
+      "name": "PortalProjectsScreen-BzdVw5k6.js",
+      "bytes": 850,
+      "gzipBytes": 511
+    },
+    {
+      "name": "queries-DAH5toxV.js",
+      "bytes": 699,
+      "gzipBytes": 317
+    },
+    {
+      "name": "work-BMbplEKK.js",
+      "bytes": 654,
+      "gzipBytes": 411
+    },
+    {
+      "name": "NotFoundPlaceholder-DSc9gNeN.js",
+      "bytes": 652,
+      "gzipBytes": 413
+    },
+    {
+      "name": "NotificationBadge-DSdJ4iwf.js",
+      "bytes": 508,
+      "gzipBytes": 339
+    },
+    {
+      "name": "jsx-runtime-0vZSBttN.js",
+      "bytes": 424,
+      "gzipBytes": 292
+    },
+    {
+      "name": "QuickActionsWidget-DD4rYw09.js",
+      "bytes": 367,
+      "gzipBytes": 260
+    },
+    {
+      "name": "usePhase13Project-CfCwh16v.js",
+      "bytes": 362,
+      "gzipBytes": 270
+    },
+    {
+      "name": "widget-primitives-IDQf1v07.js",
+      "bytes": 344,
+      "gzipBytes": 220
+    },
+    {
+      "name": "SettingsScreen-c07iXlNa.js",
+      "bytes": 306,
+      "gzipBytes": 249
+    },
+    {
+      "name": "OMNIA_Version_fullblanco-DsHO9StH.js",
+      "bytes": 70,
+      "gzipBytes": 90
+    },
+    {
+      "name": "queryOptions-Dfvzj6n2.js",
+      "bytes": 38,
+      "gzipBytes": 58
+    }
+  ],
+  "totalJsBytes": 1032437,
+  "precache": {
+    "version": "79a81632a640ea018e7b",
+    "assets": {
+      "/assets/AcceptInviteScreen-DDDvdw2y.js": "d270889e533cf011fc15bc0218bce8320998d6ce4aee70be46ce3bff55152e83",
+      "/assets/AuthLayout-9DVlw3Gv.css": "5d2791c3aeab1001330db67dfd50cd8905814ce698a41d6c32bfb9e97d66f573",
+      "/assets/AuthLayout-Bqilu3BO.js": "0532f53174f4c4e1fc4030d90d32006e21bc6f10285ac5238bb9d95108c6a011",
+      "/assets/ForbiddenScreen-Buo2dNlN.js": "55a1d99cb4b723badfec859ff0e1d7e9de39b515e6125c33d3d3f0ff22b52b77",
+      "/assets/ForgotPasswordScreen-HcAzB-4T.js": "fbbd5ecf553d7a3b8d86e85093f6c3fa4e2f8848fc6cd3de80f9aa1f79b961b4",
+      "/assets/LoginScreen-CrFqleB9.js": "0a7470781ef755e97164bdbbe4fee31184ea72f6266d4876dde3d12b61ddffa2",
+      "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp": "a4eedd444a084357a12f2bf95cd751f2a73f13a5fd225d1561a4d03f9cc1c9e7",
+      "/assets/OMNIA_Version_fullblanco-DsHO9StH.js": "2fe7f0bba2cb15f45ff45cfb8099b5ea8416e2c25045960bf93bf09b6253f252",
+      "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp": "51db6ab687c180605e3a65b71f4dd9f853a21d54c54c3f8cea2ae6258e6cde26",
+      "/assets/ResetPasswordScreen-BS9j15a9.js": "b76a85b6c175a2e02ae628ae0198910796c48a43139b6d79d2dacac2e9229782",
+      "/assets/index-CeoE_6nn.js": "c7bd3b75892fb02a75ae6a58157043a58cc651a0293191ac59ed23be46e7cbac",
+      "/assets/index-DE6BaRHA.css": "b71f423472502c8e619dca1dc1a357b9ead59dbe5110286d537abe07ecaaaa5c",
+      "/assets/jsx-runtime-0vZSBttN.js": "ea7a5224646b40aef573f8ec95fecb655739552e4d923dc737612c5b7c35eb3b",
+      "/assets/lexend-latin-100-normal-DY5CyAwt.woff2": "059d5f3aebd78a2d1d610128ca90cd319e4d99f60269eb4cab3e6be962cd964a",
+      "/assets/lexend-latin-200-normal-Wo4cxbGX.woff2": "365dfd8a064a1d67c67e0d0b010fae04991b58e01f68ef2687f89626bc4cde70",
+      "/assets/lexend-latin-300-normal-pH_8eE6B.woff2": "9340fe7288862e1716e5ac6a29bedd7faa2c3e3f943f7710ce54a3d732e63cf7",
+      "/assets/lexend-latin-400-normal-CwRJVcUA.woff2": "0601e0a909219a542cdd581e3f8f1ff8fb208978cbc9bca1c90df02fd8062bb1",
+      "/assets/lexend-latin-500-normal-Dl-X5nog.woff2": "27cf5288dd5129fb2f93d230e4e9df7684222d732767284b142801c274ce95b0",
+      "/assets/lexend-latin-600-normal-DdvlkEkX.woff2": "c3c291158a48c5172383ec8febb21ca64075b7c9d8413553683b254a247efdda",
+      "/assets/lexend-latin-700-normal-DqO8md6r.woff2": "52dcdaa127bac4a5ea4c39ee17a3f454ceacc18d9f2a45cc453eeab68d378588",
+      "/assets/lexend-latin-800-normal-sVzxf3WX.woff2": "58852f8f2e4a84491f20efc4678035a0ac31be29c542772efe10e0d5b00677ab",
+      "/assets/lexend-latin-900-normal-C7DW7_Om.woff2": "2bc0fc49f8c7a94bbac24a14496084aea23789cf7fbc2be05d840fa5ff153845",
+      "/assets/quicksand-latin-300-normal-BDtmyj0I.woff2": "01b65a75df7dacea06c0eec34767434b20045a96f706bd0540561c4251ffa994",
+      "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2": "eb8add2effc4883b14a0470be949cab435ca77b72c762d24a7b12472d34a8aa4",
+      "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2": "00bfba44dde0dd81d9296cacc53f0ffa3ceff85997e69abd2891cbb9518ff40e",
+      "/assets/react-SIfiwpqq.js": "160d3a8e9743bcdba8929f1f4a80a83c787bee7be2b7344600a66345239593eb",
+      "/assets/schemas-DBGTGzq7.js": "79f268b9957bf5a620094ecd9b7de03b0706f0317353582b3304f2ba6180d784",
+      "/assets/schemas-Xz3gW2ib.js": "6e8bcbf802a97cdb5b109bff8adce5d2f81f09f95c2850d4a162d12825a78205",
+      "/assets/zod-BnWcluwp.js": "e16466b7cacab3b78e5fc07f53448acbd5ec540f7761cf693e585c13373ddd43",
+      "/favicon-16.svg": "1a9c7131d1eba3771145f89f7481509545ee61758789088a862f1c5d6aae3e81",
+      "/favicon-32.svg": "7532694e58738f7ad18d2129b045c6f1c744b673eb76ca9e4cdb9a1888c56170",
+      "/icons/apple-touch-icon.png": "05de636ce9e6a21cffe34a29aa6805cf14afdfc106771150400c0a6080001292",
+      "/icons/badge-96.png": "91f3e767cd1e5d2badf656d668443851cded9d7f6bdbd7357a1f45c2d130d30b",
+      "/icons/icon-192.png": "afd42cbb071384274b66c197bf89eec1ca136779b3c48dacd5a32cb73a855380",
+      "/icons/icon-512.png": "7a283db1c2a6411ab0afafeb19e6cbdc2f12a411d5deef901a98eeb6cc8e78da",
+      "/icons/maskable-512.png": "f096d14c5c421794c3be91a541a154dd2fdd4952800893fec55492ddfb8620b4",
+      "/index.html": "dcad93c7ca4a0b8fbbdbda7f35ea46ac557d5b2a32969480b0c63864b9e933d3",
+      "/manifest.webmanifest": "9c1eadebfb03f1edd258aff07627ee0a3feeb01177dce12b0f4cb70cdeb15363"
+    }
+  }
+}

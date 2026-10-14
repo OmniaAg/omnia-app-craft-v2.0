@@ -698,3 +698,61 @@ composer in document flow. Tables scroll locally; form text is at least 16px on
 mobile. Phase 14 Playwright CLI QA covers 1440/768/390/375, actual navigation,
 channel/composer interaction, settings, permission fixtures, logout/user switch,
 offline/reconnect and keyboard focus. Evidence lives in `artifacts/phase-14`.
+
+## Phase 15 — local security and performance gate
+
+Financial commands now authorize active membership/capability and explicit
+Project scope before replay or state inspection. Draft column grants prevent
+direct issue/publication/number mutations. Organization capabilities do not grant
+unassigned Projects. Payments require non-null idempotency keys and exact cents;
+concurrent commands retain row locks. Billing pages use stable 25-row pagination
+and an EXPLAIN-verified ordering index.
+
+External webhooks require both `WEBHOOK_ALLOWED_ORIGINS` and exact operator-owned
+`WEBHOOK_TRUSTED_ENDPOINTS`; arbitrary paths/destinations are rejected. The local
+HTTP exception requires `PHASE13_LOCAL_TEST_ONLY=true` and a local Supabase
+runtime. DNS checks and manual redirects remain defense in depth; `fetch` does
+not pin a destination IP. Network egress verification is mandatory before
+enabling external production connections.
+
+Versioned server keys use `INTEGRATION_ENCRYPTION_KEYS` (JSON version → base64
+AES-256 key) and `INTEGRATION_ACTIVE_KEY_VERSION`. Keep old reader keys during
+reencryption. `node scripts/rotate-integration-keys-local.mjs --env-file <local-file>`
+is loopback-only and uses a transaction plus compare-and-swap; it never prints
+keys/plaintext. Production secret-manager rotation belongs to Phase 17.
+
+The Service Worker precaches only bootstrap/Auth/error static dependencies, with
+SHA-256 integrity. Optional operational routes require a network; private
+responses remain outside Cache Storage. Local production preview sends CSP,
+frame/MIME/referrer/permissions headers; hosting must apply the same policy.
+Only style attributes allow inline declarations for the existing grid library.
+HTTP preview does not send HSTS.
+
+Reproducible local commands (run database-mutating suites sequentially):
+
+```powershell
+npm ci
+npm run phase13:prepare
+npm run phase14:prepare
+npm run functions:serve:phase14:test # separate terminal; restart after shared-file hot-reload failures
+npm run verify:phase15
+npm run verify:phase15:regressions
+npm run test:security
+npm run build
+npm run preview -- --host 127.0.0.1 # separate terminal
+npm run test:phase15:browser
+npm run test:performance
+npm run test:restore
+npm run security:audit
+npm run security:scan
+```
+
+Use `npm.cmd` in PowerShell when script execution policy blocks npm.ps1. Close
+the workspace Vite preview before `npm ci` on Windows so its native binding can
+be replaced. Fresh evidence/report and production prerequisites are in
+`artifacts/phase-15`; native Push delivery, Cloud/PITR/Storage bytes and operational
+approval remain explicitly Phase 17 checks. No production deployment is part of
+these commands.
+
+Verified completion: [Phase 15 Completion Report](artifacts/phase-15/COMPLETION_REPORT.md)
+and [Phase 17 prerequisites](artifacts/phase-15/PRODUCTION_HANDOFF.md).

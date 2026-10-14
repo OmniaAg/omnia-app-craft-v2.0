@@ -5,5 +5,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
     restoreMocks: true,
+    // Bound jsdom processes on the shared Windows/Docker QA workstation.
+    maxWorkers: 4,
   },
 })

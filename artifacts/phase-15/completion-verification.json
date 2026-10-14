@@ -1,0 +1,424 @@
+{
+  "date": "2026-10-14",
+  "scope": "local Phase 15; no commit/deploy/Cloud",
+  "head": "e912123",
+  "backend": [
+    {
+      "command": "db:start",
+      "passed": true,
+      "seconds": 5.6
+    },
+    {
+      "command": "db:reset",
+      "passed": true,
+      "seconds": 44.284
+    },
+    {
+      "command": "db:test",
+      "passed": true,
+      "seconds": 5.685
+    },
+    {
+      "command": "db:lint",
+      "passed": true,
+      "seconds": 2.256
+    },
+    {
+      "command": "db:types",
+      "passed": true,
+      "seconds": 4.721
+    },
+    {
+      "command": "db:types:check",
+      "passed": true,
+      "seconds": 4.869
+    },
+    {
+      "command": "advisors",
+      "passed": true,
+      "seconds": 1.645
+    }
+  ],
+  "frontend": [
+    {
+      "command": "typecheck",
+      "passed": true,
+      "seconds": 7.961
+    },
+    {
+      "command": "lint",
+      "passed": true,
+      "seconds": 0.432
+    },
+    {
+      "command": "test",
+      "passed": true,
+      "seconds": 12.614
+    },
+    {
+      "command": "build",
+      "passed": true,
+      "seconds": 9.156
+    },
+    {
+      "command": "test:pwa",
+      "passed": true,
+      "seconds": 8.143
+    }
+  ],
+  "security": [
+    {
+      "name": "sql",
+      "passed": true,
+      "seconds": 2.741,
+      "additionalEvidence": "security-sql-final.log"
+    },
+    {
+      "name": "unit",
+      "passed": true,
+      "seconds": 42.162
+    },
+    {
+      "name": "reset-http",
+      "passed": true,
+      "seconds": 52.202
+    },
+    {
+      "name": "http",
+      "passed": true,
+      "seconds": 17.596,
+      "additionalEvidence": "security-http-final.log"
+    },
+    {
+      "name": "reset-concurrency",
+      "passed": true,
+      "seconds": 46.863
+    },
+    {
+      "name": "concurrency",
+      "passed": true,
+      "seconds": 64.773,
+      "previousAttempt": {
+        "name": "concurrency",
+        "passed": false,
+        "seconds": 3.863
+      },
+      "evidence": "security-concurrency-retry.log"
+    },
+    {
+      "name": "reset-push",
+      "passed": true,
+      "seconds": 52.366
+    },
+    {
+      "name": "push",
+      "passed": true,
+      "seconds": 19.057
+    },
+    {
+      "name": "secret-scan",
+      "passed": true,
+      "seconds": 5.906
+    }
+  ],
+  "regressions": [
+    {
+      "command": "test:connectivity",
+      "passed": true,
+      "seconds": 2.858
+    },
+    {
+      "command": "test:auth",
+      "passed": true,
+      "seconds": 6.037
+    },
+    {
+      "command": "test:crm",
+      "passed": true,
+      "seconds": 3.704
+    },
+    {
+      "command": "test:work",
+      "passed": true,
+      "seconds": 3.894
+    },
+    {
+      "command": "test:dashboard",
+      "passed": true,
+      "seconds": 3.547
+    },
+    {
+      "command": "test:editorial",
+      "passed": true,
+      "seconds": 6.234
+    },
+    {
+      "command": "test:deliverables",
+      "passed": true,
+      "seconds": 4.768
+    },
+    {
+      "command": "test:files",
+      "passed": true,
+      "seconds": 6.418
+    },
+    {
+      "command": "test:portal",
+      "passed": true,
+      "seconds": 5.991
+    },
+    {
+      "command": "test:messaging",
+      "passed": true,
+      "seconds": 17.908,
+      "additionalEvidence": "messaging-revocation-final.log"
+    },
+    {
+      "command": "test:billing",
+      "passed": true,
+      "seconds": 4.852
+    },
+    {
+      "command": "test:analytics",
+      "passed": true,
+      "seconds": 4.554
+    },
+    {
+      "command": "test:automations",
+      "passed": true,
+      "seconds": 53.233,
+      "previousAttempt": {
+        "command": "test:automations",
+        "passed": false,
+        "seconds": 8.359
+      },
+      "evidence": "test-automations-retry.log"
+    },
+    {
+      "command": "test:integrations",
+      "passed": true,
+      "seconds": 54.834,
+      "previousAttempt": {
+        "command": "test:integrations",
+        "passed": false,
+        "seconds": 8.162
+      },
+      "evidence": "test-integrations-retry.log"
+    },
+    {
+      "command": "test:ai",
+      "passed": true,
+      "seconds": 51.679,
+      "previousAttempt": {
+        "command": "test:ai",
+        "passed": false,
+        "seconds": 8.25
+      },
+      "evidence": "test-ai-retry.log"
+    }
+  ],
+  "pgTAP": 796,
+  "unit": 102,
+  "advisors": {
+    "warnings": 0,
+    "errors": 0
+  },
+  "browser": {
+    "responsive": 117,
+    "roleWorkflows": 11,
+    "widths": [
+      1440,
+      768,
+      390,
+      375
+    ],
+    "findings": [],
+    "runtimeErrors": [],
+    "consoleErrors": [],
+    "httpErrors": []
+  },
+  "http": {
+    "passed": 127,
+    "actors": [
+      "Director Agency A",
+      "Director Agency B",
+      "PM Project A",
+      "PM Project B",
+      "Contributor A",
+      "Client A",
+      "Client B",
+      "Anonymous"
+    ]
+  },
+  "concurrency": {
+    "passed": 12,
+    "checks": [
+      "two independent sessions same issue key both receive one authoritative ID",
+      "one issue event and one number",
+      "concurrent overpayment admits one and denies one",
+      "paid amount is exactly 60 with no lost update",
+      "two workers claim an automation once",
+      "expired automation lease is reclaimed with a new token",
+      "late automation worker cannot finish",
+      "one fenced work effect",
+      "shared endpoint race admits one owner and rejects the other",
+      "two Push workers claim one delivery",
+      "Push expired lease obtains a new fencing token",
+      "late Push finish is a no-op and cannot overwrite the new worker"
+    ],
+    "transport": "real independent Auth sessions/PostgREST/PostgreSQL transactions; no mocked locks"
+  },
+  "pwa": {
+    "passed": 28,
+    "cacheEntries": 38
+  },
+  "push": {
+    "passed": 14,
+    "realProviderDelivery": false
+  },
+  "headers": {
+    "passed": true,
+    "checks": [
+      "CSP permits same-origin sandboxed blob preview",
+      "iframe sandbox keeps active content restricted",
+      "frame-ancestors protects the app"
+    ],
+    "violations": [
+      {
+        "directive": "script-src",
+        "blocked": "eval"
+      }
+    ]
+  },
+  "performance": {
+    "labLcpMs": 2500,
+    "cls": 0.1,
+    "routeRequests": 60,
+    "scope": "local seed/Chromium production preview, not Cloud p95/RUM",
+    "violations": [],
+    "passed": true
+  },
+  "restore": {
+    "passed": true,
+    "scope": "isolated local application/Auth/Storage/ACL restore; vendor realtime schemas excluded; no Cloud backup",
+    "before": {
+      "projects": 4,
+      "users": 10,
+      "audit": 32,
+      "billing": 2
+    },
+    "after": {
+      "projects": 4,
+      "users": 10,
+      "audit": 32,
+      "billing": 2
+    },
+    "bytes": 1264005,
+    "rlsPreserved": true,
+    "privilegesPreserved": true,
+    "secretsWrittenToDisk": false,
+    "storageObjectBytes": false
+  },
+  "rotation": {
+    "passed": true,
+    "checks": [
+      "database envelope migrated to version 2",
+      "plaintext preserved without logging",
+      "second rotation is idempotent",
+      "old key retained for reader rollback"
+    ],
+    "secretsPrinted": false
+  },
+  "secrets": {
+    "passed": true,
+    "files": 1287,
+    "serverValues": 10,
+    "findings": [],
+    "secretValuesPrinted": false
+  },
+  "offlineSecrets": {
+    "passed": true,
+    "files": 1292,
+    "serverValues": 8,
+    "findings": [],
+    "secretValuesPrinted": false,
+    "mode": "offline-local-env-and-token-patterns",
+    "supabaseStatusKeysChecked": false
+  },
+  "visual": {
+    "passed": true,
+    "checks": [
+      {
+        "width": 1440,
+        "widgets": 8,
+        "overflow": false,
+        "preparing": false
+      },
+      {
+        "width": 768,
+        "widgets": 8,
+        "overflow": false,
+        "preparing": false
+      },
+      {
+        "width": 390,
+        "widgets": 8,
+        "overflow": false,
+        "preparing": false
+      },
+      {
+        "width": 375,
+        "widgets": 8,
+        "overflow": false,
+        "preparing": false
+      }
+    ],
+    "errors": [],
+    "scope": "loaded DashboardGrid screenshots at all required widths",
+    "previousAttempt": "snapshots passed; supplemental logout harness first lost accent, then omitted opening mobile menu; corrected and retried"
+  },
+  "dependencies": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "edgeDependencies": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "checks": {
+    "backend": true,
+    "frontend": true,
+    "security": true,
+    "regressions": true,
+    "counts": true,
+    "advisors": true,
+    "browser": true,
+    "directHttp": true,
+    "concurrency": true,
+    "headers": true,
+    "pwa": true,
+    "push": true,
+    "performance": true,
+    "restore": true,
+    "rotation": true,
+    "secrets": true,
+    "dependencies": true,
+    "loadedDashboard": true,
+    "deliveryFiles": true
+  },
+  "remainingManual": [
+    "native iOS/Android/desktop Push",
+    "production egress/IP connection verification",
+    "Cloud/Storage bytes/PITR restore",
+    "MFA/session/owners/manual release approval"
+  ],
+  "allAutomatedPassed": true
+}

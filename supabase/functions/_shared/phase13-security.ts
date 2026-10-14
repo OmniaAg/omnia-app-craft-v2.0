@@ -12,7 +12,7 @@ const unbase64 = (value: string) => Uint8Array.from(atob(value), character => ch
 export const summarySchema = z.object({ summary: z.string().min(1).max(2000), open_work: z.number().int().min(0).max(99_999_999), completed_work: z.number().int().min(0).max(99_999_999) }).strict()
 export const draftSchema = z.object({ title: z.string().trim().min(1).max(160), description: z.string().max(2000), priority: z.enum(['low', 'normal', 'high', 'urgent']) }).strict()
 // 512 accepted characters can expand beyond 2 KiB after UTF-8 + GCM tag + base64.
-export const cipherSchema = z.object({ algorithm: z.literal('AES-GCM'), key_version: z.literal('1'), iv: z.string().max(40), ciphertext: z.string().max(4096) }).strict()
+export const cipherSchema = z.object({ algorithm: z.literal('AES-GCM'), key_version: z.string().regex(/^[1-9][0-9]{0,3}$/), iv: z.string().max(40), ciphertext: z.string().max(4096) }).strict()
 
 export async function encryptionKey(value: string | undefined): Promise<CryptoKey> {
   try {
@@ -22,17 +22,29 @@ export async function encryptionKey(value: string | undefined): Promise<CryptoKe
     return await crypto.subtle.importKey('raw', bytes, 'AES-GCM', false, ['encrypt', 'decrypt'])
   } catch { throw new SafeError('configuration_missing', 503) }
 }
-export async function sealSecret(secret: string, connectionId: string, key: CryptoKey) {
+export async function sealSecret(secret: string, connectionId: string, key: CryptoKey, version = '1') {
+  if (!/^[1-9][0-9]{0,3}$/.test(version)) throw new SafeError('configuration_missing', 503)
   const iv = crypto.getRandomValues(new Uint8Array(12))
-  const ciphertext = await crypto.subtle.encrypt({ name: 'AES-GCM', iv, additionalData: encoder.encode(`omnia:${connectionId}:1`) }, key, encoder.encode(secret))
-  return { algorithm: 'AES-GCM', key_version: '1', iv: base64(iv), ciphertext: base64(new Uint8Array(ciphertext)) }
+  const ciphertext = await crypto.subtle.encrypt({ name: 'AES-GCM', iv, additionalData: encoder.encode(`omnia:${connectionId}:${version}`) }, key, encoder.encode(secret))
+  return { algorithm: 'AES-GCM', key_version: version, iv: base64(iv), ciphertext: base64(new Uint8Array(ciphertext)) }
 }
 export async function openSecret(envelope: unknown, connectionId: string, key: CryptoKey) {
   try {
     const cipher = cipherSchema.parse(envelope)
-    const plaintext = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unbase64(cipher.iv), additionalData: encoder.encode(`omnia:${connectionId}:1`) }, key, unbase64(cipher.ciphertext))
+    if (unbase64(cipher.iv).length !== 12 || unbase64(cipher.ciphertext).length < 16) throw new Error()
+    const plaintext = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unbase64(cipher.iv), additionalData: encoder.encode(`omnia:${connectionId}:${cipher.key_version}`) }, key, unbase64(cipher.ciphertext))
     return new TextDecoder().decode(plaintext)
   } catch { throw new SafeError('configuration_missing', 503) }
+}
+export async function integrationKey(options: { keyring?: string; legacy?: string; activeVersion?: string }, version?: string) {
+  const selected = version ?? options.activeVersion ?? '1'
+  if (!/^[1-9][0-9]{0,3}$/.test(selected)) throw new SafeError('configuration_missing',503)
+  let material: string | undefined
+  if (options.keyring) {
+    try { material = z.record(z.string().regex(/^[1-9][0-9]{0,3}$/),z.string()).parse(JSON.parse(options.keyring))[selected] }
+    catch { throw new SafeError('configuration_missing',503) }
+  } else if (selected === '1') material = options.legacy
+  return { key: await encryptionKey(material), version: selected }
 }
 export async function signature(secret: string, timestamp: string, deliveryId: string, body: string) {
   const key = await crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
@@ -52,13 +64,17 @@ export function isPublicAddress(address: string): boolean {
     || (a === 203 && b === 0 && c === 113) || (a === 100 && b >= 64 && b <= 127))
 }
 export async function validateEndpoint(raw: string, options: {
-  origins: string[]; allowLocalHttp: boolean; resolve: (hostname: string) => Promise<string[]>
+  origins: string[]; allowLocalHttp: boolean; trustedEndpoints?: string[]; resolve: (hostname: string) => Promise<string[]>
 }): Promise<URL> {
   let url: URL
   try { url = new URL(raw) } catch { throw new SafeError('endpoint_forbidden') }
   if (raw.length > 2048 || url.username || url.password || url.search || url.hash || !options.origins.includes(url.origin)) throw new SafeError('endpoint_forbidden')
   const local = ['127.0.0.1', 'localhost', 'host.docker.internal'].includes(url.hostname)
   if (local && options.allowLocalHttp && url.protocol === 'http:') return url
+  // A user cannot choose a hostname/path, including one under an allowed origin.
+  // These exact endpoints are operator-owned configuration with trusted DNS.
+  // Fetch cannot pin DNS in this runtime; production still needs network egress controls.
+  if (!options.trustedEndpoints?.includes(url.href)) throw new SafeError('endpoint_forbidden')
   if (url.protocol !== 'https:' || local || url.port && url.port !== '443') throw new SafeError('endpoint_forbidden')
   let addresses: string[]
   try { addresses = await options.resolve(url.hostname) } catch { throw new SafeError('endpoint_forbidden') }
@@ -72,18 +88,23 @@ export function deliveryError(status: number): string | null {
   if (status === 401 || status === 403) return 'invalid_credentials'
   return 'provider_rejected'
 }
-export async function limitedJson(request: Request, maxBytes = 16_384): Promise<unknown> {
+export async function limitedJson(request: Request, maxBytes = 16_384, timeoutMs = 5000): Promise<unknown> {
   if (!request.body || Number(request.headers.get('content-length') ?? 0) > maxBytes) throw new SafeError('invalid_payload')
   const reader = request.body.getReader()
   let size = 0
   const chunks: Uint8Array[] = []
+  let timer: ReturnType<typeof setTimeout> | undefined
+  const deadline = new Promise<never>((_,reject) => { timer=setTimeout(()=>reject(new SafeError('request_timeout',408)),timeoutMs) })
+  try {
   while (true) {
-    const { done, value } = await reader.read()
+    const { done, value } = await Promise.race([reader.read(),deadline])
     if (done) break
     size += value.length
-    if (size > maxBytes) { await reader.cancel(); throw new SafeError('input_too_large', 413) }
+    if (size > maxBytes) throw new SafeError('input_too_large', 413)
     chunks.push(value)
   }
+  } catch (error) { void reader.cancel().catch(()=>undefined); throw error }
+  finally { clearTimeout(timer); reader.releaseLock() }
   const bytes = new Uint8Array(size)
   let offset = 0
   for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length }

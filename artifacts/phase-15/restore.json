@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "scope": "isolated local application/Auth/Storage/ACL restore; vendor realtime schemas excluded; no Cloud backup",
+  "before": {
+    "projects": 4,
+    "users": 10,
+    "audit": 32,
+    "billing": 2
+  },
+  "after": {
+    "projects": 4,
+    "users": 10,
+    "audit": 32,
+    "billing": 2
+  },
+  "bytes": 1264005,
+  "rlsPreserved": true,
+  "privilegesPreserved": true,
+  "secretsWrittenToDisk": false,
+  "storageObjectBytes": false
+}

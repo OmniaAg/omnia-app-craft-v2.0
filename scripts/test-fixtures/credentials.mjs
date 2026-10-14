@@ -27,7 +27,7 @@ export async function setupTestCredentials() {
   const admin = createClient(status.API_URL, status.SECRET_KEY, { auth: { persistSession: false } })
   
   console.log('Setting deterministic passwords for test fixtures...')
-  for (const [id, email, role] of Object.values(TEST_USERS)) {
+  for (const [id, email] of Object.values(TEST_USERS)) {
     const { error } = await admin.auth.admin.updateUserById(id, { 
       password: TEST_PASSWORD, 
       email_confirm: true 

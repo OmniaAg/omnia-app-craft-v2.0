@@ -1,18 +1,10 @@
 import "@supabase/functions-js/edge-runtime.d.ts"
 import { withSupabase } from "@supabase/server"
 import { z } from "zod"
+import { limitedJson, SafeError } from '../_shared/phase13-security.ts'
+import { edgeAllowedOrigins } from '../_shared/edge-origins.ts'
 
-const localOrigins = new Set([
-  "http://localhost:53170",
-  "http://127.0.0.1:53170",
-])
-
-const configuredOrigins = (Deno.env.get("APP_ALLOWED_ORIGINS") ?? "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean)
-
-const allowedOrigins = new Set([...localOrigins, ...configuredOrigins])
+const allowedOrigins = edgeAllowedOrigins(Deno.env.get('APP_ALLOWED_ORIGINS'),Deno.env.get('SUPABASE_URL'))
 
 const baseInvitationSchema = z.object({
   email: z.string().trim().toLowerCase().pipe(z.email().max(320)),
@@ -56,6 +48,8 @@ function corsHeaders(origin: string | null): HeadersInit {
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Origin": origin && allowedOrigins.has(origin) ? origin : "null",
     "Vary": "Origin",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
   }
 }
 
@@ -79,9 +73,9 @@ const inviteUser = withSupabase(
 
     let body: unknown
     try {
-      body = await request.json()
-    } catch {
-      return jsonResponse({ error: "invalid_json" }, 400, origin)
+      body = await limitedJson(request)
+    } catch (error) {
+      return jsonResponse({ error: error instanceof SafeError ? error.code : "invalid_json" }, error instanceof SafeError ? error.status : 400, origin)
     }
 
     const parsed = invitationSchema.safeParse(body)

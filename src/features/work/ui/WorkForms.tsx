@@ -49,7 +49,7 @@ export function WorkItemForm({ members, milestones, onSubmit, pending }: AsyncFo
       <label>Fecha y hora (CDMX)<input {...register('dueLocal')} type="datetime-local" aria-invalid={Boolean(errors.dueLocal)} aria-describedby={errors.dueLocal ? 'work-due-error' : undefined} /></label>
       <FieldError id="work-due-error" message={errors.dueLocal?.message} />
       <AssigneeChoices members={members} register={register} invalid={Boolean(errors.assigneeIds)} />
-      <FieldError id="work-assignees-error" message={errors.assigneeIds?.message} />
+      <FieldError id="work-assignees-error" message={errors.assigneeIds?.message ?? (errors.assigneeIds ? 'Revisa los responsables seleccionados.' : undefined)} />
       <button className="crm-button crm-button--primary" type="submit" disabled={pending} aria-busy={pending}>{pending ? 'Creando…' : 'Crear trabajo'}</button>
     </form>
   )

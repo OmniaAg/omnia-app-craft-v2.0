@@ -7,7 +7,7 @@ import { TEST_PASSWORD, TEST_USERS } from './test-fixtures/credentials.mjs'
 
 // Serve automation-api with this deliberately incomplete, ignored environment.
 if (process.argv.includes('--prepare')) {
-  writeFileSync('supabase/.env.phase13-missing.local', 'APP_URL=http://localhost:53170\nAI_PROVIDER=unconfigured\nWEBHOOK_ALLOWED_ORIGINS=http://host.docker.internal:56413\nPHASE13_ALLOW_LOCAL_HTTP=true\n')
+  writeFileSync('supabase/.env.phase13-missing.local', 'APP_URL=http://localhost:53170\nAI_PROVIDER=unconfigured\nWEBHOOK_ALLOWED_ORIGINS=http://host.docker.internal:56413\nPHASE13_ALLOW_LOCAL_HTTP=true\nPHASE13_LOCAL_TEST_ONLY=true\n')
   console.log('Prepared ignored missing-configuration fixture; no credentials written.')
 } else {
   const { status } = await waitForPostgrest()

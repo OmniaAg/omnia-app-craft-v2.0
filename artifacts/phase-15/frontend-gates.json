@@ -1,0 +1,27 @@
+[
+  {
+    "command": "typecheck",
+    "passed": true,
+    "seconds": 7.961
+  },
+  {
+    "command": "lint",
+    "passed": true,
+    "seconds": 0.432
+  },
+  {
+    "command": "test",
+    "passed": true,
+    "seconds": 12.614
+  },
+  {
+    "command": "build",
+    "passed": true,
+    "seconds": 9.156
+  },
+  {
+    "command": "test:pwa",
+    "passed": true,
+    "seconds": 8.143
+  }
+]

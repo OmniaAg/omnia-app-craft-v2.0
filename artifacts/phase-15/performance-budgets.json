@@ -1,0 +1,8 @@
+{
+  "labLcpMs": 2500,
+  "cls": 0.1,
+  "routeRequests": 60,
+  "scope": "local seed/Chromium production preview, not Cloud p95/RUM",
+  "violations": [],
+  "passed": true
+}

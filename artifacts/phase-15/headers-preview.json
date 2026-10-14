@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "CSP permits same-origin sandboxed blob preview",
+    "iframe sandbox keeps active content restricted",
+    "frame-ancestors protects the app"
+  ],
+  "violations": [
+    {
+      "directive": "script-src",
+      "blocked": "eval"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+[
+  {
+    "name": "sql",
+    "passed": true,
+    "seconds": 2.741,
+    "additionalEvidence": "security-sql-final.log"
+  },
+  {
+    "name": "unit",
+    "passed": true,
+    "seconds": 42.162
+  },
+  {
+    "name": "reset-http",
+    "passed": true,
+    "seconds": 52.202
+  },
+  {
+    "name": "http",
+    "passed": true,
+    "seconds": 17.596,
+    "additionalEvidence": "security-http-final.log"
+  },
+  {
+    "name": "reset-concurrency",
+    "passed": true,
+    "seconds": 46.863
+  },
+  {
+    "name": "concurrency",
+    "passed": true,
+    "seconds": 64.773,
+    "previousAttempt": {
+      "name": "concurrency",
+      "passed": false,
+      "seconds": 3.863
+    },
+    "evidence": "security-concurrency-retry.log"
+  },
+  {
+    "name": "reset-push",
+    "passed": true,
+    "seconds": 52.366
+  },
+  {
+    "name": "push",
+    "passed": true,
+    "seconds": 19.057
+  },
+  {
+    "name": "secret-scan",
+    "passed": true,
+    "seconds": 5.906
+  }
+]

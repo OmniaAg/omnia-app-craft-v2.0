@@ -51,4 +51,9 @@ describe('public environment contract', () => {
       }),
     ).toThrow(/secret privilegiado/)
   })
+  it('rejects a server key disguised as a public key', () => {
+    expect(() => parsePublicEnv({ ...validEnvironment, VITE_SUPABASE_PUBLISHABLE_KEY: 'sb_secret_fixture' })).toThrow()
+    const payload = btoa(JSON.stringify({ role: 'service_role' }))
+    expect(() => parsePublicEnv({ ...validEnvironment, VITE_SUPABASE_PUBLISHABLE_KEY: `eyJfixture.${payload}.signature` })).toThrow()
+  })
 })

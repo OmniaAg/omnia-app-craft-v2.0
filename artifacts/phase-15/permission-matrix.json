@@ -1,0 +1,6429 @@
+{
+  "note": "Catalog/SQL/test references. A test-file reference is not proof of every argument combination; adversarial runtime evidence is separate.",
+  "functions": [
+    {
+      "function": "app_private.accept_invitation",
+      "arguments": "p_invitation_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.accept_invitation",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.add_project_member",
+      "arguments": "p_project_id uuid, p_user_id uuid, p_member_type text, p_responsibility text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.add_project_member",
+        "app_private.can_manage_project_members",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0007_phase_7_deliverables_reviews_approvals.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.analytics_billing_rows",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid, p_currency text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.analytics_billing_rows",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope",
+        "public.my_capabilities",
+        "app_private.project_permission",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.analytics_scope",
+      "arguments": "p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid, p_capability text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.analytics_scope",
+        "public.is_internal_actor",
+        "public.my_capabilities",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.analytics_validate",
+      "arguments": "p_from date, p_to date, p_limit integer, p_offset integer",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.analytics_validate"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.apply_notification_preferences",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.apply_notification_preferences"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.archive_client_membership",
+      "arguments": "p_membership_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.archive_client_membership",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.archive_crm_resource",
+      "arguments": "p_resource_type text, p_resource_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.archive_crm_resource",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.archive_project",
+      "arguments": "p_project_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.archive_project",
+        "app_private.project_permission",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.archive_work_item",
+      "arguments": "p_work_item_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.archive_work_item",
+        "app_private.archive_work_item_core"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.archive_work_item_core",
+      "arguments": "p_work_item_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.archive_work_item_core",
+        "app_private.project_permission",
+        "app_private.record_work_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.assert_billing_command",
+      "arguments": "p_document uuid, p_capability text, p_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.assert_billing_command",
+        "app_private.billing_document_access"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.assign_work_item",
+      "arguments": "p_work_item_id uuid, p_assignee_ids uuid[], p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.assign_work_item",
+        "app_private.assign_work_item_core",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.assign_work_item_core",
+      "arguments": "p_work_item_id uuid, p_assignee_ids uuid[], p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.assign_work_item_core",
+        "app_private.project_permission",
+        "app_private.record_work_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.billing_document_access",
+      "arguments": "p_document uuid, p_capability text, p_draft boolean",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.billing_document_access",
+        "app_private.billing_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.billing_scope",
+      "arguments": "p_organization uuid, p_project uuid, p_capability text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.billing_scope",
+        "public.has_capability",
+        "public.project_access_allowed"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0015_phase_15_security.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.can_manage_channel",
+      "arguments": "p_channel uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.can_manage_channel",
+        "app_private.project_permission",
+        "app_private.can_manage_project_members"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.can_manage_project_members",
+      "arguments": "p_project_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.can_manage_project_members",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.can_read_work_item",
+      "arguments": "p_work_item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.can_read_work_item",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.change_opportunity_stage",
+      "arguments": "p_opportunity_id uuid, p_stage_key text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.change_opportunity_stage",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.channel_access",
+      "arguments": "p_channel uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.channel_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0010_phase_10_messaging_notifications_realtime.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.channel_access",
+      "arguments": "p_channel uuid, p_actor uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.channel_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0010_phase_10_messaging_notifications_realtime.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.check_deliverable_file",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.check_deliverable_file"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.client_asset_access",
+      "arguments": "p_asset uuid, p_actor uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.client_asset_access",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.client_project_access",
+      "arguments": "p_project uuid, p_actor uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.client_report_access",
+      "arguments": "p_project uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.client_report_access",
+        "app_private.client_project_access",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.client_reviewer_access",
+      "arguments": "p_project uuid, p_actor uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.client_reviewer_access",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.create_brand",
+      "arguments": "p_organization_id uuid, p_name text, p_timezone text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_brand",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_contact",
+      "arguments": "p_organization_id uuid, p_full_name text, p_email text, p_phone text, p_job_title text, p_notes text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_contact",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_crm_activity",
+      "arguments": "p_organization_id uuid, p_activity_type text, p_summary text, p_details text, p_brand_id uuid, p_contact_id uuid, p_opportunity_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_crm_activity",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_crm_organization",
+      "arguments": "p_name text, p_domain text, p_timezone text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_crm_organization",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_invitation",
+      "arguments": "p_kind text, p_email text, p_agency_role_key text, p_department_key text, p_classification text, p_organization_id uuid, p_client_role_key text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_invitation",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_milestone",
+      "arguments": "p_project_id uuid, p_name text, p_description text, p_due_date date, p_sort_order integer, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_milestone",
+        "app_private.project_permission",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_opportunity",
+      "arguments": "p_organization_id uuid, p_brand_id uuid, p_name text, p_stage_key text, p_estimated_value numeric, p_currency text, p_owner_id uuid, p_expected_close_date date, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_opportunity",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_organization",
+      "arguments": "p_name text, p_timezone text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_organization",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_project",
+      "arguments": "p_brand_id uuid, p_name text, p_description text, p_status text, p_start_date date, p_target_end_date date, p_timezone text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_project",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_work_item",
+      "arguments": "p_project_id uuid, p_title text, p_description text, p_priority text, p_due_local timestamp without time zone, p_milestone_id uuid, p_assignee_ids uuid[], p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_work_item",
+        "app_private.project_permission",
+        "app_private.record_work_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.create_work_item_comment",
+      "arguments": "p_work_item_id uuid, p_body text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_work_item_comment",
+        "app_private.can_read_work_item",
+        "app_private.project_permission",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.dashboard_crm_summary",
+      "arguments": "p_max_items integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.dashboard_crm_summary",
+        "app_private.is_internal_actor",
+        "public.my_capabilities",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.dashboard_operational_summary",
+      "arguments": "p_max_items integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.dashboard_operational_summary",
+        "app_private.is_internal_actor",
+        "public.my_space_items",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.editorial_applicant_eligible",
+      "arguments": "p_project_id uuid, p_user_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.editorial_applicant_eligible"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.editorial_permission",
+      "arguments": "p_project_id uuid, p_capability text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.editorial_permission",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.emit_event",
+      "arguments": "p_event_type text, p_actor_id uuid, p_resource_type text, p_resource_id uuid, p_agency_id uuid, p_organization_id uuid, p_correlation_id uuid, p_idempotency_key uuid, p_payload jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.enforce_agency_membership_metadata",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.enforce_agency_membership_metadata"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.enforce_capability_grant_scope",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.enforce_capability_grant_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.enforce_client_membership_role",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.enforce_client_membership_role"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.enforce_crm_relationships",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.enforce_crm_relationships"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.enqueue_notification_push",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.enqueue_notification_push",
+        "app_private.push_delivery_outbox",
+        "app_private.push_eligible"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.enrich_notification_context",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.enrich_notification_context"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.ensure_general_channel",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.ensure_general_channel",
+        "public.channels",
+        "public.channel_memberships"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.file_director_permission",
+      "arguments": "p_project uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.file_director_permission",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.file_event",
+      "arguments": "p_asset uuid, p_type text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.file_event",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.file_mime_allowed",
+      "arguments": "p_mime text, p_name text",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.file_mime_allowed"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.file_storage_delete",
+      "arguments": "p_bucket text, p_path text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.file_storage_delete",
+        "app_private.file_director_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.file_storage_insert",
+      "arguments": "p_bucket text, p_path text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.file_storage_insert",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.file_storage_read",
+      "arguments": "p_bucket text, p_path text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.file_storage_read",
+        "app_private.project_permission",
+        "app_private.file_director_permission",
+        "app_private.client_asset_access"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.freeze_issued_billing_document",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.freeze_issued_billing_document"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.freeze_issued_billing_document_items",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.freeze_issued_billing_document_items"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.is_internal_actor",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.is_internal_actor"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.mark_invitation_dispatched",
+      "arguments": "p_invitation_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.mark_invitation_dispatched",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.p13_audit",
+      "arguments": "p_type text, p_actor uuid, p_resource text, p_id uuid, p_project uuid, p_payload jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.p13_claimed_run",
+      "arguments": "p_run uuid, p_token uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.p13_conditions",
+      "arguments": "p_conditions jsonb, p_event domain_events",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.p13_dispatch_event",
+      "arguments": "p_event domain_events",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.p13_enqueue",
+      "arguments": "p_definition automation_definitions, p_event domain_events, p_actor uuid, p_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.automation_runs",
+        "public.automation_run_steps"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.p13_event_context",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.p13_event_dispatch_trigger",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.p13_permission",
+      "arguments": "p_project uuid, p_actor uuid, p_capability text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.p13_validate_definition",
+      "arguments": "p_project uuid, p_actor uuid, p_trigger text, p_event text, p_conditions jsonb, p_actions jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase7_can_submit",
+      "arguments": "p_work uuid, p_capability text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase7_event",
+      "arguments": "p_work uuid, p_type text, p_actor uuid, p_resource_type text, p_resource uuid, p_correlation uuid, p_key uuid, p_payload jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase7_guard_history_update",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase7_guard_work_status",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase7_immutable",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase7_read_allowed",
+      "arguments": "p_deliverable uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.can_read_work_item",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase7_resolve_round",
+      "arguments": "p_round uuid, p_work uuid, p_deliverable uuid, p_actor uuid, p_key uuid, p_correlation uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase7_reviewer_eligible",
+      "arguments": "p_project uuid, p_reviewer uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.phase9_history_guard",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.project_permission",
+      "arguments": "p_project_id uuid, p_capability_key text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.project_permission",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.promote_organization_to_client",
+      "arguments": "p_organization_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.promote_organization_to_client",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.provision_profile",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.provision_profile"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.push_eligible",
+      "arguments": "p_notification uuid, p_subscription uuid, p_generation integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.push_eligible"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.push_session",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.push_session"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.record_editorial_event",
+      "arguments": "p_project_id uuid, p_type text, p_resource_type text, p_resource_id uuid, p_actor uuid, p_correlation uuid, p_key uuid, p_payload jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.record_editorial_event",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.record_notification_intent",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.record_notification_intent",
+        "public.notification_outbox"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.record_work_event",
+      "arguments": "p_work_item_id uuid, p_event_type text, p_actor_id uuid, p_correlation_id uuid, p_idempotency_key uuid, p_payload jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.record_work_event",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.reset_dashboard_config",
+      "arguments": "p_expected_revision bigint",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.reset_dashboard_config",
+        "app_private.is_internal_actor"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.revoke_project_member",
+      "arguments": "p_membership_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.revoke_project_member",
+        "app_private.can_manage_project_members",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.save_dashboard_config",
+      "arguments": "p_expected_revision bigint, p_registry_version integer, p_widget_instances jsonb, p_responsive_layouts jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.save_dashboard_config",
+        "app_private.is_internal_actor",
+        "app_private.validate_dashboard_config"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.set_updated_at",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.set_updated_at"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.sync_director_channel_member",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.sync_director_channel_member",
+        "public.channel_memberships"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.sync_general_channel_member",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.sync_general_channel_member",
+        "public.channel_memberships"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.transition_work_item",
+      "arguments": "p_work_item_id uuid, p_status text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.transition_work_item",
+        "app_private.transition_work_item_core"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0006_phase_6_editorial_operations.test.sql",
+        "0007_phase_7_deliverables_reviews_approvals.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.transition_work_item_core",
+      "arguments": "p_work_item_id uuid, p_status text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.transition_work_item_core",
+        "app_private.project_permission",
+        "app_private.record_work_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.update_agency_membership",
+      "arguments": "p_membership_id uuid, p_role_key text, p_department_key text, p_classification text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.update_agency_membership",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.update_milestone",
+      "arguments": "p_milestone_id uuid, p_name text, p_description text, p_due_date date, p_status text, p_sort_order integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.update_milestone",
+        "app_private.project_permission",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.update_organization",
+      "arguments": "p_organization_id uuid, p_name text, p_domain text, p_timezone text, p_lifecycle text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.update_organization",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "app_private.valid_push_endpoint",
+      "arguments": "p_endpoint text",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.valid_push_endpoint"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.validate_billing_relations",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "app_private.validate_billing_relations"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "app_private.validate_dashboard_config",
+      "arguments": "p_registry_version integer, p_widget_instances jsonb, p_responsive_layouts jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.validate_dashboard_config",
+        "app_private.is_internal_actor",
+        "public.my_capabilities"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "public.accept_editorial_application",
+      "arguments": "application_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.accept_editorial_application",
+        "app_private.editorial_permission",
+        "app_private.editorial_applicant_eligible",
+        "app_private.assign_work_item_core",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.accept_invitation",
+      "arguments": "invitation_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.accept_invitation",
+        "app_private.accept_invitation"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "public.add_channel_member",
+      "arguments": "p_channel uuid, p_user uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.add_channel_member",
+        "app_private.can_manage_channel",
+        "public.channel_memberships",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.add_client_feedback",
+      "arguments": "publication_id uuid, body text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.add_client_feedback",
+        "app_private.client_project_access",
+        "public.client_feedback"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.add_project_member",
+      "arguments": "project_id uuid, user_id uuid, member_type text, responsibility text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.add_project_member",
+        "app_private.add_project_member"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0007_phase_7_deliverables_reviews_approvals.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.analytics_billing",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid, p_currency text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_billing",
+        "app_private.analytics_billing_rows"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.analytics_billing_details",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid, p_currency text, p_limit integer, p_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_billing_details",
+        "app_private.analytics_validate",
+        "app_private.analytics_billing_rows"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.analytics_editorial",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_editorial",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.analytics_filter_options",
+      "arguments": "p_agency uuid, p_organization uuid, p_brand uuid, p_search text, p_limit integer, p_offset integer, p_kind text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_filter_options",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.analytics_overview",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_overview",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.analytics_projects",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid, p_limit integer, p_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_projects",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.analytics_reviews",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_reviews",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.analytics_work",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_work",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.analytics_work_details",
+      "arguments": "p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid, p_filter text, p_limit integer, p_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.analytics_work_details",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.apply_to_editorial_work",
+      "arguments": "item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.apply_to_editorial_work",
+        "app_private.editorial_permission",
+        "app_private.editorial_applicant_eligible",
+        "public.work_applications",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.archive_client_membership",
+      "arguments": "membership_id uuid, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.archive_client_membership",
+        "app_private.archive_client_membership"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.archive_crm_resource",
+      "arguments": "resource_type text, resource_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.archive_crm_resource",
+        "app_private.archive_crm_resource"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.archive_editorial_item",
+      "arguments": "item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.archive_editorial_item",
+        "app_private.editorial_permission",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.archive_file_asset",
+      "arguments": "asset_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.archive_file_asset",
+        "app_private.project_permission",
+        "app_private.file_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.archive_personal_work_item",
+      "arguments": "personal_item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.archive_personal_work_item",
+        "app_private.is_internal_actor",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.archive_project",
+      "arguments": "project_id uuid, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.archive_project",
+        "app_private.archive_project"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.archive_work_item",
+      "arguments": "work_item_id uuid, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.archive_work_item",
+        "app_private.archive_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.assign_work_item",
+      "arguments": "work_item_id uuid, assignee_ids uuid[], idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.assign_work_item",
+        "app_private.assign_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.change_opportunity_stage",
+      "arguments": "opportunity_id uuid, stage_key text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.change_opportunity_stage",
+        "app_private.change_opportunity_stage"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.channel_members",
+      "arguments": "p_channel uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.channel_members",
+        "app_private.can_manage_channel"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0010_phase_10_messaging_notifications_realtime.test.sql"
+      ]
+    },
+    {
+      "function": "public.channel_messages",
+      "arguments": "p_channel uuid, p_limit integer, p_before_at timestamp with time zone, p_before_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.channel_messages",
+        "app_private.channel_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0010_phase_10_messaging_notifications_realtime.test.sql"
+      ]
+    },
+    {
+      "function": "public.client_billing_documents",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.client_billing_documents",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.client_brand_context",
+      "arguments": "organization_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.client_brand_context"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.client_organization_context",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.client_organization_context"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql",
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.client_project_context",
+      "arguments": "project_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.client_project_context"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.client_project_report",
+      "arguments": "p_report uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.client_project_report",
+        "app_private.client_project_access",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.configure_review_requirements",
+      "arguments": "project_id uuid, deliverable_id uuid, reviewer_ids uuid[], idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.configure_review_requirements",
+        "app_private.project_permission",
+        "public.review_requirements"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0007_phase_7_deliverables_reviews_approvals.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.confirm_file_permanent_delete",
+      "arguments": "asset_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.confirm_file_permanent_delete",
+        "app_private.file_director_permission",
+        "app_private.file_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.create_brand",
+      "arguments": "organization_id uuid, name text, timezone text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_brand",
+        "app_private.create_brand"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_contact",
+      "arguments": "organization_id uuid, full_name text, email text, phone text, job_title text, notes text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_contact",
+        "app_private.create_contact"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_content_template",
+      "arguments": "project_id uuid, name text, default_channel text, default_format text, default_brief text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.create_content_template",
+        "app_private.editorial_permission",
+        "public.content_templates",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_crm_activity",
+      "arguments": "organization_id uuid, activity_type text, summary text, details text, brand_id uuid, contact_id uuid, opportunity_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_crm_activity",
+        "app_private.create_crm_activity"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_crm_organization",
+      "arguments": "name text, domain text, timezone text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_crm_organization",
+        "app_private.create_crm_organization"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_deliverable",
+      "arguments": "work_item_id uuid, title text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.create_deliverable",
+        "public.deliverables"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0007_phase_7_deliverables_reviews_approvals.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_editorial_cycle",
+      "arguments": "project_id uuid, name text, start_date date, end_date date",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.create_editorial_cycle",
+        "app_private.editorial_permission",
+        "public.editorial_cycles",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_editorial_item",
+      "arguments": "project_id uuid, cycle_id uuid, template_id uuid, title text, brief text, scheduled_date date, scheduled_time time without time zone, channel text, format text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.create_editorial_item",
+        "app_private.editorial_permission",
+        "app_private.create_work_item",
+        "public.editorial_items",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_invitation",
+      "arguments": "kind text, email text, agency_role_key text, department_key text, classification text, organization_id uuid, client_role_key text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_invitation",
+        "app_private.create_invitation"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_milestone",
+      "arguments": "project_id uuid, name text, description text, due_date date, sort_order integer, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_milestone",
+        "app_private.create_milestone"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_opportunity",
+      "arguments": "organization_id uuid, brand_id uuid, name text, stage_key text, estimated_value numeric, currency text, owner_id uuid, expected_close_date date, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_opportunity",
+        "app_private.create_opportunity"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_organization",
+      "arguments": "name text, timezone text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_organization",
+        "app_private.create_organization"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_personal_work_item",
+      "arguments": "item_type text, title text, description text, priority text, due_local timestamp without time zone",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.create_personal_work_item",
+        "app_private.is_internal_actor",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_project",
+      "arguments": "brand_id uuid, name text, description text, status text, start_date date, target_end_date date, timezone text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_project",
+        "app_private.create_project"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_project_channel",
+      "arguments": "p_project uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.create_project_channel",
+        "app_private.project_permission",
+        "app_private.can_manage_project_members",
+        "public.channels",
+        "public.channel_memberships"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.create_project_report",
+      "arguments": "p_project uuid, p_title text, p_from date, p_to date",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.create_project_report",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope",
+        "app_private.project_permission",
+        "public.project_reports"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.create_work_item",
+      "arguments": "project_id uuid, title text, description text, priority text, due_local timestamp without time zone, milestone_id uuid, assignee_ids uuid[], idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_work_item",
+        "app_private.create_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.create_work_item_comment",
+      "arguments": "work_item_id uuid, body text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.create_work_item_comment",
+        "app_private.create_work_item_comment"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.dashboard_crm_summary",
+      "arguments": "max_items integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.dashboard_crm_summary",
+        "app_private.dashboard_crm_summary"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "public.dashboard_operational_summary",
+      "arguments": "max_items integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.dashboard_operational_summary",
+        "app_private.dashboard_operational_summary"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "public.deliverable_access_allowed",
+      "arguments": "deliverable_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.deliverable_access_allowed"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.deliverable_detail",
+      "arguments": "work_item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.deliverable_detail",
+        "app_private.can_read_work_item",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0007_phase_7_deliverables_reviews_approvals.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.editorial_applications",
+      "arguments": "item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.editorial_applications",
+        "app_private.editorial_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.editorial_calendar",
+      "arguments": "date_from date, date_to date, project_filter uuid, state_filter text, channel_filter text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.editorial_calendar",
+        "app_private.is_internal_actor",
+        "app_private.editorial_permission",
+        "app_private.editorial_applicant_eligible"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.export_analytics",
+      "arguments": "p_section text, p_from date, p_to date, p_agency uuid, p_organization uuid, p_brand uuid, p_project uuid, p_currency text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.export_analytics",
+        "app_private.analytics_validate",
+        "app_private.analytics_scope",
+        "public.my_capabilities",
+        "app_private.project_permission",
+        "public.analytics_overview",
+        "public.analytics_work",
+        "public.analytics_editorial",
+        "public.analytics_reviews",
+        "public.analytics_billing"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.file_director_access_allowed",
+      "arguments": "project_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.file_director_access_allowed",
+        "app_private.file_director_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0008_phase_8_files_content_manager.test.sql"
+      ]
+    },
+    {
+      "function": "public.file_object_delete_allowed",
+      "arguments": "bucket text, path text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.file_object_delete_allowed",
+        "app_private.file_storage_delete"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.file_object_insert_allowed",
+      "arguments": "bucket text, path text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.file_object_insert_allowed",
+        "app_private.file_storage_insert"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0008_phase_8_files_content_manager.test.sql"
+      ]
+    },
+    {
+      "function": "public.file_object_read_allowed",
+      "arguments": "bucket text, path text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.file_object_read_allowed",
+        "app_private.file_storage_read"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0008_phase_8_files_content_manager.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.finalize_file_asset",
+      "arguments": "asset_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.finalize_file_asset",
+        "app_private.project_permission",
+        "public.project_files",
+        "app_private.file_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0008_phase_8_files_content_manager.test.sql"
+      ]
+    },
+    {
+      "function": "public.has_capability",
+      "arguments": "capability_key text, agency_scope uuid, organization_scope uuid",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql",
+        "0003_phase_3_agency_core_crm_clients.test.sql",
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0015_phase_15_security.test.sql"
+      ]
+    },
+    {
+      "function": "public.health_check",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": true,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.health_check"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0001_local_baseline.test.sql",
+        "0015_phase_15_security.test.sql"
+      ]
+    },
+    {
+      "function": "public.internal_client_review_history",
+      "arguments": "work_item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.internal_client_review_history",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.is_internal_actor",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.is_internal_actor",
+        "app_private.is_internal_actor"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.issue_billing_document",
+      "arguments": "p_document_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": true,
+      "directAuth": true,
+      "delegates": [
+        "public.issue_billing_document",
+        "app_private.assert_billing_command",
+        "public.is_internal_actor",
+        "public.project_access_allowed",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0015_phase_15_security.test.sql"
+      ]
+    },
+    {
+      "function": "public.link_content_asset",
+      "arguments": "item_id uuid, asset_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.link_content_asset",
+        "app_private.project_permission",
+        "public.content_asset_links",
+        "app_private.file_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.list_project_reports",
+      "arguments": "p_project uuid, p_limit integer, p_offset integer",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.list_project_reports"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.list_projects",
+      "arguments": "search_text text, status_filter text, page_limit integer, page_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.list_projects",
+        "app_private.is_internal_actor",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.mark_all_notifications_read",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.mark_all_notifications_read"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.mark_channel_read",
+      "arguments": "p_channel uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.mark_channel_read",
+        "app_private.channel_access"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.mark_invitation_dispatched",
+      "arguments": "invitation_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [
+        "public.mark_invitation_dispatched",
+        "app_private.mark_invitation_dispatched"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "public.mark_portal_notification_read",
+      "arguments": "notification_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.mark_portal_notification_read"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.my_capabilities",
+      "arguments": "",
+      "definer": false,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.my_capabilities"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "public.my_channels",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.my_channels",
+        "app_private.channel_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0010_phase_10_messaging_notifications_realtime.test.sql"
+      ]
+    },
+    {
+      "function": "public.my_space_items",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.my_space_items",
+        "app_private.is_internal_actor"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.override_review_requirement",
+      "arguments": "review_assignment_id uuid, reason text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.override_review_requirement",
+        "app_private.project_permission",
+        "public.review_overrides"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0007_phase_7_deliverables_reviews_approvals.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_access",
+      "arguments": "p_project uuid, p_capability text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_ai_consent",
+      "arguments": "p_project uuid, p_enabled boolean",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.ai_project_consents"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_approve_ai_draft",
+      "arguments": "p_run uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.phase13_claim_run",
+      "arguments": "p_run uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql",
+        "0015_phase_15_security.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_complete_ai",
+      "arguments": "p_run uuid, p_actor uuid, p_result jsonb, p_error text, p_input_tokens integer, p_output_tokens integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_delivery_material",
+      "arguments": "p_delivery uuid, p_run uuid, p_token uuid, p_actor uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_disable_connection",
+      "arguments": "p_connection uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.phase13_finish_delivery",
+      "arguments": "p_delivery uuid, p_http_status integer, p_error text, p_run uuid, p_token uuid, p_actor uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.phase13_finish_run",
+      "arguments": "p_run uuid, p_token uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_finish_step",
+      "arguments": "p_run uuid, p_token uuid, p_position integer, p_error text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.phase13_history",
+      "arguments": "p_project uuid, p_kind text, p_limit integer, p_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_manual_run",
+      "arguments": "p_automation uuid, p_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_prepare_step",
+      "arguments": "p_run uuid, p_token uuid, p_position integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": true,
+      "delegates": [
+        "app_private.create_work_item",
+        "public.webhook_deliveries"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_projects",
+      "arguments": "p_capability text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_replay_event",
+      "arguments": "p_event uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_retry_run",
+      "arguments": "p_run uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_run_detail",
+      "arguments": "p_run uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.phase13_save_automation",
+      "arguments": "p_project uuid, p_name text, p_enabled boolean, p_trigger text, p_event text, p_conditions jsonb, p_actions jsonb, p_key uuid, p_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.automation_definitions"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_save_connection",
+      "arguments": "p_project uuid, p_name text, p_key uuid, p_id uuid, p_events text[]",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.integration_connections"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_start_ai",
+      "arguments": "p_project uuid, p_actor uuid, p_task text, p_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [
+        "public.ai_runs"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_store_credentials",
+      "arguments": "p_connection uuid, p_actor uuid, p_url text, p_cipher jsonb, p_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [
+        "app_private.integration_credentials"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0013_phase_13_automations_ai_integrations.test.sql"
+      ]
+    },
+    {
+      "function": "public.phase13_test_connection",
+      "arguments": "p_connection uuid, p_actor uuid, p_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": false,
+      "delegates": [
+        "public.webhook_deliveries"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.phase7_submit_deliverable_version",
+      "arguments": "deliverable_id uuid, notes text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.deliverable_versions",
+        "public.review_rounds",
+        "public.review_assignments"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.portal_approvals",
+      "arguments": "page_limit integer, page_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.portal_approvals",
+        "app_private.client_reviewer_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.portal_deliverable_detail",
+      "arguments": "publication_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.portal_deliverable_detail",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.portal_deliverables",
+      "arguments": "p_project_id uuid, page_limit integer, page_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.portal_deliverables",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.portal_documents",
+      "arguments": "p_project_id uuid, page_limit integer, page_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.portal_documents",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.portal_project_detail",
+      "arguments": "project_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.portal_project_detail",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.portal_projects",
+      "arguments": "page_limit integer, page_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.portal_projects",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.prepare_file_asset",
+      "arguments": "project_id uuid, original_filename text, mime_type text, size_bytes bigint",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.prepare_file_asset",
+        "app_private.file_mime_allowed",
+        "app_private.project_permission",
+        "public.file_assets"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0008_phase_8_files_content_manager.test.sql"
+      ]
+    },
+    {
+      "function": "public.project_access_allowed",
+      "arguments": "project_id uuid, capability_key text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.project_access_allowed",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql",
+        "0008_phase_8_files_content_manager.test.sql"
+      ]
+    },
+    {
+      "function": "public.project_brand_options",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.project_brand_options",
+        "app_private.is_internal_actor",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.project_detail",
+      "arguments": "project_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.project_detail",
+        "app_private.project_permission",
+        "app_private.can_manage_project_members"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.project_member_candidates",
+      "arguments": "project_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.project_member_candidates",
+        "app_private.can_manage_project_members"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.project_members",
+      "arguments": "project_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.project_members",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.project_milestones",
+      "arguments": "project_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.project_milestones",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.project_work_items",
+      "arguments": "project_id uuid, page_limit integer, page_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.project_work_items",
+        "app_private.project_permission",
+        "app_private.can_read_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.promote_organization_to_client",
+      "arguments": "organization_id uuid, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.promote_organization_to_client",
+        "app_private.promote_organization_to_client"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.publish_billing_document",
+      "arguments": "p_document_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": true,
+      "directAuth": true,
+      "delegates": [
+        "public.publish_billing_document",
+        "app_private.assert_billing_command",
+        "public.is_internal_actor",
+        "public.project_access_allowed",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0015_phase_15_security.test.sql"
+      ]
+    },
+    {
+      "function": "public.publish_deliverable_to_client",
+      "arguments": "deliverable_id uuid, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.publish_deliverable_to_client",
+        "app_private.project_permission",
+        "public.client_publications",
+        "public.client_reviews",
+        "public.client_review_assignments",
+        "public.notifications",
+        "app_private.client_project_access"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0007_phase_7_deliverables_reviews_approvals.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.publish_editorial_available",
+      "arguments": "item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.publish_editorial_available",
+        "app_private.editorial_permission",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.push_claim_delivery",
+      "arguments": "",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": true,
+      "delegates": [
+        "public.push_claim_delivery",
+        "app_private.push_eligible"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0014_phase_14_push.test.sql",
+        "0015_phase_15_security.test.sql"
+      ]
+    },
+    {
+      "function": "public.push_delivery_material",
+      "arguments": "p_delivery uuid, p_token uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": true,
+      "delegates": [
+        "public.push_delivery_material",
+        "app_private.push_eligible"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0014_phase_14_push.test.sql"
+      ]
+    },
+    {
+      "function": "public.push_finish_delivery",
+      "arguments": "p_delivery uuid, p_token uuid, p_status integer, p_error text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": false,
+      "service": true,
+      "directAuth": true,
+      "delegates": [
+        "public.push_finish_delivery",
+        "app_private.push_eligible"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0014_phase_14_push.test.sql"
+      ]
+    },
+    {
+      "function": "public.push_subscription_status",
+      "arguments": "p_endpoint text, p_device_token uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.push_subscription_status",
+        "app_private.push_session"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0014_phase_14_push.test.sql"
+      ]
+    },
+    {
+      "function": "public.record_client_decision",
+      "arguments": "assignment_id uuid, decision text, reason text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.record_client_decision",
+        "app_private.client_reviewer_access",
+        "public.client_review_decisions",
+        "public.notifications"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.record_payment",
+      "arguments": "p_document_id uuid, p_amount numeric, p_method payment_method, p_received_at timestamp with time zone, p_reference text, p_notes text, p_file_asset_id uuid, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": true,
+      "directAuth": true,
+      "delegates": [
+        "public.record_payment",
+        "app_private.assert_billing_command",
+        "public.is_internal_actor",
+        "public.project_access_allowed",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0015_phase_15_security.test.sql"
+      ]
+    },
+    {
+      "function": "public.record_review_decision",
+      "arguments": "review_assignment_id uuid, decision text, reason text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.record_review_decision",
+        "app_private.project_permission",
+        "public.review_decisions"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0007_phase_7_deliverables_reviews_approvals.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.register_push_subscription",
+      "arguments": "p_subscription jsonb, p_surface text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.register_push_subscription",
+        "app_private.push_session",
+        "app_private.valid_push_endpoint",
+        "app_private.push_subscriptions",
+        "public.notification_preferences"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0014_phase_14_push.test.sql"
+      ]
+    },
+    {
+      "function": "public.remove_channel_member",
+      "arguments": "p_channel uuid, p_user uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.remove_channel_member",
+        "app_private.can_manage_channel",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.request_file_permanent_delete",
+      "arguments": "asset_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.request_file_permanent_delete",
+        "app_private.file_director_permission",
+        "app_private.file_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.reset_dashboard_config",
+      "arguments": "expected_revision bigint",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.reset_dashboard_config",
+        "app_private.reset_dashboard_config"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "public.review_configuration",
+      "arguments": "project_id uuid, deliverable_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.review_configuration",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.review_queue",
+      "arguments": "page_limit integer, page_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.review_queue",
+        "app_private.is_internal_actor",
+        "app_private.project_permission"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0007_phase_7_deliverables_reviews_approvals.test.sql"
+      ]
+    },
+    {
+      "function": "public.revoke_project_member",
+      "arguments": "membership_id uuid, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.revoke_project_member",
+        "app_private.revoke_project_member"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.save_dashboard_config",
+      "arguments": "expected_revision bigint, registry_version integer, widget_instances jsonb, responsive_layouts jsonb",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.save_dashboard_config",
+        "app_private.save_dashboard_config"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0005_phase_5_personalized_dashboard.test.sql"
+      ]
+    },
+    {
+      "function": "public.send_message",
+      "arguments": "p_channel uuid, p_body text, p_client_message_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.send_message",
+        "app_private.channel_access",
+        "public.messages",
+        "app_private.emit_event",
+        "public.notifications"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0010_phase_10_messaging_notifications_realtime.test.sql"
+      ]
+    },
+    {
+      "function": "public.set_project_report_publication",
+      "arguments": "p_report uuid, p_publish boolean",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.set_project_report_publication",
+        "app_private.project_permission",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0012_phase_12_analytics_reporting.test.sql"
+      ]
+    },
+    {
+      "function": "public.submit_deliverable_version",
+      "arguments": "deliverable_id uuid, notes text, idempotency_key uuid, asset_ids uuid[]",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.submit_deliverable_version",
+        "app_private.project_permission",
+        "public.deliverable_files",
+        "app_private.file_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0007_phase_7_deliverables_reviews_approvals.test.sql",
+        "0009_phase_9_client_portal.test.sql"
+      ]
+    },
+    {
+      "function": "public.transition_work_item",
+      "arguments": "work_item_id uuid, status text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.transition_work_item",
+        "app_private.transition_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql",
+        "0006_phase_6_editorial_operations.test.sql",
+        "0007_phase_7_deliverables_reviews_approvals.test.sql"
+      ]
+    },
+    {
+      "function": "public.unregister_push_subscription",
+      "arguments": "p_endpoint text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.unregister_push_subscription",
+        "app_private.push_session"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0014_phase_14_push.test.sql"
+      ]
+    },
+    {
+      "function": "public.update_agency_membership",
+      "arguments": "membership_id uuid, role_key text, department_key text, classification text, idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.update_agency_membership",
+        "app_private.update_agency_membership"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0002_phase_2_identity_authorization.test.sql"
+      ]
+    },
+    {
+      "function": "public.update_content_template",
+      "arguments": "template_id uuid, name text, default_channel text, default_format text, default_brief text, archive boolean",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.update_content_template",
+        "app_private.editorial_permission",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.update_editorial_cycle",
+      "arguments": "cycle_id uuid, name text, start_date date, end_date date, status text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.update_editorial_cycle",
+        "app_private.editorial_permission",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.update_editorial_item",
+      "arguments": "item_id uuid, title text, brief text, scheduled_date date, scheduled_time time without time zone, channel text, format text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.update_editorial_item",
+        "app_private.editorial_permission",
+        "app_private.record_editorial_event"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0006_phase_6_editorial_operations.test.sql"
+      ]
+    },
+    {
+      "function": "public.update_milestone",
+      "arguments": "milestone_id uuid, name text, description text, due_date date, status text, sort_order integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.update_milestone",
+        "app_private.update_milestone"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.update_organization",
+      "arguments": "organization_id uuid, name text, domain text, timezone text, lifecycle text",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.update_organization",
+        "app_private.update_organization"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0003_phase_3_agency_core_crm_clients.test.sql"
+      ]
+    },
+    {
+      "function": "public.update_personal_work_item",
+      "arguments": "personal_item_id uuid, item_type text, title text, description text, status text, priority text, due_local timestamp without time zone",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": true,
+      "delegates": [
+        "public.update_personal_work_item",
+        "app_private.is_internal_actor",
+        "public.has_capability"
+      ],
+      "dynamicSQL": false,
+      "tests": [
+        "0004_phase_4_projects_work_my_space.test.sql"
+      ]
+    },
+    {
+      "function": "public.void_payment",
+      "arguments": "p_payment_id uuid, p_reason text, p_idempotency_key uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": true,
+      "directAuth": true,
+      "delegates": [
+        "public.void_payment",
+        "app_private.assert_billing_command",
+        "public.is_internal_actor",
+        "public.project_access_allowed",
+        "public.has_capability",
+        "app_private.emit_event"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.work_item_access_allowed",
+      "arguments": "work_item_id uuid",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.work_item_access_allowed",
+        "app_private.can_read_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.work_item_comments_list",
+      "arguments": "work_item_id uuid, page_limit integer, page_offset integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.work_item_comments_list",
+        "app_private.can_read_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    },
+    {
+      "function": "public.work_item_event_list",
+      "arguments": "work_item_id uuid, page_limit integer",
+      "definer": true,
+      "searchPath": [
+        "search_path=\"\""
+      ],
+      "anon": false,
+      "authenticated": true,
+      "service": false,
+      "directAuth": false,
+      "delegates": [
+        "public.work_item_event_list",
+        "app_private.can_read_work_item"
+      ],
+      "dynamicSQL": false,
+      "tests": []
+    }
+  ],
+  "tables": [
+    {
+      "schema": "app_private",
+      "relname": "integration_credentials",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "app_private",
+      "relname": "push_delivery_outbox",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "app_private",
+      "relname": "push_subscriptions",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "agencies",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "agency_memberships",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "ai_project_consents",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "ai_runs",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "audit_events",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "automation_definitions",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "automation_run_steps",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "automation_runs",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "billing_document_files",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "billing_document_items",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "billing_documents",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "brands",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "capabilities",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "capability_grants",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "channel_memberships",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "channels",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "client_billing_projections",
+      "relrowsecurity": false,
+      "relforcerowsecurity": false,
+      "reloptions": [
+        "security_invoker=true"
+      ],
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "client_feedback",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "client_memberships",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "client_publications",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "client_review_assignments",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "client_review_decisions",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "client_reviews",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "contacts",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "content_asset_links",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "content_templates",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "crm_activities",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "dashboard_user_configs",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "deliverable_files",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "deliverable_versions",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "deliverables",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "departments",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "domain_events",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "editorial_cycles",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "editorial_items",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "file_assets",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "integration_connections",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "invitations",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "messages",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "milestones",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "notification_outbox",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "notification_preferences",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "notifications",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "opportunities",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "organizations",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "payment_records",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "payment_schedules",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "personal_work_items",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "pipeline_stages",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "profiles",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "project_files",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "project_memberships",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "project_reports",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "projects",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "review_assignments",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "review_decisions",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "review_overrides",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "review_requirements",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "review_rounds",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "role_capabilities",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "roles",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "webhook_deliveries",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": false
+    },
+    {
+      "schema": "public",
+      "relname": "work_applications",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "work_item_assignees",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "work_item_comments",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "work_item_events",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    },
+    {
+      "schema": "public",
+      "relname": "work_items",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "reloptions": null,
+      "anon_select": false,
+      "authenticated_select": true
+    }
+  ],
+  "policies": [
+    {
+      "schemaname": "public",
+      "tablename": "agencies",
+      "policyname": "agencies_select_member",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM agency_memberships am\n  WHERE ((am.agency_id = agencies.id) AND (am.user_id = ( SELECT auth.uid() AS uid)) AND (am.status = 'active'::text))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "agency_memberships",
+      "policyname": "agency_memberships_select_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(( SELECT auth.uid() AS uid) = user_id)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "ai_project_consents",
+      "policyname": "ai_project_consents_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "phase13_access(project_id, 'ai.use'::text)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "ai_runs",
+      "policyname": "ai_runs_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((actor_id = ( SELECT auth.uid() AS uid)) AND phase13_access(project_id, 'ai.use'::text))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "audit_events",
+      "policyname": "audit_events_select_auditor",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "has_capability('audit.view'::text, agency_id, organization_id)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "automation_definitions",
+      "policyname": "automation_definitions_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "phase13_access(project_id, 'automation.view'::text)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "automation_run_steps",
+      "policyname": "automation_run_steps_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM automation_runs r\n  WHERE (r.id = automation_run_steps.run_id)))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "automation_runs",
+      "policyname": "automation_runs_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "phase13_access(project_id, 'automation.view'::text)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_document_files",
+      "policyname": "billing_document_files_delete",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "DELETE",
+      "qual": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_document_files",
+      "policyname": "billing_document_files_insert",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_document_files",
+      "policyname": "billing_document_files_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(app_private.billing_document_access(billing_document_id, 'billing.view'::text) OR app_private.billing_document_access(billing_document_id, 'billing.create'::text, true))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_document_files",
+      "policyname": "billing_document_files_update",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "UPDATE",
+      "qual": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)",
+      "with_check": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_document_items",
+      "policyname": "billing_document_items_delete",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "DELETE",
+      "qual": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_document_items",
+      "policyname": "billing_document_items_insert",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_document_items",
+      "policyname": "billing_document_items_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(app_private.billing_document_access(billing_document_id, 'billing.view'::text) OR app_private.billing_document_access(billing_document_id, 'billing.create'::text, true))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_document_items",
+      "policyname": "billing_document_items_update",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "UPDATE",
+      "qual": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)",
+      "with_check": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_documents",
+      "policyname": "billing_documents_insert",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "((status = 'draft'::billing_document_status) AND (number IS NULL) AND (NOT published_to_client) AND (published_at IS NULL) AND (issued_at IS NULL) AND (issued_by IS NULL) AND (cancelled_at IS NULL) AND (cancelled_by IS NULL) AND (archived_at IS NULL) AND app_private.billing_scope(organization_id, project_id, 'billing.create'::text))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_documents",
+      "policyname": "billing_documents_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(app_private.billing_scope(organization_id, project_id, 'billing.view'::text) OR ((status = 'draft'::billing_document_status) AND app_private.billing_scope(organization_id, project_id, 'billing.create'::text)))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "billing_documents",
+      "policyname": "billing_documents_update",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "UPDATE",
+      "qual": "((status = 'draft'::billing_document_status) AND app_private.billing_scope(organization_id, project_id, 'billing.create'::text))",
+      "with_check": "((status = 'draft'::billing_document_status) AND (number IS NULL) AND (NOT published_to_client) AND (published_at IS NULL) AND (issued_at IS NULL) AND (issued_by IS NULL) AND (cancelled_at IS NULL) AND (cancelled_by IS NULL) AND (archived_at IS NULL) AND app_private.billing_scope(organization_id, project_id, 'billing.create'::text))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "brands",
+      "policyname": "brands_select_internal",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM (organizations o\n     JOIN agency_memberships am ON ((am.agency_id = o.agency_id)))\n  WHERE ((o.id = brands.organization_id) AND (am.user_id = ( SELECT auth.uid() AS uid)) AND (am.status = 'active'::text) AND has_capability('brand.view'::text, o.agency_id, o.id))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "capabilities",
+      "policyname": "capabilities_select_authenticated",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(( SELECT auth.uid() AS uid) IS NOT NULL)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "capability_grants",
+      "policyname": "capability_grants_select_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(( SELECT auth.uid() AS uid) = user_id)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "channel_memberships",
+      "policyname": "channel_memberships_read_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((user_id = ( SELECT auth.uid() AS uid)) AND app_private.channel_access(channel_id))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "channels",
+      "policyname": "channels_read_members",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "app_private.channel_access(id)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "client_memberships",
+      "policyname": "client_memberships_select_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(( SELECT auth.uid() AS uid) = user_id)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "contacts",
+      "policyname": "contacts_select_internal",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM (organizations o\n     JOIN agency_memberships am ON ((am.agency_id = o.agency_id)))\n  WHERE ((o.id = contacts.organization_id) AND (am.user_id = ( SELECT auth.uid() AS uid)) AND (am.status = 'active'::text) AND has_capability('contact.view'::text, o.agency_id, o.id))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_asset_links",
+      "policyname": "content_asset_links_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM (editorial_items ei\n     JOIN file_assets fa ON (((fa.id = content_asset_links.asset_id) AND (fa.project_id = ei.project_id))))\n  WHERE ((ei.id = content_asset_links.editorial_item_id) AND project_access_allowed(ei.project_id, 'editorial.view'::text) AND project_access_allowed(ei.project_id, 'file.view'::text))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "content_templates",
+      "policyname": "content_templates_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT project_access_allowed(content_templates.project_id, 'editorial.view'::text) AS project_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "crm_activities",
+      "policyname": "crm_activities_select_internal",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM (organizations o\n     JOIN agency_memberships am ON ((am.agency_id = o.agency_id)))\n  WHERE ((o.id = crm_activities.organization_id) AND (am.user_id = ( SELECT auth.uid() AS uid)) AND (am.status = 'active'::text) AND has_capability('crm_activity.view'::text, o.agency_id, o.id))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "dashboard_user_configs",
+      "policyname": "dashboard_user_configs_select_self_internal",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((( SELECT auth.uid() AS uid) = user_id) AND ( SELECT is_internal_actor() AS is_internal_actor))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "deliverable_files",
+      "policyname": "deliverable_files_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM ((deliverable_versions dv\n     JOIN deliverables d ON ((d.id = dv.deliverable_id)))\n     JOIN file_assets fa ON (((fa.id = deliverable_files.asset_id) AND (fa.project_id = d.project_id))))\n  WHERE ((dv.id = deliverable_files.deliverable_version_id) AND deliverable_access_allowed(d.id) AND project_access_allowed(d.project_id, 'file.view'::text))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "deliverable_versions",
+      "policyname": "deliverable_versions_internal_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT deliverable_access_allowed(deliverable_versions.deliverable_id) AS deliverable_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "deliverables",
+      "policyname": "deliverables_internal_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT deliverable_access_allowed(deliverables.id) AS deliverable_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "departments",
+      "policyname": "departments_select_member",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM agency_memberships am\n  WHERE ((am.agency_id = departments.agency_id) AND (am.user_id = ( SELECT auth.uid() AS uid)) AND (am.status = 'active'::text))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "domain_events",
+      "policyname": "domain_events_select_auditor",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "has_capability('audit.view'::text, agency_id, organization_id)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "editorial_cycles",
+      "policyname": "editorial_cycles_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT project_access_allowed(editorial_cycles.project_id, 'editorial.view'::text) AS project_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "editorial_items",
+      "policyname": "editorial_items_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT project_access_allowed(editorial_items.project_id, 'editorial.view'::text) AS project_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "file_assets",
+      "policyname": "file_assets_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((project_access_allowed(project_id, 'file.view'::text) AND ((status = ANY (ARRAY['ready'::text, 'archived'::text])) OR ((status = 'pending'::text) AND (uploaded_by = ( SELECT auth.uid() AS uid))))) OR ((status = 'deleting'::text) AND file_director_access_allowed(project_id)))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "integration_connections",
+      "policyname": "integration_connections_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "phase13_access(project_id, 'integration.view'::text)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "invitations",
+      "policyname": "invitations_select_involved",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((invited_by = ( SELECT auth.uid() AS uid)) OR (accepted_by = ( SELECT auth.uid() AS uid)))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "messages",
+      "policyname": "messages_read_members",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "app_private.channel_access(channel_id)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "milestones",
+      "policyname": "milestones_select_internal_scope",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT project_access_allowed(milestones.project_id, 'project.view'::text) AS project_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "notification_preferences",
+      "policyname": "notification_preferences_insert_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(user_id = ( SELECT auth.uid() AS uid))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "notification_preferences",
+      "policyname": "notification_preferences_read_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(user_id = ( SELECT auth.uid() AS uid))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "notification_preferences",
+      "policyname": "notification_preferences_update_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "UPDATE",
+      "qual": "(user_id = ( SELECT auth.uid() AS uid))",
+      "with_check": "(user_id = ( SELECT auth.uid() AS uid))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "notifications",
+      "policyname": "notifications_read_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((recipient_id = ( SELECT auth.uid() AS uid)) AND (((kind = 'message_received'::text) AND app_private.channel_access(channel_id)) OR ((kind <> 'message_received'::text) AND (app_private.client_project_access(project_id) OR app_private.project_permission(project_id, 'project.view'::text)))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "opportunities",
+      "policyname": "opportunities_select_internal",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM (organizations o\n     JOIN agency_memberships am ON ((am.agency_id = o.agency_id)))\n  WHERE ((o.id = opportunities.organization_id) AND (am.user_id = ( SELECT auth.uid() AS uid)) AND (am.status = 'active'::text) AND has_capability('opportunity.view'::text, o.agency_id, o.id))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "organizations",
+      "policyname": "organizations_select_internal",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((EXISTS ( SELECT 1\n   FROM agency_memberships am\n  WHERE ((am.user_id = ( SELECT auth.uid() AS uid)) AND (am.status = 'active'::text) AND (am.agency_id = organizations.agency_id)))) AND has_capability('organization.view'::text, agency_id, id))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "payment_records",
+      "policyname": "payment_records_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "app_private.billing_document_access(billing_document_id, 'billing.view'::text)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "payment_schedules",
+      "policyname": "payment_schedules_delete",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "DELETE",
+      "qual": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "payment_schedules",
+      "policyname": "payment_schedules_insert",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "payment_schedules",
+      "policyname": "payment_schedules_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(app_private.billing_document_access(billing_document_id, 'billing.view'::text) OR app_private.billing_document_access(billing_document_id, 'billing.create'::text, true))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "payment_schedules",
+      "policyname": "payment_schedules_update",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "UPDATE",
+      "qual": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)",
+      "with_check": "app_private.billing_document_access(billing_document_id, 'billing.create'::text, true)"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "personal_work_items",
+      "policyname": "personal_work_items_select_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((( SELECT auth.uid() AS uid) = user_id) AND ( SELECT is_internal_actor() AS is_internal_actor))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "pipeline_stages",
+      "policyname": "pipeline_stages_select_internal",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM agency_memberships am\n  WHERE ((am.user_id = ( SELECT auth.uid() AS uid)) AND (am.status = 'active'::text) AND ((EXISTS ( SELECT 1\n           FROM role_capabilities rc\n          WHERE ((rc.role_key = am.role_key) AND (rc.capability_key = 'pipeline.view'::text)))) OR (EXISTS ( SELECT 1\n           FROM capability_grants cg\n          WHERE ((cg.user_id = am.user_id) AND (cg.agency_id = am.agency_id) AND (cg.capability_key = 'pipeline.view'::text) AND (cg.revoked_at IS NULL) AND ((cg.expires_at IS NULL) OR (cg.expires_at > now())))))))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "profiles",
+      "policyname": "profiles_select_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(( SELECT auth.uid() AS uid) = user_id)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "profiles",
+      "policyname": "profiles_update_self",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "UPDATE",
+      "qual": "(( SELECT auth.uid() AS uid) = user_id)",
+      "with_check": "(( SELECT auth.uid() AS uid) = user_id)"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "project_files",
+      "policyname": "project_files_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "project_access_allowed(project_id, 'file.view'::text)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "project_memberships",
+      "policyname": "project_memberships_select_internal_scope",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT project_access_allowed(project_memberships.project_id, 'project.view'::text) AS project_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "project_reports",
+      "policyname": "project_reports_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "((is_internal_actor() AND project_access_allowed(project_id, 'analytics.view'::text)) OR ((published_at IS NOT NULL) AND app_private.client_report_access(project_id)))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "projects",
+      "policyname": "projects_select_internal_scope",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT project_access_allowed(projects.id, 'project.view'::text) AS project_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "review_assignments",
+      "policyname": "review_assignments_internal_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM (review_rounds r\n     JOIN deliverable_versions dv ON ((dv.id = r.deliverable_version_id)))\n  WHERE ((r.id = review_assignments.review_round_id) AND ( SELECT deliverable_access_allowed(dv.deliverable_id) AS deliverable_access_allowed))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "review_decisions",
+      "policyname": "review_decisions_internal_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM ((review_assignments a\n     JOIN review_rounds r ON ((r.id = a.review_round_id)))\n     JOIN deliverable_versions dv ON ((dv.id = r.deliverable_version_id)))\n  WHERE ((a.id = review_decisions.review_assignment_id) AND ( SELECT deliverable_access_allowed(dv.deliverable_id) AS deliverable_access_allowed))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "review_overrides",
+      "policyname": "review_overrides_internal_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM deliverable_versions dv\n  WHERE ((dv.id = review_overrides.deliverable_version_id) AND ( SELECT deliverable_access_allowed(dv.deliverable_id) AS deliverable_access_allowed))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "review_requirements",
+      "policyname": "review_requirements_internal_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT project_access_allowed(review_requirements.project_id, 'review.configure'::text) AS project_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "review_rounds",
+      "policyname": "review_rounds_internal_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM deliverable_versions dv\n  WHERE ((dv.id = review_rounds.deliverable_version_id) AND ( SELECT deliverable_access_allowed(dv.deliverable_id) AS deliverable_access_allowed))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "role_capabilities",
+      "policyname": "role_capabilities_select_authenticated",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(( SELECT auth.uid() AS uid) IS NOT NULL)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "roles",
+      "policyname": "roles_select_authenticated",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(( SELECT auth.uid() AS uid) IS NOT NULL)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "webhook_deliveries",
+      "policyname": "webhook_deliveries_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "phase13_access(project_id, 'integration.view'::text)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "work_applications",
+      "policyname": "work_applications_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM editorial_items ei\n  WHERE ((ei.id = work_applications.editorial_item_id) AND (((work_applications.applicant_id = ( SELECT auth.uid() AS uid)) AND ( SELECT project_access_allowed(ei.project_id, 'editorial.view'::text) AS project_access_allowed)) OR ( SELECT project_access_allowed(ei.project_id, 'editorial.assign'::text) AS project_access_allowed)))))",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "work_item_assignees",
+      "policyname": "work_item_assignees_select_internal_scope",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT work_item_access_allowed(work_item_assignees.work_item_id) AS work_item_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "work_item_comments",
+      "policyname": "work_item_comments_select_internal_scope",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT work_item_access_allowed(work_item_comments.work_item_id) AS work_item_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "work_item_events",
+      "policyname": "work_item_events_select_internal_scope",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT work_item_access_allowed(work_item_events.work_item_id) AS work_item_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "public",
+      "tablename": "work_items",
+      "policyname": "work_items_select_internal_scope",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "( SELECT work_item_access_allowed(work_items.id) AS work_item_access_allowed)",
+      "with_check": null
+    },
+    {
+      "schemaname": "storage",
+      "tablename": "objects",
+      "policyname": "project_files_object_delete",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "DELETE",
+      "qual": "file_object_delete_allowed(bucket_id, name)",
+      "with_check": null
+    },
+    {
+      "schemaname": "storage",
+      "tablename": "objects",
+      "policyname": "project_files_object_insert",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "file_object_insert_allowed(bucket_id, name)"
+    },
+    {
+      "schemaname": "storage",
+      "tablename": "objects",
+      "policyname": "project_files_object_read",
+      "permissive": "PERMISSIVE",
+      "roles": [
+        "authenticated"
+      ],
+      "cmd": "SELECT",
+      "qual": "(storage.allow_any_operation(ARRAY['object.list'::text, 'object.list_v2'::text, 'object.get_authenticated'::text, 'object.get_authenticated_info'::text, 'object.head_authenticated_info'::text, 'object.delete'::text, 'object.delete_many'::text]) AND file_object_read_allowed(bucket_id, name))",
+      "with_check": null
+    }
+  ]
+}

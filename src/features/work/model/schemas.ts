@@ -15,12 +15,12 @@ export const workItemFormSchema = z.object({
   description: optionalText(8000),
   priority: prioritySchema,
   dueLocal: optionalLocalDateTime,
-  milestoneId: z.string().uuid().optional().or(z.literal('')),
-  assigneeIds: z.array(z.string().uuid()).max(20, 'Selecciona como máximo 20 responsables.'),
+  milestoneId: z.guid().optional().or(z.literal('')),
+  assigneeIds: z.array(z.guid()).max(20, 'Selecciona como máximo 20 responsables.'),
 })
 
 export const assignmentFormSchema = z.object({
-  assigneeIds: z.array(z.string().uuid()).min(1, 'Selecciona al menos una persona.').max(20),
+  assigneeIds: z.array(z.guid()).min(1, 'Selecciona al menos una persona.').max(20),
 })
 
 export const commentFormSchema = z.object({

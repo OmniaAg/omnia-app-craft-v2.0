@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "database envelope migrated to version 2",
+    "plaintext preserved without logging",
+    "second rotation is idempotent",
+    "old key retained for reader rollback"
+  ],
+  "secretsPrinted": false
+}

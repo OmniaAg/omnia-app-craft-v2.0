@@ -79,6 +79,12 @@ export function AuthProvider({
     async (nextSession: Session): Promise<AuthorizationProjection> => {
       const version = operationVersion.current + 1
       operationVersion.current = version
+      if (currentUserId.current !== nextSession.user.id) {
+        void client.removeAllChannels()
+        queryClient.clear()
+        setActor(null)
+        setSession(null)
+      }
       setStatus('loading')
       setError(null)
 
@@ -151,14 +157,17 @@ export function AuthProvider({
         if (!active) {
           return
         }
+        // The explicit restoration above already verifies INITIAL_SESSION.
+        if (event === 'INITIAL_SESSION') return
 
         if (event === 'SIGNED_OUT' || !nextSession) {
           clearSession()
           return
         }
 
+        const queuedVersion = operationVersion.current
         window.setTimeout(() => {
-          if (active) {
+          if (active && operationVersion.current === queuedVersion) {
             void hydrateSession(nextSession).catch(() => undefined)
           }
         }, 0)

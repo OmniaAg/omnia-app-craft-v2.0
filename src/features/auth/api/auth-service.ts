@@ -2,10 +2,7 @@ import type { Session, User } from '@supabase/supabase-js'
 import type { OmniaSupabaseClient } from '../../../shared/api/supabase/client'
 import { getPublicEnv } from '../../../shared/config/env'
 import type { AuthorizationProjection } from '../model/authorization'
-import {
-  invitationSchema,
-  type InvitationInput,
-} from '../model/schemas'
+import type { InvitationInput } from '../model/schemas'
 
 export class AuthFlowError extends Error {
   readonly code: string
@@ -175,6 +172,7 @@ export async function inviteUser(
   client: OmniaSupabaseClient,
   input: InvitationInput,
 ): Promise<{ invitationId: string; replay: boolean }> {
+  const { invitationSchema } = await import('../model/schemas')
   const body = invitationSchema.parse(input)
   const { data, error } = await client.functions.invoke('invite-user', { body })
 

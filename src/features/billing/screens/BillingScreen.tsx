@@ -12,7 +12,9 @@ const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN
 
 export function Component() {
   const auth = useAuth()
-  const { data: documents, isLoading } = useBillingDocuments()
+  const [page, setPage] = useState(0)
+  const { data: documentPage, isLoading, error: listError } = useBillingDocuments(undefined, undefined, page)
+  const documents = documentPage?.items
   
   const createMutation = useCreateBillingDocument()
   const issueMutation = useIssueBillingDocument()
@@ -159,6 +161,12 @@ export function Component() {
           </table>
         </div>
       )}
+      {listError ? <p role="alert">No pudimos cargar los documentos. Comprueba la conexión y reintenta.</p> : null}
+      <nav aria-label="Páginas de documentos" className="billing-pagination">
+        <button type="button" disabled={page === 0 || isLoading} onClick={() => setPage(value => value - 1)}>Anterior</button>
+        <span>Página {page + 1}</span>
+        <button type="button" disabled={!documentPage?.hasMore || isLoading} onClick={() => setPage(value => value + 1)}>Siguiente</button>
+      </nav>
     </div>
   )
 }

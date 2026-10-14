@@ -1,0 +1,2226 @@
+[
+  {
+    "path": "/app",
+    "labOnly": true,
+    "headingReadyPlus700ms": 807.8647999999998,
+    "requests": [
+      {
+        "url": "/app",
+        "method": "GET",
+        "type": "document"
+      },
+      {
+        "url": "/assets/index-CeoE_6nn.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/react-SIfiwpqq.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/jsx-runtime-0vZSBttN.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/index-DE6BaRHA.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/InternalAppShell-hlAPXGfK.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/NotificationBadge-DSdJ4iwf.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useQuery-eUzI-QSY.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-DAH5toxV.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queryOptions-Dfvzj6n2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/messaging-service-BVFD3O2a.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMessagingRealtime-D3qX-KBv.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/DashboardScreen-DW_z5ZN-.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMutation-C_QixsJ2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/schemas-DBGTGzq7.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-Cgsq4_Rm.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/DashboardScreen-Coo9Q5_W.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/auth/v1/user",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/profiles",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/agency_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/client_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/my_capabilities",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/dashboard_user_configs",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/DashboardGrid-B7Pn-hFO.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/DashboardGrid-Cb7KG80W.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/SummaryWidget-J8PoZer3.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/widget-primitives-IDQf1v07.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/WorkListWidget-BfXZ3dRc.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/ProjectsWidget-B1jviDQm.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/QuickActionsWidget-DD4rYw09.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/CrmWidget-BkeM8Qo5.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/lexend-latin-700-normal-DqO8md6r.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/rpc/dashboard_operational_summary",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/dashboard_crm_summary",
+        "method": "POST",
+        "type": "fetch"
+      }
+    ],
+    "requestCount": 42,
+    "metrics": {
+      "lcp": 484,
+      "cls": 0.019252700617283947,
+      "longTasks": [],
+      "resources": [
+        {
+          "name": "/assets/index-CeoE_6nn.js",
+          "bytes": 155101,
+          "transferBytes": 155401
+        },
+        {
+          "name": "/assets/react-SIfiwpqq.js",
+          "bytes": 3162,
+          "transferBytes": 3462
+        },
+        {
+          "name": "/assets/index-DE6BaRHA.css",
+          "bytes": 4207,
+          "transferBytes": 4507
+        },
+        {
+          "name": "/assets/jsx-runtime-0vZSBttN.js",
+          "bytes": 424,
+          "transferBytes": 724
+        },
+        {
+          "name": "/assets/InternalAppShell-hlAPXGfK.js",
+          "bytes": 1555,
+          "transferBytes": 1855
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+          "bytes": 70,
+          "transferBytes": 370
+        },
+        {
+          "name": "/assets/NotificationBadge-DSdJ4iwf.js",
+          "bytes": 508,
+          "transferBytes": 808
+        },
+        {
+          "name": "/assets/useQuery-eUzI-QSY.js",
+          "bytes": 2984,
+          "transferBytes": 3284
+        },
+        {
+          "name": "/assets/queries-DAH5toxV.js",
+          "bytes": 699,
+          "transferBytes": 999
+        },
+        {
+          "name": "/assets/queryOptions-Dfvzj6n2.js",
+          "bytes": 38,
+          "transferBytes": 338
+        },
+        {
+          "name": "/assets/messaging-service-BVFD3O2a.js",
+          "bytes": 939,
+          "transferBytes": 1239
+        },
+        {
+          "name": "/assets/useMessagingRealtime-D3qX-KBv.js",
+          "bytes": 496,
+          "transferBytes": 796
+        },
+        {
+          "name": "/assets/DashboardScreen-DW_z5ZN-.js",
+          "bytes": 4640,
+          "transferBytes": 4940
+        },
+        {
+          "name": "/assets/useMutation-C_QixsJ2.js",
+          "bytes": 953,
+          "transferBytes": 1253
+        },
+        {
+          "name": "/assets/schemas-DBGTGzq7.js",
+          "bytes": 18640,
+          "transferBytes": 18940
+        },
+        {
+          "name": "/assets/queries-Cgsq4_Rm.js",
+          "bytes": 731,
+          "transferBytes": 1031
+        },
+        {
+          "name": "/assets/DashboardScreen-Coo9Q5_W.css",
+          "bytes": 1756,
+          "transferBytes": 2056
+        },
+        {
+          "name": "/auth/v1/user",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+          "bytes": 37666,
+          "transferBytes": 37966
+        },
+        {
+          "name": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+          "bytes": 15124,
+          "transferBytes": 15424
+        },
+        {
+          "name": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+          "bytes": 15788,
+          "transferBytes": 16088
+        },
+        {
+          "name": "/rest/v1/profiles",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/agency_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/client_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/my_capabilities",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+          "bytes": 202872,
+          "transferBytes": 203172
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/dashboard_user_configs",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/DashboardGrid-B7Pn-hFO.js",
+          "bytes": 20324,
+          "transferBytes": 20624
+        },
+        {
+          "name": "/assets/DashboardGrid-Cb7KG80W.css",
+          "bytes": 962,
+          "transferBytes": 1262
+        },
+        {
+          "name": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+          "bytes": 14476,
+          "transferBytes": 14776
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/SummaryWidget-J8PoZer3.js",
+          "bytes": 1020,
+          "transferBytes": 1320
+        },
+        {
+          "name": "/assets/widget-primitives-IDQf1v07.js",
+          "bytes": 344,
+          "transferBytes": 644
+        },
+        {
+          "name": "/assets/WorkListWidget-BfXZ3dRc.js",
+          "bytes": 705,
+          "transferBytes": 1005
+        },
+        {
+          "name": "/assets/ProjectsWidget-B1jviDQm.js",
+          "bytes": 638,
+          "transferBytes": 938
+        },
+        {
+          "name": "/assets/QuickActionsWidget-DD4rYw09.js",
+          "bytes": 367,
+          "transferBytes": 667
+        },
+        {
+          "name": "/assets/CrmWidget-BkeM8Qo5.js",
+          "bytes": 657,
+          "transferBytes": 957
+        },
+        {
+          "name": "/assets/lexend-latin-700-normal-DqO8md6r.woff2",
+          "bytes": 14808,
+          "transferBytes": 15108
+        }
+      ],
+      "domContentLoaded": 39.59999996423721
+    },
+    "errors": []
+  },
+  {
+    "path": "/app/projects",
+    "labOnly": true,
+    "headingReadyPlus700ms": 894.1200000000003,
+    "requests": [
+      {
+        "url": "/app/projects",
+        "method": "GET",
+        "type": "document"
+      },
+      {
+        "url": "/assets/index-CeoE_6nn.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/react-SIfiwpqq.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/jsx-runtime-0vZSBttN.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/index-DE6BaRHA.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/InternalAppShell-hlAPXGfK.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/NotificationBadge-DSdJ4iwf.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useQuery-eUzI-QSY.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-DAH5toxV.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queryOptions-Dfvzj6n2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/messaging-service-BVFD3O2a.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMessagingRealtime-D3qX-KBv.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/ProjectsScreen-Bfpi0gRn.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMutation-C_QixsJ2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/crm-D_rNlWVN.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/crm-BhxHRrUF.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/project-service-fY4KM03N.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/schemas-DBGTGzq7.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-Db5YFbNv.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/projects-kmSlo8F-.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/zod-BnWcluwp.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/projects-d4-ktSQ-.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/auth/v1/user",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/profiles",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/agency_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/client_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/my_capabilities",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/list_projects",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/project_brand_options",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      }
+    ],
+    "requestCount": 37,
+    "metrics": {
+      "lcp": 480,
+      "cls": 0.01354834572120949,
+      "longTasks": [],
+      "resources": [
+        {
+          "name": "/assets/react-SIfiwpqq.js",
+          "bytes": 3162,
+          "transferBytes": 3462
+        },
+        {
+          "name": "/assets/index-CeoE_6nn.js",
+          "bytes": 155101,
+          "transferBytes": 155401
+        },
+        {
+          "name": "/assets/index-DE6BaRHA.css",
+          "bytes": 4207,
+          "transferBytes": 4507
+        },
+        {
+          "name": "/assets/jsx-runtime-0vZSBttN.js",
+          "bytes": 424,
+          "transferBytes": 724
+        },
+        {
+          "name": "/assets/InternalAppShell-hlAPXGfK.js",
+          "bytes": 1555,
+          "transferBytes": 1855
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+          "bytes": 70,
+          "transferBytes": 370
+        },
+        {
+          "name": "/assets/NotificationBadge-DSdJ4iwf.js",
+          "bytes": 508,
+          "transferBytes": 808
+        },
+        {
+          "name": "/assets/useQuery-eUzI-QSY.js",
+          "bytes": 2984,
+          "transferBytes": 3284
+        },
+        {
+          "name": "/assets/queries-DAH5toxV.js",
+          "bytes": 699,
+          "transferBytes": 999
+        },
+        {
+          "name": "/assets/queryOptions-Dfvzj6n2.js",
+          "bytes": 38,
+          "transferBytes": 338
+        },
+        {
+          "name": "/assets/messaging-service-BVFD3O2a.js",
+          "bytes": 939,
+          "transferBytes": 1239
+        },
+        {
+          "name": "/assets/useMessagingRealtime-D3qX-KBv.js",
+          "bytes": 496,
+          "transferBytes": 796
+        },
+        {
+          "name": "/assets/ProjectsScreen-Bfpi0gRn.js",
+          "bytes": 1990,
+          "transferBytes": 2290
+        },
+        {
+          "name": "/assets/useMutation-C_QixsJ2.js",
+          "bytes": 953,
+          "transferBytes": 1253
+        },
+        {
+          "name": "/assets/crm-D_rNlWVN.js",
+          "bytes": 1102,
+          "transferBytes": 1402
+        },
+        {
+          "name": "/assets/crm-BhxHRrUF.css",
+          "bytes": 1959,
+          "transferBytes": 2259
+        },
+        {
+          "name": "/assets/project-service-fY4KM03N.js",
+          "bytes": 1366,
+          "transferBytes": 1666
+        },
+        {
+          "name": "/assets/schemas-DBGTGzq7.js",
+          "bytes": 18640,
+          "transferBytes": 18940
+        },
+        {
+          "name": "/assets/queries-Db5YFbNv.js",
+          "bytes": 860,
+          "transferBytes": 1160
+        },
+        {
+          "name": "/assets/projects-kmSlo8F-.js",
+          "bytes": 1413,
+          "transferBytes": 1713
+        },
+        {
+          "name": "/assets/zod-BnWcluwp.js",
+          "bytes": 11371,
+          "transferBytes": 11671
+        },
+        {
+          "name": "/assets/projects-d4-ktSQ-.css",
+          "bytes": 582,
+          "transferBytes": 882
+        },
+        {
+          "name": "/auth/v1/user",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+          "bytes": 37666,
+          "transferBytes": 37966
+        },
+        {
+          "name": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+          "bytes": 15124,
+          "transferBytes": 15424
+        },
+        {
+          "name": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+          "bytes": 15788,
+          "transferBytes": 16088
+        },
+        {
+          "name": "/rest/v1/profiles",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/agency_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/client_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/my_capabilities",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+          "bytes": 202872,
+          "transferBytes": 203172
+        },
+        {
+          "name": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+          "bytes": 14476,
+          "transferBytes": 14776
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/list_projects",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/project_brand_options",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        }
+      ],
+      "domContentLoaded": 48.59999996423721
+    },
+    "errors": []
+  },
+  {
+    "path": "/app/messages",
+    "labOnly": true,
+    "headingReadyPlus700ms": 786.7979999999998,
+    "requests": [
+      {
+        "url": "/app/messages",
+        "method": "GET",
+        "type": "document"
+      },
+      {
+        "url": "/assets/index-CeoE_6nn.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/react-SIfiwpqq.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/jsx-runtime-0vZSBttN.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/index-DE6BaRHA.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/InternalAppShell-hlAPXGfK.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/NotificationBadge-DSdJ4iwf.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useQuery-eUzI-QSY.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-DAH5toxV.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queryOptions-Dfvzj6n2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/messaging-service-BVFD3O2a.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMessagingRealtime-D3qX-KBv.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/MessagesScreen-nuHrJnOP.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/project-service-fY4KM03N.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/schemas-DBGTGzq7.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/messaging-CfT7NYYi.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/auth/v1/user",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/profiles",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/agency_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/client_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/my_capabilities",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/assets/lexend-latin-700-normal-DqO8md6r.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/my_channels",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      }
+    ],
+    "requestCount": 31,
+    "metrics": {
+      "lcp": 392,
+      "cls": 0.00034594264403292184,
+      "longTasks": [],
+      "resources": [
+        {
+          "name": "/assets/react-SIfiwpqq.js",
+          "bytes": 3162,
+          "transferBytes": 3462
+        },
+        {
+          "name": "/assets/index-CeoE_6nn.js",
+          "bytes": 155101,
+          "transferBytes": 155401
+        },
+        {
+          "name": "/assets/index-DE6BaRHA.css",
+          "bytes": 4207,
+          "transferBytes": 4507
+        },
+        {
+          "name": "/assets/jsx-runtime-0vZSBttN.js",
+          "bytes": 424,
+          "transferBytes": 724
+        },
+        {
+          "name": "/assets/InternalAppShell-hlAPXGfK.js",
+          "bytes": 1555,
+          "transferBytes": 1855
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+          "bytes": 70,
+          "transferBytes": 370
+        },
+        {
+          "name": "/assets/NotificationBadge-DSdJ4iwf.js",
+          "bytes": 508,
+          "transferBytes": 808
+        },
+        {
+          "name": "/assets/queries-DAH5toxV.js",
+          "bytes": 699,
+          "transferBytes": 999
+        },
+        {
+          "name": "/assets/useQuery-eUzI-QSY.js",
+          "bytes": 2984,
+          "transferBytes": 3284
+        },
+        {
+          "name": "/assets/queryOptions-Dfvzj6n2.js",
+          "bytes": 38,
+          "transferBytes": 338
+        },
+        {
+          "name": "/assets/useMessagingRealtime-D3qX-KBv.js",
+          "bytes": 496,
+          "transferBytes": 796
+        },
+        {
+          "name": "/assets/messaging-service-BVFD3O2a.js",
+          "bytes": 939,
+          "transferBytes": 1239
+        },
+        {
+          "name": "/assets/MessagesScreen-nuHrJnOP.js",
+          "bytes": 2934,
+          "transferBytes": 3234
+        },
+        {
+          "name": "/assets/project-service-fY4KM03N.js",
+          "bytes": 1366,
+          "transferBytes": 1666
+        },
+        {
+          "name": "/assets/schemas-DBGTGzq7.js",
+          "bytes": 18640,
+          "transferBytes": 18940
+        },
+        {
+          "name": "/assets/messaging-CfT7NYYi.css",
+          "bytes": 1586,
+          "transferBytes": 1886
+        },
+        {
+          "name": "/auth/v1/user",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+          "bytes": 37666,
+          "transferBytes": 37966
+        },
+        {
+          "name": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+          "bytes": 15124,
+          "transferBytes": 15424
+        },
+        {
+          "name": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+          "bytes": 15788,
+          "transferBytes": 16088
+        },
+        {
+          "name": "/rest/v1/profiles",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/agency_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/client_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/my_capabilities",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+          "bytes": 202872,
+          "transferBytes": 203172
+        },
+        {
+          "name": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+          "bytes": 14476,
+          "transferBytes": 14776
+        },
+        {
+          "name": "/assets/lexend-latin-700-normal-DqO8md6r.woff2",
+          "bytes": 14808,
+          "transferBytes": 15108
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/my_channels",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        }
+      ],
+      "domContentLoaded": 36.39999997615814
+    },
+    "errors": []
+  },
+  {
+    "path": "/app/analytics",
+    "labOnly": true,
+    "headingReadyPlus700ms": 802.1220000000003,
+    "requests": [
+      {
+        "url": "/app/analytics",
+        "method": "GET",
+        "type": "document"
+      },
+      {
+        "url": "/assets/index-CeoE_6nn.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/react-SIfiwpqq.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/jsx-runtime-0vZSBttN.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/index-DE6BaRHA.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/InternalAppShell-hlAPXGfK.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/NotificationBadge-DSdJ4iwf.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useQuery-eUzI-QSY.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-DAH5toxV.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queryOptions-Dfvzj6n2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/messaging-service-BVFD3O2a.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMessagingRealtime-D3qX-KBv.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/AnalyticsScreen-DW1BE6eZ.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMutation-C_QixsJ2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/analytics-RlJDovpZ.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/schemas-DBGTGzq7.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/analytics-D-O7BpgH.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/auth/v1/user",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/profiles",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/agency_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/client_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/my_capabilities",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/assets/lexend-latin-700-normal-DqO8md6r.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/analytics_filter_options",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/analytics_filter_options",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/analytics_filter_options",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/analytics_overview",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/lexend-latin-500-normal-Dl-X5nog.woff2",
+        "method": "GET",
+        "type": "font"
+      }
+    ],
+    "requestCount": 36,
+    "metrics": {
+      "lcp": 348,
+      "cls": 0.007923294632523148,
+      "longTasks": [],
+      "resources": [
+        {
+          "name": "/assets/index-CeoE_6nn.js",
+          "bytes": 155101,
+          "transferBytes": 155401
+        },
+        {
+          "name": "/assets/react-SIfiwpqq.js",
+          "bytes": 3162,
+          "transferBytes": 3462
+        },
+        {
+          "name": "/assets/jsx-runtime-0vZSBttN.js",
+          "bytes": 424,
+          "transferBytes": 724
+        },
+        {
+          "name": "/assets/index-DE6BaRHA.css",
+          "bytes": 4207,
+          "transferBytes": 4507
+        },
+        {
+          "name": "/assets/InternalAppShell-hlAPXGfK.js",
+          "bytes": 1555,
+          "transferBytes": 1855
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+          "bytes": 70,
+          "transferBytes": 370
+        },
+        {
+          "name": "/assets/NotificationBadge-DSdJ4iwf.js",
+          "bytes": 508,
+          "transferBytes": 808
+        },
+        {
+          "name": "/assets/queries-DAH5toxV.js",
+          "bytes": 699,
+          "transferBytes": 999
+        },
+        {
+          "name": "/assets/useQuery-eUzI-QSY.js",
+          "bytes": 2984,
+          "transferBytes": 3284
+        },
+        {
+          "name": "/assets/queryOptions-Dfvzj6n2.js",
+          "bytes": 38,
+          "transferBytes": 338
+        },
+        {
+          "name": "/assets/messaging-service-BVFD3O2a.js",
+          "bytes": 939,
+          "transferBytes": 1239
+        },
+        {
+          "name": "/assets/useMessagingRealtime-D3qX-KBv.js",
+          "bytes": 496,
+          "transferBytes": 796
+        },
+        {
+          "name": "/assets/AnalyticsScreen-DW1BE6eZ.js",
+          "bytes": 5503,
+          "transferBytes": 5803
+        },
+        {
+          "name": "/assets/useMutation-C_QixsJ2.js",
+          "bytes": 953,
+          "transferBytes": 1253
+        },
+        {
+          "name": "/assets/analytics-RlJDovpZ.js",
+          "bytes": 3299,
+          "transferBytes": 3599
+        },
+        {
+          "name": "/assets/schemas-DBGTGzq7.js",
+          "bytes": 18640,
+          "transferBytes": 18940
+        },
+        {
+          "name": "/assets/analytics-D-O7BpgH.css",
+          "bytes": 1225,
+          "transferBytes": 1525
+        },
+        {
+          "name": "/auth/v1/user",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+          "bytes": 37666,
+          "transferBytes": 37966
+        },
+        {
+          "name": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+          "bytes": 15124,
+          "transferBytes": 15424
+        },
+        {
+          "name": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+          "bytes": 15788,
+          "transferBytes": 16088
+        },
+        {
+          "name": "/rest/v1/profiles",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/agency_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/client_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/my_capabilities",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+          "bytes": 202872,
+          "transferBytes": 203172
+        },
+        {
+          "name": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+          "bytes": 14476,
+          "transferBytes": 14776
+        },
+        {
+          "name": "/assets/lexend-latin-700-normal-DqO8md6r.woff2",
+          "bytes": 14808,
+          "transferBytes": 15108
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/analytics_filter_options",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/analytics_filter_options",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/analytics_filter_options",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/analytics_overview",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/lexend-latin-500-normal-Dl-X5nog.woff2",
+          "bytes": 14864,
+          "transferBytes": 15164
+        }
+      ],
+      "domContentLoaded": 32.30000001192093
+    },
+    "errors": []
+  },
+  {
+    "path": "/app/automations",
+    "labOnly": true,
+    "headingReadyPlus700ms": 814.1424999999999,
+    "requests": [
+      {
+        "url": "/app/automations",
+        "method": "GET",
+        "type": "document"
+      },
+      {
+        "url": "/assets/index-CeoE_6nn.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/react-SIfiwpqq.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/jsx-runtime-0vZSBttN.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/index-DE6BaRHA.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/InternalAppShell-hlAPXGfK.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/NotificationBadge-DSdJ4iwf.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useQuery-eUzI-QSY.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-DAH5toxV.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queryOptions-Dfvzj6n2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/messaging-service-BVFD3O2a.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMessagingRealtime-D3qX-KBv.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/AutomationsScreen-CnFnnfIV.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMutation-C_QixsJ2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/crm-D_rNlWVN.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/crm-BhxHRrUF.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/ui-D648PZ-w.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/schemas-DBGTGzq7.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/ui-BvFY5NCI.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/usePhase13Project-CfCwh16v.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/auth/v1/user",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/profiles",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/agency_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/client_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/my_capabilities",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/phase13_projects",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/phase13_history",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/phase13_history",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/lexend-latin-700-normal-DqO8md6r.woff2",
+        "method": "GET",
+        "type": "font"
+      }
+    ],
+    "requestCount": 37,
+    "metrics": {
+      "lcp": 248,
+      "cls": 0.024831768689986287,
+      "longTasks": [
+        306
+      ],
+      "resources": [
+        {
+          "name": "/assets/index-CeoE_6nn.js",
+          "bytes": 155101,
+          "transferBytes": 155401
+        },
+        {
+          "name": "/assets/jsx-runtime-0vZSBttN.js",
+          "bytes": 424,
+          "transferBytes": 724
+        },
+        {
+          "name": "/assets/index-DE6BaRHA.css",
+          "bytes": 4207,
+          "transferBytes": 4507
+        },
+        {
+          "name": "/assets/react-SIfiwpqq.js",
+          "bytes": 3162,
+          "transferBytes": 3462
+        },
+        {
+          "name": "/assets/InternalAppShell-hlAPXGfK.js",
+          "bytes": 1555,
+          "transferBytes": 1855
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+          "bytes": 70,
+          "transferBytes": 370
+        },
+        {
+          "name": "/assets/NotificationBadge-DSdJ4iwf.js",
+          "bytes": 508,
+          "transferBytes": 808
+        },
+        {
+          "name": "/assets/useQuery-eUzI-QSY.js",
+          "bytes": 2984,
+          "transferBytes": 3284
+        },
+        {
+          "name": "/assets/queries-DAH5toxV.js",
+          "bytes": 699,
+          "transferBytes": 999
+        },
+        {
+          "name": "/assets/queryOptions-Dfvzj6n2.js",
+          "bytes": 38,
+          "transferBytes": 338
+        },
+        {
+          "name": "/assets/messaging-service-BVFD3O2a.js",
+          "bytes": 939,
+          "transferBytes": 1239
+        },
+        {
+          "name": "/assets/useMessagingRealtime-D3qX-KBv.js",
+          "bytes": 496,
+          "transferBytes": 796
+        },
+        {
+          "name": "/assets/AutomationsScreen-CnFnnfIV.js",
+          "bytes": 3408,
+          "transferBytes": 3708
+        },
+        {
+          "name": "/assets/useMutation-C_QixsJ2.js",
+          "bytes": 953,
+          "transferBytes": 1253
+        },
+        {
+          "name": "/assets/crm-D_rNlWVN.js",
+          "bytes": 1102,
+          "transferBytes": 1402
+        },
+        {
+          "name": "/assets/crm-BhxHRrUF.css",
+          "bytes": 1959,
+          "transferBytes": 2259
+        },
+        {
+          "name": "/assets/ui-D648PZ-w.js",
+          "bytes": 3110,
+          "transferBytes": 3410
+        },
+        {
+          "name": "/assets/schemas-DBGTGzq7.js",
+          "bytes": 18640,
+          "transferBytes": 18940
+        },
+        {
+          "name": "/assets/ui-BvFY5NCI.css",
+          "bytes": 952,
+          "transferBytes": 1252
+        },
+        {
+          "name": "/assets/usePhase13Project-CfCwh16v.js",
+          "bytes": 362,
+          "transferBytes": 662
+        },
+        {
+          "name": "/auth/v1/user",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+          "bytes": 37666,
+          "transferBytes": 37966
+        },
+        {
+          "name": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+          "bytes": 15124,
+          "transferBytes": 15424
+        },
+        {
+          "name": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+          "bytes": 15788,
+          "transferBytes": 16088
+        },
+        {
+          "name": "/rest/v1/profiles",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/agency_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/client_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/my_capabilities",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+          "bytes": 202872,
+          "transferBytes": 203172
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/phase13_projects",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/lexend-latin-400-normal-CwRJVcUA.woff2",
+          "bytes": 14476,
+          "transferBytes": 14776
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/phase13_history",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/phase13_history",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/lexend-latin-700-normal-DqO8md6r.woff2",
+          "bytes": 14808,
+          "transferBytes": 15108
+        }
+      ],
+      "domContentLoaded": 49.299999952316284
+    },
+    "errors": []
+  },
+  {
+    "path": "/portal",
+    "labOnly": true,
+    "headingReadyPlus700ms": 800.9934000000003,
+    "requests": [
+      {
+        "url": "/portal",
+        "method": "GET",
+        "type": "document"
+      },
+      {
+        "url": "/assets/index-CeoE_6nn.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/react-SIfiwpqq.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/jsx-runtime-0vZSBttN.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/index-DE6BaRHA.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/ClientPortalShell-BWWjjYHh.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/NotificationBadge-DSdJ4iwf.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useQuery-eUzI-QSY.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-DAH5toxV.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queryOptions-Dfvzj6n2.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/messaging-service-BVFD3O2a.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/useMessagingRealtime-D3qX-KBv.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/ClientPortalShell-BfHIZe_S.css",
+        "method": "GET",
+        "type": "stylesheet"
+      },
+      {
+        "url": "/assets/PortalOverviewScreen-BuvmBNyq.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/queries-BGK7aryV.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/assets/PortalPrimitives-CgH4FdYK.js",
+        "method": "GET",
+        "type": "script"
+      },
+      {
+        "url": "/auth/v1/user",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/profiles",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/agency_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/client_memberships",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/my_capabilities",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+        "method": "GET",
+        "type": "image"
+      },
+      {
+        "url": "/assets/lexend-latin-500-normal-Dl-X5nog.woff2",
+        "method": "GET",
+        "type": "font"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/portal_projects",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/portal_deliverables",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/rpc/portal_approvals",
+        "method": "POST",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "GET",
+        "type": "fetch"
+      },
+      {
+        "url": "/rest/v1/notifications",
+        "method": "HEAD",
+        "type": "fetch"
+      }
+    ],
+    "requestCount": 33,
+    "metrics": {
+      "lcp": 168,
+      "cls": 0.022896062972875945,
+      "longTasks": [],
+      "resources": [
+        {
+          "name": "/assets/index-CeoE_6nn.js",
+          "bytes": 155101,
+          "transferBytes": 155401
+        },
+        {
+          "name": "/assets/jsx-runtime-0vZSBttN.js",
+          "bytes": 424,
+          "transferBytes": 724
+        },
+        {
+          "name": "/assets/react-SIfiwpqq.js",
+          "bytes": 3162,
+          "transferBytes": 3462
+        },
+        {
+          "name": "/assets/index-DE6BaRHA.css",
+          "bytes": 4207,
+          "transferBytes": 4507
+        },
+        {
+          "name": "/assets/ClientPortalShell-BWWjjYHh.js",
+          "bytes": 1126,
+          "transferBytes": 1426
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-DsHO9StH.js",
+          "bytes": 70,
+          "transferBytes": 370
+        },
+        {
+          "name": "/assets/NotificationBadge-DSdJ4iwf.js",
+          "bytes": 508,
+          "transferBytes": 808
+        },
+        {
+          "name": "/assets/useQuery-eUzI-QSY.js",
+          "bytes": 2984,
+          "transferBytes": 3284
+        },
+        {
+          "name": "/assets/queries-DAH5toxV.js",
+          "bytes": 699,
+          "transferBytes": 999
+        },
+        {
+          "name": "/assets/queryOptions-Dfvzj6n2.js",
+          "bytes": 38,
+          "transferBytes": 338
+        },
+        {
+          "name": "/assets/messaging-service-BVFD3O2a.js",
+          "bytes": 939,
+          "transferBytes": 1239
+        },
+        {
+          "name": "/assets/useMessagingRealtime-D3qX-KBv.js",
+          "bytes": 496,
+          "transferBytes": 796
+        },
+        {
+          "name": "/assets/ClientPortalShell-BfHIZe_S.css",
+          "bytes": 2225,
+          "transferBytes": 2525
+        },
+        {
+          "name": "/assets/PortalOverviewScreen-BuvmBNyq.js",
+          "bytes": 1087,
+          "transferBytes": 1387
+        },
+        {
+          "name": "/assets/queries-BGK7aryV.js",
+          "bytes": 892,
+          "transferBytes": 1192
+        },
+        {
+          "name": "/assets/PortalPrimitives-CgH4FdYK.js",
+          "bytes": 1224,
+          "transferBytes": 1524
+        },
+        {
+          "name": "/auth/v1/user",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_isotipo-DxrBHv2b.webp",
+          "bytes": 37666,
+          "transferBytes": 37966
+        },
+        {
+          "name": "/assets/quicksand-latin-700-normal-Dpk7G9Y6.woff2",
+          "bytes": 15124,
+          "transferBytes": 15424
+        },
+        {
+          "name": "/assets/quicksand-latin-500-normal-_DbwbYKP.woff2",
+          "bytes": 15788,
+          "transferBytes": 16088
+        },
+        {
+          "name": "/rest/v1/profiles",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/agency_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/client_memberships",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/my_capabilities",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/assets/OMNIA_Version_fullblanco-BtX9yUQc.webp",
+          "bytes": 202872,
+          "transferBytes": 203172
+        },
+        {
+          "name": "/assets/lexend-latin-500-normal-Dl-X5nog.woff2",
+          "bytes": 14864,
+          "transferBytes": 15164
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/portal_projects",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/portal_deliverables",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/rpc/portal_approvals",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        },
+        {
+          "name": "/rest/v1/notifications",
+          "bytes": 0,
+          "transferBytes": 0
+        }
+      ],
+      "domContentLoaded": 51.09999996423721
+    },
+    "errors": []
+  }
+]

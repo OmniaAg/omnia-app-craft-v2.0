@@ -1,7 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
 import { z } from 'zod'
+import { edgeAllowedOrigins } from '../_shared/edge-origins.ts'
 import { configuredProvider, generateValidated } from '../_shared/phase13-ai.ts'
-import { deliveryError, encryptionKey, limitedJson, openSecret, SafeError, sealSecret, signature, validateEndpoint } from '../_shared/phase13-security.ts'
+import { cipherSchema, deliveryError, integrationKey, limitedJson, openSecret, SafeError, sealSecret, signature, validateEndpoint } from '../_shared/phase13-security.ts'
 
 const guid = z.guid()
 const eventTypes = ['work.created', 'work.completed', 'work.status_changed', 'deliverable.published_to_client', 'review.changes_requested', 'automation.manual'] as const
@@ -14,10 +15,10 @@ const requestSchema = z.discriminatedUnion('operation', [
   z.object({ operation: z.literal('generateAI'), projectId: guid, task: z.enum(['project_summary', 'draft_work']), input: z.string().max(2000), key: guid, consent: z.literal(true) }).strict(),
   z.object({ operation: z.literal('dispatch') }).strict(),
 ])
-const allowedOrigins = new Set(['http://localhost:53170', 'http://127.0.0.1:53170', ...(Deno.env.get('APP_ALLOWED_ORIGINS') ?? '').split(',').filter(Boolean)])
+const allowedOrigins = edgeAllowedOrigins(Deno.env.get('APP_ALLOWED_ORIGINS'),Deno.env.get('SUPABASE_URL'))
 function headers(origin: string | null) {
   return { 'Access-Control-Allow-Origin': origin && allowedOrigins.has(origin) ? origin : 'null',
-    'Access-Control-Allow-Headers': 'authorization, apikey, content-type, x-client-info', 'Access-Control-Allow-Methods': 'POST, OPTIONS', Vary: 'Origin' }
+    'Access-Control-Allow-Headers': 'authorization, apikey, content-type, x-client-info', 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff', Vary: 'Origin' }
 }
 function json(value: unknown, status: number, origin: string | null) { return Response.json(value, { status, headers: headers(origin) }) }
 function envKey(modern: string, legacy: string) {
@@ -49,7 +50,9 @@ async function rpc(client: Client, name: string, args: Record<string, unknown> =
 async function endpoint(raw: string) {
   return validateEndpoint(raw, {
     origins: (Deno.env.get('WEBHOOK_ALLOWED_ORIGINS') ?? '').split(',').map(value => value.trim()).filter(Boolean),
-    allowLocalHttp: Deno.env.get('PHASE13_ALLOW_LOCAL_HTTP') === 'true',
+    allowLocalHttp: Deno.env.get('PHASE13_ALLOW_LOCAL_HTTP') === 'true' && Deno.env.get('PHASE13_LOCAL_TEST_ONLY') === 'true'
+      && ['kong','localhost','127.0.0.1'].includes(new URL(Deno.env.get('SUPABASE_URL') ?? 'https://invalid').hostname),
+    trustedEndpoints: (Deno.env.get('WEBHOOK_TRUSTED_ENDPOINTS') ?? '').split(',').map(value=>value.trim()).filter(Boolean),
     resolve: async hostname => {
       if (/^[0-9.]+$/.test(hostname) || hostname.includes(':')) return [hostname.replace(/[\[\]]/g, '')]
       const results = await Promise.allSettled([Deno.resolveDns(hostname, 'A'), Deno.resolveDns(hostname, 'AAAA')])
@@ -57,13 +60,14 @@ async function endpoint(raw: string) {
     },
   })
 }
+function keyOptions() { return { keyring:Deno.env.get('INTEGRATION_ENCRYPTION_KEYS'),legacy:Deno.env.get('INTEGRATION_ENCRYPTION_KEY'),activeVersion:Deno.env.get('INTEGRATION_ACTIVE_KEY_VERSION') } }
 async function sendDelivery(admin: Client, deliveryId: string, args: Record<string, unknown>) {
   const material = await rpc(admin, 'phase13_delivery_material', { p_delivery: deliveryId, ...args })
   let status: number | null = null
   let error: string | null = null
   try {
     const url = await endpoint(material.url)
-    const key = await encryptionKey(Deno.env.get('INTEGRATION_ENCRYPTION_KEY'))
+    const {key} = await integrationKey(keyOptions(),cipherSchema.parse(material.cipher).key_version)
     const secret = await openSecret(material.cipher, material.connection_id, key)
     const timestamp = Math.floor(Date.now() / 1000).toString()
     const body = JSON.stringify(material.payload)
@@ -125,10 +129,10 @@ export default {
       if (error || !data.user) throw new SafeError('unauthorized', 401)
       const actor = data.user.id
       if (input.operation === 'configureIntegration') {
-        const key = await encryptionKey(Deno.env.get('INTEGRATION_ENCRYPTION_KEY'))
+        const {key,version} = await integrationKey(keyOptions())
         await endpoint(input.endpoint)
         const id = await rpc(user, 'phase13_save_connection', { p_project: input.projectId, p_name: input.name, p_key: input.key, p_id: input.connectionId ?? null, p_events: input.eventTypes })
-        await rpc(admin, 'phase13_store_credentials', { p_connection: id, p_actor: actor, p_url: input.endpoint, p_cipher: await sealSecret(input.secret, id, key), p_key: input.key })
+        await rpc(admin, 'phase13_store_credentials', { p_connection: id, p_actor: actor, p_url: input.endpoint, p_cipher: await sealSecret(input.secret, id, key,version), p_key: input.key })
         return json({ id, configured: true }, 200, origin)
       }
       if (input.operation === 'testIntegration') {

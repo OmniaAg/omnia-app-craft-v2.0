@@ -380,6 +380,8 @@ body, #root, .app-surface { min-height: 100dvh; }
 .app-footer { padding-bottom: max(1.5rem, env(safe-area-inset-bottom)); }
 .mobile-menu-toggle { display: none; min-height: 44px; padding: .6rem 1rem; border: 1px solid currentColor; border-radius: var(--radius-sm); background: transparent; color: inherit; }
 .billing-page { min-width: 0; }
+.billing-pagination { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+.billing-pagination button:disabled { opacity: .6; cursor: default; }
 .billing-page button { min-height: 44px; padding: .65rem 1rem; border: 1px solid var(--theme-border); border-radius: var(--radius-sm); background: var(--theme-control-surface); color: var(--theme-text-primary); }
 .billing-page form { display: grid; gap: 1rem; max-width: 38rem; padding-block: 1rem; }
 .billing-page form label { display: grid; gap: .4rem; }

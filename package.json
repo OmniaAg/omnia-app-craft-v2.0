@@ -9,6 +9,15 @@
     "npm": ">=11.0.0"
   },
   "scripts": {
+    "verify:phase15": "node scripts/verify-phase15.mjs",
+    "verify:phase15:regressions": "node scripts/verify-phase15.mjs --regressions",
+    "test:security": "node scripts/test-phase15-security.mjs",
+    "test:performance": "node scripts/audit-phase15.mjs --after && node scripts/profile-phase15.mjs --after",
+    "security:audit": "npm audit",
+    "security:scan": "node scripts/check-phase15-secrets.mjs",
+    "test:restore": "node scripts/test-restore-local.mjs",
+    "test:concurrency": "node scripts/test-concurrency-phase15.mjs",
+    "test:phase15:browser": "node scripts/run-phase15-browser-qa.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build && node scripts/build-pwa.mjs",
     "typecheck": "tsc -b",

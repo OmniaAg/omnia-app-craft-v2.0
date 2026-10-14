@@ -1,0 +1,27 @@
+{
+  "mode": "automations",
+  "passed": 21,
+  "checks": [
+    "Edge unauthenticated request rejected",
+    "Edge invalid payload rejected",
+    "Edge foreign Origin rejected",
+    "User cannot dispatch infrastructure jobs",
+    "Exact local Origin CORS preflight",
+    "Domain event enqueued matching automation once",
+    "Disabled and mismatch definitions did not run",
+    "Event replay did not duplicate run",
+    "Enabling a workflow does not backfill events received while disabled",
+    "Two real worker sessions: exactly one claim",
+    "Forged claim fails",
+    "Work action idempotent under step replay",
+    "Self-trigger loop stopped",
+    "Run succeeded with history",
+    "Real Function manually executes and deduplicates",
+    "Basic PM cannot invoke foreign automation",
+    "Scoped PM cannot forge Project B definition",
+    "Browser cannot alter successful run",
+    "Mutual cycle bounded and drained",
+    "No event exceeds max depth",
+    "Cycle identity present in history"
+  ]
+}

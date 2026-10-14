@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 1440,
+      "widgets": 8,
+      "overflow": false,
+      "preparing": false
+    },
+    {
+      "width": 768,
+      "widgets": 8,
+      "overflow": false,
+      "preparing": false
+    },
+    {
+      "width": 390,
+      "widgets": 8,
+      "overflow": false,
+      "preparing": false
+    },
+    {
+      "width": 375,
+      "widgets": 8,
+      "overflow": false,
+      "preparing": false
+    }
+  ],
+  "errors": [],
+  "scope": "loaded DashboardGrid screenshots at all required widths",
+  "previousAttempt": "snapshots passed; supplemental logout harness first lost accent, then omitted opening mobile menu; corrected and retried"
+}

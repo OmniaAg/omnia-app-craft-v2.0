@@ -1,0 +1,27 @@
+{
+  "passed": 11,
+  "checks": [
+    "preview enforces CSP, frame protection and MIME header",
+    "HTTP preview does not pretend to enforce HSTS",
+    "Director creates real Work; hostile title remains text",
+    "Work state transition Iniciar persisted",
+    "assigned PM creates and submits real deliverable",
+    "assigned Director approves another actor’s submission",
+    "Director publishes approved version",
+    "assigned Client approves the published version",
+    "Contributor cannot create financial documents",
+    "Contributor AI surface preserves assigned scope",
+    "PM without capability cannot manage automation"
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "httpErrors": [],
+  "viewports": [
+    1440,
+    768,
+    390,
+    375
+  ],
+  "lab": true,
+  "nativePush": false
+}

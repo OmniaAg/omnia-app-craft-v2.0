@@ -48,12 +48,17 @@ async function main() {
   console.log('ok - project channel eligibility, RLS, direct mutation denial')
 
   let received
+  const revokedClientMessageKey = randomUUID()
+  let revokedEvents = 0
   const receivedPromise = new Promise((resolve, reject) => {
     const timeout = setTimeout(() => reject(new Error('authorized Realtime message not received')), 20000)
     received = payload => { clearTimeout(timeout); resolve(payload) }
   })
   const subscription = reviewer.channel(`test-messages:${channel}`)
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages', filter: `channel_id=eq.${channel}` }, received)
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages', filter: `channel_id=eq.${channel}` }, payload => {
+      if (payload.new.client_message_id === revokedClientMessageKey) revokedEvents += 1
+      received(payload)
+    })
     .on('system', {}, payload => console.log(`Realtime messages: ${payload.extension}/${payload.status}`))
   let notificationReceived
   const notificationPromise = new Promise((resolve, reject) => {
@@ -103,7 +108,6 @@ async function main() {
   const reply = ok(await reviewer.rpc('send_message', { p_channel: channel, p_body: 'Respuesta realtime B', p_client_message_id: randomUUID() }), 'client reply')
   assert.equal((await pmReceivedPromise).new.id, reply)
   assert.equal(ok(await pm.rpc('channel_messages', { p_channel: channel }), 'PM history')[0].id, reply)
-  await reviewer.removeChannel(subscription)
   await reviewer.removeChannel(notificationSubscription)
   await pm.removeChannel(pmSubscription)
   await foreign.removeChannel(foreignSubscription)
@@ -112,8 +116,13 @@ async function main() {
     ok(await director.rpc('revoke_project_member', { membership_id: projectMembership, idempotency_key: randomUUID() }), 'revoke reviewer project membership')
     assert.equal((await reviewer.rpc('channel_messages', { p_channel: channel })).error?.code, '42501')
     assert.equal((await reviewer.rpc('send_message', { p_channel: channel, p_body: 'late', p_client_message_id: randomUUID() })).error?.code, '42501')
+    ok(await pm.rpc('send_message', { p_channel: channel, p_body: 'After revoked membership', p_client_message_id: revokedClientMessageKey }), 'authorized sender after revocation')
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    assert.equal(revokedEvents, 0, 'revoked membership received a future Realtime message')
     console.log('ok - project revocation blocks future reads and sends')
+    console.log('ok - existing Realtime subscription receives no future message after Project revocation')
   }
+  await reviewer.removeChannel(subscription)
   const newcomerEmail = `phase10.${randomUUID()}@omnia.local`
   const newcomerUser = ok(await admin.auth.admin.createUser({
     email: newcomerEmail, password: TEST_PASSWORD, email_confirm: true,

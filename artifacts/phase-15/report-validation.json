@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "headings": 17,
+  "localLinksValid": true,
+  "diffCheck": true,
+  "actionPlanIntact": true,
+  "priorMigrationsIntact": true,
+  "dockerAtDelivery": "not running; prior full backend gates retained; final file scan uses explicit offline mode"
+}

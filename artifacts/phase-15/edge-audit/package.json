@@ -1,0 +1,11 @@
+{
+  "name": "omnia-phase15-edge-audit",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@supabase/supabase-js": "2.112.3",
+    "@supabase/server": "1.4.1",
+    "web-push": "3.6.7",
+    "zod": "4.4.3"
+  }
+}

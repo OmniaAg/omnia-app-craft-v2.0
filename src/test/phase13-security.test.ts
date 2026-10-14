@@ -35,7 +35,7 @@ describe('Phase 13 trust boundaries', () => {
   })
   it.each(['127.0.0.1', '10.1.0.1', '169.254.169.254', '172.16.0.1', '192.168.1.1', '100.64.0.1', '0.0.0.0', '::1', '::ffff:127.0.0.1', 'fe80::1', 'fc00::1', '2001:db8::1'])('blocks SSRF address %s', address => expect(isPublicAddress(address)).toBe(false))
   it('requires exact HTTPS origins and rejects private DNS, query secrets and redirects as retryable', async () => {
-    const options = { origins: ['https://webhook.example'], allowLocalHttp: false, resolve: async () => ['8.8.8.8'] }
+    const options = { origins: ['https://webhook.example'],trustedEndpoints:['https://webhook.example/events'], allowLocalHttp: false, resolve: async () => ['8.8.8.8'] }
     expect((await validateEndpoint('https://webhook.example/events', options)).pathname).toBe('/events')
     for (const url of ['http://webhook.example', 'https://webhook.example.evil', 'https://user:password@webhook.example', 'https://webhook.example?token=x', 'https://webhook.example#fragment']) await expect(validateEndpoint(url, options)).rejects.toThrow()
     await expect(validateEndpoint('https://webhook.example', { ...options, resolve: async () => ['8.8.8.8', '127.0.0.1'] })).rejects.toThrow()

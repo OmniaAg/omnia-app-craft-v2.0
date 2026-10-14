@@ -1,29 +1,24 @@
-import { z } from 'zod'
-
-const publicEnvSchema = z.object({
-  VITE_APP_URL: z.string().url(),
-  VITE_SUPABASE_URL: z.string().url(),
-  VITE_SUPABASE_PUBLISHABLE_KEY: z.string().min(1).optional(),
-  VITE_SUPABASE_ANON_KEY: z.string().min(1).optional(),
-}).superRefine((value, context) => {
-  const configuredKeys = [
-    value.VITE_SUPABASE_PUBLISHABLE_KEY,
-    value.VITE_SUPABASE_ANON_KEY,
-  ].filter(Boolean)
-
-  if (configuredKeys.length !== 1) {
-    context.addIssue({
-      code: 'custom',
-      message:
-        'Configure exactamente una clave pública de Supabase: publishable o anon legacy.',
-      path: ['VITE_SUPABASE_PUBLISHABLE_KEY'],
-    })
-  }
-})
+import { assertPublicKey } from './public-key'
 
 type PublicEnvSource = Record<string, string | boolean | undefined>
 
-export type PublicEnv = z.infer<typeof publicEnvSchema>
+export type PublicEnv = {
+  VITE_APP_URL: string
+  VITE_SUPABASE_URL: string
+  VITE_SUPABASE_PUBLISHABLE_KEY?: string
+  VITE_SUPABASE_ANON_KEY?: string
+}
+
+// This bootstrap contract uses platform URL validation; form schemas remain
+// lazy Zod modules so their parser is not downloaded before a route needs it.
+function publicUrl(value: string | undefined, name: string): string {
+  if (!value) throw new Error(`${name} es obligatorio.`)
+  const url = new URL(value)
+  if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) {
+    throw new Error(`${name} debe ser una URL HTTP(S) sin credenciales.`)
+  }
+  return value
+}
 
 const forbiddenFrontendSecrets = [
   'VITE_SUPABASE_SERVICE_ROLE_KEY',
@@ -40,21 +35,29 @@ function stringValue(
 }
 
 export function parsePublicEnv(source: PublicEnvSource): PublicEnv {
+  for (const key of Object.keys(source)) {
+    if (key.startsWith('VITE_') && /SECRET|PRIVATE|SERVICE_ROLE|WORKER_TOKEN|ENCRYPTION|SIGNING|PROVIDER_KEY/i.test(key) && stringValue(source, key)) {
+      throw new Error(`${key} es un secret privilegiado y no puede exponerse con VITE_*.`)
+    }
+  }
   for (const key of forbiddenFrontendSecrets) {
     if (stringValue(source, key)) {
       throw new Error(`${key} es un secret privilegiado y no puede exponerse con VITE_*.`)
     }
   }
 
-  return publicEnvSchema.parse({
-    VITE_APP_URL: stringValue(source, 'VITE_APP_URL'),
-    VITE_SUPABASE_URL: stringValue(source, 'VITE_SUPABASE_URL'),
-    VITE_SUPABASE_PUBLISHABLE_KEY: stringValue(
-      source,
-      'VITE_SUPABASE_PUBLISHABLE_KEY',
-    ),
-    VITE_SUPABASE_ANON_KEY: stringValue(source, 'VITE_SUPABASE_ANON_KEY'),
-  })
+  const publishable = stringValue(source, 'VITE_SUPABASE_PUBLISHABLE_KEY')
+  const anon = stringValue(source, 'VITE_SUPABASE_ANON_KEY')
+  if (Boolean(publishable) === Boolean(anon)) {
+    throw new Error('Configure exactamente una clave pública de Supabase: publishable o anon legacy.')
+  }
+  assertPublicKey((publishable ?? anon)!)
+  return {
+    VITE_APP_URL: publicUrl(stringValue(source, 'VITE_APP_URL'), 'VITE_APP_URL'),
+    VITE_SUPABASE_URL: publicUrl(stringValue(source, 'VITE_SUPABASE_URL'), 'VITE_SUPABASE_URL'),
+    VITE_SUPABASE_PUBLISHABLE_KEY: publishable,
+    VITE_SUPABASE_ANON_KEY: anon,
+  }
 }
 
 export function getPublicEnv(): PublicEnv {

@@ -1,0 +1,26 @@
+{
+  "mode": "ai",
+  "passed": 20,
+  "checks": [
+    "Edge unauthenticated request rejected",
+    "Edge invalid payload rejected",
+    "Edge foreign Origin rejected",
+    "User cannot dispatch infrastructure jobs",
+    "Exact local Origin CORS preflight",
+    "Consent required before AI generation",
+    "Real AI Function persists structured output and provenance",
+    "AI request idempotency is stable",
+    "Prompt injection cannot expand summary scope",
+    "Foreign Project AI forbidden",
+    "Missing capability denied",
+    "Client cannot inspect internal AI runs",
+    "Oversized AI input rejected",
+    "AI draft does not mutate operational Work",
+    "Explicit human approval invokes authoritative command once",
+    "Another actor cannot approve draft",
+    "Browser cannot forge AI result/usage",
+    "Invalid structured provider result rejected in database",
+    "AI concurrency bound enforced",
+    "Mid-flight consent revocation blocks result publication"
+  ]
+}
