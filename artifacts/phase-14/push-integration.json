@@ -1,0 +1,21 @@
+{
+  "passed": 14,
+  "checks": [
+    "active endpoint ownership and registration idempotency",
+    "notification A targets A only, including foreign user device",
+    "concurrent workers produce one claim",
+    "payload contains only safe identifiers",
+    "delivered intent never reclaims or resends",
+    "actual local Edge dispatcher encrypts, signs and records one delivery",
+    "429 retries with future backoff; 410 deactivates",
+    "temporary failure recovers without another logical delivery",
+    "retries terminate after five attempts",
+    "disabled device gets no future delivery",
+    "logout/session invalidation blocks queued A push on B device",
+    "user switch cannot deliver queued notification A to B",
+    "new A notifications never target reassigned device B",
+    "arbitrary browser dispatch denied"
+  ],
+  "realProviderDelivery": false,
+  "sender": "local_deterministic"
+}

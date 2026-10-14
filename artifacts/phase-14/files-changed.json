@@ -1,0 +1,258 @@
+[
+  {
+    "file": "README.md",
+    "purpose": "Architecture, safety guarantees, local runbook and test limitations"
+  },
+  {
+    "file": "index.html",
+    "purpose": "Install manifest, metadata and existing-brand icon derivatives"
+  },
+  {
+    "file": "package.json",
+    "purpose": "Build, Push, PWA and verification commands"
+  },
+  {
+    "file": "src/app/providers/AppProviders.tsx",
+    "purpose": "Immediate offline rejection without paused or queued mutations"
+  },
+  {
+    "file": "src/app/router/routes.tsx",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/app/shells/ClientPortalShell.tsx",
+    "purpose": "Responsive accessible disclosure navigation"
+  },
+  {
+    "file": "src/app/shells/InternalAppShell.tsx",
+    "purpose": "Responsive accessible disclosure navigation"
+  },
+  {
+    "file": "src/features/auth/context/AuthProvider.tsx",
+    "purpose": "Push cleanup and narrow authenticated return paths"
+  },
+  {
+    "file": "src/features/auth/model/authorization.ts",
+    "purpose": "Push cleanup and narrow authenticated return paths"
+  },
+  {
+    "file": "src/features/auth/screens/LoginScreen.tsx",
+    "purpose": "Push cleanup and narrow authenticated return paths"
+  },
+  {
+    "file": "src/features/billing/screens/BillingScreen.tsx",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/crm/ui/crm.css",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/files/ui/files.css",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/messaging/screens/MessagesScreen.tsx",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/messaging/screens/NotificationsScreen.tsx",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/messaging/ui/messaging.css",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/portal/screens/PortalSettingsScreen.tsx",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/portal/ui/portal.css",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/projects/screens/ProjectsScreen.tsx",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/features/projects/ui/projects.css",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/main.tsx",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "src/shared/api/supabase/client.ts",
+    "purpose": "Immediate offline rejection without paused or queued mutations"
+  },
+  {
+    "file": "src/shared/api/supabase/database.types.ts",
+    "purpose": "Generated RPC types"
+  },
+  {
+    "file": "src/shared/ui/FoundationShell.tsx",
+    "purpose": "Responsive accessible disclosure navigation"
+  },
+  {
+    "file": "src/styles/app.css",
+    "purpose": "Targeted mobile layout, forms, tables and messaging corrections"
+  },
+  {
+    "file": "supabase/.env.example",
+    "purpose": "Local Function configuration and server-only VAPID env template"
+  },
+  {
+    "file": "supabase/config.toml",
+    "purpose": "Local Function configuration and server-only VAPID env template"
+  },
+  {
+    "file": "public/icons/apple-touch-icon.png",
+    "purpose": "Install manifest, metadata and existing-brand icon derivatives"
+  },
+  {
+    "file": "public/icons/badge-96.png",
+    "purpose": "Install manifest, metadata and existing-brand icon derivatives"
+  },
+  {
+    "file": "public/icons/icon-192.png",
+    "purpose": "Install manifest, metadata and existing-brand icon derivatives"
+  },
+  {
+    "file": "public/icons/icon-512.png",
+    "purpose": "Install manifest, metadata and existing-brand icon derivatives"
+  },
+  {
+    "file": "public/icons/maskable-512.png",
+    "purpose": "Install manifest, metadata and existing-brand icon derivatives"
+  },
+  {
+    "file": "public/manifest.webmanifest",
+    "purpose": "Install manifest, metadata and existing-brand icon derivatives"
+  },
+  {
+    "file": "scripts/build-pwa.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/check-phase14-secrets.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/generate-pwa-icons.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/phase14-bundle.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/phase14-completion-evidence.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/prepare-phase14-browser-smoke.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/prepare-phase14-local.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/push-worker.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/qa-phase14-browser-smoke.js",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/qa-phase14-playwright.js",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/run-phase14-browser-qa.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/run-phase14-browser-smoke.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/test-push-integration.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/test-pwa-integration.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "scripts/verify-phase14.mjs",
+    "purpose": "Reproducible local assets, deterministic integration/QA and evidence"
+  },
+  {
+    "file": "src/features/pwa/DeviceSettings.tsx",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/PushDestinationScreen.tsx",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/PwaStatus.tsx",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/SettingsScreen.tsx",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/connectivity.ts",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/notification-destination.ts",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/push-client.ts",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/pwa.css",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/runtime.ts",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/features/pwa/service-worker.js",
+    "purpose": "Static-only SW, update/install/offline UX, device revocation and safe notification destinations"
+  },
+  {
+    "file": "src/test/pwa.test.ts",
+    "purpose": "Network guard, safe routes and Push endpoint unit assertions"
+  },
+  {
+    "file": "supabase/functions/_shared/push-security.ts",
+    "purpose": "Pinned Web Push encryption/signing, dispatcher and safe provider boundary"
+  },
+  {
+    "file": "supabase/functions/push-api/deno.json",
+    "purpose": "Pinned Web Push encryption/signing, dispatcher and safe provider boundary"
+  },
+  {
+    "file": "supabase/functions/push-api/index.ts",
+    "purpose": "Pinned Web Push encryption/signing, dispatcher and safe provider boundary"
+  },
+  {
+    "file": "supabase/migrations/20261014003812_phase_14_pwa_push_mobile.sql",
+    "purpose": "Private subscriptions, session/device ownership and fenced delivery outbox"
+  },
+  {
+    "file": "supabase/tests/database/0014_phase_14_push.test.sql",
+    "purpose": "36 database authorization, lifecycle and delivery assertions"
+  }
+]

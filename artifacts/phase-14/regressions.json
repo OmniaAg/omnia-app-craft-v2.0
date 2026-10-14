@@ -1,0 +1,162 @@
+[
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 46.431
+  },
+  {
+    "command": "test:connectivity",
+    "passed": true,
+    "seconds": 2.918,
+    "previousAttempt": {
+      "command": "test:connectivity",
+      "passed": false,
+      "seconds": 3.907
+    }
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 47.738
+  },
+  {
+    "command": "test:auth",
+    "passed": true,
+    "seconds": 10.369
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 47.555
+  },
+  {
+    "command": "test:crm",
+    "passed": true,
+    "seconds": 3.9
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 45.37
+  },
+  {
+    "command": "test:work",
+    "passed": true,
+    "seconds": 4.139
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 45.182
+  },
+  {
+    "command": "test:dashboard",
+    "passed": true,
+    "seconds": 3.873
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 52.432
+  },
+  {
+    "command": "test:editorial",
+    "passed": true,
+    "seconds": 4.935
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 44.665
+  },
+  {
+    "command": "test:deliverables",
+    "passed": true,
+    "seconds": 5.246
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 45.122
+  },
+  {
+    "command": "test:files",
+    "passed": true,
+    "seconds": 5.29
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 45.411
+  },
+  {
+    "command": "test:portal",
+    "passed": true,
+    "seconds": 5.805
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 48.883
+  },
+  {
+    "command": "test:messaging",
+    "passed": true,
+    "seconds": 17.865
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 44.588
+  },
+  {
+    "command": "test:billing",
+    "passed": true,
+    "seconds": 4.512
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 44.422
+  },
+  {
+    "command": "test:analytics",
+    "passed": true,
+    "seconds": 4.306
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 45.105
+  },
+  {
+    "command": "test:automations",
+    "passed": true,
+    "seconds": 6.897
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 44.193
+  },
+  {
+    "command": "test:integrations",
+    "passed": true,
+    "seconds": 7.423
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 44.74
+  },
+  {
+    "command": "test:ai",
+    "passed": true,
+    "seconds": 4.819
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 43.624
+  }
+]

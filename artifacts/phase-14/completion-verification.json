@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-13",
+  "phase": 14,
+  "scope": "local",
+  "backendGates": [
+    {
+      "command": "db:start",
+      "passed": true,
+      "seconds": 5.124
+    },
+    {
+      "command": "db:reset",
+      "passed": true,
+      "seconds": 44.217
+    },
+    {
+      "command": "db:test",
+      "passed": true,
+      "seconds": 5.582
+    },
+    {
+      "command": "db:lint",
+      "passed": true,
+      "seconds": 1.886
+    },
+    {
+      "command": "db:types",
+      "passed": true,
+      "seconds": 6.127
+    },
+    {
+      "command": "db:types:check",
+      "passed": true,
+      "seconds": 5.021
+    },
+    {
+      "command": "advisors",
+      "passed": true,
+      "seconds": 1.873
+    },
+    {
+      "command": "test:push",
+      "passed": true,
+      "seconds": 17.492
+    },
+    {
+      "command": "typecheck",
+      "passed": true,
+      "seconds": 7.684
+    },
+    {
+      "command": "lint",
+      "passed": true,
+      "seconds": 0.557
+    },
+    {
+      "command": "test",
+      "passed": true,
+      "seconds": 10.352
+    },
+    {
+      "command": "build",
+      "passed": true,
+      "seconds": 10.523
+    },
+    {
+      "command": "test:pwa",
+      "passed": true,
+      "seconds": 8.005
+    },
+    {
+      "command": "bundle",
+      "passed": true,
+      "seconds": 0.077
+    },
+    {
+      "command": "secret-scan",
+      "passed": true,
+      "seconds": 0.099
+    }
+  ],
+  "frontendGates": [
+    {
+      "command": "typecheck",
+      "passed": true,
+      "seconds": 7.618
+    },
+    {
+      "command": "lint",
+      "passed": true,
+      "seconds": 0.638
+    },
+    {
+      "command": "test",
+      "passed": true,
+      "seconds": 11.007
+    },
+    {
+      "command": "build",
+      "passed": true,
+      "seconds": 9.857
+    },
+    {
+      "command": "test:pwa",
+      "passed": true,
+      "seconds": 8.927
+    },
+    {
+      "command": "bundle",
+      "passed": true,
+      "seconds": 0.082
+    },
+    {
+      "command": "secret-scan",
+      "passed": true,
+      "seconds": 0.126
+    }
+  ],
+  "regressions": [
+    {
+      "command": "test:connectivity",
+      "passed": true,
+      "seconds": 2.918,
+      "previousAttempt": {
+        "command": "test:connectivity",
+        "passed": false,
+        "seconds": 3.907
+      }
+    },
+    {
+      "command": "test:auth",
+      "passed": true,
+      "seconds": 10.369
+    },
+    {
+      "command": "test:crm",
+      "passed": true,
+      "seconds": 3.9
+    },
+    {
+      "command": "test:work",
+      "passed": true,
+      "seconds": 4.139
+    },
+    {
+      "command": "test:dashboard",
+      "passed": true,
+      "seconds": 3.873
+    },
+    {
+      "command": "test:editorial",
+      "passed": true,
+      "seconds": 4.935
+    },
+    {
+      "command": "test:deliverables",
+      "passed": true,
+      "seconds": 5.246
+    },
+    {
+      "command": "test:files",
+      "passed": true,
+      "seconds": 5.29
+    },
+    {
+      "command": "test:portal",
+      "passed": true,
+      "seconds": 5.805
+    },
+    {
+      "command": "test:messaging",
+      "passed": true,
+      "seconds": 17.865
+    },
+    {
+      "command": "test:billing",
+      "passed": true,
+      "seconds": 4.512
+    },
+    {
+      "command": "test:analytics",
+      "passed": true,
+      "seconds": 4.306
+    },
+    {
+      "command": "test:automations",
+      "passed": true,
+      "seconds": 6.897
+    },
+    {
+      "command": "test:integrations",
+      "passed": true,
+      "seconds": 7.423
+    },
+    {
+      "command": "test:ai",
+      "passed": true,
+      "seconds": 4.819
+    }
+  ],
+  "pwaChecks": 28,
+  "pushChecks": 14,
+  "mobileChecks": 109,
+  "smokeChecks": 9,
+  "pgTAP": {
+    "passed": 762,
+    "total": 762,
+    "phase14": 36
+  },
+  "unitTests": 90,
+  "advisors": {
+    "errors": 0,
+    "warnings": 15,
+    "tables": [
+      "public.billing_document_files",
+      "public.billing_document_items",
+      "public.payment_schedules"
+    ]
+  },
+  "nativeLimitations": {
+    "subscription": {
+      "supported": false,
+      "reason": "permission_unavailable"
+    },
+    "display": {
+      "supported": false,
+      "reason": "Failed to execute 'showNotification' on 'ServiceWorkerRegistration': No notification permission has been granted for this origin."
+    },
+    "focus": {
+      "supported": false,
+      "reason": "Synthetic click has no OS user activation"
+    }
+  },
+  "allAutomatedPassed": true
+}

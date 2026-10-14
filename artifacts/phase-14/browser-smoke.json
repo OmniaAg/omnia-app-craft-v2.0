@@ -1,0 +1,16 @@
+{
+  "passed": 9,
+  "checks": [
+    "authenticated push return resolves persisted notification to authorized message channel",
+    "SPA history/back preserves authenticated push destination",
+    "offline composer submit disabled with draft retained",
+    "reconnect never automatically sends offline draft",
+    "explicit online retry sends one persisted message",
+    "denied state explains browser settings without prompting again",
+    "unsupported Push keeps core portal functional",
+    "offline logout clears private view or exposes recoverable error",
+    "foreign user cannot resolve or read A notification after push login"
+  ],
+  "permissionStates": "denied/unsupported feature fixtures",
+  "mutations": "actual local Auth/RPC/notification fetch and message send"
+}

@@ -49,3 +49,15 @@
 .notification-badge { position: fixed; z-index: 10; right: 1rem; bottom: 1rem; display: grid; place-items: center; min-width: 2rem; height: 2rem; padding: .2rem; border-radius: 999px; background: #a52a4d; color: #fff; font-size: .8rem; font-weight: 700; text-decoration: none; box-shadow: 0 4px 14px #0003; }
 @media (max-width: 48rem) { .messaging-layout { grid-template-columns: 1fr; } .messaging-channels { border-right: 0; border-bottom: 1px solid #cbd6dd; max-height: 15rem; overflow-y: auto; } .messaging-history { max-height: 45vh; } }
 @media (max-width: 27rem) { .messaging-heading { align-items: start; flex-direction: column; } .messaging-list-actions, .messaging-notification { align-items: start; flex-direction: column; } .messaging-message { max-width: 95%; } }
+.messaging-change-channel { display: none; margin-bottom: 1rem; }
+.messaging-composer { padding-bottom: max(1rem,env(safe-area-inset-bottom)); }
+.messaging-history { max-height: 58dvh; }
+.notification-badge { min-width: 44px; min-height: 44px; right: max(1rem,env(safe-area-inset-right)); bottom: max(1rem,env(safe-area-inset-bottom)); }
+@media (max-width: 48rem) {
+  .messaging-change-channel { display: inline-flex; }
+  .messaging-layout[data-selected='true'][data-show-channels='false'] .messaging-channels { display: none; }
+  .messaging-history { min-height: 12rem; max-height: 45dvh; }
+  .messaging-composer > div { flex-wrap: wrap; }
+  .messaging-message > div { flex-wrap: wrap; }
+  .messaging-preferences label { min-height: 44px; }
+}

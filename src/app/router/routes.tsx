@@ -52,6 +52,8 @@ export const appRoutes: RouteObject[] = [
               { path: 'messages', lazy: () => import('../../features/messaging/screens/MessagesScreen') },
               { path: 'messages/:channelId', lazy: () => import('../../features/messaging/screens/MessagesScreen') },
               { path: 'notifications', lazy: () => import('../../features/messaging/screens/NotificationsScreen') },
+              { path: 'settings', lazy: () => import('../../features/pwa/SettingsScreen') },
+              { path: 'push/:notificationId', lazy: () => import('../../features/pwa/PushDestinationScreen') },
               {
                 path: 'projects/:projectId',
                 lazy: () => import('../../features/projects/screens/ProjectDetailScreen'),
@@ -112,6 +114,7 @@ export const appRoutes: RouteObject[] = [
               { path: 'notifications', lazy: () => import('../../features/messaging/screens/NotificationsScreen') },
               { path: 'documents', lazy: () => import('../../features/portal/screens/PortalDocumentsScreen') },
               { path: 'settings', lazy: () => import('../../features/portal/screens/PortalSettingsScreen') },
+              { path: 'push/:notificationId', lazy: () => import('../../features/pwa/PushDestinationScreen') },
               { path: 'reports', lazy: () => import('../../features/analytics/PortalReportsScreen') },
             ],
           },

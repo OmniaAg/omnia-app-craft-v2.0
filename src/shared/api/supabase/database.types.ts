@@ -2397,6 +2397,7 @@ export type Database = {
           approvals: boolean
           deliverable_updates: boolean
           messages: boolean
+          push_enabled: boolean
           updated_at: string
           user_id: string
         }
@@ -2404,6 +2405,7 @@ export type Database = {
           approvals?: boolean
           deliverable_updates?: boolean
           messages?: boolean
+          push_enabled?: boolean
           updated_at?: string
           user_id: string
         }
@@ -2411,6 +2413,7 @@ export type Database = {
           approvals?: boolean
           deliverable_updates?: boolean
           messages?: boolean
+          push_enabled?: boolean
           updated_at?: string
           user_id?: string
         }
@@ -4813,6 +4816,24 @@ export type Database = {
         Args: { item_id: string }
         Returns: string
       }
+      push_claim_delivery: { Args: never; Returns: Json }
+      push_delivery_material: {
+        Args: { p_delivery: string; p_token: string }
+        Returns: Json
+      }
+      push_finish_delivery: {
+        Args: {
+          p_delivery: string
+          p_error?: string
+          p_status: number
+          p_token: string
+        }
+        Returns: boolean
+      }
+      push_subscription_status: {
+        Args: { p_device_token?: string; p_endpoint: string }
+        Returns: boolean
+      }
       record_client_decision: {
         Args: {
           assignment_id: string
@@ -4842,6 +4863,10 @@ export type Database = {
           reason: string
           review_assignment_id: string
         }
+        Returns: string
+      }
+      register_push_subscription: {
+        Args: { p_subscription: Json; p_surface: string }
         Returns: string
       }
       remove_channel_member: {
@@ -4924,6 +4949,10 @@ export type Database = {
       transition_work_item: {
         Args: { idempotency_key: string; status: string; work_item_id: string }
         Returns: string
+      }
+      unregister_push_subscription: {
+        Args: { p_endpoint: string }
+        Returns: undefined
       }
       update_agency_membership: {
         Args: {

@@ -1,0 +1,77 @@
+[
+  {
+    "command": "db:start",
+    "passed": true,
+    "seconds": 5.124
+  },
+  {
+    "command": "db:reset",
+    "passed": true,
+    "seconds": 44.217
+  },
+  {
+    "command": "db:test",
+    "passed": true,
+    "seconds": 5.582
+  },
+  {
+    "command": "db:lint",
+    "passed": true,
+    "seconds": 1.886
+  },
+  {
+    "command": "db:types",
+    "passed": true,
+    "seconds": 6.127
+  },
+  {
+    "command": "db:types:check",
+    "passed": true,
+    "seconds": 5.021
+  },
+  {
+    "command": "advisors",
+    "passed": true,
+    "seconds": 1.873
+  },
+  {
+    "command": "test:push",
+    "passed": true,
+    "seconds": 17.492
+  },
+  {
+    "command": "typecheck",
+    "passed": true,
+    "seconds": 7.684
+  },
+  {
+    "command": "lint",
+    "passed": true,
+    "seconds": 0.557
+  },
+  {
+    "command": "test",
+    "passed": true,
+    "seconds": 10.352
+  },
+  {
+    "command": "build",
+    "passed": true,
+    "seconds": 10.523
+  },
+  {
+    "command": "test:pwa",
+    "passed": true,
+    "seconds": 8.005
+  },
+  {
+    "command": "bundle",
+    "passed": true,
+    "seconds": 0.077
+  },
+  {
+    "command": "secret-scan",
+    "passed": true,
+    "seconds": 0.099
+  }
+]

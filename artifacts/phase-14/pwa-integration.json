@@ -1,0 +1,54 @@
+{
+  "passed": 28,
+  "checks": [
+    "manifest identity, scope, start URL, standalone",
+    "icon resolves at 192x192 (any)",
+    "icon resolves at 512x512 (any)",
+    "icon resolves at 512x512 (maskable)",
+    "Chromium reports no installability errors",
+    "production SW controls expected root scope",
+    "/rest/v1/messages uses network private response",
+    "/auth/v1/token uses network private response",
+    "/storage/v1/object/private/report.pdf uses network private response",
+    "/functions/v1/private uses network private response",
+    "/realtime/v1/test uses network private response",
+    "/private-download uses network private response",
+    "Cache Storage contains only build allowlist, never private JSON/token",
+    "offline navigation renders static shell and status",
+    "offline private API is never served from Cache Storage",
+    "reconnect clears offline indicator",
+    "failed update preserves active SW and removes incomplete new cache",
+    "new worker waits; form/page is not force-reloaded",
+    "user update activates B, removes stale app caches, preserves foreign cache",
+    "opaque device generation persisted without any user/session data",
+    "real SW push invokes display adapter with generic content and distinct tag",
+    "logout generation clear closes displayed notices",
+    "logout racing an in-progress push waits and closes the old notice before user switch",
+    "in-flight A push discarded after B binds, even on identical endpoint",
+    "malicious URL/invalid notification cannot open/display",
+    "mismatched endpoint cannot display",
+    "click navigates existing real app window using internal UUID route",
+    "no-window click opens one safe internal route; malicious IDs/surfaces ignored"
+  ],
+  "installability": {
+    "installabilityErrors": []
+  },
+  "cacheEntries": 115,
+  "cacheKeys": [
+    "foreign-cache-sentinel",
+    "omnia-craft-static-update-B-fixture"
+  ],
+  "nativeSubscribe": {
+    "supported": false,
+    "reason": "permission_unavailable"
+  },
+  "nativeDisplay": {
+    "supported": false,
+    "reason": "Failed to execute 'showNotification' on 'ServiceWorkerRegistration': No notification permission has been granted for this origin."
+  },
+  "nativeFocus": {
+    "supported": false,
+    "reason": "Synthetic click has no OS user activation"
+  },
+  "notificationDisplay": "deterministic display adapter; actual CDP push event and Service Worker execution"
+}

@@ -5,6 +5,7 @@ import {
   type PublicEnv,
 } from '../../config/env'
 import type { Database } from './database.types'
+import { guardedFetch } from '../../../features/pwa/connectivity'
 
 export type OmniaSupabaseClient = SupabaseClient<Database>
 
@@ -26,7 +27,7 @@ export function createBrowserSupabaseClient(
         detectSessionInUrl: true,
         persistSession: options.persistSession ?? true,
       },
-      global: options.fetch ? { fetch: options.fetch } : undefined,
+      global: { fetch: guardedFetch(options.fetch ?? ((input, init) => fetch(input, init))) },
     },
   )
 }

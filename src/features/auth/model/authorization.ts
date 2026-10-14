@@ -1,5 +1,6 @@
 import type { User } from '@supabase/supabase-js'
 import type { Tables } from '../../../shared/api/supabase/database.types'
+import { safePushPath } from '../../pwa/notification-destination'
 
 export type Profile = Tables<'profiles'>
 export type AgencyMembership = Tables<'agency_memberships'>
@@ -55,7 +56,9 @@ export function defaultRouteFor(
 export function routeAfterSignIn(
   projection: AuthorizationProjection,
   requestedPath?: string,
-): '/app' | '/portal' | '/forbidden' {
+): string {
+  if (safePushPath(requestedPath) && ((requestedPath.startsWith('/app/') && hasAgencyContext(projection))
+    || (requestedPath.startsWith('/portal/') && hasClientContext(projection)))) return requestedPath
   if (requestedPath === '/app' && hasAgencyContext(projection)) {
     return requestedPath
   }

@@ -2,6 +2,8 @@ import { MutationCache, QueryClient, QueryClientProvider } from '@tanstack/react
 import { useState, type ReactNode } from 'react'
 import { AuthProvider } from '../../features/auth/context/AuthProvider'
 import { AppErrorBoundary } from './AppErrorBoundary'
+import { assertOnline } from '../../features/pwa/connectivity'
+import { PwaStatus } from '../../features/pwa/PwaStatus'
 
 type AppProvidersProps = {
   children: ReactNode
@@ -10,6 +12,7 @@ type AppProvidersProps = {
 function createQueryClient() {
   const queryClient = new QueryClient({
     mutationCache: new MutationCache({
+      onMutate: () => assertOnline(),
       onSuccess: () => {
         // Mark operational reports stale after commands; refresh is manual or
         // on the next visit. Analytics does not subscribe to Realtime.
@@ -24,6 +27,7 @@ function createQueryClient() {
       },
       mutations: {
         retry: 0,
+        networkMode: 'always',
       },
     },
   })
@@ -36,7 +40,7 @@ export function AppProviders({ children }: AppProvidersProps) {
   return (
     <AppErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider><PwaStatus />{children}</AuthProvider>
       </QueryClientProvider>
     </AppErrorBoundary>
   )

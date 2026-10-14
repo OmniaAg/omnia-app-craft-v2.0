@@ -4,10 +4,13 @@
 
 .project-header-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-3);
 }
+.project-page .crm-page-header { flex-wrap: wrap; }
+.project-page .crm-page-header__action { min-width: 0; max-width: 100%; }
 
 .project-overview {
   display: grid;

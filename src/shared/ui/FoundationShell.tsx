@@ -30,6 +30,7 @@ export function FoundationShell({
 }: FoundationShellProps) {
   const [signOutPending, setSignOutPending] = useState(false)
   const [signOutError, setSignOutError] = useState<string | null>(null)
+  const [navOpen, setNavOpen] = useState(false)
 
   const handleSignOut = async () => {
     setSignOutPending(true)
@@ -52,11 +53,14 @@ export function FoundationShell({
           <img src={omniaLogo} width="145" height="37" alt="OMNIA" />
           <span>Craft</span>
         </Link>
-        <nav className="surface-nav" aria-label="Navegación de contexto">
+        <button className="mobile-menu-toggle" type="button" aria-expanded={navOpen} aria-controls="internal-nav"
+          onClick={() => setNavOpen(value => !value)}>{navOpen ? 'Cerrar menú' : 'Menú'}</button>
+        <nav id="internal-nav" className="surface-nav" data-open={navOpen} aria-label="Navegación de contexto">
           {navItems.map((item) => (
             <NavLink
               key={item.href}
               to={item.href}
+              onClick={() => setNavOpen(false)}
               end={item.href === '/app' || item.href === '/portal'}
               className={({ isActive }) => (isActive ? 'is-active' : undefined)}
             >

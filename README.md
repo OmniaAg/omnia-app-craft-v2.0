@@ -563,3 +563,138 @@ y conteos de queries. `node scripts/check-phase13-secrets.mjs` verifica el bundl
 compilado y la evidencia contra las claves privadas locales sin imprimirlas.
 
 La fuente arquitectónica y de secuencia es [OMNIA_CRAFT_ACTION_PLAN.md](./OMNIA_CRAFT_ACTION_PLAN.md).
+## Phase 14 — PWA, Push & Mobile UX (local)
+
+OMNIA Craft uses a native Service Worker, an installable manifest and reproducible
+PNG icons derived from the existing OMNIA isotipo. `npm run pwa:icons` recreates
+192/512/maskable/apple-touch/badge assets using the existing Playwright dependency.
+`npm run build` generates `dist/sw.js` from the build's exact static URL allowlist
+and SHA-256 integrity hashes. No PWA runtime dependency was added.
+
+The Service Worker scope is `/` on the app's origin. Its cache contains only the
+generic `index.html`, build-owned JS/CSS/fonts/brand assets, icons and manifest.
+Installation checks every resource against its build hash. A failed install
+deletes only its incomplete cache and preserves the active version. Navigations
+use network first with the precached generic shell as fallback; navigation HTML
+is never written to Cache Storage. Activation deletes only obsolete
+`omnia-craft-static-*` caches. New versions wait for **Actualizar aplicación** and
+an explicit confirmation to reload, including a reminder to save active forms.
+
+**Private Supabase data is never Service Worker cached.** All external origins,
+REST/Auth/Storage/Realtime/Functions paths, authorization-header requests and
+non-GET requests bypass the worker. Private downloads and unlisted/query-string
+static URLs are network only. No persisted TanStack Query cache is introduced.
+The app's preexisting Auth token storage remains owned by Supabase Auth.
+
+**No offline mutations.** Offline views may retain session data already in
+memory, marked as potentially stale. Cold offline navigation loads the static
+shell; verification/login/private server data require connection. Browser
+connectivity drives the accessible global banner; actual fetch failures show a
+degraded-network status and propagate to existing domain error handling. Query
+mutations use `networkMode: always`, `retry: 0` and a pre-mutation offline guard,
+so they fail immediately instead of silently waiting for reconnection. The
+Supabase fetch adapter guards direct RPCs, uploads, Auth and Functions too.
+Reconnect uses TanStack's existing stale-query refetch behavior and existing
+Realtime reconnection; there is no mutation queue or continuous status polling.
+
+**Push is optional.** Internal `/app/settings` and client `/portal/settings`
+separate installation from Push. No permission/install prompt runs on load.
+Permission requests run directly after **Activar Push**. Default/granted/denied/
+unsupported states explain the next action; denied users can still deactivate
+an enabled device. Feature detection handles installed mode and unsupported
+Push. Safari/iOS installation instructions appear only after an install action;
+unsupported Push explains adding the app to the home screen when applicable.
+
+Push extends Phase 10 persisted `notifications` and `notification_preferences`.
+The migration adds `push_enabled` and private `app_private.push_subscriptions` /
+`push_delivery_outbox`. Browser credentials are not listable. Authoritative RPCs
+derive the current user and validate the JWT's live `auth.sessions` record,
+surface membership, provider endpoint allowlist and subscription structure.
+One endpoint has one owner; an active foreign endpoint cannot be reassigned.
+Browser table writes, choosing a recipient, arbitrary dispatch and worker
+material access are denied. Own registration/unregistration are idempotent.
+
+The device keeps only one random opt-in generation UUID in the Service Worker's
+`omnia-craft-device` IndexedDB store. It contains **no user ID, endpoint, keys,
+session/JWT, notification content or private query data**. This is a delivery
+revocation marker, not an authentication credential. Logout clears this marker
+before network cleanup, closes displayed notifications, deactivates the own
+server association and unsubscribes the browser. Auth identity changes and
+invalid/anonymous sessions also revoke it. Server session deletion cascades the
+subscription. A subsequent user must explicitly enable Push. The worker compares
+both generation and endpoint hash, rejecting even an in-flight old-user push
+when a provider happens to reuse the same endpoint.
+Push display and device revocation are serialized, using origin-wide Web Locks
+where available and an active-worker queue otherwise. Logout waits for that
+revocation acknowledgment before the next user can sign in; it also closes a
+notice whose display was already in progress.
+
+Every delivery is unique by notification + subscription and captures the device
+generation. The server recipient always comes from the persisted notification.
+The Edge `push-api` worker claims rows with `FOR UPDATE SKIP LOCKED`, a random
+fencing token and a 60-second lease. Material/finish commands recheck ownership,
+preferences, membership, current session/generation and lease. Successful sends
+record delivery + subscription success. Timeout/429/5xx retry with exponential
+backoff (30 seconds up to one hour), at most five attempts. 404/410 deactivate
+the subscription and cancel pending deliveries; other provider failures are
+terminal. A physical network send is at-least-once under ambiguous transport
+failure; stable Web Push topic and notification-specific tag reduce duplicate
+display. The DB guarantees one logical delivery, not exactly-once provider I/O.
+
+`web-push@3.6.7` is pinned in the Edge import map for encryption and VAPID signing.
+Production transport uses an exact provider-host allowlist, HTTPS and manual
+redirect handling. No provider error body, subscription credentials or secret
+is returned/logged. The payload contains only notification ID, `app|portal`, a
+random device generation and endpoint hash. The SW displays a generic title/body.
+Clicks focus/navigate an existing own-origin window or open an internal
+`/{surface}/push/{uuid}` route. Authentication preserves only that narrow safe
+return path; notification RLS fetch and allowlisted UUID-derived resource routes
+resolve the destination. Foreign/unavailable notifications reveal no content.
+
+Server env (`supabase/.env.example`) defines `VAPID_PUBLIC_KEY`,
+`VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` (mailto) and `PUSH_WORKER_TOKEN`. Only the
+public key is returned by authenticated `push-api` configuration. Never prefix
+private key/subject/worker token with `VITE_`; never commit real keys. Dispatch is
+explicit server-side (`npm run push:worker:once`); no production scheduler or
+rollout is configured in this phase.
+
+Local verification:
+
+```powershell
+npm run db:start
+npm run db:reset
+npm run phase13:prepare
+npm run phase14:prepare
+npm run functions:serve:phase14:test # separate terminal
+npm run build
+npm run preview -- --host 127.0.0.1 # http://127.0.0.1:53170
+npm run test:push
+npm run test:pwa
+npm run verify:phase14:regressions # sequential; resets local DB between suites
+npm run verify:phase14
+node scripts/check-phase14-secrets.mjs
+# Optional authenticated deep-link / offline / permission-state browser smoke:
+node scripts/prepare-phase14-browser-smoke.mjs
+playwright-cli -s=phase14-smoke open http://127.0.0.1:53170 --browser=chrome
+node scripts/run-phase14-browser-smoke.mjs
+```
+
+`phase14:prepare` preserves Phase 13 test settings and generates disposable,
+ignored, clearly local VAPID/worker keys in `supabase/.env.phase14-test.local`.
+Its `local_deterministic` sender is forbidden outside the local Edge gateway and
+encrypts/signs the real payload without sending to an external Push provider.
+`test:push` tests actual Auth/RPC/Edge + concurrent claims, isolation, retry,
+invalid endpoints and user switch. `test:pwa` serves the production artifacts on
+local port 53171, tests Chromium installability, integrity/update failure safety,
+offline/reconnect and inspects Cache Storage. CDP dispatches actual SW Push
+events; explicit endpoint/display fixtures exercise revocation deterministically.
+Native OS notification display and real iOS/Android installation remain manual
+platform checks; fixtures and feature simulations are labeled in QA artifacts.
+The installed-mode fixture does not claim a real OS installation.
+
+Mobile shells use accessible disclosure menus, safe-area padding and dynamic
+viewport heights. Messaging offers a touch/keyboard channel switcher with its
+composer in document flow. Tables scroll locally; form text is at least 16px on
+mobile. Phase 14 Playwright CLI QA covers 1440/768/390/375, actual navigation,
+channel/composer interaction, settings, permission fixtures, logout/user switch,
+offline/reconnect and keyboard focus. Evidence lives in `artifacts/phase-14`.

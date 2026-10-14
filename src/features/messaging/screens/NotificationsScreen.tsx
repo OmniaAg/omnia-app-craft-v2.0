@@ -5,18 +5,7 @@ import { useAuth } from '../../auth/context/AuthContext'
 import { markAllNotificationsRead, markNotificationRead, type Notification } from '../api/messaging-service'
 import { messagingKeys, messagingQueries } from '../api/queries'
 import '../ui/messaging.css'
-
-function destination(item: Notification, base: string) {
-  if (item.kind === 'message_received' && item.channel_id) return `${base}/messages/${item.channel_id}`
-  if (item.kind === 'approval_pending') {
-    if (base === '/portal' && item.publication_id) return `/portal/deliverables/${item.publication_id}`
-    return base === '/portal' ? '/portal/approvals' : '/app/reviews'
-  }
-  if (base === '/portal' && item.publication_id) return `/portal/deliverables/${item.publication_id}`
-  if (base === '/app' && item.work_item_id) return `/app/deliverables/${item.work_item_id}`
-  if (item.project_id) return `${base}/projects/${item.project_id}`
-  return `${base}/notifications`
-}
+import { notificationDestination } from '../../pwa/notification-destination'
 
 function title(kind: string) {
   const labels: Record<string, string> = {
@@ -41,7 +30,7 @@ export function Component() {
     try {
       if (!item.read_at) await markNotificationRead(item.id)
       await queryClient.invalidateQueries({ queryKey: ['messaging', 'notifications'] })
-      navigate(destination(item, base))
+      navigate(notificationDestination(item, base))
     } catch { setError('No pudimos abrir la notificación.') }
   }
 

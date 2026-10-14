@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { AuthFlowError } from '../api/auth-service'
 import { useAuth } from '../context/AuthContext'
-import { defaultRouteFor } from '../model/authorization'
+import { routeAfterSignIn } from '../model/authorization'
 import { loginSchema, type LoginInput } from '../model/schemas'
+import { safePushPath } from '../../pwa/notification-destination'
 import {
   AuthLayout,
   AuthSubmitButton,
@@ -29,7 +30,7 @@ export function Component() {
   })
 
   if (auth.status === 'authenticated' && auth.actor) {
-    return <Navigate to={defaultRouteFor(auth.actor)} replace />
+    return <Navigate to={routeAfterSignIn(auth.actor,safePushPath(location.state?.from) ? location.state.from : undefined)} replace />
   }
 
   const onSubmit = handleSubmit(async (input) => {
@@ -39,7 +40,7 @@ export function Component() {
         typeof location.state === 'object' &&
         location.state !== null &&
         'from' in location.state &&
-        (location.state.from === '/app' || location.state.from === '/portal')
+        (location.state.from === '/app' || location.state.from === '/portal' || safePushPath(location.state.from))
           ? location.state.from
           : undefined
       const destination = await auth.signIn(

@@ -3,8 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { getPublicEnv } from './shared/config/env'
+import { initializePwa } from './features/pwa/runtime'
 
 getPublicEnv()
+initializePwa()
 
 const rootElement = document.getElementById('root')
 

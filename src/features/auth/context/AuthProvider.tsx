@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from 'react'
 import type { Session } from '@supabase/supabase-js'
+import { disableDevicePush } from '../../pwa/push-client'
 import { useQueryClient } from '@tanstack/react-query'
 import {
   getSupabaseClient,
@@ -63,6 +64,7 @@ export function AuthProvider({
   const queryClient = useQueryClient()
 
   const clearSession = useCallback(() => {
+    void disableDevicePush(client, false).catch(() => undefined)
     operationVersion.current += 1
     currentUserId.current = null
     void client.removeAllChannels()
@@ -86,6 +88,8 @@ export function AuthProvider({
 
         if (operationVersion.current === version) {
           if (currentUserId.current !== user.id) {
+            if (currentUserId.current) await disableDevicePush(client, false)
+            if (operationVersion.current !== version) return projection
             void client.removeAllChannels()
             queryClient.clear()
             currentUserId.current = user.id
@@ -98,6 +102,7 @@ export function AuthProvider({
         return projection
       } catch (caughtError) {
         if (operationVersion.current === version) {
+          void disableDevicePush(client, false).catch(() => undefined)
           currentUserId.current = null
           void client.removeAllChannels()
           queryClient.clear()
@@ -178,6 +183,7 @@ export function AuthProvider({
   )
 
   const signOut = useCallback(async () => {
+    await disableDevicePush(client)
     await signOutFromSupabase(client)
     clearSession()
   }, [clearSession, client])

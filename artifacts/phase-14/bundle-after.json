@@ -1,0 +1,27 @@
+[
+  {
+    "file": "DeviceSettings-BuPEja5B.js",
+    "bytes": 3045,
+    "gzip": 1324
+  },
+  {
+    "file": "index-BLc12Grc.js",
+    "bytes": 534909,
+    "gzip": 155351
+  },
+  {
+    "file": "index-BOm4NmXT.css",
+    "bytes": 18719,
+    "gzip": 4178
+  },
+  {
+    "file": "SettingsScreen-B5p-uS49.js",
+    "bytes": 306,
+    "gzip": 249
+  },
+  {
+    "file": "sw.js",
+    "bytes": 19062,
+    "gzip": 9217
+  }
+]

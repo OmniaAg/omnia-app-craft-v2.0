@@ -49,7 +49,7 @@ export function Component() {
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full w-full max-w-full bg-background p-4 md:p-8 overflow-y-auto overflow-x-hidden">
+    <div className="billing-page flex-1 flex flex-col h-full w-full max-w-full bg-background p-4 md:p-8 overflow-y-auto overflow-x-hidden">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
         <div>
           <h1 className="text-2xl font-bold">Billing Tracking</h1>
@@ -84,20 +84,21 @@ export function Component() {
               onSuccess: () => setShowCreate(false)
             })
           }} className="grid gap-4 max-w-sm">
-            <input name="organization_id" placeholder="Organization ID (UUID)" required className="border p-2 rounded w-full" />
-            <select name="type" className="border p-2 rounded w-full">
+            <label>Organization ID (UUID)<input name="organization_id" required className="border p-2 rounded w-full" /></label>
+            <label>Tipo<select name="type" className="border p-2 rounded w-full">
               <option value="invoice_like">Invoice-like</option>
               <option value="quote">Quote</option>
               <option value="payment_request">Payment Request</option>
-            </select>
-            <input name="date" type="date" required className="border p-2 rounded w-full" />
-            <input name="currency" defaultValue="MXN" required className="border p-2 rounded w-full" />
-            <input name="subtotal" type="number" step="0.01" placeholder="Subtotal" required className="border p-2 rounded w-full" />
-            <input name="tax" type="number" step="0.01" placeholder="Tax" required className="border p-2 rounded w-full" />
+            </select></label>
+            <label>Fecha<input name="date" type="date" required className="border p-2 rounded w-full" /></label>
+            <label>Moneda<input name="currency" defaultValue="MXN" required className="border p-2 rounded w-full" /></label>
+            <label>Subtotal<input name="subtotal" type="number" inputMode="decimal" step="0.01" required className="border p-2 rounded w-full" /></label>
+            <label>Impuesto<input name="tax" type="number" inputMode="decimal" step="0.01" required className="border p-2 rounded w-full" /></label>
             <button type="submit" disabled={createMutation.isPending} className="px-4 py-2 bg-blue-600 text-white rounded">
               Save Draft
             </button>
           </form>
+          {createMutation.error ? <p role="alert">No pudimos guardar el documento. Comprueba la conexión y reintenta.</p> : null}
         </div>
       )}
 

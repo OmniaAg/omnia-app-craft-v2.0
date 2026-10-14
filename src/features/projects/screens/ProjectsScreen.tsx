@@ -69,7 +69,7 @@ export function Component() {
         <button className="crm-button" type="submit">Aplicar filtros</button>
       </form>
       {projects.error ? <CrmError message={projects.error.message} /> : null}
-      <div className="crm-table-wrap">
+      <div className="crm-table-wrap" role="region" aria-label="Listado de proyectos, desplaza horizontalmente para ver todas las columnas" tabIndex={0}>
         <table className="crm-table">
           <caption className="sr-only">Listado paginado de proyectos autorizados</caption>
           <thead><tr><th scope="col">Proyecto</th><th scope="col">Cliente / Marca</th><th scope="col">Estado</th><th scope="col">Lead</th><th scope="col">Fecha objetivo</th><th scope="col"><span className="sr-only">Acción</span></th></tr></thead>

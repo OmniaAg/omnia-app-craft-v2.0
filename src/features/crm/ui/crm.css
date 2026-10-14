@@ -127,7 +127,7 @@
 .crm-feedback--error { background: rgba(var(--rgb-omnia-crimson), 0.2); color: var(--color-omnia-white); }
 .crm-feedback--success { background: rgba(var(--rgb-omnia-yellow), 0.14); color: var(--color-omnia-white); }
 
-.crm-table-wrap { width: 100%; overflow-x: auto; border-block: 1px solid var(--theme-border); }
+.crm-table-wrap { position: relative; width: 100%; min-width: 0; max-width: 100%; overflow-x: auto; border-block: 1px solid var(--theme-border); }
 .crm-table { width: 100%; min-width: 42rem; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .crm-table th, .crm-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--theme-border); text-align: left; vertical-align: middle; }
 .crm-table thead th { color: var(--theme-text-secondary); font-size: var(--font-size-xs); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; }

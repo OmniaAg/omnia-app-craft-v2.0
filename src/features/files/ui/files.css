@@ -26,4 +26,6 @@
 .file-success { font-weight: 700; }
 .file-delete { justify-self: start; }
 .files-pagination { justify-content: space-between; }
+.files-page button { min-height: 44px; padding: .6rem 1rem; border: 1px solid var(--theme-border); border-radius: var(--radius-sm); color: var(--theme-text-primary); background: var(--theme-control-surface); }
+.files-page button:disabled { opacity: .6; cursor: not-allowed; }
 @media (max-width: 40rem) { .file-row-main { align-items: start; flex-direction: column; } .file-row-controls { align-items: stretch; flex-direction: column; } }

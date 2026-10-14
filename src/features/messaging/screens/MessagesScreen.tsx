@@ -7,6 +7,7 @@ import { messagingKeys, messagingQueries } from '../api/queries'
 import { useMessageRealtime } from '../ui/useMessagingRealtime'
 import { ChannelMembershipManager } from '../ui/ChannelMembershipManager'
 import '../ui/messaging.css'
+import { useConnectivity } from '../../pwa/connectivity'
 
 export function Component() {
   const { channelId } = useParams()
@@ -20,6 +21,8 @@ export function Component() {
   const [body, setBody] = useState('')
   const [sendError, setSendError] = useState('')
   const [sending, setSending] = useState(false)
+  const [showChannels,setShowChannels] = useState(false)
+  const network=useConnectivity()
   const pendingId = useRef<string | null>(null)
   const messages = useInfiniteQuery({
     queryKey: ['messaging', 'messages', channelId],
@@ -33,7 +36,7 @@ export function Component() {
   const latestId = messages.data?.pages[0]?.[0]?.id
   useEffect(() => {
     if (!channelId || !selectedId || !latestId) return
-    void markChannelRead(channelId).then(() => queryClient.invalidateQueries({ queryKey: messagingKeys.channels }))
+    void markChannelRead(channelId).then(() => queryClient.invalidateQueries({ queryKey: messagingKeys.channels })).catch(() => undefined)
   }, [channelId, latestId, queryClient, selectedId])
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -60,13 +63,15 @@ export function Component() {
     <header className="messaging-heading"><div><h1 data-route-heading tabIndex={-1}>Mensajes</h1>
       <p>Conversaciones con tu equipo y clientes.</p></div>
       <Link to={`${base}/notifications`}>Notificaciones</Link></header>
-    <div className="messaging-layout">
-      <nav className="messaging-channels" aria-label="Canales">
+    {selected ? <button className="messaging-change-channel" type="button" aria-expanded={showChannels} aria-controls="message-channels"
+      onClick={() => setShowChannels(value => !value)}>Cambiar canal</button> : null}
+    <div className="messaging-layout" data-selected={Boolean(selected)} data-show-channels={showChannels}>
+      <nav id="message-channels" className="messaging-channels" aria-label="Canales">
         <h2>Canales</h2>
         {channels.isLoading ? <p>Cargando canales…</p> : null}
         {channels.error ? <p role="alert">No pudimos cargar los canales.</p> : null}
         {channels.data?.length === 0 ? <p>Aún no tienes canales.</p> : null}
-        {channels.data?.map(channel => <Link key={channel.id} to={`${base}/messages/${channel.id}`}
+        {channels.data?.map(channel => <Link key={channel.id} to={`${base}/messages/${channel.id}`} onClick={() => setShowChannels(false)}
           aria-current={channel.id === channelId ? 'page' : undefined}
           className={channel.id === channelId ? 'messaging-channel is-active' : 'messaging-channel'}>
           <span className="messaging-channel__type">{channel.kind === 'organization' ? 'Organization' : 'Proyecto'}</span>
@@ -102,7 +107,7 @@ export function Component() {
               onChange={event => { setBody(event.target.value); pendingId.current = null }}
               placeholder="Escribe un mensaje" />
             <div><span aria-live="polite">{sendError || (sending ? 'Enviando…' : `${body.length}/4000`)}</span>
-              <button type="submit" disabled={sending || !body.trim()}>Enviar</button></div>
+              <button type="submit" disabled={sending || !body.trim() || !network.online}>Enviar</button></div>
           </form>
         </> : null}
       </section>

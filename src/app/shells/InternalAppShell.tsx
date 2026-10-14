@@ -20,6 +20,8 @@ export function Component() {
     { href: '/app/projects', label: 'Proyectos' },
     { href: '/app/messages', label: 'Mensajes' },
     { href: '/app/notifications', label: 'Notificaciones' },
+    { href: '/app/settings', label: 'Configuración' },
+    ...(auth.hasCapability('billing.view') ? [{ href: '/app/billing', label: 'Billing' }] : []),
     { href: '/app/editorial/calendar', label: 'Editorial' },
     ...(auth.hasCapability('analytics.view') ? [{ href: '/app/analytics', label: 'Analytics' }] : []),
     ...(auth.hasCapability('automation.view') ? [{ href: '/app/automations', label: 'Automatizaciones' }] : []),

@@ -1,0 +1,14 @@
+.pwa-status:empty { display: none; }
+.pwa-status { color: var(--theme-text-primary); background: var(--theme-surface); padding: .75rem max(1rem, env(safe-area-inset-left)) .75rem max(1rem, env(safe-area-inset-right)); border-bottom: 1px solid var(--theme-border); }
+.pwa-status p { margin: 0; }
+.pwa-update { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; justify-content: space-between; }
+.device-page { width: min(100%, 60rem); margin-inline: auto; }
+.device-settings { color: var(--theme-text-primary); padding-block: 1rem; }
+.device-settings h2, .device-settings h3 { font-family: var(--font-display); font-weight: 500; }
+.device-settings h3 { margin: 0; font-size: 1.1rem; }
+.device-settings p { max-width: 65ch; color: var(--theme-text-secondary); overflow-wrap: anywhere; }
+.device-settings__row { display: flex; gap: 1.5rem; align-items: center; justify-content: space-between; padding-block: 1.5rem; border-bottom: 1px solid var(--theme-border); }
+.device-settings__meta { font-size: .875rem; }
+.device-settings button, .pwa-update button { flex-shrink: 0; min-height: 44px; padding: .65rem 1rem; border: 1px solid var(--theme-border); border-radius: var(--radius-sm); color: var(--theme-interactive-text); background: var(--theme-interactive-background); font-weight: 700; }
+.device-settings button:disabled { opacity: .65; cursor: not-allowed; }
+@media (max-width: 40rem) { .device-settings__row { flex-direction: column; align-items: stretch; gap: .5rem; } }

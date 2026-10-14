@@ -372,3 +372,26 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Phase 14: one responsive shell, keyboard-accessible disclosure navigation. */
+body, #root, .app-surface { min-height: 100dvh; }
+.app-header { padding-top: max(1rem, env(safe-area-inset-top)); }
+.app-main, .app-footer { padding-left: max(var(--page-padding), env(safe-area-inset-left)); padding-right: max(var(--page-padding), env(safe-area-inset-right)); }
+.app-footer { padding-bottom: max(1.5rem, env(safe-area-inset-bottom)); }
+.mobile-menu-toggle { display: none; min-height: 44px; padding: .6rem 1rem; border: 1px solid currentColor; border-radius: var(--radius-sm); background: transparent; color: inherit; }
+.billing-page { min-width: 0; }
+.billing-page button { min-height: 44px; padding: .65rem 1rem; border: 1px solid var(--theme-border); border-radius: var(--radius-sm); background: var(--theme-control-surface); color: var(--theme-text-primary); }
+.billing-page form { display: grid; gap: 1rem; max-width: 38rem; padding-block: 1rem; }
+.billing-page form label { display: grid; gap: .4rem; }
+.billing-page form input, .billing-page form select { width: 100%; min-height: 44px; padding: .5rem; font: inherit; background: var(--theme-control-surface); color: var(--theme-text-primary); border: 1px solid var(--theme-border); border-radius: var(--radius-xs); }
+@media (max-width: 48rem) {
+  .app-header { flex-wrap: wrap; flex-direction: row; align-items: center; }
+  .mobile-menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .surface-nav[data-open='false'], .portal-nav[data-open='false'] { display: none; }
+  .surface-nav[data-open='true'], .portal-nav[data-open='true'] { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); width: 100%; overflow: visible; }
+  .surface-nav a { white-space: normal; }
+  .app-main--content { padding-block: 1.5rem; }
+  .app-main button, .app-main select, .portal-main button, .portal-main select { min-height: 44px; }
+  .app-main input:not([type=checkbox]):not([type=radio]), .app-main textarea,
+  .portal-main input:not([type=checkbox]):not([type=radio]), .portal-main textarea { font-size: 16px; }
+}
