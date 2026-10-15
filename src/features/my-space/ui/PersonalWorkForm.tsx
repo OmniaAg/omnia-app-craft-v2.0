@@ -1,16 +1,18 @@
+import { submitForm } from '../../drafts/submitForm'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { FieldError } from '../../crm/ui/CrmUi'
 import { personalWorkFormSchema, type PersonalWorkFormValues } from '../model/schemas'
 
 export function PersonalWorkForm({ onSubmit, pending, initialValues, submitLabel = 'Crear elemento personal' }: { onSubmit: (values: PersonalWorkFormValues) => Promise<void>; pending: boolean; initialValues?: PersonalWorkFormValues; submitLabel?: string }) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<PersonalWorkFormValues>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<PersonalWorkFormValues>({
     resolver: zodResolver(personalWorkFormSchema),
     defaultValues: initialValues ?? { itemType: 'todo', title: '', description: '', priority: 'normal', dueLocal: '' },
   })
   const submit = async (values: PersonalWorkFormValues) => { await onSubmit(values); reset() }
   return (
-    <form className="crm-form" onSubmit={handleSubmit(submit)} noValidate>
+    <form className="crm-form" onSubmit={event => submitForm(event, handleSubmit, submit)} noValidate>
+      <fieldset className="form-fields" disabled={pending || isSubmitting}>
       <div className="crm-form__row">
         <label>Tipo<select {...register('itemType')}><option value="todo">Pendiente</option><option value="note">Nota</option><option value="reminder">Recordatorio</option></select></label>
         <label>Prioridad<select {...register('priority')}><option value="low">Baja</option><option value="normal">Normal</option><option value="high">Alta</option><option value="urgent">Urgente</option></select></label>
@@ -22,6 +24,7 @@ export function PersonalWorkForm({ onSubmit, pending, initialValues, submitLabel
       <label>Fecha y hora (CDMX)<input {...register('dueLocal')} type="datetime-local" aria-invalid={Boolean(errors.dueLocal)} aria-describedby={errors.dueLocal ? 'personal-due-error' : undefined} /></label>
       <FieldError id="personal-due-error" message={errors.dueLocal?.message} />
       <button className="crm-button crm-button--primary" type="submit" disabled={pending} aria-busy={pending}>{pending ? 'Guardando…' : submitLabel}</button>
+          </fieldset>
     </form>
   )
 }

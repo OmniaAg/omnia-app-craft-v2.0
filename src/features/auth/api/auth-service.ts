@@ -76,6 +76,10 @@ export async function restoreVerifiedUser(
 ): Promise<User> {
   const { data, error } = await client.auth.getUser()
 
+  if (error && (error.name === 'AuthRetryableFetchError' || error.status === 0)) {
+    throw new AuthFlowError('session_temporarily_unavailable','No pudimos comprobar tu sesión por un problema de conexión. Tu trabajo permanece abierto.')
+  }
+
   if (error || !data.user || data.user.id !== session.user.id) {
     throw new AuthFlowError(
       'session_verification_failed',

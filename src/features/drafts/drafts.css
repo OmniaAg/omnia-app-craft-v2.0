@@ -1,0 +1,4 @@
+.draft-status { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; grid-column: 1 / -1; padding-block: .5rem; font-size: .875rem; color: inherit; }
+.draft-status[role='alert'] { color: var(--color-omnia-yellow, #fcbf4a); }
+.draft-status button { min-height: 44px; padding: .5rem .75rem; border: 1px solid currentColor; border-radius: .5rem; background: transparent; color: inherit; }
+form > fieldset.form-fields { display: grid; gap: inherit; min-width: 0; margin: 0; padding: 0; border: 0; }

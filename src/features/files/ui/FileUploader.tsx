@@ -3,9 +3,11 @@ import { useState, type FormEvent } from 'react'
 import { getSupabaseClient } from '../../../shared/api/supabase/client'
 import { fileKeys } from '../api/queries'
 import { uploadFileAsset, type FileAsset } from '../api/file-service'
+import { useUnsavedChanges } from '../../drafts/useUnsavedChanges'
 
 export function FileUploader({ projectId, onUploaded }: { projectId: string; onUploaded?: (asset: FileAsset) => void }) {
   const [file, setFile] = useState<File | null>(null)
+  useUnsavedChanges(`upload-${projectId}`, Boolean(file))
   const [inputKey, setInputKey] = useState(0)
   const [message, setMessage] = useState('')
   const queryClient = useQueryClient()
@@ -23,7 +25,7 @@ export function FileUploader({ projectId, onUploaded }: { projectId: string; onU
     },
   })
   const submit = (event: FormEvent) => { event.preventDefault(); upload.mutate() }
-  return <form className="file-uploader" onSubmit={submit}>
+  return <form className="file-uploader" data-managed-changes onSubmit={submit}>
     <label htmlFor={`file-upload-${projectId}`}>Archivo para el proyecto</label>
     <input key={inputKey} id={`file-upload-${projectId}`} name="file" type="file" required disabled={upload.isPending}
       accept=".jpg,.jpeg,.png,.webp,.mp4,.mov,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"

@@ -1,8 +1,11 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { useAuth } from '../../features/auth/context/AuthContext'
+import { DraftProvider } from '../../features/drafts/DraftProvider'
 
 export function RouteFocusManager() {
   const location = useLocation()
+  const auth = useAuth()
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -14,5 +17,5 @@ export function RouteFocusManager() {
     return () => window.cancelAnimationFrame(frame)
   }, [location.pathname])
 
-  return <Outlet />
+  return <DraftProvider key={auth.actor?.user.id ?? 'anonymous'}><Outlet /></DraftProvider>
 }

@@ -47,7 +47,8 @@ export function Component() {
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const values = new FormData(event.currentTarget)
-    generate.mutate({ task: String(values.get('task')), input: String(values.get('input')) })
+    const form=event.currentTarget
+    generate.mutate({ task: String(values.get('task')), input: String(values.get('input')) },{onSuccess:()=>form.dispatchEvent(new Event('omnia:form-saved',{bubbles:true}))})
   }
   const error = access.error ?? consent.error ?? history.error ?? generate.error ?? enable.error ?? approve.error
   return <Phase13Page title="Asistente del proyecto" description="Resumen y borradores con contexto mínimo de tu alcance. Revisa los resultados antes de actuar." error={error}>
@@ -58,10 +59,10 @@ export function Component() {
       <div className="p13-card"><h2>Asistencia autorizada</h2><p>{consent.data ? 'Habilitada para este proyecto.' : 'Dirección debe habilitar la asistencia para este proyecto.'} El proveedor local genera respuestas deterministas sin enviar contexto a servicios externos.</p>
         {access.data.manage ? <button disabled={enable.isPending || consent.isPending} onClick={() => enable.mutate()}>{consent.data ? 'Revocar consentimiento de IA' : 'Habilitar asistencia de IA'}</button> : null}
       </div>
-      {consent.data ? <form onSubmit={submit} className="p13-card p13-form"><h2>Nueva solicitud</h2><label className="p13-field">Tarea<select name="task"><option value="project_summary">Resumir proyecto</option><option value="draft_work">Proponer borrador de trabajo</option></select></label>
+      {consent.data ? <form onSubmit={submit} className="p13-card p13-form"><fieldset className="form-fields" disabled={generate.isPending}><h2>Nueva solicitud</h2><label className="p13-field">Tarea<select name="task"><option value="project_summary">Resumir proyecto</option><option value="draft_work">Proponer borrador de trabajo</option></select></label>
         <label className="p13-field">Indicaciones para el borrador (opcional)<textarea name="input" rows={4} maxLength={2000} /><small>Hasta 2,000 caracteres. El texto se trata como datos y no concede permisos.</small></label>
         <label className="p13-check"><input type="checkbox" required />Autorizo esta solicitud con contexto de este proyecto</label><button className="crm-button" disabled={generate.isPending}>{generate.isPending ? 'Generando…' : 'Generar resultado'}</button>
-      </form> : null}
+      </fieldset></form> : null}
       <div className="p13-card"><div className="p13-toolbar"><h2>Mis resultados</h2><button onClick={() => void refresh()}>Actualizar resultados</button></div>
         {history.isPending ? <p role="status">Cargando resultados…</p> : null}{!history.isPending && !history.data?.items.length ? <p>Aún no hay solicitudes.</p> : null}
         <ul className="p13-history">{history.data?.items.map(run => <li key={run.id}><RunStatus status={run.status} error={run.safe_error} /><RunTiming started={run.started_at} finished={run.finished_at} />

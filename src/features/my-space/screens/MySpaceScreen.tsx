@@ -1,3 +1,4 @@
+import { useFlushDrafts } from '../../drafts/draft-context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -21,6 +22,8 @@ const dateTime = new Intl.DateTimeFormat('es-MX', { dateStyle: 'medium', timeSty
 
 export function Component() {
   const queryClient = useQueryClient()
+  const flushDrafts=useFlushDrafts()
+  const whenSafe=(action:()=>void)=>{void flushDrafts().then(saved=>{if(saved)action()})}
   const editHeadingRef = useRef<HTMLHeadingElement>(null)
   const editTriggerRefs = useRef(new Map<string, HTMLButtonElement>())
   const [filter, setFilter] = useState<'all' | 'project' | 'personal'>('all')
@@ -48,12 +51,12 @@ export function Component() {
 
   return (
     <section className="crm-page my-space-page">
-      <CrmPageHeader title="Mi Espacio" description="Trabajo asignado y elementos personales, ordenados por el calendario de Ciudad de México." action={<button className="crm-button crm-button--primary" type="button" aria-expanded={showCreate} onClick={() => { setEditingItem(null); setShowCreate((value) => !value) }}>{showCreate ? 'Cerrar formulario' : 'Nuevo elemento'}</button>} />
+      <CrmPageHeader title="Mi Espacio" description="Trabajo asignado y elementos personales, ordenados por el calendario de Ciudad de México." action={<button className="crm-button crm-button--primary" type="button" aria-expanded={showCreate} onClick={() => whenSafe(() => { setEditingItem(null); setShowCreate(value => !value) })}>{showCreate ? 'Cerrar formulario' : 'Nuevo elemento'}</button>} />
       <p><Link className="crm-row-link" to="/app/reviews">Ver revisiones pendientes</Link></p>
       {success ? <CrmSuccess message={success} /> : null}
       {mutationError ? <CrmError message={mutationError.message} /> : null}
       {showCreate ? <section className="crm-editor" aria-labelledby="personal-work-title"><h2 id="personal-work-title">Crear elemento personal</h2><PersonalWorkForm pending={createMutation.isPending} onSubmit={(values) => createMutation.mutateAsync(values).then(() => undefined)} /></section> : null}
-      {editingItem ? <section className="crm-editor" aria-labelledby="edit-personal-work-title"><div className="my-space-editor-header"><h2 id="edit-personal-work-title" ref={editHeadingRef} tabIndex={-1}>Editar elemento personal</h2><button className="crm-button" type="button" onClick={() => closeEditor()}>Cancelar edición</button></div><PersonalWorkForm key={editingItem.item_id} initialValues={personalFormValues(editingItem)} submitLabel="Guardar cambios" pending={updateMutation.isPending} onSubmit={(values) => updateMutation.mutateAsync(values).then(() => undefined)} /></section> : null}
+      {editingItem ? <section className="crm-editor" aria-labelledby="edit-personal-work-title"><div className="my-space-editor-header"><h2 id="edit-personal-work-title" ref={editHeadingRef} tabIndex={-1}>Editar elemento personal</h2><button className="crm-button" type="button" onClick={() => whenSafe(() => closeEditor())}>Cancelar edición</button></div><PersonalWorkForm key={editingItem.item_id} initialValues={personalFormValues(editingItem)} submitLabel="Guardar cambios" pending={updateMutation.isPending} onSubmit={(values) => updateMutation.mutateAsync(values).then(() => undefined)} /></section> : null}
       <div className="my-space-filter" role="group" aria-label="Filtrar Mi Espacio">
         {([['all', 'Todo'], ['project', 'Asignado'], ['personal', 'Personal']] as const).map(([value, label]) => <button key={value} type="button" aria-pressed={filter === value} onClick={() => setFilter(value)}>{label}</button>)}
       </div>
@@ -78,7 +81,7 @@ export function Component() {
                         {item.due_at ? <time dateTime={item.due_at}>{dateTime.format(new Date(item.due_at))}</time> : null}
                       </div>
                       <div className="my-space-item__actions">
-                        {item.item_kind === 'project' ? <Link className="crm-row-link" to={`/app/projects/${item.project_id}?tab=work&workItem=${item.item_id}`}>Abrir trabajo</Link> : <><button ref={(node) => { if (node) editTriggerRefs.current.set(item.item_id, node); else editTriggerRefs.current.delete(item.item_id) }} className="crm-button" type="button" disabled={completeMutation.isPending || archiveMutation.isPending || updateMutation.isPending} onClick={() => { setShowCreate(false); setSuccess(null); setEditingItem(item) }}>Editar</button><button className="crm-button" type="button" disabled={completeMutation.isPending || archiveMutation.isPending || updateMutation.isPending} aria-busy={completeMutation.isPending && completeMutation.variables?.item_id === item.item_id} onClick={() => completeMutation.mutate(item)}>{completeMutation.isPending && completeMutation.variables?.item_id === item.item_id ? 'Completando…' : 'Completar'}</button><button className="work-danger-action" type="button" disabled={archiveMutation.isPending || completeMutation.isPending || updateMutation.isPending} aria-busy={archiveMutation.isPending && archiveMutation.variables === item.item_id} onClick={() => { if (window.confirm(`¿Archivar “${item.title}”?`)) archiveMutation.mutate(item.item_id) }}>{archiveMutation.isPending && archiveMutation.variables === item.item_id ? 'Archivando…' : 'Archivar'}</button></>}
+                        {item.item_kind === 'project' ? <Link className="crm-row-link" to={`/app/projects/${item.project_id}?tab=work&workItem=${item.item_id}`}>Abrir trabajo</Link> : <><button ref={(node) => { if (node) editTriggerRefs.current.set(item.item_id, node); else editTriggerRefs.current.delete(item.item_id) }} className="crm-button" type="button" disabled={completeMutation.isPending || archiveMutation.isPending || updateMutation.isPending} onClick={() => whenSafe(() => { setShowCreate(false); setSuccess(null); setEditingItem(item) })}>Editar</button><button className="crm-button" type="button" disabled={completeMutation.isPending || archiveMutation.isPending || updateMutation.isPending} aria-busy={completeMutation.isPending && completeMutation.variables?.item_id === item.item_id} onClick={() => whenSafe(() => completeMutation.mutate(item))}>{completeMutation.isPending && completeMutation.variables?.item_id === item.item_id ? 'Completando…' : 'Completar'}</button><button className="work-danger-action" type="button" disabled={archiveMutation.isPending || completeMutation.isPending || updateMutation.isPending} aria-busy={archiveMutation.isPending && archiveMutation.variables === item.item_id} onClick={() => { if (window.confirm(`¿Archivar “${item.title}”?`)) archiveMutation.mutate(item.item_id) }}>{archiveMutation.isPending && archiveMutation.variables === item.item_id ? 'Archivando…' : 'Archivar'}</button></>}
                       </div>
                     </li>
                   ))}

@@ -24,11 +24,11 @@ export type PageResult<T> = {
 }
 
 export type ContactListItem = Contact & {
-  organizations: { name: string } | null
+  organizations: { name: string; agency_id: string } | null
 }
 
 export type OpportunityListItem = Opportunity & {
-  organizations: { name: string } | null
+  organizations: { name: string; agency_id: string } | null
   brands: { name: string } | null
   pipeline_stages: { label: string; sort_order: number } | null
 }
@@ -93,7 +93,7 @@ export async function listContacts(
   const from = input.page * PAGE_SIZE
   let query = client
     .from('contacts')
-    .select('*,organizations(name)', { count: 'exact' })
+    .select('*,organizations(name,agency_id)', { count: 'exact' })
     .order('created_at', { ascending: false })
     .order('id', { ascending: false })
     .range(from, from + PAGE_SIZE - 1)
@@ -113,7 +113,7 @@ export async function listOpportunities(
   const from = input.page * PAGE_SIZE
   let query = client
     .from('opportunities')
-    .select('*,organizations(name),brands(name),pipeline_stages(label,sort_order)', { count: 'exact' })
+    .select('*,organizations(name,agency_id),brands(name),pipeline_stages(label,sort_order)', { count: 'exact' })
     .order('created_at', { ascending: false })
     .order('id', { ascending: false })
     .range(from, from + PAGE_SIZE - 1)

@@ -7,7 +7,7 @@ import { CrmEmpty, CrmError, CrmPageHeader, CrmSuccess, StatusBadge } from '../.
 import { createWorkItem } from '../../work/api/work-service'
 import { projectWorkQuery, workKeys } from '../../work/api/queries'
 import type { WorkItemFormValues } from '../../work/model/schemas'
-import { WorkItemForm } from '../../work/ui/WorkForms'
+import { WorkDraftForm } from '../../drafts/WorkDraftForm'
 import { WorkPanel } from '../../work/ui/WorkPanel'
 import { createProjectChannel } from '../../messaging/api/messaging-service'
 import { addProjectMember, archiveProject, createMilestone, revokeProjectMember } from '../api/project-service'
@@ -170,7 +170,7 @@ export function Component() {
       ) : (
         <div className={selectedWork ? 'project-work-layout project-work-layout--open' : 'project-work-layout'}>
           <div className="project-work-main">
-            {detail.can_create_work && !isArchived ? <section className="crm-editor" aria-labelledby="new-work-title"><h2 id="new-work-title">Crear trabajo</h2><WorkItemForm members={members.data ?? []} milestones={milestones.data ?? []} pending={workMutation.isPending} onSubmit={(values) => workMutation.mutateAsync(values).then(() => undefined)} />{workMutation.error ? <CrmError message={workMutation.error.message} /> : null}</section> : null}
+            {detail.can_create_work && !isArchived ? <section className="crm-editor" aria-labelledby="new-work-title"><h2 id="new-work-title">Crear trabajo</h2><WorkDraftForm projectId={projectId} members={members.data ?? []} milestones={milestones.data ?? []} pending={workMutation.isPending} onSubmit={(values) => workMutation.mutateAsync(values).then(() => undefined)} />{workMutation.error ? <CrmError message={workMutation.error.message} /> : null}</section> : null}
             <div className="crm-table-wrap"><table className="crm-table"><caption className="sr-only">Trabajo del proyecto</caption><thead><tr><th scope="col">Trabajo</th><th scope="col">Estado</th><th scope="col">Prioridad</th><th scope="col">Responsables</th><th scope="col">Vence</th><th scope="col"><span className="sr-only">Acción</span></th></tr></thead><tbody>{work.isPending ? <tr className="crm-loading-row"><td colSpan={6}><span role="status">Cargando trabajo…</span></td></tr> : null}{work.data?.map((item) => <tr key={item.work_item_id}><th scope="row">{item.title}<span className="crm-cell-detail">{item.milestone_name || 'Sin hito'}</span></th><td><StatusBadge value={item.status} /></td><td><StatusBadge value={item.priority} /></td><td>{item.assignee_names.length ? item.assignee_names.join(', ') : 'Sin responsables'}</td><td>{item.due_at ? dateTime.format(new Date(item.due_at)) : 'Sin fecha'}</td><td><button ref={(node) => { if (node) workTriggerRefs.current.set(item.work_item_id, node); else workTriggerRefs.current.delete(item.work_item_id) }} className="crm-button" type="button" onClick={() => openWork(item.work_item_id)} aria-pressed={selectedWorkId === item.work_item_id}>Ver detalle</button></td></tr>)}</tbody></table></div>
             {!work.isPending && work.data?.length === 0 ? <CrmEmpty title="No hay trabajo en este proyecto" description={detail.can_create_work ? 'Crea el primer elemento de trabajo con responsables opcionales.' : 'El project manager todavía no ha creado trabajo.'} /> : null}
           </div>

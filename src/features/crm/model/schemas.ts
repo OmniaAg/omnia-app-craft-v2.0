@@ -37,7 +37,7 @@ export const contactFormSchema = z.object({
 
 export const opportunityFormSchema = z.object({
   name: z.string().trim().min(1, 'Escribe el nombre de la oportunidad.').max(200),
-  brandId: z.string().uuid().optional().or(z.literal('')),
+  brandId: z.guid().optional().or(z.literal('')),
   stageKey: z.string().trim().min(1),
   estimatedValue: z
     .string()

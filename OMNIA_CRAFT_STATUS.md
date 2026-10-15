@@ -1,6 +1,10 @@
 # OMNIA Craft — Estado actual
 
-Actualizado: 2026-10-14 (America/Mexico_City). Verificado contra el repositorio y Supabase local.
+Actualizado: 2026-10-15 (America/Mexico_City). Verificado contra el repositorio y Supabase local.
+
+## Refactorización UX verificada localmente
+
+PASS local: 45 entradas del router, 97 componentes funcionales y 465 controles revisados. [Informe final](artifacts/ux-refactor/FINAL_REPORT.md), [matriz y pruebas](artifacts/ux-refactor/COVERAGE_MATRIX.md). Developer mantiene paridad con Dirección y los permisos cliente se conservan. READY_FOR_RELEASE_PREPARATION: debe regenerarse el paquete Phase 17; no se ha desplegado ni generado ese paquete nuevo.
 
 ## Estado de las fases
 

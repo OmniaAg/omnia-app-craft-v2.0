@@ -1,3 +1,4 @@
+import { useFlushDrafts } from '../../drafts/draft-context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState, type FormEvent } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -12,6 +13,7 @@ import '../ui/crm.css'
 
 export function Component() {
   const auth = useAuth()
+  const flushDrafts=useFlushDrafts()
   const queryClient = useQueryClient()
   const [params, setParams] = useSearchParams()
   const page = Math.max(0, Number.parseInt(params.get('page') ?? '0', 10) || 0)
@@ -23,7 +25,7 @@ export function Component() {
   const [success, setSuccess] = useState<string | null>(null)
   const contacts = useQuery(contactsQuery({ page, search, status }))
   const organizations = useQuery(organizationsQuery({ page: 0, search: '', lifecycle: 'all' }))
-  const eligibleOrganizations = organizations.data?.items.filter((item) => auth.hasCapability('contact.create', item.id)) ?? []
+  const eligibleOrganizations = organizations.data?.items.filter((item) => (auth.hasCapability('contact.create', item.id) || auth.hasCapability('contact.create', item.agency_id))) ?? []
   const selectedOrganization = organizationId || eligibleOrganizations[0]?.id || ''
   const mutation = useMutation({
     mutationFn: (values: ContactFormValues) => createContact(getSupabaseClient(), selectedOrganization, values),
@@ -32,7 +34,7 @@ export function Component() {
   const applySearch = (event: FormEvent) => { event.preventDefault(); setParams((current) => { current.set('page', '0'); const term = draftSearch.trim(); if (term) current.set('q', term); else current.delete('q'); return current }) }
   return (
     <section className="crm-page">
-      <CrmPageHeader title="Contacts" description="Personas comerciales vinculadas a una Organization; no son cuentas de acceso." action={eligibleOrganizations.length ? <button className="crm-button crm-button--primary" type="button" onClick={() => setShowCreate((value) => !value)}>{showCreate ? 'Cerrar formulario' : 'Nuevo contacto'}</button> : undefined} />
+      <CrmPageHeader title="Contacts" description="Personas comerciales vinculadas a una Organization; no son cuentas de acceso." action={eligibleOrganizations.length ? <button className="crm-button crm-button--primary" type="button" disabled={mutation.isPending} onClick={() => void flushDrafts().then(saved=>{if(saved)setShowCreate(value=>!value)})}>{showCreate ? 'Cerrar formulario' : 'Nuevo contacto'}</button> : undefined} />
       {success ? <CrmSuccess message={success} /> : null}
       {showCreate ? <section className="crm-editor"><h2>Crear Contact</h2><label className="crm-standalone-field">Organization<select value={selectedOrganization} onChange={(event) => setOrganizationId(event.target.value)}>{eligibleOrganizations.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select></label><ContactForm submitLabel="Crear contacto" pending={mutation.isPending} onSubmit={(values) => mutation.mutateAsync(values).then(() => undefined)} />{mutation.error ? <CrmError message={mutation.error.message} /> : null}</section> : null}
       <form className="crm-filters" role="search" onSubmit={applySearch}><label>Buscar por nombre<input value={draftSearch} onChange={(event) => setDraftSearch(event.target.value)} autoComplete="off" /></label><label>Status<select value={status} onChange={(event) => setParams((current) => { current.set('page', '0'); if (event.target.value === 'all') current.delete('status'); else current.set('status', event.target.value); return current })}><option value="all">Todos</option><option value="active">Active</option><option value="inactive">Inactive</option><option value="archived">Archived</option></select></label><button className="crm-button" type="submit">Aplicar filtros</button></form>

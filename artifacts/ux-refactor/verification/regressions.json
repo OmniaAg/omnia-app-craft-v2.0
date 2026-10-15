@@ -1,0 +1,72 @@
+[
+  {
+    "suite": "test-auth-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-crm-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-dashboard-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-editorial-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-files-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-messaging-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-billing-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-phase13-integration.mjs automations",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-phase13-integration.mjs integrations",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-phase13-integration.mjs ai",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-pwa-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-push-integration.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "test-concurrency-phase15.mjs",
+    "exit": 0,
+    "pass": true
+  },
+  {
+    "suite": "ux-fixture-regressions.mjs",
+    "exit": 0,
+    "pass": true
+  }
+]

@@ -1,0 +1,243 @@
+{
+  "checks": [
+    {
+      "name": "Valid invitation form activates exact server-assigned role",
+      "pass": true
+    },
+    {
+      "name": "Recovery request returns neutral success and sends local email",
+      "pass": true
+    },
+    {
+      "name": "Recovery form validates confirmation and saves new password",
+      "pass": true
+    },
+    {
+      "name": "Recovered account authenticates with changed password",
+      "pass": true
+    },
+    {
+      "name": "No runtime or responsive errors",
+      "pass": true
+    }
+  ],
+  "states": [
+    {
+      "name": "invite-validation",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "name": "invite-validation",
+      "width": 375,
+      "scroll": 375,
+      "pass": true
+    },
+    {
+      "name": "invite-validation",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "name": "invite-validation",
+      "width": 430,
+      "scroll": 430,
+      "pass": true
+    },
+    {
+      "name": "invite-validation",
+      "width": 768,
+      "scroll": 768,
+      "pass": true
+    },
+    {
+      "name": "invite-validation",
+      "width": 1024,
+      "scroll": 1024,
+      "pass": true
+    },
+    {
+      "name": "invite-validation",
+      "width": 1366,
+      "scroll": 1366,
+      "pass": true
+    },
+    {
+      "name": "invite-validation",
+      "width": 1440,
+      "scroll": 1440,
+      "pass": true
+    },
+    {
+      "name": "invite-validation",
+      "width": 1920,
+      "scroll": 1920,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 375,
+      "scroll": 375,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 430,
+      "scroll": 430,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 768,
+      "scroll": 768,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 1024,
+      "scroll": 1024,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 1366,
+      "scroll": 1366,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 1440,
+      "scroll": 1440,
+      "pass": true
+    },
+    {
+      "name": "recovery-validation",
+      "width": 1920,
+      "scroll": 1920,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 375,
+      "scroll": 375,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 430,
+      "scroll": 430,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 768,
+      "scroll": 768,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 1024,
+      "scroll": 1024,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 1366,
+      "scroll": 1366,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 1440,
+      "scroll": 1440,
+      "pass": true
+    },
+    {
+      "name": "recovery-sent",
+      "width": 1920,
+      "scroll": 1920,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 375,
+      "scroll": 375,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 430,
+      "scroll": 430,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 768,
+      "scroll": 768,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 1024,
+      "scroll": 1024,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 1366,
+      "scroll": 1366,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 1440,
+      "scroll": 1440,
+      "pass": true
+    },
+    {
+      "name": "password-mismatch",
+      "width": 1920,
+      "scroll": 1920,
+      "pass": true
+    }
+  ],
+  "errors": []
+}

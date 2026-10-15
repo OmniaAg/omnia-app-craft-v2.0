@@ -1,5 +1,7 @@
 # OMNIA Craft 2.0
 
+Refactor UX verificado localmente: [informe final](artifacts/ux-refactor/FINAL_REPORT.md) y [matriz de cobertura](artifacts/ux-refactor/COVERAGE_MATRIX.md). Incluye Internal y Portal, permisos por rol y evidencia funcional/visual. El paquete Phase 17 debe regenerarse; no se ha desplegado.
+
 Foundation local de Identity, Auth & Authorization, CRM, operación de proyectos, dashboard personalizable, planificación editorial, entregables, archivos privados, Client Portal, mensajería y notificaciones de OMNIA Craft.
 
 No incluye publicación real a redes sociales ni configuración remota.

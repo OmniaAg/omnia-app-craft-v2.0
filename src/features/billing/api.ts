@@ -31,8 +31,9 @@ export function useBillingDocuments(organizationId?: string, projectId?: string,
       const supabase = getSupabaseClient()
       let query = supabase.from('billing_documents').select(`
         *,
-        organizations(name),
-        projects(name)
+        organizations(name,agency_id),
+        projects(name),
+        billing_document_items(id,description,quantity,unit_price,line_total,sort_order)
       `).order('created_at', { ascending: false }).order('id', { ascending: false })
         .range(page * BILLING_PAGE_SIZE, page * BILLING_PAGE_SIZE + BILLING_PAGE_SIZE)
       
@@ -49,9 +50,11 @@ export function useBillingDocuments(organizationId?: string, projectId?: string,
 export function useCreateBillingDocument() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async (input: Partial<BillingDocument>) => {
+    mutationFn: async (input: {organization_id:string;project_id:string|null;type:BillingDocument['type'];date:string;currency:string;concept:string;subtotal_amount:number;tax_amount:number;idempotencyKey:string}) => {
       const supabase = getSupabaseClient()
-      const { data, error } = await supabase.from('billing_documents').insert(input as any).select().single()
+      const { data, error } = await supabase.rpc('create_billing_draft',{
+        p_key:input.idempotencyKey,p_organization:input.organization_id,p_project:input.project_id!,p_type:input.type,p_date:input.date,p_currency:input.currency,p_concept:input.concept,p_subtotal:input.subtotal_amount,p_tax:input.tax_amount,
+      })
       if (error) throw error
       return data
     },

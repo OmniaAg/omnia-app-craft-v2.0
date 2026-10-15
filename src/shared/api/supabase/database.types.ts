@@ -3436,6 +3436,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_drafts: {
+        Row: {
+          body: Json
+          draft_key: string
+          expires_at: string
+          kind: string
+          owner_id: string
+          revision: number
+          scope_id: string
+          updated_at: string
+        }
+        Insert: {
+          body: Json
+          draft_key: string
+          expires_at?: string
+          kind: string
+          owner_id: string
+          revision?: number
+          scope_id: string
+          updated_at?: string
+        }
+        Update: {
+          body?: Json
+          draft_key?: string
+          expires_at?: string
+          kind?: string
+          owner_id?: string
+          revision?: number
+          scope_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       webhook_deliveries: {
         Row: {
           attempt: number
@@ -3982,6 +4015,7 @@ export type Database = {
         }
         Returns: string
       }
+      authorization_role: { Args: { role_key: string }; Returns: string }
       change_opportunity_stage: {
         Args: {
           idempotency_key: string
@@ -4015,6 +4049,31 @@ export type Database = {
           created_at: string
           id: string
         }[]
+      }
+      clear_user_draft: {
+        Args: {
+          p_key: string
+          p_kind: string
+          p_owner: string
+          p_revision: number
+          p_scope: string
+        }
+        Returns: {
+          body: Json
+          draft_key: string
+          expires_at: string
+          kind: string
+          owner_id: string
+          revision: number
+          scope_id: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_drafts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       client_billing_documents: {
         Args: never
@@ -4078,6 +4137,20 @@ export type Database = {
       }
       confirm_file_permanent_delete: {
         Args: { asset_id: string }
+        Returns: string
+      }
+      create_billing_draft: {
+        Args: {
+          p_concept: string
+          p_currency: string
+          p_date: string
+          p_key: string
+          p_organization: string
+          p_project: string
+          p_subtotal: number
+          p_tax: number
+          p_type: Database["public"]["Enums"]["billing_document_type"]
+        }
         Returns: string
       }
       create_brand: {
@@ -4927,6 +5000,32 @@ export type Database = {
           to: "dashboard_user_configs"
           isOneToOne: false
           isSetofReturn: true
+        }
+      }
+      save_user_draft: {
+        Args: {
+          p_body: Json
+          p_key: string
+          p_kind: string
+          p_owner: string
+          p_revision: number
+          p_scope: string
+        }
+        Returns: {
+          body: Json
+          draft_key: string
+          expires_at: string
+          kind: string
+          owner_id: string
+          revision: number
+          scope_id: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_drafts"
+          isOneToOne: true
+          isSetofReturn: false
         }
       }
       send_message: {

@@ -32,8 +32,10 @@ export const connectionOptionsQuery = (actor: string, project: string) => queryO
     .eq('project_id', project).eq('status', 'active').limit(50))),
 })
 export async function saveAutomation(project: string, values: Omit<Automation, 'id' | 'created_at' | 'created_by' | 'revision'>, id?: string) {
-  return unwrap(await client().rpc('phase13_save_automation', { p_project: project, p_name: values.name, p_enabled: values.enabled, p_trigger: values.trigger_type,
+  const saved=unwrap(await client().rpc('phase13_save_automation', { p_project: project, p_name: values.name, p_enabled: values.enabled, p_trigger: values.trigger_type,
     p_event: values.event_type as unknown as string, p_conditions: values.conditions, p_actions: values.actions, p_key: crypto.randomUUID(), p_id: id }))
+  if(!saved)throw new Error('No pudimos confirmar el workflow guardado.')
+  return saved
 }
 export const disableConnection = async (id: string) => unwrap(await client().rpc('phase13_disable_connection', { p_connection: id }))
 export const setAIConsent = async (project: string, enabled: boolean) => unwrap(await client().rpc('phase13_ai_consent', { p_project: project, p_enabled: enabled }))

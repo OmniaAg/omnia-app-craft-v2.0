@@ -12,7 +12,7 @@ const users = {
   clientReviewer: ['10000000-0000-0000-0000-000000000006', 'client.reviewer.a@omnia.local'],
 }
 const projectA = '60000000-0000-0000-0000-0000000000a1'
-const workA = '63000000-0000-0000-0000-0000000000a1'
+const workA = process.env.OMNIA_QA_WORK_ITEM ?? '63000000-0000-0000-0000-0000000000a1'
 const assert = (condition, message) => { if (!condition) throw new Error(message) }
 const ok = (result, label) => {
   assert(!result.error && result.data !== null, `${label}: ${result.error?.message ?? 'missing result'}`)

@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-15T07:33:56.524Z",
+  "results": [
+    {
+      "task": "typecheck",
+      "exit": 0,
+      "pass": true
+    },
+    {
+      "task": "lint",
+      "exit": 0,
+      "pass": true
+    },
+    {
+      "task": "test",
+      "exit": 0,
+      "pass": true
+    },
+    {
+      "task": "build",
+      "exit": 0,
+      "pass": true
+    },
+    {
+      "task": "security:scan",
+      "exit": 0,
+      "pass": true,
+      "evidence": "secret-scan.json"
+    }
+  ]
+}

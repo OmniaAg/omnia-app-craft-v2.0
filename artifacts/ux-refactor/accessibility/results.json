@@ -1,0 +1,764 @@
+{
+  "checks": [
+    {
+      "name": "Skip link is first keyboard destination",
+      "pass": true
+    },
+    {
+      "name": "Skip link reaches form",
+      "pass": true
+    },
+    {
+      "name": "Keyboard focus is visible",
+      "pass": true
+    },
+    {
+      "name": "Password visibility toggle works",
+      "pass": true
+    },
+    {
+      "name": "Recovery gives generic success for unknown local account",
+      "pass": true
+    },
+    {
+      "name": "/reset-password: invalid password is announced",
+      "pass": true
+    },
+    {
+      "name": "/accept-invite?invitation=00000000-0000-0000-0000-000000000000: invalid password is announced",
+      "pass": true
+    },
+    {
+      "name": "Reduced motion disables page entry animation",
+      "pass": true
+    },
+    {
+      "name": "/app: real Chrome 200% zoom reflows",
+      "pass": true,
+      "dpr": 2,
+      "width": 711,
+      "outerWidth": 1440,
+      "scroll": 711,
+      "visualScale": 1
+    },
+    {
+      "name": "/app/projects: real Chrome 200% zoom reflows",
+      "pass": true,
+      "dpr": 2,
+      "width": 711,
+      "outerWidth": 1440,
+      "scroll": 711,
+      "visualScale": 1
+    },
+    {
+      "name": "/app/automations?project=60000000-0000-0000-0000-0000000000a1: real Chrome 200% zoom reflows",
+      "pass": true,
+      "dpr": 2,
+      "width": 711,
+      "outerWidth": 1440,
+      "scroll": 711,
+      "visualScale": 1
+    },
+    {
+      "name": "Chrome application window uses standalone display mode",
+      "pass": true
+    },
+    {
+      "name": "Linked file error is understandable and remains readable",
+      "pass": true
+    }
+  ],
+  "contrast": [
+    {
+      "name": "login-mobile",
+      "path": "/login",
+      "findings": []
+    },
+    {
+      "name": "recovery-success",
+      "path": "/forgot-password",
+      "findings": []
+    },
+    {
+      "name": "reset-validation",
+      "path": "/reset-password",
+      "findings": []
+    },
+    {
+      "name": "invite-validation",
+      "path": "/accept-invite",
+      "findings": []
+    },
+    {
+      "name": "internal-0",
+      "path": "/app",
+      "findings": []
+    },
+    {
+      "name": "internal-1",
+      "path": "/app/my-space",
+      "findings": []
+    },
+    {
+      "name": "internal-2",
+      "path": "/app/reviews",
+      "findings": []
+    },
+    {
+      "name": "internal-3",
+      "path": "/app/content-manager",
+      "findings": []
+    },
+    {
+      "name": "internal-4",
+      "path": "/app/projects",
+      "findings": []
+    },
+    {
+      "name": "internal-5",
+      "path": "/app/messages",
+      "findings": []
+    },
+    {
+      "name": "internal-6",
+      "path": "/app/notifications",
+      "findings": []
+    },
+    {
+      "name": "internal-7",
+      "path": "/app/settings",
+      "findings": []
+    },
+    {
+      "name": "internal-8",
+      "path": "/app/billing",
+      "findings": []
+    },
+    {
+      "name": "internal-9",
+      "path": "/app/editorial/calendar",
+      "findings": []
+    },
+    {
+      "name": "internal-10",
+      "path": "/app/analytics",
+      "findings": []
+    },
+    {
+      "name": "internal-11",
+      "path": "/app/automations",
+      "findings": []
+    },
+    {
+      "name": "internal-12",
+      "path": "/app/integrations",
+      "findings": []
+    },
+    {
+      "name": "internal-13",
+      "path": "/app/crm/accounts",
+      "findings": []
+    },
+    {
+      "name": "internal-14",
+      "path": "/app/crm/contacts",
+      "findings": []
+    },
+    {
+      "name": "internal-15",
+      "path": "/app/crm/opportunities",
+      "findings": []
+    },
+    {
+      "name": "internal-16",
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1",
+      "findings": []
+    },
+    {
+      "name": "internal-17",
+      "path": "/app/deliverables/ddafb3e3-f0e0-4e24-a4b9-a42e8353b506",
+      "findings": []
+    },
+    {
+      "name": "internal-18",
+      "path": "/app/messages/10a199ec-f505-4d51-ab39-de68e3117545",
+      "findings": []
+    },
+    {
+      "name": "internal-19",
+      "path": "/app/crm/accounts/30000000-0000-0000-0000-00000000000b",
+      "findings": []
+    },
+    {
+      "name": "internal-20",
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/reviews",
+      "findings": []
+    },
+    {
+      "name": "internal-21",
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/editorial",
+      "findings": []
+    },
+    {
+      "name": "internal-22",
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/assistant",
+      "findings": []
+    },
+    {
+      "name": "builder-mobile",
+      "path": "/app/automations",
+      "findings": []
+    },
+    {
+      "name": "portal-0",
+      "path": "/portal",
+      "findings": []
+    },
+    {
+      "name": "portal-1",
+      "path": "/portal/projects",
+      "findings": []
+    },
+    {
+      "name": "portal-2",
+      "path": "/portal/approvals",
+      "findings": []
+    },
+    {
+      "name": "portal-3",
+      "path": "/portal/messages",
+      "findings": []
+    },
+    {
+      "name": "portal-4",
+      "path": "/portal/notifications",
+      "findings": []
+    },
+    {
+      "name": "portal-5",
+      "path": "/portal/documents",
+      "findings": []
+    },
+    {
+      "name": "portal-6",
+      "path": "/portal/reports",
+      "findings": []
+    },
+    {
+      "name": "portal-7",
+      "path": "/portal/settings",
+      "findings": []
+    },
+    {
+      "name": "portal-8",
+      "path": "/portal/projects/60000000-0000-0000-0000-0000000000a1",
+      "findings": []
+    },
+    {
+      "name": "portal-9",
+      "path": "/portal/deliverables/b0c98b84-9444-45b1-99f6-9d78aa9537f3",
+      "findings": []
+    },
+    {
+      "name": "portal-10",
+      "path": "/portal/messages/10a199ec-f505-4d51-ab39-de68e3117545",
+      "findings": []
+    },
+    {
+      "name": "zoom-1",
+      "path": "/app",
+      "findings": []
+    },
+    {
+      "name": "zoom-2",
+      "path": "/app/projects",
+      "findings": []
+    },
+    {
+      "name": "zoom-3",
+      "path": "/app/automations",
+      "findings": []
+    },
+    {
+      "name": "standalone-login",
+      "path": "/login",
+      "findings": []
+    },
+    {
+      "name": "file-protected-error",
+      "path": "/app/content-manager",
+      "findings": []
+    }
+  ],
+  "targets": [
+    {
+      "name": "login-mobile",
+      "findings": []
+    },
+    {
+      "name": "recovery-success",
+      "findings": []
+    },
+    {
+      "name": "reset-validation",
+      "findings": []
+    },
+    {
+      "name": "invite-validation",
+      "findings": []
+    },
+    {
+      "name": "internal-0",
+      "findings": []
+    },
+    {
+      "name": "internal-1",
+      "findings": []
+    },
+    {
+      "name": "internal-2",
+      "findings": []
+    },
+    {
+      "name": "internal-3",
+      "findings": []
+    },
+    {
+      "name": "internal-4",
+      "findings": []
+    },
+    {
+      "name": "internal-5",
+      "findings": []
+    },
+    {
+      "name": "internal-6",
+      "findings": []
+    },
+    {
+      "name": "internal-7",
+      "findings": []
+    },
+    {
+      "name": "internal-8",
+      "findings": []
+    },
+    {
+      "name": "internal-9",
+      "findings": []
+    },
+    {
+      "name": "internal-10",
+      "findings": []
+    },
+    {
+      "name": "internal-11",
+      "findings": []
+    },
+    {
+      "name": "internal-12",
+      "findings": []
+    },
+    {
+      "name": "internal-13",
+      "findings": []
+    },
+    {
+      "name": "internal-14",
+      "findings": []
+    },
+    {
+      "name": "internal-15",
+      "findings": []
+    },
+    {
+      "name": "internal-16",
+      "findings": []
+    },
+    {
+      "name": "internal-17",
+      "findings": []
+    },
+    {
+      "name": "internal-18",
+      "findings": []
+    },
+    {
+      "name": "internal-19",
+      "findings": []
+    },
+    {
+      "name": "internal-20",
+      "findings": []
+    },
+    {
+      "name": "internal-21",
+      "findings": []
+    },
+    {
+      "name": "internal-22",
+      "findings": []
+    },
+    {
+      "name": "builder-mobile",
+      "findings": []
+    },
+    {
+      "name": "portal-0",
+      "findings": []
+    },
+    {
+      "name": "portal-1",
+      "findings": []
+    },
+    {
+      "name": "portal-2",
+      "findings": []
+    },
+    {
+      "name": "portal-3",
+      "findings": []
+    },
+    {
+      "name": "portal-4",
+      "findings": []
+    },
+    {
+      "name": "portal-5",
+      "findings": []
+    },
+    {
+      "name": "portal-6",
+      "findings": []
+    },
+    {
+      "name": "portal-7",
+      "findings": []
+    },
+    {
+      "name": "portal-8",
+      "findings": []
+    },
+    {
+      "name": "portal-9",
+      "findings": []
+    },
+    {
+      "name": "portal-10",
+      "findings": []
+    },
+    {
+      "name": "zoom-1",
+      "findings": []
+    },
+    {
+      "name": "zoom-2",
+      "findings": []
+    },
+    {
+      "name": "zoom-3",
+      "findings": []
+    },
+    {
+      "name": "standalone-login",
+      "findings": []
+    },
+    {
+      "name": "file-protected-error",
+      "findings": []
+    }
+  ],
+  "errors": [],
+  "zoom": [
+    {
+      "path": "/app",
+      "dpr": 2,
+      "width": 711,
+      "outerWidth": 1440,
+      "scroll": 711,
+      "visualScale": 1
+    },
+    {
+      "path": "/app/projects",
+      "dpr": 2,
+      "width": 711,
+      "outerWidth": 1440,
+      "scroll": 711,
+      "visualScale": 1
+    },
+    {
+      "path": "/app/automations?project=60000000-0000-0000-0000-0000000000a1",
+      "dpr": 2,
+      "width": 711,
+      "outerWidth": 1440,
+      "scroll": 711,
+      "visualScale": 1
+    }
+  ],
+  "screens": [
+    {
+      "name": "login-mobile",
+      "path": "/login",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "recovery-success",
+      "path": "/forgot-password",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "reset-validation",
+      "path": "/reset-password",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "invite-validation",
+      "path": "/accept-invite",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-0",
+      "path": "/app",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-1",
+      "path": "/app/my-space",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-2",
+      "path": "/app/reviews",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-3",
+      "path": "/app/content-manager",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-4",
+      "path": "/app/projects",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-5",
+      "path": "/app/messages",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-6",
+      "path": "/app/notifications",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-7",
+      "path": "/app/settings",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-8",
+      "path": "/app/billing",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-9",
+      "path": "/app/editorial/calendar",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-10",
+      "path": "/app/analytics",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-11",
+      "path": "/app/automations",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-12",
+      "path": "/app/integrations",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-13",
+      "path": "/app/crm/accounts",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-14",
+      "path": "/app/crm/contacts",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-15",
+      "path": "/app/crm/opportunities",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-16",
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-17",
+      "path": "/app/deliverables/ddafb3e3-f0e0-4e24-a4b9-a42e8353b506",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-18",
+      "path": "/app/messages/10a199ec-f505-4d51-ab39-de68e3117545",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-19",
+      "path": "/app/crm/accounts/30000000-0000-0000-0000-00000000000b",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-20",
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/reviews",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-21",
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/editorial",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "internal-22",
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/assistant",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "builder-mobile",
+      "path": "/app/automations",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-0",
+      "path": "/portal",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-1",
+      "path": "/portal/projects",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-2",
+      "path": "/portal/approvals",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-3",
+      "path": "/portal/messages",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-4",
+      "path": "/portal/notifications",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-5",
+      "path": "/portal/documents",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-6",
+      "path": "/portal/reports",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-7",
+      "path": "/portal/settings",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-8",
+      "path": "/portal/projects/60000000-0000-0000-0000-0000000000a1",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-9",
+      "path": "/portal/deliverables/b0c98b84-9444-45b1-99f6-9d78aa9537f3",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "portal-10",
+      "path": "/portal/messages/10a199ec-f505-4d51-ab39-de68e3117545",
+      "width": 375,
+      "scroll": 375
+    },
+    {
+      "name": "zoom-1",
+      "path": "/app",
+      "width": 711,
+      "scroll": 711
+    },
+    {
+      "name": "zoom-2",
+      "path": "/app/projects",
+      "width": 711,
+      "scroll": 711
+    },
+    {
+      "name": "zoom-3",
+      "path": "/app/automations",
+      "width": 711,
+      "scroll": 711
+    },
+    {
+      "name": "standalone-login",
+      "path": "/login",
+      "width": 412,
+      "scroll": 412
+    },
+    {
+      "name": "file-protected-error",
+      "path": "/app/content-manager",
+      "width": 375,
+      "scroll": 375
+    }
+  ]
+}

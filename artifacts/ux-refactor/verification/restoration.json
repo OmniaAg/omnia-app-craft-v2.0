@@ -1,0 +1,13 @@
+{
+  "restored": true,
+  "counts": {
+    "users": 13,
+    "projects": 5,
+    "work": 22,
+    "files": 13,
+    "documents": 5,
+    "messages": 11
+  },
+  "originalBackupVerified": true,
+  "resetDatabaseRetainedAs": "omnia_ux_reset_replaced"
+}

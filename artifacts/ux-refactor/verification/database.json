@@ -1,0 +1,91 @@
+{
+  "sourceUntouched": true,
+  "isolated": true,
+  "results": [
+    {
+      "file": "0001_local_baseline.test.sql",
+      "pass": true,
+      "assertions": 7
+    },
+    {
+      "file": "0002_phase_2_identity_authorization.test.sql",
+      "pass": true,
+      "assertions": 94
+    },
+    {
+      "file": "0003_phase_3_agency_core_crm_clients.test.sql",
+      "pass": true,
+      "assertions": 85
+    },
+    {
+      "file": "0004_phase_4_projects_work_my_space.test.sql",
+      "pass": true,
+      "assertions": 109
+    },
+    {
+      "file": "0005_phase_5_personalized_dashboard.test.sql",
+      "pass": true,
+      "assertions": 34
+    },
+    {
+      "file": "0006_phase_6_editorial_operations.test.sql",
+      "pass": true,
+      "assertions": 59
+    },
+    {
+      "file": "0007_phase_7_deliverables_reviews_approvals.test.sql",
+      "pass": true,
+      "assertions": 75
+    },
+    {
+      "file": "0008_phase_8_files_content_manager.test.sql",
+      "pass": true,
+      "assertions": 25
+    },
+    {
+      "file": "0009_phase_9_client_portal.test.sql",
+      "pass": true,
+      "assertions": 59
+    },
+    {
+      "file": "0010_phase_10_messaging_notifications_realtime.test.sql",
+      "pass": true,
+      "assertions": 32
+    },
+    {
+      "file": "0012_phase_12_analytics_reporting.test.sql",
+      "pass": true,
+      "assertions": 57
+    },
+    {
+      "file": "0013_phase_13_automations_ai_integrations.test.sql",
+      "pass": true,
+      "assertions": 72
+    },
+    {
+      "file": "0014_phase_14_push.test.sql",
+      "pass": true,
+      "assertions": 36
+    },
+    {
+      "file": "0015_phase_15_security.test.sql",
+      "pass": true,
+      "assertions": 34
+    },
+    {
+      "file": "0016_ux_developer_drafts.test.sql",
+      "pass": true,
+      "assertions": 43
+    },
+    {
+      "file": "0017_ux_billing_draft.test.sql",
+      "pass": true,
+      "assertions": 11
+    },
+    {
+      "file": "11_billing_documents.test.sql",
+      "pass": true,
+      "assertions": 18
+    }
+  ]
+}

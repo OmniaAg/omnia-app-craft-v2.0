@@ -15,6 +15,7 @@ async function client(email,service=false) {
  return value
 }
 const project='60000000-0000-0000-0000-0000000000a1',org='30000000-0000-0000-0000-00000000000a'
+const workTitle=`Phase15 fenced work ${randomUUID()}`
 try {
  const [a,b,workerA,workerB]=await Promise.all([client(TEST_USERS.director[1]),client(TEST_USERS.director[1]),client(null,true),client(null,true)])
  const doc=ok(await a.from('billing_documents').insert({organization_id:org,project_id:project,subtotal_amount:100,total_amount:100}).select('id').single()).id
@@ -26,7 +27,7 @@ try {
  const payments=await Promise.all([a.rpc('record_payment',args(60)),b.rpc('record_payment',args(60))])
  check('concurrent overpayment admits one and denies one',payments.filter(result=>!result.error).length===1&&payments.filter(result=>result.error?.message==='overpayment_rejected').length===1)
  check('paid amount is exactly 60 with no lost update',sql(`select sum(amount)from public.payment_records where billing_document_id='${doc}'and voided_at is null`)==='60.00')
- const automation=ok(await a.rpc('phase13_save_automation',{p_project:project,p_name:'Phase15 worker race',p_enabled:true,p_trigger:'manual',p_event:null,p_conditions:[],p_actions:[{type:'create_work_item',title:'Phase15 fenced work',priority:'normal'}],p_key:randomUUID()}))
+ const automation=ok(await a.rpc('phase13_save_automation',{p_project:project,p_name:'Phase15 worker race',p_enabled:true,p_trigger:'manual',p_event:null,p_conditions:[],p_actions:[{type:'create_work_item',title:workTitle,priority:'normal'}],p_key:randomUUID()}))
  const run=ok(await a.rpc('phase13_manual_run',{p_automation:automation,p_key:randomUUID()}))
  const claims=await Promise.all([workerA.rpc('phase13_claim_run',{p_run:run}),workerB.rpc('phase13_claim_run',{p_run:run})])
  const claim=claims.map(ok).find(Boolean)
@@ -37,7 +38,7 @@ try {
  check('late automation worker cannot finish',!!(await workerA.rpc('phase13_finish_run',{p_run:run,p_token:claim.token})).error)
  ok(await workerB.rpc('phase13_prepare_step',{p_run:run,p_token:replacement.token,p_position:0}))
  ok(await workerB.rpc('phase13_finish_run',{p_run:run,p_token:replacement.token}))
- check('one fenced work effect',sql("select count(*)from public.work_items where title='Phase15 fenced work'")==='1')
+ check('one fenced work effect',sql(`select count(*)from public.work_items where title='${workTitle}'`)==='1')
  const [ca,cb]=await Promise.all([client(TEST_USERS.adminA[1]),client(TEST_USERS.viewerB[1])])
  const ecdh=createECDH('prime256v1');ecdh.generateKeys()
  const subscription={endpoint:`https://fcm.googleapis.com/fcm/send/phase15_${randomUUID()}`,device_token:randomUUID(),keys:{p256dh:ecdh.getPublicKey().toString('base64url'),auth:randomBytes(16).toString('base64url')}}

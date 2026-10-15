@@ -20,10 +20,11 @@ function ProjectConnections({ project, actor, canManage }: { project: string; ac
   // Read the write-only field inside the request; never retain it as mutation-cache variables.
   const save = useMutation({ mutationFn: () => {
     if (!formRef.current) throw new Error('Abre el formulario de conexión para guardar.')
-    const values = new FormData(formRef.current)
+    const form=formRef.current
+    const read=(name:string)=>form.querySelector<HTMLInputElement>(`input[name="${name}"]`)?.value??''
     return invokePhase13({ operation: 'configureIntegration', projectId: project,
-      name: String(values.get('name')), endpoint: String(values.get('endpoint')), secret: String(values.get('secret')),
-      eventTypes: values.getAll('eventTypes').map(String),
+      name: read('name'), endpoint: read('endpoint'), secret: read('secret'),
+      eventTypes: [...form.querySelectorAll<HTMLInputElement>('input[name="eventTypes"]:checked')].map(field=>field.value),
       connectionId: configure && configure !== 'new' ? configure.id : undefined, key: crypto.randomUUID(), consent: true })
   },
     onSuccess: async () => { formRef.current?.reset(); setConfigure(null); setSuccess('Conexión guardada. El secreto está configurado y permanece oculto.'); await refresh() } })
@@ -42,7 +43,7 @@ function ProjectConnections({ project, actor, canManage }: { project: string; ac
   return <>
     <div className="p13-toolbar">{canManage ? <button className="crm-button" onClick={() => setConfigure('new')}>Conectar webhook</button> : null}<button onClick={() => void refresh()}>Actualizar historial</button></div>
     {error ? <CrmError message={error.message} /> : null}{success ? <CrmSuccess message={success} /> : null}
-    {configure ? <form key={configure === 'new' ? 'new' : configure.id} ref={formRef} onSubmit={submit} className="p13-card p13-form">
+    {configure ? <form key={configure === 'new' ? 'new' : configure.id} ref={formRef} onSubmit={submit} className="p13-card p13-form"><fieldset className="form-fields" disabled={save.isPending}>
       <h2>{configure === 'new' ? 'Nueva conexión webhook' : 'Configurar y rotar secreto'}</h2>
       <label className="p13-field">Nombre de conexión<input name="name" required maxLength={120} defaultValue={configure === 'new' ? '' : configure.display_name} /></label>
       <label className="p13-field">Destino HTTPS<input type="url" name="endpoint" required maxLength={2048} autoComplete="off" /><small>El servidor debe permitir este destino. Desarrollo admite un receptor HTTP local configurado.</small></label>
@@ -51,7 +52,7 @@ function ProjectConnections({ project, actor, canManage }: { project: string; ac
       {formError ? <p role="alert" className="p13-error">{formError}</p> : null}
       <label className="p13-check"><input type="checkbox" required />Autorizo esta conexión para enviar eventos mínimos de este proyecto al destino indicado</label>
       <div className="p13-actions"><button className="crm-button" disabled={save.isPending}>{save.isPending ? 'Guardando…' : 'Guardar conexión'}</button><button type="button" disabled={save.isPending} onClick={() => { formRef.current?.reset(); setConfigure(null) }}>Cancelar</button></div>
-    </form> : null}
+    </fieldset></form> : null}
     <div className="p13-card"><h2>Conexiones del proyecto</h2>{connections.isPending ? <p role="status">Cargando conexiones…</p> : null}
       {!connections.isPending && !connections.data?.items.length ? <p>No hay conexiones configuradas.</p> : null}
       <ul className="p13-history">{connections.data?.items.map(connection => <li key={connection.id}><h3>{connection.display_name}</h3><p>Webhook genérico · Proyecto seleccionado · {connection.event_allowlist.length} eventos permitidos</p><RunStatus status={connection.status} />

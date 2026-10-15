@@ -8,7 +8,7 @@ export function PortalHeading({ title, description, children }: { title: string;
 
 export function PortalState({ loading, error, empty, children }: { loading: boolean; error?: Error | null; empty?: boolean; children: React.ReactNode }) {
   if (loading) return <p className="portal-state" role="status">Cargando información…</p>
-  if (error) return <p className="portal-state portal-state--error" role="alert">No pudimos cargar esta sección. {error.message}</p>
+  if (error) return <p className="portal-state portal-state--error" role="alert">No pudimos abrir esta sección. Comprueba tu conexión y que tengas acceso al contenido.</p>
   if (empty) return <p className="portal-state">Todavía no hay contenido para mostrar aquí.</p>
   return <>{children}</>
 }

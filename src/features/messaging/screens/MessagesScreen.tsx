@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../../auth/context/AuthContext'
@@ -8,8 +8,15 @@ import { useMessageRealtime } from '../ui/useMessagingRealtime'
 import { ChannelMembershipManager } from '../ui/ChannelMembershipManager'
 import '../ui/messaging.css'
 import { useConnectivity } from '../../pwa/connectivity'
+import { useServerDraft } from '../../drafts/useServerDraft'
+import { DraftStatus } from '../../drafts/DraftStatus'
 
 export function Component() {
+  const { channelId } = useParams()
+  return <MessagesContent key={channelId ?? 'channels'} />
+}
+
+function MessagesContent() {
   const { channelId } = useParams()
   const auth = useAuth()
   const base = auth.hasAgencyContext && location.pathname.startsWith('/app') ? '/app' : '/portal'
@@ -18,12 +25,12 @@ export function Component() {
   const selectedId = selected?.id
   const queryClient = useQueryClient()
   const connected = useMessageRealtime(selectedId)
-  const [body, setBody] = useState('')
+  const draft = useServerDraft<{body:string;clientMessageId?:string}>('message',channelId ?? '','compose',{body:'',clientMessageId:''})
+  const body = draft.value.body
   const [sendError, setSendError] = useState('')
   const [sending, setSending] = useState(false)
   const [showChannels,setShowChannels] = useState(false)
   const network=useConnectivity()
-  const pendingId = useRef<string | null>(null)
   const messages = useInfiniteQuery({
     queryKey: ['messaging', 'messages', channelId],
     queryFn: ({ pageParam }) => listMessages(channelId!, pageParam ?? undefined),
@@ -44,11 +51,13 @@ export function Component() {
     if (!channelId || !body.trim() || sending) return
     setSending(true)
     setSendError('')
-    pendingId.current ??= crypto.randomUUID()
     try {
-      await sendMessage(channelId, body, pendingId.current)
-      pendingId.current = null
-      setBody('')
+      const messageId=draft.value.clientMessageId||crypto.randomUUID()
+      if(!draft.value.clientMessageId)draft.setValue({body,clientMessageId:messageId})
+      if(!await draft.flush()){setSendError('Confirma el borrador antes de enviar.');return}
+      await sendMessage(channelId, body, messageId)
+      draft.setValue({body:'',clientMessageId:''})
+      await draft.clear()
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ['messaging', 'messages', channelId] }),
         queryClient.invalidateQueries({ queryKey: messagingKeys.channels }),
@@ -101,10 +110,12 @@ export function Component() {
                 <time dateTime={message.created_at}>{new Date(message.created_at).toLocaleString('es-MX')}</time></div>
               <p>{message.body}</p></article>)}
           </div>
-          <form className="messaging-composer" onSubmit={event => void submit(event)}>
+          <form className="messaging-composer" data-server-draft onSubmit={event => void submit(event)}>
+            <DraftStatus draft={draft}/>
             <label htmlFor="message-body">Mensaje</label>
             <textarea id="message-body" value={body} maxLength={4000} rows={3}
-              onChange={event => { setBody(event.target.value); pendingId.current = null }}
+              disabled={!draft.ready||sending}
+              onChange={event => draft.setValue({body:event.target.value,clientMessageId:crypto.randomUUID()})}
               placeholder="Escribe un mensaje" />
             <div><span aria-live="polite">{sendError || (sending ? 'Enviando…' : `${body.length}/4000`)}</span>
               <button type="submit" disabled={sending || !body.trim() || !network.online}>Enviar</button></div>

@@ -23,7 +23,7 @@ describe('Phase 5 dashboard contracts', () => {
     expect(DASHBOARD_REGISTRY_VERSION).toBe(1)
     expect(Object.keys(WIDGET_REGISTRY)).toHaveLength(8)
     const defaults = defaultDashboard(crmActor)
-    expect(defaults.instances.length).toBeGreaterThanOrEqual(5)
+    expect(defaults.instances.length).toBe(4)
     expect(defaults.instances.length).toBeLessThanOrEqual(DASHBOARD_MAX_WIDGETS)
     expect(new Set(defaults.instances.map((item) => item.widgetKey)).size).toBe(defaults.instances.length)
   })

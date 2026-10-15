@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { CrmEmpty, CrmError, CrmSuccess } from '../crm/ui/CrmUi'
 import { connectionOptionsQuery, historyQuery, invokePhase13, phase13Keys, runDetailQuery, saveAutomation } from './api'
-import type { Automation } from './model'
+import { automationSchema, type Automation } from './model'
+import { getSupabaseClient } from '../../shared/api/supabase/client'
 import { AutomationForm } from './AutomationForm'
 import { HistoryPager, Phase13Page, ProjectSelect, RunStatus, RunTiming, Timestamp } from './ui'
 import { usePhase13Project } from './usePhase13Project'
@@ -12,6 +13,7 @@ function WorkflowProject({ actor, project, canManage, canRun }: { actor: string;
   const [page, setPage] = useState(0)
   const [runPage, setRunPage] = useState(0)
   const [form, setForm] = useState<Automation | 'new' | null>(null)
+  const [savedNewId,setSavedNewId]=useState<string>()
   const [runId, setRunId] = useState('')
   const [success, setSuccess] = useState('')
   const definitions = useQuery(historyQuery(actor, project, 'automations', page))
@@ -19,18 +21,23 @@ function WorkflowProject({ actor, project, canManage, canRun }: { actor: string;
   const detail = useQuery(runDetailQuery(actor, runId))
   const connections = useQuery({ ...connectionOptionsQuery(actor, project), enabled: Boolean(form) })
   const refresh = () => cache.invalidateQueries({ queryKey: phase13Keys.all })
-  const save = useMutation({ mutationFn: (value: Parameters<typeof saveAutomation>[1]) => saveAutomation(project, value, form && form !== 'new' ? form.id : undefined),
-    onSuccess: async () => { setForm(null); setSuccess('Workflow guardado.'); await refresh() } })
+  const save = useMutation({ mutationFn: (value: Parameters<typeof saveAutomation>[1]) => saveAutomation(project, value, form && form !== 'new' ? form.id : savedNewId),
+    onSuccess: async (id) => { setSavedNewId(id);setSuccess('Workflow guardado. Puedes cerrar el editor o seguir trabajando.'); await refresh() } })
   const toggle = useMutation({ mutationFn: (automation: Automation) => saveAutomation(project, { ...automation, enabled: !automation.enabled }, automation.id), onSuccess: refresh })
   const execute = useMutation({ mutationFn: (automation: Automation) => invokePhase13({ operation: 'runAutomation', automationId: automation.id, key: crypto.randomUUID() }),
     onSuccess: async result => { setRunId(result.id); setSuccess('Ejecución registrada. Consulta su estado y sus pasos.'); await refresh() } })
   const retry = useMutation({ mutationFn: (id: string) => invokePhase13({ operation: 'retryAutomation', runId: id }), onSuccess: refresh })
   const error = definitions.error ?? runs.error ?? detail.error ?? save.error ?? toggle.error ?? execute.error ?? retry.error ?? connections.error
   return <>
-    <div className="p13-toolbar">{canManage ? <button className="crm-button" onClick={() => { setForm('new'); setSuccess('') }}>Nuevo workflow</button> : null}<button onClick={() => void refresh()}>Actualizar historial</button></div>
+    <div className="p13-toolbar">{canManage ? <button className="crm-button" onClick={() => { setSavedNewId(undefined);setForm('new'); setSuccess('') }}>Nuevo workflow</button> : null}<button onClick={() => void refresh()}>Actualizar historial</button></div>
     {error ? <CrmError message={error.message} /> : null}{success ? <CrmSuccess message={success} /> : null}
-    {form ? <AutomationForm key={form === 'new' ? 'new' : `${form.id}-${form.revision}`} initial={form === 'new' ? undefined : form}
-      connections={connections.data ?? []} pending={save.isPending} onSave={value => save.mutate(value)} onCancel={() => setForm(null)} /> : null}
+    {form ? <AutomationForm key={form === 'new' ? 'new' : `${form.id}-${form.revision}`} projectId={project} initial={form === 'new' ? undefined : form}
+      connections={connections.data ?? []} pending={save.isPending} onSave={async value => {
+        const id=await save.mutateAsync(value)
+        const {data,error}=await getSupabaseClient().from('automation_definitions').select('*').eq('id',id).single()
+        if(error)throw error
+        return automationSchema.parse(data)
+      }} onCommitted={setForm} onCancel={() => setForm(null)} /> : null}
     <div className="p13-card"><h2>Workflows del proyecto</h2>
       {definitions.isPending ? <p role="status">Cargando workflows…</p> : null}
       {!definitions.isPending && !definitions.data?.items.length ? <CrmEmpty title="Aún no hay workflows" description="Configura un evento y sus acciones para comenzar." /> : null}

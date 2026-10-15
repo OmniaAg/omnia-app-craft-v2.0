@@ -113,8 +113,8 @@ export function Reports({ actor, filters }: Props) {
     return createReport(filters.project, title, filters)
   }, onSuccess: () => { void cache.invalidateQueries({ queryKey: ['analytics', actor, 'reports'] }) } })
   return <><p>La creación conserva título y periodo. Publicar habilita al cliente la consulta actual de hitos y recursos publicados. El reporte es dinámico y no constituye una captura histórica.</p>
-    {auth.hasCapability('report.publish') ? <form className="analytics-filters" onSubmit={e => { e.preventDefault(); mutation.mutate({}) }}>
-      <label>Título del reporte<input value={title} onChange={e => setTitle(e.target.value)} maxLength={160} required /></label>
+    {auth.hasCapability('report.publish') ? <form className="analytics-filters" data-track-changes onSubmit={e => { e.preventDefault();const form=e.currentTarget;mutation.mutate({},{onSuccess:()=>form.dispatchEvent(new Event('omnia:form-saved',{bubbles:true}))}) }}>
+      <label>Título del reporte<input value={title} disabled={mutation.isPending} onChange={e => setTitle(e.target.value)} maxLength={160} required /></label>
       <button disabled={!filters.project || mutation.isPending}>Crear borrador</button>{!filters.project ? <p>Selecciona un proyecto en los filtros.</p> : null}
     </form> : null}{mutation.error ? <p role="alert">No se pudo guardar el reporte. Comprueba el proyecto y tus permisos.</p> : null}
     {mutation.isSuccess ? <p role="status">Reporte guardado.</p> : null}

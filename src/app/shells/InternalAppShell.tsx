@@ -2,37 +2,21 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../features/auth/context/AuthContext'
 import { FoundationShell } from '../../shared/ui/FoundationShell'
 import { NotificationBadge } from '../../features/messaging/ui/NotificationBadge'
+import { internalNavigation } from '../../shared/navigation/navigation'
+import { useFlushDrafts } from '../../features/drafts/draft-context'
 
 export function Component() {
   const auth = useAuth()
   const navigate = useNavigate()
+  const flushDrafts = useFlushDrafts()
 
   const handleSignOut = async () => {
+    if (!await flushDrafts()) throw new Error('draft_save_failed')
     await auth.signOut()
     navigate('/login', { replace: true })
   }
 
-  const navItems = [
-    { href: '/app', label: 'Interno' },
-    { href: '/app/my-space', label: 'Mi Espacio' },
-    { href: '/app/reviews', label: 'Mis revisiones' },
-    { href: '/app/content-manager', label: 'Archivos' },
-    { href: '/app/projects', label: 'Proyectos' },
-    { href: '/app/messages', label: 'Mensajes' },
-    { href: '/app/notifications', label: 'Notificaciones' },
-    { href: '/app/settings', label: 'Configuración' },
-    ...(auth.hasCapability('billing.view') ? [{ href: '/app/billing', label: 'Billing' }] : []),
-    { href: '/app/editorial/calendar', label: 'Editorial' },
-    ...(auth.hasCapability('analytics.view') ? [{ href: '/app/analytics', label: 'Analytics' }] : []),
-    ...(auth.hasCapability('automation.view') ? [{ href: '/app/automations', label: 'Automatizaciones' }] : []),
-    ...(auth.hasCapability('integration.view') ? [{ href: '/app/integrations', label: 'Integraciones' }] : []),
-    { href: '/app/crm/accounts', label: 'Organizations' },
-    { href: '/app/crm/contacts', label: 'Contacts' },
-    { href: '/app/crm/opportunities', label: 'Opportunities' },
-    ...(auth.hasClientContext
-      ? [{ href: '/portal', label: 'Portal cliente' }]
-      : []),
-  ]
+  const navItems = internalNavigation(auth.hasCapability, auth.hasClientContext)
 
   return (
     <FoundationShell

@@ -4,6 +4,21 @@
   min-width: 0;
 }
 
+.dashboard-priorities { display: grid; gap: 1.25rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--theme-border); }
+.dashboard-priorities h2 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-lg); font-weight: 500; }
+.dashboard-priorities p { margin: .5rem 0 0; }
+.dashboard-priorities small { color: var(--theme-text-secondary); }
+.dashboard-priorities__metrics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem; }
+.dashboard-priorities__metrics a { display: grid; gap: .4rem; min-height: 44px; text-decoration: none; }
+.dashboard-priorities__metrics strong { font-family: var(--font-display); font-size: 2rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.dashboard-priorities__metrics span { font-size: .875rem; color: var(--theme-text-secondary); }
+.dashboard-progress { display: grid; gap: .5rem; margin-top: 1rem; font-size: .875rem; }
+.dashboard-progress meter { width: 100%; height: 1rem; accent-color: var(--color-omnia-yellow); }
+.dashboard-progress meter::-webkit-meter-bar { background: var(--theme-control-surface); border: 1px solid var(--theme-text-muted); }
+.dashboard-progress meter::-webkit-meter-optimum-value { background: var(--color-omnia-yellow); }
+.dashboard-progress meter::-moz-meter-bar { background: var(--color-omnia-yellow); }
+@media (max-width:40rem) { .dashboard-priorities__metrics { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+
 .dashboard-header {
   display: flex;
   align-items: end;
@@ -96,6 +111,7 @@
 }
 
 .dashboard-grid-wrap {
+  isolation: isolate;
   min-width: 0;
 }
 
@@ -110,6 +126,7 @@
 }
 
 .dashboard-widget[data-accent='purple'] { --widget-accent: var(--color-omnia-purple); }
+.dashboard-widget:has(.dashboard-widget__control-menu[open]) { z-index: var(--z-dropdown); }
 .dashboard-widget[data-accent='blue'] { --widget-accent: var(--color-omnia-blue); }
 .dashboard-widget[data-accent='crimson'] { --widget-accent: var(--color-omnia-crimson); }
 .dashboard-widget[data-accent='yellow'] { --widget-accent: var(--color-omnia-yellow); }

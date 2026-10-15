@@ -79,13 +79,14 @@ export function AuthProvider({
     async (nextSession: Session): Promise<AuthorizationProjection> => {
       const version = operationVersion.current + 1
       operationVersion.current = version
-      if (currentUserId.current !== nextSession.user.id) {
+      const sameActor = currentUserId.current === nextSession.user.id
+      if (!sameActor) {
         void client.removeAllChannels()
         queryClient.clear()
         setActor(null)
         setSession(null)
       }
-      setStatus('loading')
+      if (!sameActor) setStatus('loading')
       setError(null)
 
       try {
@@ -108,6 +109,10 @@ export function AuthProvider({
         return projection
       } catch (caughtError) {
         if (operationVersion.current === version) {
+          if (sameActor && caughtError instanceof AuthFlowError && caughtError.code === 'session_temporarily_unavailable') {
+            setError(messageFrom(caughtError))
+            throw caughtError
+          }
           void disableDevicePush(client, false).catch(() => undefined)
           currentUserId.current = null
           void client.removeAllChannels()

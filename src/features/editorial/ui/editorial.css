@@ -12,6 +12,8 @@
 .editorial-library li, .editorial-applicants li { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); padding: var(--space-2) 0; border-top: 1px solid var(--theme-border); }
 .editorial-library li > div { display: flex; gap: var(--space-2); }
 .editorial-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+.editorial-form > .draft-status { grid-column: 1 / -1; }
+.editorial-form__fields { grid-column: 1 / -1; display: grid; grid-template-columns: inherit; gap: inherit; min-width: 0; margin: 0; padding: 0; border: 0; }
 .editorial-form__wide { grid-column: 1 / -1; }
 .editorial-form button[type='submit'] { justify-self: start; }
 .editorial-agenda ol { padding: 0; margin: 0; list-style: none; display: grid; gap: var(--space-3); }

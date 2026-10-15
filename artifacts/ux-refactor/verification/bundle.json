@@ -1,0 +1,435 @@
+{
+  "comparison": "Historical Phase 15 build; not an identical timing experiment",
+  "baseline": {
+    "name": "index-CeoE_6nn.js",
+    "bytes": 534537,
+    "gzipBytes": 155101
+  },
+  "current": {
+    "name": "index-BLW4ysGs.js",
+    "bytes": 538118,
+    "gzipBytes": 156335
+  },
+  "assets": [
+    {
+      "name": "index-BLW4ysGs.js",
+      "bytes": 538118,
+      "gzipBytes": 156335
+    },
+    {
+      "name": "DashboardGrid-BBpSxegz.js",
+      "bytes": 74027,
+      "gzipBytes": 20304
+    },
+    {
+      "name": "schemas-DBGTGzq7.js",
+      "bytes": 70333,
+      "gzipBytes": 18640
+    },
+    {
+      "name": "zod-Dm8YlpWv.js",
+      "bytes": 33012,
+      "gzipBytes": 11745
+    },
+    {
+      "name": "EditorialScreen-DuTJCliV.js",
+      "bytes": 23616,
+      "gzipBytes": 6141
+    },
+    {
+      "name": "ProjectDetailScreen-B2_lWfBo.js",
+      "bytes": 22739,
+      "gzipBytes": 5895
+    },
+    {
+      "name": "AnalyticsScreen-Sd-IOevA.js",
+      "bytes": 18340,
+      "gzipBytes": 5572
+    },
+    {
+      "name": "AutomationsScreen-DpeSX6y2.js",
+      "bytes": 14672,
+      "gzipBytes": 4467
+    },
+    {
+      "name": "DashboardScreen-BMvpv3Zl.js",
+      "bytes": 14343,
+      "gzipBytes": 4703
+    },
+    {
+      "name": "DeliverableScreen-B5bGyLO4.js",
+      "bytes": 12912,
+      "gzipBytes": 3847
+    },
+    {
+      "name": "BillingScreen-BrrBGyy5.js",
+      "bytes": 12701,
+      "gzipBytes": 3900
+    },
+    {
+      "name": "MySpaceScreen-ClXWg1Si.js",
+      "bytes": 8415,
+      "gzipBytes": 3012
+    },
+    {
+      "name": "MessagesScreen-C88kd9N9.js",
+      "bytes": 8355,
+      "gzipBytes": 3085
+    },
+    {
+      "name": "OrganizationDetailScreen-edtdda39.js",
+      "bytes": 8328,
+      "gzipBytes": 2490
+    },
+    {
+      "name": "react-SIfiwpqq.js",
+      "bytes": 8185,
+      "gzipBytes": 3162
+    },
+    {
+      "name": "useQuery-B_uLjzh2.js",
+      "bytes": 8118,
+      "gzipBytes": 2968
+    },
+    {
+      "name": "ui-fKMc1JmI.js",
+      "bytes": 7730,
+      "gzipBytes": 3141
+    },
+    {
+      "name": "queries-CkATFJkB.js",
+      "bytes": 7221,
+      "gzipBytes": 2239
+    },
+    {
+      "name": "CrmForms-TObDT9mP.js",
+      "bytes": 7128,
+      "gzipBytes": 1774
+    },
+    {
+      "name": "ContentManagerScreen-CcW24isC.js",
+      "bytes": 7042,
+      "gzipBytes": 2298
+    },
+    {
+      "name": "IntegrationsScreen-Ckk_EmH3.js",
+      "bytes": 6702,
+      "gzipBytes": 2496
+    },
+    {
+      "name": "api-mdfUy4ki.js",
+      "bytes": 6666,
+      "gzipBytes": 2436
+    },
+    {
+      "name": "DraftStatus-DraidgSf.js",
+      "bytes": 6108,
+      "gzipBytes": 2385
+    },
+    {
+      "name": "ProjectsScreen-BAouXZm_.js",
+      "bytes": 5985,
+      "gzipBytes": 2414
+    },
+    {
+      "name": "projects-q5sf6Cev.js",
+      "bytes": 5926,
+      "gzipBytes": 1705
+    },
+    {
+      "name": "FileActions-CwhbeFug.js",
+      "bytes": 5909,
+      "gzipBytes": 2163
+    },
+    {
+      "name": "ProjectAssistantScreen-DPVdJwMB.js",
+      "bytes": 5796,
+      "gzipBytes": 2347
+    },
+    {
+      "name": "OpportunitiesScreen-C2t9wA4_.js",
+      "bytes": 5310,
+      "gzipBytes": 2055
+    },
+    {
+      "name": "PortalDeliverableScreen-BK3OEk8s.js",
+      "bytes": 4949,
+      "gzipBytes": 1828
+    },
+    {
+      "name": "NotificationBadge-Cvuif55W.js",
+      "bytes": 4508,
+      "gzipBytes": 1733
+    },
+    {
+      "name": "ProfileSettings-Cws6J05W.js",
+      "bytes": 4422,
+      "gzipBytes": 1878
+    },
+    {
+      "name": "AccountsScreen-CZzLykAH.js",
+      "bytes": 4122,
+      "gzipBytes": 1660
+    },
+    {
+      "name": "ContactsScreen-BnfYYhDi.js",
+      "bytes": 4023,
+      "gzipBytes": 1654
+    },
+    {
+      "name": "NotificationsScreen-G5BGtmcK.js",
+      "bytes": 3774,
+      "gzipBytes": 1480
+    },
+    {
+      "name": "PortalProjectScreen-MHsMcDKm.js",
+      "bytes": 3751,
+      "gzipBytes": 1204
+    },
+    {
+      "name": "project-service-DHmfG6T9.js",
+      "bytes": 3588,
+      "gzipBytes": 1366
+    },
+    {
+      "name": "PortalOverviewScreen-B-JCJ1dw.js",
+      "bytes": 3368,
+      "gzipBytes": 1090
+    },
+    {
+      "name": "PortalPrimitives-CJqToazi.js",
+      "bytes": 3168,
+      "gzipBytes": 1251
+    },
+    {
+      "name": "queries-BpR7hgJ1.js",
+      "bytes": 2933,
+      "gzipBytes": 897
+    },
+    {
+      "name": "ReviewConfigurationScreen-m-rtI2_w.js",
+      "bytes": 2920,
+      "gzipBytes": 1378
+    },
+    {
+      "name": "AcceptInviteScreen-iILqOEYN.js",
+      "bytes": 2806,
+      "gzipBytes": 1231
+    },
+    {
+      "name": "messaging-service-CEJjgILL.js",
+      "bytes": 2714,
+      "gzipBytes": 942
+    },
+    {
+      "name": "PortalReportsScreen-D95_nSf0.js",
+      "bytes": 2656,
+      "gzipBytes": 1121
+    },
+    {
+      "name": "PortalDocumentsScreen-S6IsCIt3.js",
+      "bytes": 2592,
+      "gzipBytes": 1014
+    },
+    {
+      "name": "CrmUi-CCwqp62-.js",
+      "bytes": 2532,
+      "gzipBytes": 1096
+    },
+    {
+      "name": "ResetPasswordScreen-DuaN3OdS.js",
+      "bytes": 2520,
+      "gzipBytes": 1070
+    },
+    {
+      "name": "files-D5zhk8Sj.js",
+      "bytes": 2459,
+      "gzipBytes": 1182
+    },
+    {
+      "name": "analytics-DwNA0mNe.js",
+      "bytes": 2366,
+      "gzipBytes": 1051
+    },
+    {
+      "name": "InternalAppShell-lX4IGx8F.js",
+      "bytes": 2339,
+      "gzipBytes": 1164
+    },
+    {
+      "name": "useMutation-Bce0uT8U.js",
+      "bytes": 2332,
+      "gzipBytes": 956
+    },
+    {
+      "name": "queries-BIiQLXZ1.js",
+      "bytes": 2320,
+      "gzipBytes": 857
+    },
+    {
+      "name": "reviews-DAeYbykI.js",
+      "bytes": 2294,
+      "gzipBytes": 832
+    },
+    {
+      "name": "LoginScreen-Bvq5LOzB.js",
+      "bytes": 2277,
+      "gzipBytes": 1084
+    },
+    {
+      "name": "ForgotPasswordScreen-BPVUcGkC.js",
+      "bytes": 2141,
+      "gzipBytes": 1053
+    },
+    {
+      "name": "OperationalOverview-OP7vfhhj.js",
+      "bytes": 2127,
+      "gzipBytes": 865
+    },
+    {
+      "name": "AuthLayout-CXTyGMOl.js",
+      "bytes": 1995,
+      "gzipBytes": 854
+    },
+    {
+      "name": "ReviewQueueScreen-B_x0y_Y2.js",
+      "bytes": 1987,
+      "gzipBytes": 948
+    },
+    {
+      "name": "ClientPortalShell-CT9SdN_v.js",
+      "bytes": 1783,
+      "gzipBytes": 894
+    },
+    {
+      "name": "queries-DRy9i9Ik.js",
+      "bytes": 1712,
+      "gzipBytes": 780
+    },
+    {
+      "name": "queries-D16FstZv.js",
+      "bytes": 1698,
+      "gzipBytes": 734
+    },
+    {
+      "name": "CrmWidget-AD3SYFRV.js",
+      "bytes": 1549,
+      "gzipBytes": 643
+    },
+    {
+      "name": "PortalSettingsScreen-Bhhz8C3O.js",
+      "bytes": 1541,
+      "gzipBytes": 732
+    },
+    {
+      "name": "SummaryWidget-BKynNmJm.js",
+      "bytes": 1390,
+      "gzipBytes": 624
+    },
+    {
+      "name": "ForbiddenScreen-rv1d7f9p.js",
+      "bytes": 1380,
+      "gzipBytes": 774
+    },
+    {
+      "name": "PortalApprovalsScreen-VZnUtVqM.js",
+      "bytes": 1354,
+      "gzipBytes": 654
+    },
+    {
+      "name": "ProjectsWidget-C0VfMifq.js",
+      "bytes": 1276,
+      "gzipBytes": 623
+    },
+    {
+      "name": "WorkListWidget-KeTq6k_M.js",
+      "bytes": 1219,
+      "gzipBytes": 691
+    },
+    {
+      "name": "useMessagingRealtime-BvtdVg52.js",
+      "bytes": 1171,
+      "gzipBytes": 498
+    },
+    {
+      "name": "PushDestinationScreen-CucFTv62.js",
+      "bytes": 1139,
+      "gzipBytes": 678
+    },
+    {
+      "name": "schemas-DD4ULlyg.js",
+      "bytes": 1080,
+      "gzipBytes": 613
+    },
+    {
+      "name": "queries-CSBL0FfL.js",
+      "bytes": 860,
+      "gzipBytes": 411
+    },
+    {
+      "name": "PortalProjectsScreen-BP3wvdiO.js",
+      "bytes": 844,
+      "gzipBytes": 509
+    },
+    {
+      "name": "queries-Beb859cj.js",
+      "bytes": 699,
+      "gzipBytes": 318
+    },
+    {
+      "name": "SettingsScreen-DZr105mg.js",
+      "bytes": 677,
+      "gzipBytes": 438
+    },
+    {
+      "name": "useDraftSubmission-2gnU6TeK.js",
+      "bytes": 654,
+      "gzipBytes": 397
+    },
+    {
+      "name": "work-CfPymtmn.js",
+      "bytes": 654,
+      "gzipBytes": 411
+    },
+    {
+      "name": "NotFoundPlaceholder-DINqHT_r.js",
+      "bytes": 597,
+      "gzipBytes": 382
+    },
+    {
+      "name": "usePhase13Project-TcTGUk_a.js",
+      "bytes": 362,
+      "gzipBytes": 270
+    },
+    {
+      "name": "widget-primitives-Bh0d1Jsi.js",
+      "bytes": 338,
+      "gzipBytes": 218
+    },
+    {
+      "name": "QuickActionsWidget-DE7AEdG3.js",
+      "bytes": 328,
+      "gzipBytes": 246
+    },
+    {
+      "name": "submitForm-DC_zFopc.js",
+      "bytes": 319,
+      "gzipBytes": 256
+    },
+    {
+      "name": "useUnsavedChanges-D7YTHo2_.js",
+      "bytes": 272,
+      "gzipBytes": 233
+    },
+    {
+      "name": "OMNIA_Version_fullblanco-DsHO9StH.js",
+      "bytes": 70,
+      "gzipBytes": 90
+    },
+    {
+      "name": "queryOptions-Dfvzj6n2.js",
+      "bytes": 38,
+      "gzipBytes": 58
+    }
+  ]
+}

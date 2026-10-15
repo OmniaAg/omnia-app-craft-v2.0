@@ -1,0 +1,22 @@
+[
+  {
+    "name": "sql",
+    "passed": true,
+    "seconds": 3.626
+  },
+  {
+    "name": "unit",
+    "passed": true,
+    "seconds": 5.151
+  },
+  {
+    "name": "reset-http",
+    "passed": false,
+    "seconds": 49.257
+  },
+  {
+    "name": "secret-scan",
+    "passed": true,
+    "seconds": 2.938
+  }
+]

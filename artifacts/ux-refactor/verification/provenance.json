@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-15T07:49:59.445Z",
+  "source": {
+    "sha256": "299ccbdeb7799706de6391cfb2b776178946df9e5edef7a1cc52840228718429",
+    "files": 217
+  },
+  "localOnly": true,
+  "head": "a460f0a",
+  "runtime": {
+    "preview": "http://127.0.0.1:53170",
+    "dev": "http://127.0.0.1:53172"
+  },
+  "coverageMethod": "Full router and role sweep plus targeted functional/visual confirmation after changes; CSS refinements explicitly supersede earlier screenshots.",
+  "noCommit": true,
+  "noDeployment": true,
+  "uiFinal": "109 units; typecheck/lint/build; messaging replay, explicit cleanup, visual confirmations and role sweep"
+}

@@ -15,3 +15,7 @@
 .billing-status[data-status='paid'] { color: var(--color-omnia-yellow); }
 .billing-published { display: block; font-size: var(--font-size-xs); color: var(--theme-text-secondary); }
 @media (max-width: 40rem) { .billing-header { align-items: stretch; flex-direction: column; } }
+.billing-table tr[data-created='true'] { background: rgba(var(--rgb-omnia-purple),.08); }
+.billing-concepts { min-width: 12rem; max-width: 26rem; font-size: var(--font-size-sm); }
+.billing-concepts summary { min-height: 2.75rem; padding-block: .5rem; cursor: pointer; overflow-wrap: anywhere; }
+.billing-concepts li { margin-block: .5rem; overflow-wrap: anywhere; }

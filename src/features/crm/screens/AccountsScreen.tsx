@@ -1,3 +1,4 @@
+import { useFlushDrafts } from '../../drafts/draft-context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
@@ -12,6 +13,7 @@ import '../ui/crm.css'
 
 export function Component() {
   const auth = useAuth()
+  const flushDrafts=useFlushDrafts()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [params, setParams] = useSearchParams()
@@ -49,7 +51,7 @@ export function Component() {
       <CrmPageHeader
         title="Organizations"
         description="Prospectos y clientes activos comparten un único registro comercial."
-        action={canCreate ? <button className="crm-button crm-button--primary" type="button" onClick={() => setShowCreate((value) => !value)} aria-expanded={showCreate}>{showCreate ? 'Cerrar formulario' : 'Nueva organización'}</button> : undefined}
+        action={canCreate ? <button className="crm-button crm-button--primary" type="button" disabled={createMutation.isPending} onClick={() => void flushDrafts().then(saved=>{if(saved)setShowCreate(value=>!value)})} aria-expanded={showCreate}>{showCreate ? 'Cerrar formulario' : 'Nueva organización'}</button> : undefined}
       />
       {success ? <CrmSuccess message={success} /> : null}
       {showCreate ? (

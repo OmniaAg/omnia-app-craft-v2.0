@@ -46,6 +46,7 @@ export const internalInvitationSchema = invitationBaseSchema
     kind: z.literal('internal'),
     agencyRoleKey: z.enum([
       'agency_director',
+      'developer',
       'project_manager',
       'contributor',
     ]),

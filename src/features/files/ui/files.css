@@ -22,7 +22,7 @@
 .file-preview { width: 100%; display: grid; gap: .5rem; }
 .file-preview img, .file-preview iframe { max-width: 100%; width: min(100%, 45rem); max-height: 34rem; min-height: 20rem; object-fit: contain; }
 .file-list button:focus-visible, .files-toolbar button:focus-visible, .files-pagination button:focus-visible, .file-uploader button:focus-visible { outline: 3px solid var(--omnia-yellow, #fcbf4a); outline-offset: 2px; }
-.file-error { color: var(--error-text, #c8003b); }
+.file-error { padding: var(--space-3); background: rgba(var(--rgb-omnia-crimson), 0.2); color: var(--theme-text-primary); }
 .file-success { font-weight: 700; }
 .file-delete { justify-self: start; }
 .files-pagination { justify-content: space-between; }

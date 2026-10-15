@@ -1,0 +1,18 @@
+{
+  "passed": 12,
+  "checks": [
+    "two independent sessions same issue key both receive one authoritative ID",
+    "one issue event and one number",
+    "concurrent overpayment admits one and denies one",
+    "paid amount is exactly 60 with no lost update",
+    "two workers claim an automation once",
+    "expired automation lease is reclaimed with a new token",
+    "late automation worker cannot finish",
+    "one fenced work effect",
+    "shared endpoint race admits one owner and rejects the other",
+    "two Push workers claim one delivery",
+    "Push expired lease obtains a new fencing token",
+    "late Push finish is a no-op and cannot overwrite the new worker"
+  ],
+  "transport": "real independent Auth sessions/PostgREST/PostgreSQL transactions; no mocked locks"
+}

@@ -14,7 +14,9 @@ const allowedTypes = new Set([
 ])
 
 function failure(error: { message: string } | null, fallback: string) {
-  if (error) throw new Error(error.message || fallback)
+  if (error) throw new Error(error.message === 'file_delete_forbidden'
+    ? 'No se puede eliminar: comprueba tu permiso y que el archivo no esté vinculado a una entrega o pieza editorial.'
+    : fallback)
 }
 
 export async function listFileAssets(client: OmniaSupabaseClient, filters: FileFilters) {

@@ -1,0 +1,149 @@
+{
+  "completed": true,
+  "checks": [
+    {
+      "name": "Switch browser tab and return preserves Work input",
+      "pass": true
+    },
+    {
+      "name": "Switch Chrome window and return preserves Work input",
+      "pass": true
+    },
+    {
+      "name": "Chrome emitted real blur and focus events",
+      "pass": true
+    },
+    {
+      "name": "Same-actor TOKEN_REFRESHED does not remount Work form",
+      "pass": true
+    },
+    {
+      "name": "Refresh restores a server-confirmed draft",
+      "pass": true
+    },
+    {
+      "name": "Navigation away and browser back restores Work draft",
+      "pass": true
+    },
+    {
+      "name": "Network failure preserves current Work input",
+      "pass": true
+    },
+    {
+      "name": "Navigation is held when safe autosave fails",
+      "pass": true
+    },
+    {
+      "name": "Retry confirms the same input on the server",
+      "pass": true
+    },
+    {
+      "name": "Second tab restores the current revision",
+      "pass": true
+    },
+    {
+      "name": "Stale tab receives a conflict and keeps its input",
+      "pass": true
+    },
+    {
+      "name": "Stale tab cannot overwrite the newer server draft",
+      "pass": true
+    },
+    {
+      "name": "Explicit conflict reload replaces local content only after confirmation",
+      "pass": true
+    },
+    {
+      "name": "User B cannot see user A recovery content",
+      "pass": true
+    },
+    {
+      "name": "No private draft content in localStorage",
+      "pass": true
+    },
+    {
+      "name": "Logout and login restore only the same owner draft",
+      "pass": true
+    },
+    {
+      "name": "Incompatible recovery data shows an explicit safe state",
+      "pass": true
+    },
+    {
+      "name": "Explicit incompatible draft discard restores usable blank form",
+      "pass": true
+    },
+    {
+      "name": "Grouped navigation exposes project destination at 320",
+      "pass": true
+    },
+    {
+      "name": "Escape restores navigation trigger focus at 320",
+      "pass": true
+    },
+    {
+      "name": "Grouped navigation exposes project destination at 375",
+      "pass": true
+    },
+    {
+      "name": "Escape restores navigation trigger focus at 375",
+      "pass": true
+    },
+    {
+      "name": "Grouped navigation exposes project destination at 768",
+      "pass": true
+    },
+    {
+      "name": "Escape restores navigation trigger focus at 768",
+      "pass": true
+    },
+    {
+      "name": "Grouped navigation exposes project destination at 1024",
+      "pass": true
+    },
+    {
+      "name": "Escape restores navigation trigger focus at 1024",
+      "pass": true
+    },
+    {
+      "name": "Grouped navigation exposes project destination at 1366",
+      "pass": true
+    },
+    {
+      "name": "Escape restores navigation trigger focus at 1366",
+      "pass": true
+    },
+    {
+      "name": "Grouped navigation exposes project destination at 1440",
+      "pass": true
+    },
+    {
+      "name": "Escape restores navigation trigger focus at 1440",
+      "pass": true
+    },
+    {
+      "name": "Grouped navigation exposes project destination at 1920",
+      "pass": true
+    },
+    {
+      "name": "Escape restores navigation trigger focus at 1920",
+      "pass": true
+    },
+    {
+      "name": "No runtime errors during persistence and navigation flows",
+      "pass": true
+    }
+  ],
+  "events": [
+    {
+      "type": "blur",
+      "visibility": "visible"
+    },
+    {
+      "type": "focus",
+      "visibility": "visible"
+    }
+  ],
+  "errors": [],
+  "visibilityLimitation": "Chrome automation keeps document.visibilityState visible; tab/window switching is verified through real blur/focus, separately from explicit TOKEN_REFRESHED regression."
+}

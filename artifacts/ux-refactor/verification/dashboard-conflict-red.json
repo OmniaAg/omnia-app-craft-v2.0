@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Widget removal keeps the library option available",
+    "section": "dashboard-conflict",
+    "pass": true,
+    "path": "/app"
+  },
+  {
+    "name": "Conflict reload clears obsolete retry state",
+    "section": "dashboard-conflict",
+    "pass": false,
+    "path": "/app"
+  },
+  {
+    "name": "dashboard-conflict",
+    "section": "dashboard-conflict",
+    "pass": false,
+    "error": "Conflict reload clears obsolete retry state"
+  }
+]

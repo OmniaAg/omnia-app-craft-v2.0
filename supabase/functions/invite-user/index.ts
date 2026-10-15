@@ -13,7 +13,7 @@ const baseInvitationSchema = z.object({
 
 const internalInvitationSchema = baseInvitationSchema.extend({
   kind: z.literal("internal"),
-  agencyRoleKey: z.enum(["agency_director", "project_manager", "contributor"]),
+  agencyRoleKey: z.enum(["agency_director", "developer", "project_manager", "contributor"]),
   departmentKey: z.string().trim().min(2).max(40),
   classification: z.enum([
     "founder",

@@ -10,7 +10,7 @@ import { TEST_PASSWORD, TEST_USERS } from './test-fixtures/credentials.mjs'
 const mode = process.argv[2]
 assert.ok(['automations', 'integrations', 'ai'].includes(mode), 'Select a Phase 13 suite')
 const { status } = await waitForPostgrest()
-const project = '60000000-0000-0000-0000-0000000013a1'
+const project = process.env.OMNIA_QA_FRESH_PROJECT === '1' ? randomUUID() : '60000000-0000-0000-0000-0000000013a1'
 const foreign = '60000000-0000-0000-0000-0000000000b1'
 const owner = TEST_USERS.director[0]
 const tests = []

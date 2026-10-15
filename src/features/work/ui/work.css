@@ -20,7 +20,7 @@
   font-weight: var(--font-weight-bold);
 }
 
-.work-checklist label {
+.crm-form .work-checklist label {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -28,10 +28,11 @@
   color: var(--theme-text-primary);
 }
 
-.work-checklist input {
+.crm-form .work-checklist input {
   width: 1.1rem;
   min-height: auto;
   height: 1.1rem;
+  padding: 0;
   accent-color: var(--color-omnia-yellow);
   flex-shrink: 0;
 }

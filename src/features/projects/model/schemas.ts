@@ -8,7 +8,7 @@ const optionalDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Usa una fecha vál
 export const projectStatusSchema = z.enum(['planning', 'active', 'on_hold', 'completed'])
 
 export const projectFormSchema = z.object({
-  brandId: z.string().uuid('Selecciona una marca.'),
+  brandId: z.guid('Selecciona una marca.'),
   name: z.string().trim().min(1, 'Escribe el nombre del proyecto.').max(200),
   description: optionalText(8000),
   status: projectStatusSchema,
@@ -33,7 +33,7 @@ export const milestoneFormSchema = z.object({
 })
 
 export const projectMemberFormSchema = z.object({
-  userId: z.string().uuid('Selecciona una persona.'),
+  userId: z.guid('Selecciona una persona.'),
 })
 
 export type ProjectFormValues = z.input<typeof projectFormSchema>

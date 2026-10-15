@@ -1,17 +1,14 @@
-import { useRef, useState, type ReactNode } from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { useState, type ReactNode } from 'react'
+import { Link, Outlet } from 'react-router-dom'
+import { GroupedNavigation } from '../navigation/GroupedNavigation'
+import type { NavigationGroup } from '../navigation/navigation'
 import omniaLogo from '../../assets/images/brand/logos_omnia/OMNIA_Version_fullblanco.webp'
-
-type ShellNavItem = {
-  href: string
-  label: string
-}
 
 type FoundationShellProps = {
   title: string
   description: string
   accent: 'purple' | 'blue'
-  navItems: ShellNavItem[]
+  navItems: NavigationGroup[]
   identityLabel: string
   onSignOut: () => Promise<void>
   showIntro?: boolean
@@ -32,8 +29,6 @@ export function FoundationShell({
 }: FoundationShellProps) {
   const [signOutPending, setSignOutPending] = useState(false)
   const [signOutError, setSignOutError] = useState<string | null>(null)
-  const [navOpen, setNavOpen] = useState(false)
-  const menuRef = useRef<HTMLButtonElement>(null)
 
   const handleSignOut = async () => {
     setSignOutPending(true)
@@ -51,33 +46,14 @@ export function FoundationShell({
       <a className="skip-link" href="#main-content">
         Saltar al contenido
       </a>
-      <header className="app-header" onKeyDown={(event) => {
-        if (event.key === 'Escape' && navOpen) {
-          setNavOpen(false)
-          menuRef.current?.focus()
-        }
-      }}>
+      <header className="app-header">
         <Link className="brand-link" to="/" aria-label="OMNIA Craft, inicio">
           <img src={omniaLogo} width="145" height="37" alt="OMNIA" />
           <span>Craft</span>
         </Link>
-        <button ref={menuRef} className="mobile-menu-toggle" type="button" aria-expanded={navOpen} aria-controls="internal-nav"
-          onClick={() => setNavOpen(value => !value)}>{navOpen ? 'Cerrar menú' : 'Menú'}</button>
-        <nav id="internal-nav" className="surface-nav" data-open={navOpen} aria-label="Navegación de contexto">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.href}
-              to={item.href}
-              aria-label={item.label}
-              onClick={() => setNavOpen(false)}
-              end={item.href === '/app' || item.href === '/portal'}
-              className={({ isActive }) => (isActive ? 'is-active' : undefined)}
-            >
-              {item.label}
-              {item.href.endsWith('/notifications') ? notificationBadge : null}
-            </NavLink>
-          ))}
+        <GroupedNavigation groups={navItems} label="Navegación interna" notificationBadge={notificationBadge} />
           <button
+            className="shell-sign-out"
             type="button"
             disabled={signOutPending}
             aria-busy={signOutPending}
@@ -90,7 +66,6 @@ export function FoundationShell({
               {signOutError}
             </span>
           ) : null}
-        </nav>
       </header>
 
       <main id="main-content" className={showIntro ? 'app-main' : 'app-main app-main--content'} tabIndex={-1}>

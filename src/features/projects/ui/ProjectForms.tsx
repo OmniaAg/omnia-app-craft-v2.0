@@ -1,5 +1,7 @@
+import { submitForm } from '../../drafts/submitForm'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
+import { useEffect } from 'react'
 import type { ProjectBrandOption, ProjectMemberCandidate } from '../api/project-service'
 import {
   milestoneFormSchema,
@@ -16,10 +18,10 @@ type AsyncFormProps<T> = {
   pending: boolean
 }
 
-export function ProjectForm({ brands, onSubmit, pending }: AsyncFormProps<ProjectFormValues> & { brands: ProjectBrandOption[] }) {
-  const { register, handleSubmit, formState: { errors } } = useForm<ProjectFormValues>({
+export function ProjectForm({ brands, onSubmit, pending, initialValues, onDraftChange }: AsyncFormProps<ProjectFormValues> & { brands: ProjectBrandOption[]; initialValues?: ProjectFormValues; onDraftChange?: (value:ProjectFormValues)=>void }) {
+  const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectFormSchema),
-    defaultValues: {
+    defaultValues: initialValues ?? {
       brandId: brands[0]?.brand_id ?? '',
       name: '',
       description: '',
@@ -29,9 +31,13 @@ export function ProjectForm({ brands, onSubmit, pending }: AsyncFormProps<Projec
       timezone: brands[0]?.timezone ?? 'America/Mexico_City',
     },
   })
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = form
+  const watched=useWatch({control:form.control})
+  useEffect(()=>{if(onDraftChange&&JSON.stringify(form.getValues())!==JSON.stringify(initialValues))onDraftChange(form.getValues())},[form,initialValues,onDraftChange,watched])
 
   return (
-    <form className="crm-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form className="crm-form" data-server-draft={onDraftChange ? '' : undefined} onSubmit={handleSubmit(async values=>{try{await onSubmit(values)}catch{/* The parent renders command errors. */}})} noValidate>
+      <fieldset className="form-fields" disabled={pending || isSubmitting}>
       <label>
         Organización y marca
         <select {...register('brandId')} aria-invalid={Boolean(errors.brandId)} aria-describedby={errors.brandId ? 'project-brand-error' : undefined}>
@@ -62,18 +68,20 @@ export function ProjectForm({ brands, onSubmit, pending }: AsyncFormProps<Projec
       <button className="crm-button crm-button--primary" type="submit" disabled={pending || brands.length === 0} aria-busy={pending}>
         {pending ? 'Creando…' : 'Crear proyecto'}
       </button>
+          </fieldset>
     </form>
   )
 }
 
 export function MilestoneForm({ onSubmit, pending }: AsyncFormProps<MilestoneFormValues>) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<MilestoneFormValues>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<MilestoneFormValues>({
     resolver: zodResolver(milestoneFormSchema),
     defaultValues: { name: '', description: '', dueDate: '', sortOrder: '0' },
   })
   const submit = async (values: MilestoneFormValues) => { await onSubmit(values); reset() }
   return (
-    <form className="crm-form crm-form--compact" onSubmit={handleSubmit(submit)} noValidate>
+    <form className="crm-form crm-form--compact" onSubmit={event => submitForm(event, handleSubmit, submit)} noValidate>
+      <fieldset className="form-fields" disabled={pending || isSubmitting}>
       <label>Nombre del hito<input {...register('name')} autoComplete="off" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? 'milestone-name-error' : undefined} /></label>
       <FieldError id="milestone-name-error" message={errors.name?.message} />
       <label>Descripción<textarea {...register('description')} rows={3} aria-invalid={Boolean(errors.description)} aria-describedby={errors.description ? 'milestone-description-error' : undefined} /></label>
@@ -85,17 +93,19 @@ export function MilestoneForm({ onSubmit, pending }: AsyncFormProps<MilestoneFor
       <FieldError id="milestone-due-error" message={errors.dueDate?.message} />
       <FieldError id="milestone-order-error" message={errors.sortOrder?.message} />
       <button className="crm-button crm-button--primary" type="submit" disabled={pending} aria-busy={pending}>{pending ? 'Creando…' : 'Crear hito'}</button>
+          </fieldset>
     </form>
   )
 }
 
 export function ProjectMemberForm({ candidates, onSubmit, pending }: AsyncFormProps<ProjectMemberFormValues> & { candidates: ProjectMemberCandidate[] }) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<ProjectMemberFormValues>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ProjectMemberFormValues>({
     resolver: zodResolver(projectMemberFormSchema), defaultValues: { userId: '' },
   })
   const submit = async (values: ProjectMemberFormValues) => { await onSubmit(values); reset() }
   return (
-    <form className="crm-form crm-form--compact" onSubmit={handleSubmit(submit)} noValidate>
+    <form className="crm-form crm-form--compact" onSubmit={event => submitForm(event, handleSubmit, submit)} noValidate>
+      <fieldset className="form-fields" disabled={pending || isSubmitting}>
       <label>
         Persona
         <select {...register('userId')} aria-invalid={Boolean(errors.userId)} aria-describedby={errors.userId ? 'project-member-error' : undefined}>
@@ -111,6 +121,7 @@ export function ProjectMemberForm({ candidates, onSubmit, pending }: AsyncFormPr
       <button className="crm-button crm-button--primary" type="submit" disabled={pending || candidates.length === 0} aria-busy={pending}>
         {pending ? 'Añadiendo…' : 'Añadir al proyecto'}
       </button>
+          </fieldset>
     </form>
   )
 }

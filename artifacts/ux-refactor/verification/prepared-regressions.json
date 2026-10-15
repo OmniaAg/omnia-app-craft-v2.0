@@ -1,0 +1,25 @@
+{
+  "originalMembershipsRestored": true,
+  "results": [
+    {
+      "suite": "test-work-integration.mjs",
+      "pass": true
+    },
+    {
+      "suite": "test-deliverables-integration.mjs",
+      "pass": true
+    },
+    {
+      "suite": "test-analytics-integration.mjs",
+      "pass": true
+    },
+    {
+      "suite": "test-portal-integration.mjs",
+      "pass": true
+    },
+    {
+      "suite": "test-security-integration.mjs",
+      "pass": true
+    }
+  ]
+}

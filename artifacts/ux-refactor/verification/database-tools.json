@@ -1,0 +1,14 @@
+{
+  "checks": [
+    {
+      "command": "npm.cmd run db:lint",
+      "exit": 0,
+      "evidence": "db-lint.log"
+    },
+    {
+      "command": "npm.cmd run db:types:check",
+      "exit": 0,
+      "evidence": "db-types-check.log"
+    }
+  ]
+}

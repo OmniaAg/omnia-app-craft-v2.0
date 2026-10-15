@@ -8,8 +8,8 @@
 .messaging-heading p { margin: .35rem 0 0; }
 .messaging-heading a { display: inline-flex; align-items: center; min-height: 44px; color: var(--theme-text-primary); font-weight: 700; }
 .messaging-heading a:focus-visible { outline-color: var(--theme-text-primary); }
-.messaging-layout { display: grid; grid-template-columns: minmax(14rem, 19rem) minmax(0, 1fr); min-height: 0; height: min(38rem, max(26rem, calc(100dvh - 18rem))); border: 1px solid #cbd6dd; border-radius: 1rem; background: #fff; color: #23323d; }
-.messaging-channels { min-width: 0; min-height: 0; overflow-y: auto; border-right: 1px solid #cbd6dd; border-radius: 1rem 0 0 1rem; background: #f1f6f8; }
+.messaging-layout { display: grid; grid-template-columns: minmax(14rem, 19rem) minmax(0, 1fr); min-height: min(38rem, max(26rem, calc(100dvh - 18rem))); height: auto; border: 1px solid #cbd6dd; border-radius: 1rem; background: #fff; color: #23323d; }
+.messaging-channels { min-width: 0; min-height: 0; max-height: min(38rem, max(26rem, calc(100dvh - 18rem))); overflow-y: auto; border-right: 1px solid #cbd6dd; border-radius: 1rem 0 0 1rem; background: #f1f6f8; }
 .messaging-channels h2 { margin: 0; padding: 1.2rem; font-size: 1.1rem; }
 .messaging-channels > p { padding: 0 1.2rem; }
 .messaging-channel { display: grid; gap: .25rem; padding: .9rem 1.2rem; border-top: 1px solid #d8e3e8; color: inherit; text-decoration: none; }
@@ -53,13 +53,13 @@
 @media (max-width: 27rem) { .messaging-heading { align-items: start; flex-direction: column; } .messaging-list-actions, .messaging-notification { align-items: start; flex-direction: column; } .messaging-message { max-width: 95%; } }
 .messaging-change-channel { display: none; margin-bottom: 1rem; }
 .messaging-composer { padding-bottom: max(1rem,env(safe-area-inset-bottom)); }
-.messaging-history { min-height: 6rem; max-height: none; }
+.messaging-history { min-height: 6rem; max-height: 26rem; }
 @media (max-width: 48rem) {
   .messaging-change-channel { display: inline-flex; }
   .messaging-layout[data-selected='true'][data-show-channels='false'] .messaging-channels { display: none; }
   .messaging-layout { height: auto; }
-  .messaging-layout[data-selected='true'][data-show-channels='false'] { height: max(24rem, calc(100dvh - 21rem)); }
-  .messaging-history { min-height: 4rem; max-height: none; }
+  .messaging-layout[data-selected='true'][data-show-channels='false'] { height: auto; min-height: max(24rem, calc(100dvh - 21rem)); }
+  .messaging-history { min-height: 4rem; max-height: 45dvh; }
   .messaging-composer > div { flex-wrap: wrap; }
   .messaging-message > div { flex-wrap: wrap; }
   .messaging-preferences label { min-height: 44px; }

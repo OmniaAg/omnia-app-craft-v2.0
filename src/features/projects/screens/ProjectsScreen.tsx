@@ -1,5 +1,6 @@
+import { useFlushDrafts } from '../../drafts/draft-context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { getSupabaseClient } from '../../../shared/api/supabase/client'
 import { useAuth } from '../../auth/context/AuthContext'
@@ -7,7 +8,7 @@ import { CrmEmpty, CrmError, CrmPageHeader, LoadingRows, Pagination, StatusBadge
 import { createProject } from '../api/project-service'
 import { projectBrandsQuery, projectKeys, projectsQuery } from '../api/queries'
 import type { ProjectFormValues } from '../model/schemas'
-import { ProjectForm } from '../ui/ProjectForms'
+import { ProjectDraftForm } from '../../drafts/ProjectDraftForm'
 import '../../crm/ui/crm.css'
 import '../ui/projects.css'
 
@@ -15,6 +16,7 @@ const dateOnly = new Intl.DateTimeFormat('es-MX', { dateStyle: 'medium', timeZon
 
 export function Component() {
   const auth = useAuth()
+  const flushDrafts=useFlushDrafts()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [params, setParams] = useSearchParams()
@@ -24,15 +26,15 @@ export function Component() {
   const [draftSearchState, setDraftSearchState] = useState({ source: search, value: search })
   const draftSearch = draftSearchState.source === search ? draftSearchState.value : search
   const [showCreate, setShowCreate] = useState(false)
+  const createdId=useRef<string|null>(null)
   const filters = { page, search, status }
   const projects = useQuery(projectsQuery(filters))
   const canCreate = auth.hasCapability('project.create')
   const brands = useQuery({ ...projectBrandsQuery(), enabled: canCreate })
   const createMutation = useMutation({
     mutationFn: (values: ProjectFormValues) => createProject(getSupabaseClient(), values),
-    onSuccess: async (projectId) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: projectKeys.all })
-      navigate(`/app/projects/${projectId}`)
     },
   })
 
@@ -51,14 +53,14 @@ export function Component() {
       <CrmPageHeader
         title="Proyectos"
         description="Portafolio operativo por marca, con membresía explícita y trabajo trazable."
-        action={canCreate ? <button className="crm-button crm-button--primary" type="button" onClick={() => setShowCreate((value) => !value)} aria-expanded={showCreate}>{showCreate ? 'Cerrar formulario' : 'Nuevo proyecto'}</button> : undefined}
+        action={canCreate ? <button className="crm-button crm-button--primary" type="button" disabled={createMutation.isPending} onClick={() => void flushDrafts().then(saved=>{if(saved)setShowCreate(value=>!value)})} aria-expanded={showCreate}>{showCreate ? 'Cerrar formulario' : 'Nuevo proyecto'}</button> : undefined}
       />
       {showCreate ? (
         <section className="crm-editor" aria-labelledby="new-project-title">
           <h2 id="new-project-title">Crear proyecto</h2>
           {brands.error ? <CrmError message={brands.error.message} /> : null}
           {brands.isPending ? <p role="status">Cargando marcas disponibles…</p> : null}
-          {brands.data ? <ProjectForm brands={brands.data} pending={createMutation.isPending} onSubmit={(values) => createMutation.mutateAsync(values).then(() => undefined)} /> : null}
+          {brands.data?.length ? <ProjectDraftForm brands={brands.data} pending={createMutation.isPending} onSubmit={async values=>{createdId.current=await createMutation.mutateAsync(values)}} onCommitted={()=>{if(createdId.current)navigate(`/app/projects/${createdId.current}`)}} /> : null}
           {createMutation.error ? <CrmError message={createMutation.error.message} /> : null}
           {brands.data?.length === 0 ? <CrmEmpty title="No hay marcas disponibles" description="El proyecto requiere una marca activa de un cliente activo dentro de tu scope." /> : null}
         </section>

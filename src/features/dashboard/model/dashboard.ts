@@ -154,26 +154,20 @@ function sequentialMobile(instances: WidgetInstance[]): DashboardLayoutItem[] {
 }
 
 export function defaultDashboard(capabilities: DashboardCapabilities): DashboardDocument {
-  const keys: WidgetKey[] = ['my-work-summary', 'overdue-work', 'today-work', 'upcoming-work', 'projects', 'quick-actions']
-  if (capabilities.canViewOpportunities) keys.push('crm-opportunities')
-  if (capabilities.canViewOrganizations) keys.push('crm-organizations')
+  const keys: WidgetKey[] = ['my-work-summary', 'overdue-work', 'projects', 'quick-actions'].filter(key => isWidgetAllowed(key as WidgetKey, capabilities)) as WidgetKey[]
   const instances = keys.map(createWidgetInstance)
   const byKey = Object.fromEntries(instances.map((instance) => [instance.widgetKey, instance.instanceId])) as Record<WidgetKey, string>
   const desktop: DashboardLayoutItem[] = [
     { i: byKey['my-work-summary'], x: 0, y: 0, w: 4, h: 2 },
     { i: byKey['overdue-work'], x: 4, y: 0, w: 4, h: 2 },
-    { i: byKey['today-work'], x: 8, y: 0, w: 4, h: 2 },
-    { i: byKey['upcoming-work'], x: 0, y: 2, w: 4, h: 2 },
-    { i: byKey.projects, x: 4, y: 2, w: 8, h: 3 },
-    { i: byKey['quick-actions'], x: 0, y: 4, w: 4, h: 2 },
+    { i: byKey.projects, x: 0, y: 2, w: 8, h: 3 },
+    { i: byKey['quick-actions'], x: 8, y: 0, w: 4, h: 2 },
   ]
   const tablet: DashboardLayoutItem[] = [
     { i: byKey['my-work-summary'], x: 0, y: 0, w: 6, h: 2 },
     { i: byKey['overdue-work'], x: 0, y: 2, w: 3, h: 2 },
-    { i: byKey['today-work'], x: 3, y: 2, w: 3, h: 2 },
-    { i: byKey['upcoming-work'], x: 0, y: 4, w: 3, h: 2 },
-    { i: byKey['quick-actions'], x: 3, y: 4, w: 3, h: 2 },
-    { i: byKey.projects, x: 0, y: 6, w: 6, h: 3 },
+    { i: byKey['quick-actions'], x: 3, y: 2, w: 3, h: 2 },
+    { i: byKey.projects, x: 0, y: 4, w: 6, h: 3 },
   ]
   for (const key of ['crm-opportunities', 'crm-organizations'] as const) {
     if (byKey[key]) {

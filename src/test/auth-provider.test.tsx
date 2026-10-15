@@ -1,4 +1,5 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { Session, User } from '@supabase/supabase-js'
 import { describe, expect, it, vi } from 'vitest'
@@ -94,6 +95,22 @@ function AuthProbe() {
 }
 
 describe('AuthProvider', () => {
+  it('keeps the working screen mounted while revalidating the same actor', async () => {
+    const { client } = createSessionClient()
+    function WorkingScreen() { const [title,setTitle]=useState('');return <input aria-label="Unsaved work" value={title} onChange={event=>setTitle(event.target.value)}/> }
+    function GateProbe() { const auth=useAuth();return auth.status==='authenticated'?<WorkingScreen/>:<p>Checking</p> }
+    render(<QueryClientProvider client={new QueryClient()}><AuthProvider client={client}><GateProbe/></AuthProvider></QueryClientProvider>)
+    const field=await screen.findByLabelText('Unsaved work')
+    fireEvent.change(field,{target:{value:'Keep this draft'}})
+    const listener=vi.mocked(client.auth.onAuthStateChange).mock.calls[0][0]
+    vi.mocked(client.auth.getUser).mockImplementationOnce(async()=>{await new Promise(resolve=>setTimeout(resolve,20));return {data:{user},error:null}})
+    listener('TOKEN_REFRESHED',session)
+    await new Promise(resolve=>setTimeout(resolve,40))
+    expect((screen.getByLabelText('Unsaved work') as HTMLInputElement).value).toBe('Keep this draft')
+    listener('SIGNED_IN',session)
+    await new Promise(resolve=>setTimeout(resolve,40))
+    expect((screen.getByLabelText('Unsaved work') as HTMLInputElement).value).toBe('Keep this draft')
+  })
   it('restores a verified session and its authorization projection', async () => {
     const { client } = createSessionClient()
     const queryClient = new QueryClient()

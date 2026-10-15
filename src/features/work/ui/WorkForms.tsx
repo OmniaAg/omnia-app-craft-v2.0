@@ -1,5 +1,7 @@
+import { submitForm } from '../../drafts/submitForm'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
+import { useEffect } from 'react'
 import { FieldError } from '../../crm/ui/CrmUi'
 import type { ProjectMember, ProjectMilestone } from '../../projects/api/project-service'
 import {
@@ -29,15 +31,21 @@ function AssigneeChoices({ members, register, invalid }: { members: ProjectMembe
   )
 }
 
-export function WorkItemForm({ members, milestones, onSubmit, pending }: AsyncFormProps<WorkItemFormValues> & { members: ProjectMember[]; milestones: ProjectMilestone[] }) {
+export function WorkItemForm({ members, milestones, onSubmit, pending, initialValues, onDraftChange }: AsyncFormProps<WorkItemFormValues> & { members: ProjectMember[]; milestones: ProjectMilestone[]; initialValues?: WorkItemFormValues; onDraftChange?: (value: WorkItemFormValues) => void }) {
   const form = useForm<WorkItemFormValues>({
     resolver: zodResolver(workItemFormSchema),
-    defaultValues: { title: '', description: '', priority: 'normal', dueLocal: '', milestoneId: '', assigneeIds: [] },
+    defaultValues: initialValues ?? { title: '', description: '', priority: 'normal', dueLocal: '', milestoneId: '', assigneeIds: [] },
   })
-  const { register, handleSubmit, reset, formState: { errors } } = form
-  const submit = async (values: WorkItemFormValues) => { await onSubmit(values); reset() }
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = form
+  const watched = useWatch({control:form.control})
+  useEffect(() => {
+    if (!onDraftChange) return
+    if (JSON.stringify(form.getValues()) !== JSON.stringify(initialValues)) onDraftChange(form.getValues())
+  }, [form, initialValues, onDraftChange, watched])
+  const submit = async (values: WorkItemFormValues) => { try { await onSubmit(values); reset({ title: '', description: '', priority: 'normal', dueLocal: '', milestoneId: '', assigneeIds: [] }) } catch { /* The parent keeps the command error beside this form. */ } }
   return (
-    <form className="crm-form" onSubmit={handleSubmit(submit)} noValidate>
+    <form className="crm-form" data-server-draft={onDraftChange ? '' : undefined} onSubmit={event => submitForm(event, handleSubmit, submit)} noValidate>
+      <fieldset className="form-fields" disabled={pending || isSubmitting}>
       <label>Título<input {...register('title')} autoComplete="off" aria-invalid={Boolean(errors.title)} aria-describedby={errors.title ? 'work-title-error' : undefined} /></label>
       <FieldError id="work-title-error" message={errors.title?.message} />
       <label>Descripción<textarea {...register('description')} rows={4} aria-invalid={Boolean(errors.description)} aria-describedby={errors.description ? 'work-description-error' : undefined} /></label>
@@ -51,16 +59,18 @@ export function WorkItemForm({ members, milestones, onSubmit, pending }: AsyncFo
       <AssigneeChoices members={members} register={register} invalid={Boolean(errors.assigneeIds)} />
       <FieldError id="work-assignees-error" message={errors.assigneeIds?.message ?? (errors.assigneeIds ? 'Revisa los responsables seleccionados.' : undefined)} />
       <button className="crm-button crm-button--primary" type="submit" disabled={pending} aria-busy={pending}>{pending ? 'Creando…' : 'Crear trabajo'}</button>
+          </fieldset>
     </form>
   )
 }
 
 export function AssignmentForm({ members, currentIds, onSubmit, pending }: AsyncFormProps<AssignmentFormValues> & { members: ProjectMember[]; currentIds: string[] }) {
-  const { register, handleSubmit, formState: { errors } } = useForm<AssignmentFormValues>({
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<AssignmentFormValues>({
     resolver: zodResolver(assignmentFormSchema), defaultValues: { assigneeIds: currentIds },
   })
   return (
-    <form className="crm-form crm-form--compact" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form className="crm-form crm-form--compact" onSubmit={event => submitForm(event, handleSubmit, onSubmit)} noValidate>
+      <fieldset className="form-fields" disabled={pending || isSubmitting}>
       <fieldset className="work-checklist" aria-invalid={Boolean(errors.assigneeIds)} aria-describedby={errors.assigneeIds ? 'assignment-error' : undefined}>
         <legend>Responsables</legend>
         {members.filter((member) => member.status === 'active' && member.member_type === 'internal').map((member) => (
@@ -69,20 +79,23 @@ export function AssignmentForm({ members, currentIds, onSubmit, pending }: Async
       </fieldset>
       <FieldError id="assignment-error" message={errors.assigneeIds?.message} />
       <button className="crm-button" type="submit" disabled={pending} aria-busy={pending}>{pending ? 'Guardando…' : 'Guardar responsables'}</button>
+          </fieldset>
     </form>
   )
 }
 
 export function CommentForm({ onSubmit, pending }: AsyncFormProps<CommentFormValues>) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<CommentFormValues>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<CommentFormValues>({
     resolver: zodResolver(commentFormSchema), defaultValues: { body: '' },
   })
   const submit = async (values: CommentFormValues) => { await onSubmit(values); reset() }
   return (
-    <form className="crm-form crm-form--compact" onSubmit={handleSubmit(submit)} noValidate>
+    <form className="crm-form crm-form--compact" onSubmit={event => submitForm(event, handleSubmit, submit)} noValidate>
+      <fieldset className="form-fields" disabled={pending || isSubmitting}>
       <label>Comentario<textarea {...register('body')} rows={3} aria-invalid={Boolean(errors.body)} aria-describedby={errors.body ? 'comment-error' : undefined} /></label>
       <FieldError id="comment-error" message={errors.body?.message} />
       <button className="crm-button crm-button--primary" type="submit" disabled={pending} aria-busy={pending}>{pending ? 'Publicando…' : 'Publicar comentario'}</button>
+          </fieldset>
     </form>
   )
 }

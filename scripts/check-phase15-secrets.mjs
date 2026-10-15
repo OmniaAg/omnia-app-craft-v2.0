@@ -19,7 +19,7 @@ const files=new Set(execFileSync('git',['ls-files'],{encoding:'utf8'}).trim().sp
 function walk(folder) {
  for(const name of readdirSync(folder)){const file=`${folder}/${name}`;if(statSync(file).isDirectory())walk(file);else if(textFile.test(file)&&!file.endsWith('.local'))files.add(file)}
 }
-for(const folder of ['dist','artifacts/phase-15','src','scripts','supabase/functions'])if(existsSync(folder))walk(folder)
+for(const folder of ['dist','artifacts/phase-15','artifacts/ux-refactor','src','scripts','supabase/functions','supabase/migrations','supabase/tests'])if(existsSync(folder))walk(folder)
 const findings=[]
 for(const file of files) {
  if(!existsSync(file))continue

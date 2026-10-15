@@ -7,6 +7,7 @@ import { portalKeys, portalQueries } from '../api/queries'
 import { addClientFeedback, recordClientDecision } from '../api/portal-service'
 import { PortalHeading, PortalState } from '../ui/PortalPrimitives'
 import { formatPortalDate, statusLabel } from '../ui/portal-format'
+import { useUnsavedChanges } from '../../drafts/useUnsavedChanges'
 
 export function Component() {
   const { publicationId = '' } = useParams()
@@ -15,6 +16,7 @@ export function Component() {
   const [reason, setReason] = useState('')
   const [feedback, setFeedback] = useState('')
   const [notice, setNotice] = useState('')
+  useUnsavedChanges('portal-feedback', Boolean(reason.trim() || feedback.trim()))
   const decisionRetry = useRef<{ signature: string; key: string } | null>(null)
   const feedbackRetry = useRef<{ body: string; key: string } | null>(null)
   const decide = useMutation({ mutationFn: async (decision: 'approve' | 'request_changes') => {
@@ -64,7 +66,7 @@ export function Component() {
           {detail.feedback.length ? <ol className="portal-feedback-list">{detail.feedback.map(item =>
             <li key={item.id}><strong>{item.author_name}</strong><time>{formatPortalDate(item.created_at)}</time><p>{item.body}</p></li>)}</ol> :
             <p className="portal-empty">Todavía no hay comentarios.</p>}
-          <form onSubmit={event => { event.preventDefault(); comment.mutate() }}>
+          <form data-managed-changes onSubmit={event => { event.preventDefault(); comment.mutate() }}>
             <label className="portal-field">Escribe un comentario contextual
               <textarea value={feedback} maxLength={4000} rows={4} required onChange={event => setFeedback(event.target.value)} /></label>
             <button className="portal-action" disabled={comment.isPending || !feedback.trim()}>Enviar comentario</button>

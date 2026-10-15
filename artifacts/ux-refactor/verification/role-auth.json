@@ -1,0 +1,100 @@
+{
+  "checks": [
+    {
+      "name": "Real Auth Developer and Boss capability/scope projections match",
+      "pass": true
+    },
+    {
+      "name": "Direct pipeline-stage RLS parity includes actual options",
+      "pass": true
+    },
+    {
+      "name": "Client pipeline-stage access remains empty",
+      "pass": true
+    },
+    {
+      "name": "organizations: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "brands: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "projects: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "work_items: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "editorial_items: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "deliverables: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "file_assets: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "billing_documents: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "automation_definitions: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "integration_connections: identical resource rows or identical explicit denial",
+      "pass": true
+    },
+    {
+      "name": "Membership preserves Developer identifier",
+      "pass": true
+    },
+    {
+      "name": "Contributor self-promotion is denied",
+      "pass": true
+    },
+    {
+      "name": "Client has no internal context",
+      "pass": true
+    },
+    {
+      "name": "Real Auth saves and confirms scoped draft",
+      "pass": true
+    },
+    {
+      "name": "A different actor cannot read the draft",
+      "pass": true
+    },
+    {
+      "name": "Real RPC rejects stale version",
+      "pass": true
+    },
+    {
+      "name": "Real RPC rejects owner spoofing",
+      "pass": true
+    },
+    {
+      "name": "Existing JWT loses capabilities after suspension",
+      "pass": true
+    },
+    {
+      "name": "Existing JWT loses draft access after suspension",
+      "pass": true
+    },
+    {
+      "name": "Clearing advances the version",
+      "pass": true
+    }
+  ],
+  "fixture": {
+    "id": "10000000-0000-0000-0000-00000000d001",
+    "email": "ux.developer@omnia.local"
+  }
+}

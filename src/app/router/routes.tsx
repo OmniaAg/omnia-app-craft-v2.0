@@ -3,11 +3,13 @@ import { AuthGate } from '../../features/auth/routing/AuthGate'
 import { RootResolution } from '../../features/auth/routing/RootResolution'
 import { RouteErrorPage } from '../../shared/ui/RouteErrorPage'
 import { RouteFocusManager } from './RouteFocusManager'
+import { AuthStatusView } from '../../features/auth/ui/AuthStatusView'
 
 export const appRoutes: RouteObject[] = [
   {
     path: '/',
     errorElement: <RouteErrorPage />,
+    hydrateFallbackElement: <AuthStatusView title="Abriendo OMNIA Craft" />,
     element: <RouteFocusManager />,
     children: [
       {
