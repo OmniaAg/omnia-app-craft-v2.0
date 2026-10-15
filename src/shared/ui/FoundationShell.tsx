@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import omniaLogo from '../../assets/images/brand/logos_omnia/OMNIA_Version_fullblanco.webp'
 
@@ -16,6 +16,7 @@ type FoundationShellProps = {
   onSignOut: () => Promise<void>
   showIntro?: boolean
   footerLabel?: string
+  notificationBadge?: ReactNode
 }
 
 export function FoundationShell({
@@ -27,10 +28,12 @@ export function FoundationShell({
   onSignOut,
   showIntro = true,
   footerLabel = 'Phase 2 · Identity, Auth & Authorization',
+  notificationBadge,
 }: FoundationShellProps) {
   const [signOutPending, setSignOutPending] = useState(false)
   const [signOutError, setSignOutError] = useState<string | null>(null)
   const [navOpen, setNavOpen] = useState(false)
+  const menuRef = useRef<HTMLButtonElement>(null)
 
   const handleSignOut = async () => {
     setSignOutPending(true)
@@ -48,23 +51,30 @@ export function FoundationShell({
       <a className="skip-link" href="#main-content">
         Saltar al contenido
       </a>
-      <header className="app-header">
+      <header className="app-header" onKeyDown={(event) => {
+        if (event.key === 'Escape' && navOpen) {
+          setNavOpen(false)
+          menuRef.current?.focus()
+        }
+      }}>
         <Link className="brand-link" to="/" aria-label="OMNIA Craft, inicio">
           <img src={omniaLogo} width="145" height="37" alt="OMNIA" />
           <span>Craft</span>
         </Link>
-        <button className="mobile-menu-toggle" type="button" aria-expanded={navOpen} aria-controls="internal-nav"
+        <button ref={menuRef} className="mobile-menu-toggle" type="button" aria-expanded={navOpen} aria-controls="internal-nav"
           onClick={() => setNavOpen(value => !value)}>{navOpen ? 'Cerrar menú' : 'Menú'}</button>
         <nav id="internal-nav" className="surface-nav" data-open={navOpen} aria-label="Navegación de contexto">
           {navItems.map((item) => (
             <NavLink
               key={item.href}
               to={item.href}
+              aria-label={item.label}
               onClick={() => setNavOpen(false)}
               end={item.href === '/app' || item.href === '/portal'}
               className={({ isActive }) => (isActive ? 'is-active' : undefined)}
             >
               {item.label}
+              {item.href.endsWith('/notifications') ? notificationBadge : null}
             </NavLink>
           ))}
           <button

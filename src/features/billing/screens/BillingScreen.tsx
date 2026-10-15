@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../../auth/context/AuthContext'
+import '../billing.css'
 import {
   useBillingDocuments,
   useCreateBillingDocument,
@@ -51,10 +52,10 @@ export function Component() {
   }
 
   return (
-    <div className="billing-page flex-1 flex flex-col h-full w-full max-w-full bg-background p-4 md:p-8 overflow-y-auto overflow-x-hidden">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+    <div className="billing-page">
+      <div className="billing-header">
         <div>
-          <h1 className="text-2xl font-bold">Billing Tracking</h1>
+          <h1 data-route-heading tabIndex={-1}>Billing Tracking</h1>
           <p className="text-muted-foreground">Operational invoices, quotes, and payment requests.</p>
         </div>
         {canCreate && (
@@ -68,7 +69,7 @@ export function Component() {
       </div>
 
       {showCreate && (
-        <div className="border p-4 mb-8 rounded bg-card">
+        <div className="billing-editor">
           <h2 className="text-lg font-semibold mb-4">New Document (Draft)</h2>
           <form onSubmit={(e) => {
             e.preventDefault()
@@ -105,8 +106,8 @@ export function Component() {
       )}
 
       {isLoading ? <p>Loading documents...</p> : (
-        <div className="border rounded-lg overflow-x-auto w-full min-w-0">
-          <table className="w-full text-left text-sm whitespace-nowrap">
+        <div className="billing-table-wrap" role="region" aria-label="Documentos de Billing, tabla desplazable" tabIndex={0}>
+          <table className="billing-table" aria-label="Documentos de Billing">
             <thead className="bg-muted">
               <tr>
                 <th className="p-3">Number</th>
@@ -124,16 +125,10 @@ export function Component() {
                   <td className="p-3">{doc.organizations?.name || doc.organization_id}</td>
                   <td className="p-3 capitalize">{doc.type.replace('_', ' ')}</td>
                   <td className="p-3 capitalize">
-                    <span className={`px-2 py-1 rounded-full text-xs font-semibold
-                      ${doc.status === 'draft' ? 'bg-gray-200 text-gray-800' : ''}
-                      ${doc.status === 'issued' ? 'bg-blue-200 text-blue-800' : ''}
-                      ${doc.status === 'paid' ? 'bg-green-200 text-green-800' : ''}
-                      ${doc.status === 'partially_paid' ? 'bg-yellow-200 text-yellow-800' : ''}
-                      ${doc.status === 'voided' ? 'bg-red-200 text-red-800' : ''}
-                    `}>
+                    <span className="billing-status" data-status={doc.status}>
                       {doc.status.replace('_', ' ')}
                     </span>
-                    {doc.published_at && <span className="ml-2 text-xs text-green-600">Published</span>}
+                    {doc.published_at && <span className="billing-published">Published</span>}
                   </td>
                   <td className="p-3">{money.format(doc.total_amount)} {doc.currency}</td>
                   <td className="p-3 flex gap-2">

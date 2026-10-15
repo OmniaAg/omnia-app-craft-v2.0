@@ -3,7 +3,7 @@ import type { PortalDeliverable, PortalProject } from '../api/portal-service'
 import { formatPortalDate, statusLabel } from './portal-format'
 
 export function PortalHeading({ title, description, children }: { title: string; description?: string; children?: React.ReactNode }) {
-  return <div className="portal-heading"><div><h1>{title}</h1>{description ? <p>{description}</p> : null}</div>{children}</div>
+  return <div className="portal-heading"><div><h1 data-route-heading tabIndex={-1}>{title}</h1>{description ? <p>{description}</p> : null}</div>{children}</div>
 }
 
 export function PortalState({ loading, error, empty, children }: { loading: boolean; error?: Error | null; empty?: boolean; children: React.ReactNode }) {

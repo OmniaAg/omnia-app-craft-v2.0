@@ -1,0 +1,103 @@
+[
+  {
+    "path": "/login",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "dpr": 2,
+    "scrollWidth": 674,
+    "scrollHeight": 467,
+    "submitReachable": true
+  },
+  {
+    "path": "/forgot-password",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "dpr": 2,
+    "scrollWidth": 674,
+    "scrollHeight": 443,
+    "submitReachable": true
+  },
+  {
+    "role": "director",
+    "path": "/app",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 3272
+  },
+  {
+    "role": "director",
+    "path": "/app/billing",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 989
+  },
+  {
+    "role": "director",
+    "path": "/app/analytics",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 2318
+  },
+  {
+    "role": "director",
+    "path": "/app/messages",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 764
+  },
+  {
+    "role": "director",
+    "path": "/app/settings",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 818
+  },
+  {
+    "role": "adminA",
+    "path": "/portal",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 1778
+  },
+  {
+    "role": "adminA",
+    "path": "/portal/projects",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 579
+  },
+  {
+    "role": "adminA",
+    "path": "/portal/messages",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 779
+  },
+  {
+    "role": "adminA",
+    "path": "/portal/settings",
+    "zoom": 2,
+    "width": 674,
+    "height": 336,
+    "scrollWidth": 674,
+    "scrollHeight": 1325
+  }
+]

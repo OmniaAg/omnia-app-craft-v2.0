@@ -1,0 +1,2761 @@
+{
+  "checks": [
+    {
+      "name": "Skip link receives keyboard focus",
+      "pass": false
+    },
+    {
+      "name": "Skip link reaches email field",
+      "pass": false
+    },
+    {
+      "name": "Email has visible focus",
+      "pass": true
+    },
+    {
+      "name": "Login loading is announced and prevents double submit",
+      "pass": true
+    },
+    {
+      "name": "Production service worker controls the app",
+      "pass": true
+    },
+    {
+      "name": "project-create-empty: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "project-create-empty: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "project-create-empty: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "project-create-empty: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "Project validation is announced",
+      "pass": true
+    },
+    {
+      "name": "project-create-validation: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "project-create-validation: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "project-create-validation: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "project-create-validation: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "work-create-empty: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "work-create-empty: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "work-create-empty: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "work-create-empty: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "Work validation is announced",
+      "pass": true
+    },
+    {
+      "name": "work-create-long-text: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "work-create-long-text: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "work-create-long-text: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "work-create-long-text: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "work-detail: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "work-detail: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "work-detail: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "work-detail: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "billing-create-empty: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "billing-create-empty: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "billing-create-empty: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "billing-create-empty: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "billing-create-long-text: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "billing-create-long-text: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "billing-create-long-text: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "billing-create-long-text: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "editorial-create: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "editorial-create: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "editorial-create: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "editorial-create: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "automation-builder: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "automation-builder: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "automation-builder: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "automation-builder: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "integration-secret: submit reachable at 320",
+      "pass": true
+    },
+    {
+      "name": "integration-secret: submit reachable at 375",
+      "pass": true
+    },
+    {
+      "name": "integration-secret: submit reachable at 768",
+      "pass": true
+    },
+    {
+      "name": "integration-secret: submit reachable at 1366",
+      "pass": true
+    },
+    {
+      "name": "Integration secret remains masked",
+      "pass": true
+    }
+  ],
+  "forms": [
+    {
+      "name": "project-create-empty",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "brandId",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "name",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 40,
+          "right": 280,
+          "height": 110.375
+        },
+        {
+          "name": "status",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "timezone",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        },
+        {
+          "name": "startDate",
+          "x": 40,
+          "right": 280,
+          "height": 46.390625
+        },
+        {
+          "name": "targetEndDate",
+          "x": 40,
+          "right": 280,
+          "height": 46.390625
+        },
+        {
+          "name": "Crear proyecto",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "project-create-empty",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "brandId",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "name",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 40,
+          "right": 335,
+          "height": 110.375
+        },
+        {
+          "name": "status",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "timezone",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        },
+        {
+          "name": "startDate",
+          "x": 40,
+          "right": 335,
+          "height": 46.390625
+        },
+        {
+          "name": "targetEndDate",
+          "x": 40,
+          "right": 335,
+          "height": 46.390625
+        },
+        {
+          "name": "Crear proyecto",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "project-create-empty",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "brandId",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44
+        },
+        {
+          "name": "name",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 110.375
+        },
+        {
+          "name": "status",
+          "x": 54.71875,
+          "right": 376,
+          "height": 44.203125
+        },
+        {
+          "name": "timezone",
+          "x": 392,
+          "right": 713.28125,
+          "height": 44.390625
+        },
+        {
+          "name": "startDate",
+          "x": 54.71875,
+          "right": 376,
+          "height": 46.390625
+        },
+        {
+          "name": "targetEndDate",
+          "x": 392,
+          "right": 713.28125,
+          "height": 46.390625
+        },
+        {
+          "name": "Crear proyecto",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "project-create-empty",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "brandId",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "name",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "description",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 110.375
+        },
+        {
+          "name": "status",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "timezone",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "startDate",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "targetEndDate",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "Crear proyecto",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "project-create-validation",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "brandId",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "name",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 40,
+          "right": 280,
+          "height": 110.375
+        },
+        {
+          "name": "status",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "timezone",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        },
+        {
+          "name": "startDate",
+          "x": 40,
+          "right": 280,
+          "height": 46.390625
+        },
+        {
+          "name": "targetEndDate",
+          "x": 40,
+          "right": 280,
+          "height": 46.390625
+        },
+        {
+          "name": "Crear proyecto",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "project-create-validation",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "brandId",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "name",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 40,
+          "right": 335,
+          "height": 110.375
+        },
+        {
+          "name": "status",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "timezone",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        },
+        {
+          "name": "startDate",
+          "x": 40,
+          "right": 335,
+          "height": 46.390625
+        },
+        {
+          "name": "targetEndDate",
+          "x": 40,
+          "right": 335,
+          "height": 46.390625
+        },
+        {
+          "name": "Crear proyecto",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "project-create-validation",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "brandId",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44
+        },
+        {
+          "name": "name",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 110.375
+        },
+        {
+          "name": "status",
+          "x": 54.71875,
+          "right": 376,
+          "height": 44.203125
+        },
+        {
+          "name": "timezone",
+          "x": 392,
+          "right": 713.28125,
+          "height": 44.390625
+        },
+        {
+          "name": "startDate",
+          "x": 54.71875,
+          "right": 376,
+          "height": 46.390625
+        },
+        {
+          "name": "targetEndDate",
+          "x": 392,
+          "right": 713.28125,
+          "height": 46.390625
+        },
+        {
+          "name": "Crear proyecto",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "project-create-validation",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "brandId",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "name",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "description",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 110.375
+        },
+        {
+          "name": "status",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "timezone",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "startDate",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "targetEndDate",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "Crear proyecto",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-create-empty",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "title",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 40,
+          "right": 280,
+          "height": 110.375
+        },
+        {
+          "name": "priority",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "milestoneId",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "dueLocal",
+          "x": 40,
+          "right": 280,
+          "height": 46.390625
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "Crear trabajo",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-create-empty",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "title",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 40,
+          "right": 335,
+          "height": 110.375
+        },
+        {
+          "name": "priority",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "milestoneId",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "dueLocal",
+          "x": 40,
+          "right": 335,
+          "height": 46.390625
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "Crear trabajo",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-create-empty",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "title",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 110.375
+        },
+        {
+          "name": "priority",
+          "x": 54.71875,
+          "right": 376,
+          "height": 44
+        },
+        {
+          "name": "milestoneId",
+          "x": 392,
+          "right": 713.28125,
+          "height": 44
+        },
+        {
+          "name": "dueLocal",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 46.390625
+        },
+        {
+          "name": "assigneeIds",
+          "x": 75.71875,
+          "right": 93.3125,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 75.71875,
+          "right": 93.3125,
+          "height": 17.59375
+        },
+        {
+          "name": "Crear trabajo",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-create-empty",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "title",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "description",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 110.375
+        },
+        {
+          "name": "priority",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "milestoneId",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "dueLocal",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "assigneeIds",
+          "x": 142.625,
+          "right": 160.21875,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 142.625,
+          "right": 160.21875,
+          "height": 17.59375
+        },
+        {
+          "name": "Crear trabajo",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-create-long-text",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "title",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 40,
+          "right": 280,
+          "height": 110.375
+        },
+        {
+          "name": "priority",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "milestoneId",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "dueLocal",
+          "x": 40,
+          "right": 280,
+          "height": 46.390625
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "Crear trabajo",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-create-long-text",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "title",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 40,
+          "right": 335,
+          "height": 110.375
+        },
+        {
+          "name": "priority",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "milestoneId",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "dueLocal",
+          "x": 40,
+          "right": 335,
+          "height": 46.390625
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "Crear trabajo",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-create-long-text",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "title",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        },
+        {
+          "name": "description",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 110.375
+        },
+        {
+          "name": "priority",
+          "x": 54.71875,
+          "right": 376,
+          "height": 44
+        },
+        {
+          "name": "milestoneId",
+          "x": 392,
+          "right": 713.28125,
+          "height": 44
+        },
+        {
+          "name": "dueLocal",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 46.390625
+        },
+        {
+          "name": "assigneeIds",
+          "x": 75.71875,
+          "right": 93.3125,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 75.71875,
+          "right": 93.3125,
+          "height": 17.59375
+        },
+        {
+          "name": "Crear trabajo",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-create-long-text",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "title",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "description",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 110.375
+        },
+        {
+          "name": "priority",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "milestoneId",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "dueLocal",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "assigneeIds",
+          "x": 142.625,
+          "right": 160.21875,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 142.625,
+          "right": 160.21875,
+          "height": 17.59375
+        },
+        {
+          "name": "Crear trabajo",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-detail",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "Guardar responsables",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-detail",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 61,
+          "right": 78.59375,
+          "height": 17.59375
+        },
+        {
+          "name": "Guardar responsables",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-detail",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "assigneeIds",
+          "x": 75.71875,
+          "right": 93.3125,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 75.71875,
+          "right": 93.3125,
+          "height": 17.59375
+        },
+        {
+          "name": "Guardar responsables",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "work-detail",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "assigneeIds",
+          "x": 921.0625,
+          "right": 938.65625,
+          "height": 17.59375
+        },
+        {
+          "name": "assigneeIds",
+          "x": 921.0625,
+          "right": 938.65625,
+          "height": 17.59375
+        },
+        {
+          "name": "Guardar responsables",
+          "x": 900.0625,
+          "right": 1244.375,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "billing-create-empty",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "organization_id",
+          "x": 36,
+          "right": 284,
+          "height": 44.390625
+        },
+        {
+          "name": "type",
+          "x": 36,
+          "right": 284,
+          "height": 44
+        },
+        {
+          "name": "date",
+          "x": 36,
+          "right": 284,
+          "height": 46.390625
+        },
+        {
+          "name": "currency",
+          "x": 36,
+          "right": 284,
+          "height": 44.390625
+        },
+        {
+          "name": "subtotal",
+          "x": 36,
+          "right": 284,
+          "height": 44.390625
+        },
+        {
+          "name": "tax",
+          "x": 36,
+          "right": 284,
+          "height": 44.390625
+        },
+        {
+          "name": "Save Draft",
+          "x": 36,
+          "right": 284,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "billing-create-empty",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "organization_id",
+          "x": 36,
+          "right": 339,
+          "height": 44.390625
+        },
+        {
+          "name": "type",
+          "x": 36,
+          "right": 339,
+          "height": 44
+        },
+        {
+          "name": "date",
+          "x": 36,
+          "right": 339,
+          "height": 46.390625
+        },
+        {
+          "name": "currency",
+          "x": 36,
+          "right": 339,
+          "height": 44.390625
+        },
+        {
+          "name": "subtotal",
+          "x": 36,
+          "right": 339,
+          "height": 44.390625
+        },
+        {
+          "name": "tax",
+          "x": 36,
+          "right": 339,
+          "height": 44.390625
+        },
+        {
+          "name": "Save Draft",
+          "x": 36,
+          "right": 339,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "billing-create-empty",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "organization_id",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44.390625
+        },
+        {
+          "name": "type",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44
+        },
+        {
+          "name": "date",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 46.390625
+        },
+        {
+          "name": "currency",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44.390625
+        },
+        {
+          "name": "subtotal",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44.390625
+        },
+        {
+          "name": "tax",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44.390625
+        },
+        {
+          "name": "Save Draft",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "billing-create-empty",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "organization_id",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44.390625
+        },
+        {
+          "name": "type",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44
+        },
+        {
+          "name": "date",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 46.390625
+        },
+        {
+          "name": "currency",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44.390625
+        },
+        {
+          "name": "subtotal",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44.390625
+        },
+        {
+          "name": "tax",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44.390625
+        },
+        {
+          "name": "Save Draft",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "billing-create-long-text",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "organization_id",
+          "x": 36,
+          "right": 284,
+          "height": 44.390625
+        },
+        {
+          "name": "type",
+          "x": 36,
+          "right": 284,
+          "height": 44
+        },
+        {
+          "name": "date",
+          "x": 36,
+          "right": 284,
+          "height": 46.390625
+        },
+        {
+          "name": "currency",
+          "x": 36,
+          "right": 284,
+          "height": 44.390625
+        },
+        {
+          "name": "subtotal",
+          "x": 36,
+          "right": 284,
+          "height": 44.390625
+        },
+        {
+          "name": "tax",
+          "x": 36,
+          "right": 284,
+          "height": 44.390625
+        },
+        {
+          "name": "Save Draft",
+          "x": 36,
+          "right": 284,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "billing-create-long-text",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "organization_id",
+          "x": 36,
+          "right": 339,
+          "height": 44.390625
+        },
+        {
+          "name": "type",
+          "x": 36,
+          "right": 339,
+          "height": 44
+        },
+        {
+          "name": "date",
+          "x": 36,
+          "right": 339,
+          "height": 46.390625
+        },
+        {
+          "name": "currency",
+          "x": 36,
+          "right": 339,
+          "height": 44.390625
+        },
+        {
+          "name": "subtotal",
+          "x": 36,
+          "right": 339,
+          "height": 44.390625
+        },
+        {
+          "name": "tax",
+          "x": 36,
+          "right": 339,
+          "height": 44.390625
+        },
+        {
+          "name": "Save Draft",
+          "x": 36,
+          "right": 339,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "billing-create-long-text",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "organization_id",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44.390625
+        },
+        {
+          "name": "type",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44
+        },
+        {
+          "name": "date",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 46.390625
+        },
+        {
+          "name": "currency",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44.390625
+        },
+        {
+          "name": "subtotal",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44.390625
+        },
+        {
+          "name": "tax",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 44.390625
+        },
+        {
+          "name": "Save Draft",
+          "x": 50.71875,
+          "right": 658.71875,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "billing-create-long-text",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "organization_id",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44.390625
+        },
+        {
+          "name": "type",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44
+        },
+        {
+          "name": "date",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 46.390625
+        },
+        {
+          "name": "currency",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44.390625
+        },
+        {
+          "name": "subtotal",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44.390625
+        },
+        {
+          "name": "tax",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 44.390625
+        },
+        {
+          "name": "Save Draft",
+          "x": 117.625,
+          "right": 725.625,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "editorial-create",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "Seleccionar cicloReview editorial cycle · 2030-10-01 – 2030-10-31Phase 8 files · 2030-10-01 – 2030-10-31",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "Sin plantillaReview editorial template",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 40,
+          "right": 280,
+          "height": 44.390625
+        },
+        {
+          "name": "",
+          "x": 40,
+          "right": 280,
+          "height": 46.390625
+        },
+        {
+          "name": "",
+          "x": 40,
+          "right": 280,
+          "height": 46.390625
+        },
+        {
+          "name": "SeleccionarinstagramfacebooktiktoklinkedinyoutubewebsiteOtro",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "SeleccionarpostcarouselvideostoryarticleOtro",
+          "x": 40,
+          "right": 280,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 40,
+          "right": 280,
+          "height": 110.375
+        },
+        {
+          "name": "Crear pieza y trabajo",
+          "x": 40,
+          "right": 238.84375,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "editorial-create",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "Seleccionar cicloReview editorial cycle · 2030-10-01 – 2030-10-31Phase 8 files · 2030-10-01 – 2030-10-31",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "Sin plantillaReview editorial template",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 40,
+          "right": 335,
+          "height": 44.390625
+        },
+        {
+          "name": "",
+          "x": 40,
+          "right": 335,
+          "height": 46.390625
+        },
+        {
+          "name": "",
+          "x": 40,
+          "right": 335,
+          "height": 46.390625
+        },
+        {
+          "name": "SeleccionarinstagramfacebooktiktoklinkedinyoutubewebsiteOtro",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "SeleccionarpostcarouselvideostoryarticleOtro",
+          "x": 40,
+          "right": 335,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 40,
+          "right": 335,
+          "height": 110.375
+        },
+        {
+          "name": "Crear pieza y trabajo",
+          "x": 40,
+          "right": 238.84375,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "editorial-create",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "Seleccionar cicloReview editorial cycle · 2030-10-01 – 2030-10-31Phase 8 files · 2030-10-01 – 2030-10-31",
+          "x": 54.71875,
+          "right": 376,
+          "height": 44
+        },
+        {
+          "name": "Sin plantillaReview editorial template",
+          "x": 392,
+          "right": 713.28125,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 54.71875,
+          "right": 376,
+          "height": 45.390625
+        },
+        {
+          "name": "",
+          "x": 392,
+          "right": 713.28125,
+          "height": 46.390625
+        },
+        {
+          "name": "",
+          "x": 54.71875,
+          "right": 376,
+          "height": 46.390625
+        },
+        {
+          "name": "SeleccionarinstagramfacebooktiktoklinkedinyoutubewebsiteOtro",
+          "x": 392,
+          "right": 713.28125,
+          "height": 45.203125
+        },
+        {
+          "name": "SeleccionarpostcarouselvideostoryarticleOtro",
+          "x": 54.71875,
+          "right": 376,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 54.71875,
+          "right": 713.28125,
+          "height": 110.375
+        },
+        {
+          "name": "Crear pieza y trabajo",
+          "x": 54.71875,
+          "right": 253.5625,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "editorial-create",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "Seleccionar cicloReview editorial cycle · 2030-10-01 – 2030-10-31Phase 8 files · 2030-10-01 – 2030-10-31",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "Sin plantillaReview editorial template",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "SeleccionarinstagramfacebooktiktoklinkedinyoutubewebsiteOtro",
+          "x": 489.625,
+          "right": 841.625,
+          "height": 44
+        },
+        {
+          "name": "SeleccionarpostcarouselvideostoryarticleOtro",
+          "x": 121.625,
+          "right": 473.625,
+          "height": 44
+        },
+        {
+          "name": "",
+          "x": 121.625,
+          "right": 841.625,
+          "height": 110.375
+        },
+        {
+          "name": "Crear pieza y trabajo",
+          "x": 121.625,
+          "right": 320.46875,
+          "height": 44.390625
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "automation-builder",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "name",
+          "x": 33,
+          "right": 287,
+          "height": 49.171875
+        },
+        {
+          "name": "Evento del dominioManual",
+          "x": 33,
+          "right": 287,
+          "height": 44.78125
+        },
+        {
+          "name": "event",
+          "x": 33,
+          "right": 287,
+          "height": 44.78125
+        },
+        {
+          "name": "Añadir condición",
+          "x": 52,
+          "right": 268,
+          "height": 49.171875
+        },
+        {
+          "name": "Crear trabajo en este proyectoEnviar webhook a conexión aprobada",
+          "x": 52,
+          "right": 268,
+          "height": 44.78125
+        },
+        {
+          "name": "",
+          "x": 52,
+          "right": 268,
+          "height": 49.171875
+        },
+        {
+          "name": "BajaNormalAltaUrgente",
+          "x": 52,
+          "right": 268,
+          "height": 44.78125
+        },
+        {
+          "name": "Subir acción 1",
+          "x": 52,
+          "right": 186.078125,
+          "height": 49.171875
+        },
+        {
+          "name": "Quitar acción 1",
+          "x": 52,
+          "right": 195.15625,
+          "height": 49.171875
+        },
+        {
+          "name": "Añadir acción",
+          "x": 33,
+          "right": 287,
+          "height": 49.171875
+        },
+        {
+          "name": "enabled",
+          "x": 33,
+          "right": 53,
+          "height": 20
+        },
+        {
+          "name": "Guardar workflow",
+          "x": 33,
+          "right": 202.78125,
+          "height": 49.171875
+        },
+        {
+          "name": "Cancelar",
+          "x": 33,
+          "right": 130.890625,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "automation-builder",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "name",
+          "x": 33,
+          "right": 342,
+          "height": 49.171875
+        },
+        {
+          "name": "Evento del dominioManual",
+          "x": 33,
+          "right": 342,
+          "height": 44.78125
+        },
+        {
+          "name": "event",
+          "x": 33,
+          "right": 342,
+          "height": 44.78125
+        },
+        {
+          "name": "Añadir condición",
+          "x": 52,
+          "right": 323,
+          "height": 49.171875
+        },
+        {
+          "name": "Crear trabajo en este proyectoEnviar webhook a conexión aprobada",
+          "x": 52,
+          "right": 323,
+          "height": 44.78125
+        },
+        {
+          "name": "",
+          "x": 52,
+          "right": 323,
+          "height": 49.171875
+        },
+        {
+          "name": "BajaNormalAltaUrgente",
+          "x": 52,
+          "right": 323,
+          "height": 44.78125
+        },
+        {
+          "name": "Subir acción 1",
+          "x": 52,
+          "right": 186.078125,
+          "height": 49.171875
+        },
+        {
+          "name": "Quitar acción 1",
+          "x": 52,
+          "right": 195.15625,
+          "height": 49.171875
+        },
+        {
+          "name": "Añadir acción",
+          "x": 33,
+          "right": 342,
+          "height": 49.171875
+        },
+        {
+          "name": "enabled",
+          "x": 33,
+          "right": 53,
+          "height": 20
+        },
+        {
+          "name": "Guardar workflow",
+          "x": 33,
+          "right": 202.78125,
+          "height": 49.171875
+        },
+        {
+          "name": "Cancelar",
+          "x": 214.78125,
+          "right": 312.671875,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "automation-builder",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "name",
+          "x": 51.71875,
+          "right": 716.28125,
+          "height": 49.171875
+        },
+        {
+          "name": "Evento del dominioManual",
+          "x": 51.71875,
+          "right": 376,
+          "height": 44.78125
+        },
+        {
+          "name": "event",
+          "x": 392,
+          "right": 716.28125,
+          "height": 44.78125
+        },
+        {
+          "name": "Añadir condición",
+          "x": 70.71875,
+          "right": 697.28125,
+          "height": 49.171875
+        },
+        {
+          "name": "Crear trabajo en este proyectoEnviar webhook a conexión aprobada",
+          "x": 70.71875,
+          "right": 697.28125,
+          "height": 44.78125
+        },
+        {
+          "name": "",
+          "x": 70.71875,
+          "right": 376,
+          "height": 49.171875
+        },
+        {
+          "name": "BajaNormalAltaUrgente",
+          "x": 392,
+          "right": 697.28125,
+          "height": 46.984375
+        },
+        {
+          "name": "Subir acción 1",
+          "x": 70.71875,
+          "right": 204.796875,
+          "height": 49.171875
+        },
+        {
+          "name": "Quitar acción 1",
+          "x": 216.796875,
+          "right": 359.953125,
+          "height": 49.171875
+        },
+        {
+          "name": "Añadir acción",
+          "x": 51.71875,
+          "right": 716.28125,
+          "height": 49.171875
+        },
+        {
+          "name": "enabled",
+          "x": 51.71875,
+          "right": 71.71875,
+          "height": 20
+        },
+        {
+          "name": "Guardar workflow",
+          "x": 51.71875,
+          "right": 221.5,
+          "height": 49.171875
+        },
+        {
+          "name": "Cancelar",
+          "x": 233.5,
+          "right": 331.390625,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "automation-builder",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "name",
+          "x": 118.625,
+          "right": 1247.375,
+          "height": 49.171875
+        },
+        {
+          "name": "Evento del dominioManual",
+          "x": 118.625,
+          "right": 675,
+          "height": 44.78125
+        },
+        {
+          "name": "event",
+          "x": 691,
+          "right": 1247.375,
+          "height": 44.78125
+        },
+        {
+          "name": "Añadir condición",
+          "x": 137.625,
+          "right": 1228.375,
+          "height": 49.171875
+        },
+        {
+          "name": "Crear trabajo en este proyectoEnviar webhook a conexión aprobada",
+          "x": 137.625,
+          "right": 1228.375,
+          "height": 44.78125
+        },
+        {
+          "name": "",
+          "x": 137.625,
+          "right": 675,
+          "height": 49.171875
+        },
+        {
+          "name": "BajaNormalAltaUrgente",
+          "x": 691,
+          "right": 1228.375,
+          "height": 46.984375
+        },
+        {
+          "name": "Subir acción 1",
+          "x": 137.625,
+          "right": 271.703125,
+          "height": 49.171875
+        },
+        {
+          "name": "Quitar acción 1",
+          "x": 283.703125,
+          "right": 426.859375,
+          "height": 49.171875
+        },
+        {
+          "name": "Añadir acción",
+          "x": 118.625,
+          "right": 1247.375,
+          "height": 49.171875
+        },
+        {
+          "name": "enabled",
+          "x": 118.625,
+          "right": 138.625,
+          "height": 20
+        },
+        {
+          "name": "Guardar workflow",
+          "x": 118.625,
+          "right": 288.40625,
+          "height": 49.171875
+        },
+        {
+          "name": "Cancelar",
+          "x": 300.40625,
+          "right": 398.296875,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "integration-secret",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "name": "name",
+          "x": 33,
+          "right": 287,
+          "height": 49.171875
+        },
+        {
+          "name": "endpoint",
+          "x": 33,
+          "right": 287,
+          "height": 49.171875
+        },
+        {
+          "name": "secret",
+          "x": 33,
+          "right": 287,
+          "height": 49.171875
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "",
+          "x": 33,
+          "right": 53,
+          "height": 20
+        },
+        {
+          "name": "Guardar conexión",
+          "x": 33,
+          "right": 199.25,
+          "height": 49.171875
+        },
+        {
+          "name": "Cancelar",
+          "x": 33,
+          "right": 130.890625,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "integration-secret",
+      "width": 375,
+      "scrollWidth": 375,
+      "controls": [
+        {
+          "name": "name",
+          "x": 33,
+          "right": 342,
+          "height": 49.171875
+        },
+        {
+          "name": "endpoint",
+          "x": 33,
+          "right": 342,
+          "height": 49.171875
+        },
+        {
+          "name": "secret",
+          "x": 33,
+          "right": 342,
+          "height": 49.171875
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 52,
+          "right": 72,
+          "height": 20
+        },
+        {
+          "name": "",
+          "x": 33,
+          "right": 53,
+          "height": 20
+        },
+        {
+          "name": "Guardar conexión",
+          "x": 33,
+          "right": 199.25,
+          "height": 49.171875
+        },
+        {
+          "name": "Cancelar",
+          "x": 211.25,
+          "right": 309.140625,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "integration-secret",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "name": "name",
+          "x": 51.71875,
+          "right": 716.28125,
+          "height": 49.171875
+        },
+        {
+          "name": "endpoint",
+          "x": 51.71875,
+          "right": 716.28125,
+          "height": 49.171875
+        },
+        {
+          "name": "secret",
+          "x": 51.71875,
+          "right": 716.28125,
+          "height": 49.171875
+        },
+        {
+          "name": "eventTypes",
+          "x": 70.71875,
+          "right": 90.71875,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 70.71875,
+          "right": 90.71875,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 70.71875,
+          "right": 90.71875,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 70.71875,
+          "right": 90.71875,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 70.71875,
+          "right": 90.71875,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 70.71875,
+          "right": 90.71875,
+          "height": 20
+        },
+        {
+          "name": "",
+          "x": 51.71875,
+          "right": 71.71875,
+          "height": 20
+        },
+        {
+          "name": "Guardar conexión",
+          "x": 51.71875,
+          "right": 217.96875,
+          "height": 49.171875
+        },
+        {
+          "name": "Cancelar",
+          "x": 229.96875,
+          "right": 327.859375,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    },
+    {
+      "name": "integration-secret",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": [
+        {
+          "name": "name",
+          "x": 118.625,
+          "right": 1247.375,
+          "height": 49.171875
+        },
+        {
+          "name": "endpoint",
+          "x": 118.625,
+          "right": 1247.375,
+          "height": 49.171875
+        },
+        {
+          "name": "secret",
+          "x": 118.625,
+          "right": 1247.375,
+          "height": 49.171875
+        },
+        {
+          "name": "eventTypes",
+          "x": 137.625,
+          "right": 157.625,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 137.625,
+          "right": 157.625,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 137.625,
+          "right": 157.625,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 137.625,
+          "right": 157.625,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 137.625,
+          "right": 157.625,
+          "height": 20
+        },
+        {
+          "name": "eventTypes",
+          "x": 137.625,
+          "right": 157.625,
+          "height": 20
+        },
+        {
+          "name": "",
+          "x": 118.625,
+          "right": 138.625,
+          "height": 20
+        },
+        {
+          "name": "Guardar conexión",
+          "x": 118.625,
+          "right": 284.875,
+          "height": 49.171875
+        },
+        {
+          "name": "Cancelar",
+          "x": 296.875,
+          "right": 394.765625,
+          "height": 49.171875
+        }
+      ],
+      "unnamed": [],
+      "pass": true
+    }
+  ],
+  "contrast": [
+    {
+      "path": "/app",
+      "findings": []
+    },
+    {
+      "path": "/app/my-space",
+      "findings": []
+    },
+    {
+      "path": "/app/reviews",
+      "findings": []
+    },
+    {
+      "path": "/app/content-manager",
+      "findings": []
+    },
+    {
+      "path": "/app/projects",
+      "findings": []
+    },
+    {
+      "path": "/app/messages",
+      "findings": []
+    },
+    {
+      "path": "/app/notifications",
+      "findings": [
+        {
+          "text": "Bandeja",
+          "class": "",
+          "ratio": 1.02,
+          "foreground": "rgb(253, 253, 252)",
+          "background": [
+            255,
+            255,
+            255,
+            1
+          ],
+          "gradient": true
+        },
+        {
+          "text": "Nuevo mensaje",
+          "class": "",
+          "ratio": 1.05,
+          "foreground": "rgb(253, 253, 252)",
+          "background": [
+            242,
+            248,
+            251,
+            1
+          ],
+          "gradient": true
+        },
+        {
+          "text": "Preferencias",
+          "class": "",
+          "ratio": 1.02,
+          "foreground": "rgb(253, 253, 252)",
+          "background": [
+            255,
+            255,
+            255,
+            1
+          ],
+          "gradient": true
+        },
+        {
+          "text": "Mensajes",
+          "class": "",
+          "ratio": 1.02,
+          "foreground": "rgb(253, 253, 252)",
+          "background": [
+            255,
+            255,
+            255,
+            1
+          ],
+          "gradient": true
+        },
+        {
+          "text": "Aprobaciones",
+          "class": "",
+          "ratio": 1.02,
+          "foreground": "rgb(253, 253, 252)",
+          "background": [
+            255,
+            255,
+            255,
+            1
+          ],
+          "gradient": true
+        },
+        {
+          "text": "Actualizaciones de entregas",
+          "class": "",
+          "ratio": 1.02,
+          "foreground": "rgb(253, 253, 252)",
+          "background": [
+            255,
+            255,
+            255,
+            1
+          ],
+          "gradient": true
+        }
+      ]
+    },
+    {
+      "path": "/app/settings",
+      "findings": []
+    },
+    {
+      "path": "/app/billing",
+      "findings": []
+    },
+    {
+      "path": "/app/editorial/calendar",
+      "findings": []
+    },
+    {
+      "path": "/app/analytics",
+      "findings": []
+    },
+    {
+      "path": "/app/automations",
+      "findings": []
+    },
+    {
+      "path": "/app/integrations",
+      "findings": []
+    },
+    {
+      "path": "/app/crm/accounts",
+      "findings": []
+    },
+    {
+      "path": "/app/crm/contacts",
+      "findings": []
+    },
+    {
+      "path": "/app/crm/opportunities",
+      "findings": []
+    },
+    {
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1",
+      "findings": []
+    },
+    {
+      "path": "/app/deliverables/ddafb3e3-f0e0-4e24-a4b9-a42e8353b506",
+      "findings": []
+    },
+    {
+      "path": "/app/messages/10a199ec-f505-4d51-ab39-de68e3117545",
+      "findings": []
+    },
+    {
+      "path": "/app/crm/accounts/30000000-0000-0000-0000-00000000000b",
+      "findings": []
+    },
+    {
+      "path": "/app/crm/accounts/30000000-0000-0000-0000-00000000000b?tab=brands",
+      "findings": []
+    },
+    {
+      "path": "/app/crm/accounts/30000000-0000-0000-0000-00000000000b?tab=contacts",
+      "findings": []
+    },
+    {
+      "path": "/app/crm/accounts/30000000-0000-0000-0000-00000000000b?tab=opportunities",
+      "findings": []
+    },
+    {
+      "path": "/app/crm/accounts/30000000-0000-0000-0000-00000000000b?tab=activity",
+      "findings": []
+    },
+    {
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1?tab=work",
+      "findings": []
+    },
+    {
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/reviews",
+      "findings": []
+    },
+    {
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/editorial",
+      "findings": []
+    },
+    {
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1/assistant",
+      "findings": []
+    },
+    {
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1?tab=work&workItem=63000000-0000-0000-0000-0000000000a3",
+      "findings": []
+    },
+    {
+      "path": "/app/deliverables/63000000-0000-0000-0000-0000000000a3",
+      "findings": []
+    },
+    {
+      "path": "/app/deliverables/63000000-0000-0000-0000-0000000000a3",
+      "findings": []
+    },
+    {
+      "path": "/app/projects/60000000-0000-0000-0000-0000000000a1?tab=work",
+      "findings": []
+    }
+  ],
+  "errors": [],
+  "http": []
+}

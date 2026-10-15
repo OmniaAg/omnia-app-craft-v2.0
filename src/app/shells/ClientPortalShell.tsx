@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useAuth } from '../../features/auth/context/AuthContext'
 import logo from '../../assets/images/brand/logos_omnia/OMNIA_Version_fullblanco.webp'
 import { NotificationBadge } from '../../features/messaging/ui/NotificationBadge'
@@ -20,6 +20,7 @@ export function Component() {
   const auth = useAuth()
   const navigate = useNavigate()
   const [navOpen,setNavOpen]=useState(false)
+  const menuRef = useRef<HTMLButtonElement>(null)
   const [pending,setPending]=useState(false)
   const [error,setError]=useState('')
 
@@ -30,9 +31,13 @@ export function Component() {
   }
 
   return <div className="portal-shell">
-    <NotificationBadge />
     <a className="skip-link" href="#portal-main">Saltar al contenido</a>
-    <header className="portal-header">
+    <header className="portal-header" onKeyDown={(event) => {
+      if (event.key === 'Escape' && navOpen) {
+        setNavOpen(false)
+        menuRef.current?.focus()
+      }
+    }}>
       <div className="portal-header__inner">
         <NavLink to="/portal" className="portal-brand" aria-label="OMNIA, ir al resumen del portal">
           <img src={logo} alt="OMNIA" width="130" height="46" />
@@ -43,13 +48,15 @@ export function Component() {
           <button type="button" disabled={pending} onClick={() => void signOut()}>{pending ? 'Cerrando…' : 'Cerrar sesión'}</button>
         </div>
       </div>
-      <button className="mobile-menu-toggle portal-menu-toggle" type="button" aria-expanded={navOpen} aria-controls="portal-nav"
+      <button ref={menuRef} className="mobile-menu-toggle portal-menu-toggle" type="button" aria-expanded={navOpen} aria-controls="portal-nav"
         onClick={() => setNavOpen(value => !value)}>{navOpen ? 'Cerrar menú' : 'Menú del portal'}</button>
       {error ? <p role="alert">{error}</p> : null}
       <nav id="portal-nav" data-open={navOpen} className="portal-nav" aria-label="Navegación del portal">
         {links.map(link => <NavLink key={link.to} to={link.to} end={link.end} onClick={() => setNavOpen(false)}
+          aria-label={link.label}
           className={({ isActive }) => isActive ? 'portal-nav__link is-active' : 'portal-nav__link'}>
           {link.label}
+          {link.to === '/portal/notifications' ? <NotificationBadge /> : null}
         </NavLink>)}
       </nav>
     </header>

@@ -1,0 +1,15 @@
+.notification-badge {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  margin-left: var(--space-2);
+  padding-inline: var(--space-1);
+  border-radius: var(--radius-pill);
+  background: var(--color-omnia-crimson);
+  color: var(--color-omnia-white);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+}

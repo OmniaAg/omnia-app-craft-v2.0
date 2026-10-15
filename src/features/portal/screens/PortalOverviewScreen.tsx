@@ -25,7 +25,7 @@ export function Component() {
         <PortalState loading={notifications.isLoading} error={notifications.error}>
           {notifications.data?.length ? <ul className="portal-notifications">{notifications.data.slice(0, 5).map(item =>
             <li key={item.id}><span className={item.read_at ? '' : 'portal-notifications__new'}>{notificationLabel(item.kind)}</span>
-              <Link to={`/portal/projects/${item.project_id}`}>Ver proyecto</Link></li>)}</ul> : <p className="portal-empty">Aún no hay novedades.</p>}
+              <Link to={item.project_id ? `/portal/projects/${item.project_id}` : '/portal/notifications'}>{item.project_id ? 'Ver proyecto' : 'Ver notificación'}</Link></li>)}</ul> : <p className="portal-empty">Aún no hay novedades.</p>}
         </PortalState>
       </section>
     </div>

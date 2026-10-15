@@ -77,7 +77,7 @@
   --theme-interactive-text: var(--color-omnia-black);
   --theme-interactive-accent: var(--color-omnia-purple);
   --theme-control-surface: var(--color-surface-dark);
-  --theme-control-border: var(--color-border-inverse);
+  --theme-control-border: #858585;
   --theme-control-muted: var(--color-text-inverse-muted);
   --theme-control-active-surface: var(--color-omnia-white);
   --theme-control-active-text: var(--color-omnia-black);
@@ -344,7 +344,7 @@
     var(--color-omnia-white)
   );
   --theme-control-surface: var(--color-background);
-  --theme-control-border: rgba(var(--rgb-omnia-black), 0.18);
+  --theme-control-border: #767676;
   --theme-control-muted: var(--color-text-muted);
   --theme-control-active-surface: var(--color-omnia-black);
   --theme-control-active-text: var(--color-omnia-white);

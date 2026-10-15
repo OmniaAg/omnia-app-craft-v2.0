@@ -1,0 +1,17 @@
+.billing-page { display: grid; gap: var(--space-6); min-width: 0; }
+.billing-header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-5); border-bottom: 1px solid var(--theme-border); }
+.billing-header h1 { margin: 0; font: var(--font-weight-medium) var(--font-size-2xl)/var(--line-height-heading) var(--font-display); letter-spacing: var(--letter-spacing-heading); }
+.billing-header p { margin: var(--space-3) 0 0; color: var(--theme-text-secondary); }
+.billing-editor { padding: var(--space-5); border-radius: var(--radius-md); background: var(--theme-surface-primary); min-width: 0; }
+.billing-editor h2 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-lg); }
+.billing-page form input { min-width: 0; }
+.billing-table-wrap { min-width: 0; max-width: 100%; overflow-x: auto; border-block: 1px solid var(--theme-border); }
+.billing-table { width: 100%; min-width: 42rem; border-collapse: collapse; text-align: left; font-variant-numeric: tabular-nums; }
+.billing-table :is(th,td) { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--theme-border); vertical-align: middle; }
+.billing-table th { color: var(--theme-text-secondary); font-size: var(--font-size-sm); }
+.billing-table td:last-child { white-space: nowrap; }
+.billing-table td:last-child button + button { margin-left: var(--space-2); }
+.billing-status { display: inline-block; padding: var(--space-1) var(--space-2); border: 1px solid var(--theme-border); border-radius: var(--radius-xs); font-size: var(--font-size-sm); }
+.billing-status[data-status='paid'] { color: var(--color-omnia-yellow); }
+.billing-published { display: block; font-size: var(--font-size-xs); color: var(--theme-text-secondary); }
+@media (max-width: 40rem) { .billing-header { align-items: stretch; flex-direction: column; } }

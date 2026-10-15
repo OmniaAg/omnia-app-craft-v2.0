@@ -1,0 +1,57 @@
+# Anti Slop Delivery Gate
+
+Alcance: cambios y superficies verificadas en esta auditoría local; no es certificación WCAG ni una prueba física de iOS/Android.
+
+- R-02 PASS: Copy añadida sin em dash; el título de este reporte reproduce el solicitado por el usuario.
+- R-03 PASS: 685 mediciones finales sin escape horizontal ni controles recortados; forms y zoom con scroll accesible.
+- R-17 PASS: Métricas, personas y eventos proceden del backend local determinístico; no se añadieron claims ni testimonios.
+- R-18 PASS: Métricas, personas y eventos proceden del backend local determinístico; no se añadieron claims ni testimonios.
+- R-23 PASS: Logos y assets conservados; no se generaron nuevos assets de marca ni navegación.
+- R-24 PASS: Rutas reales recorridas; fallback de novedades sin proyecto probado; aliases de push cubiertos por regresiones.
+- R-25 PASS: 49 evaluaciones de contraste de texto sin fallos; pares de control/foco en contrast-checks.txt. Fondos atmosféricos se evalúan además por su límite de mezcla.
+- R-26 PASS: Controles conservan handlers; clicks registrados en checks/forms; comandos de riesgo validados por suites de dominio y confirmación Billing descartada.
+- R-27 PASS: Login vacío, validación, error y loading; recuperación success; forms vacíos/poblados y guardado Work real; datos vacíos/reales y estados de error en componentes existentes.
+- R-28 PASS: No existe FAQ dentro de estas superficies ni se añadió una.
+- R-32 PASS: Skip link, foco visible, Enter, Escape y retorno de foco; scroll de formularios y tabla Billing accesibles.
+- R-33 PASS: Ediciones escritas en fuente con apply_patch; scripts sólo verifican o generan evidencia.
+- R-34 PASS: Shell interno oscuro, Auth claro y Portal claro verificados; no hay toggle de tema publicado.
+- R-35 PASS: Build real, 18 checks por rol, 56 checks de flujos, 102 unit tests y regresiones de dominio. El alcance no equivale a activar cada comando destructivo de la aplicación.
+- R-36 PASS: No se añadieron afirmaciones comerciales, de seguridad o cumplimiento; fixtures de prueba documentados como locales.
+- R-38 PASS: No se añadieron afirmaciones comerciales, de seguridad o cumplimiento; fixtures de prueba documentados como locales.
+- R-37 PASS: Dirección existente: Control sereno, Lexend/Quicksand y paleta OMNIA; refinamiento autorizado.
+- R-01 PASS: Atmósfera de marca existente conservada; no hay gradientes nuevos.
+- R-04 PASS: Sin iconos decorativos nuevos; iconos operativos existentes tienen controles con nombre.
+- R-06 PASS: Lexend expresa títulos OMNIA y Quicksand cuerpo/controles; escala incumbente reutilizada.
+- R-07 PASS: No se añadieron grillas o texturas de fondo.
+- R-08 PASS: Flechas existentes indican regreso; ninguna flecha decorativa nueva.
+- R-09 PASS: Badges comunican estados o unread real; no se añadieron claims sobre H1.
+- R-10 PASS: Sin glassmorphism añadido; superficies operativas sólidas.
+- R-12 PASS: Sombras existentes separan tarea/panel; Billing no incorpora elevación decorativa.
+- R-13 PASS: Foco visible tiene propósito de navegación; sin glows nuevos.
+- R-14 PASS: Se conservaron cards de contenido y widgets configurables; no se añadieron feature cards.
+- R-19 PASS: Se retiró el loop decorativo Auth; transiciones existentes y pulso de carga tienen propósito; reduced motion respeta preferencias.
+- R-22 PASS: Sin ilustraciones nuevas.
+- Dials PASS: ENERGY 1 / RHYTHM 1 / MOTION 2: operación serena, agrupaciones predecibles, transiciones discretas y feedback de carga.
+- Dials consistency PASS: La composición y las transiciones observadas mantienen esos valores; no se añadió una nueva dirección visual.
+- Focal point PASS: H1/contexto y acción principal por formulario; capturas Login, Work, Billing, Editorial e Integration.
+- Whitespace PASS: Espaciado diferencia campos, grupos y secciones; menor altura de marca móvil permite completar el acceso.
+- Accent PASS: Morado interno, azul Portal y foco contextual señalan contexto y acción.
+- Identity motif PASS: Logo, tipografía y separación interna/cliente conservan la identidad OMNIA.
+- Design Read PASS: Lectura operativa basada en DESIGN.md, declarada durante las correcciones; no se reemplazó el mundo visual.
+- C-1 PASS: Razones de cambios registradas en V01–V12 y en la sección Design Consistency.
+- C-2 PASS: Handlers y rutas operables; fallback de novedad sin proyecto corrige una acción rota.
+- C-3 PASS: No hay nuevas secciones de relleno; paneles existentes sirven proyectos, trabajo, revisiones y datos.
+- C-4 PASS: Viewports, roles, estados, foco y zoom ensayados; pruebas físicas fuera del alcance de esta validación local.
+- C-5 PASS: Toda cifra del reporte proviene de artefactos locales; no se inventó evidencia.
+- R-05 PASS: Se preservaron layouts operativos por contenido; no se introdujo una plantilla de landing.
+- R-11 PASS: Radios existentes xs/sm/md y pills para status/navegación; no se uniformó todo como cápsula.
+- R-15 PASS: Copy nueva nombra la acción Ver notificación; sin CTAs genéricos ni buzzwords.
+- R-16 PASS: Copy nueva nombra la acción Ver notificación; sin CTAs genéricos ni buzzwords.
+- R-20 PASS: Logos, tipografía, paleta y separación interna/cliente siguen siendo OMNIA Craft.
+- R-21 PASS: Dark-first y Portal/Auth claros provienen de la dirección de marca existente.
+- R-29 PASS: Sin nueva paleta; roles semánticos neutrales, contextuales y de estado existentes.
+- R-30 PASS: Refinamiento de la aplicación existente; sin imitación ni sustitución de identidad.
+- R-31 PASS: Cada decisión principal tiene motivo: cabida, legibilidad, scroll, foco o acciones alcanzables.
+- Human supplement PASS: Contraste calculado, labels en forms medidos, foco visible, estados con texto, zoom real y simulación de altura de teclado.
+- Layoutmobile supplement PASS: Grids se apilan, mínimos intrínsecos controlados, controles principales de 44px y menús operables; safe areas ensayadas según soporte CDP.
+- UI supplement PASS: Identidad conservada, sin decoración añadida; datos reales de fixtures, estados funcionales y escala coherente.

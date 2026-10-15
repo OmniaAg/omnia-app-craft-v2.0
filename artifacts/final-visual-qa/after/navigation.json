@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "role": "director",
+      "name": "Root resolves authorized context",
+      "pass": true
+    },
+    {
+      "role": "director",
+      "name": "Push resolver reaches authorized destination",
+      "pass": true,
+      "target": "/app/messages/10a199ec-f505-4d51-ab39-de68e3117545"
+    },
+    {
+      "role": "pm",
+      "name": "Root resolves authorized context",
+      "pass": true
+    },
+    {
+      "role": "pm",
+      "name": "Push resolver reaches authorized destination",
+      "pass": true,
+      "target": "/app/deliverables/f990945d-dd4c-4c6b-a190-4738b0a656a2"
+    },
+    {
+      "role": "contributor",
+      "name": "Root resolves authorized context",
+      "pass": true
+    },
+    {
+      "role": "contributor",
+      "name": "Push resolver reaches authorized destination",
+      "pass": true,
+      "target": "/app/deliverables/f990945d-dd4c-4c6b-a190-4738b0a656a2"
+    },
+    {
+      "role": "adminA",
+      "name": "Root resolves authorized context",
+      "pass": true
+    },
+    {
+      "role": "adminA",
+      "name": "Push resolver reaches authorized destination",
+      "pass": true,
+      "target": "/portal/deliverables/b0c98b84-9444-45b1-99f6-9d78aa9537f3"
+    }
+  ],
+  "errors": []
+}

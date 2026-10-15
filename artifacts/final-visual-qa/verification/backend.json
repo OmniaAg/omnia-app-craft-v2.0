@@ -1,0 +1,62 @@
+[
+  {
+    "command": "npm run db:test",
+    "exitCode": 1,
+    "pass": false,
+    "seconds": 6.408
+  },
+  {
+    "command": "npm run test:auth",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 6.951
+  },
+  {
+    "command": "npm run test:work",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 4.119
+  },
+  {
+    "command": "npm run test:deliverables",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 5.177
+  },
+  {
+    "command": "npm run test:files",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 6.034
+  },
+  {
+    "command": "npm run test:portal",
+    "exitCode": 1,
+    "pass": false,
+    "seconds": 4.049
+  },
+  {
+    "command": "npm run test:messaging",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 19.215
+  },
+  {
+    "command": "npm run test:billing",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 4.787
+  },
+  {
+    "command": "npm run test:pwa",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 8.085
+  },
+  {
+    "command": "npm run test:push",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 18.127
+  }
+]

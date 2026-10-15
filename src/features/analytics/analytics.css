@@ -17,6 +17,7 @@
 .analytics-page p { max-width: 72ch; color: var(--theme-text-secondary); }
 .analytics-heading, .analytics-actions, .analytics-pager { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); }
 .analytics-heading { justify-content: space-between; }
+.analytics-page summary { min-height: 44px; padding-block: var(--space-2); cursor: pointer; }
 .analytics-page button, .analytics-page input, .analytics-page select { min-height: 2.75rem; font: inherit; border-radius: var(--radius-sm); border: 1px solid var(--theme-control-border); padding: var(--space-2) var(--space-3); background: var(--theme-control-surface); color: var(--theme-text-primary); max-width: 100%; }
 .analytics-page button { cursor: pointer; font-weight: var(--font-weight-bold); }
 .analytics-page button:hover:not(:disabled) { background: var(--theme-control-active-surface); color: var(--theme-control-active-text); }
@@ -25,7 +26,8 @@
 .analytics-page a { color: var(--theme-text-primary); text-decoration: underline; text-underline-offset: .2em; }
 .analytics-filters { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: end; }
 .analytics-filters label { display: grid; gap: var(--space-2); min-width: 0; }
-.analytics-scope { display: grid; gap: var(--space-2); flex: 1 1 13rem; min-width: 0; }
+.analytics-scope { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2); flex: 1 1 13rem; min-width: 0; }
+.analytics-page :is(input,select) { min-width: 0; width: 100%; }
 .analytics-scope .analytics-actions { font-size: var(--font-size-sm); }
 .analytics-tabs { display: flex; flex-wrap: wrap; gap: var(--space-2); border-bottom: 1px solid var(--theme-border); padding-bottom: var(--space-4); }
 .analytics-tabs button[aria-current="page"] { background: var(--theme-interactive-background); color: var(--theme-interactive-text); }

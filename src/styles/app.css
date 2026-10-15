@@ -13,7 +13,6 @@ body {
   min-width: 20rem;
   min-height: 100vh;
   margin: 0;
-  overflow-x: hidden;
   background: var(--theme-page-background);
   color: var(--theme-text-primary);
   font-family: var(--font-body);
@@ -143,6 +142,7 @@ button {
   color: var(--theme-text-secondary);
   font-family: var(--font-display);
   font-size: var(--font-size-sm);
+  overflow-wrap: anywhere;
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;

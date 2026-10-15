@@ -1,0 +1,26 @@
+[
+  {
+    "command": "npm run typecheck",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 8.213
+  },
+  {
+    "command": "npm run lint",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 0.472
+  },
+  {
+    "command": "npm run test",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 11.576
+  },
+  {
+    "command": "npm run build",
+    "exitCode": 0,
+    "pass": true,
+    "seconds": 8.926
+  }
+]

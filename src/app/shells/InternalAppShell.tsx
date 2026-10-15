@@ -35,7 +35,7 @@ export function Component() {
   ]
 
   return (
-    <><NotificationBadge /><FoundationShell
+    <FoundationShell
       title="Espacio interno de OMNIA"
       description="Tu membership interna está activa. Las acciones visibles se proyectan desde capabilities, pero RLS y RPC deciden cada acceso."
       accent="purple"
@@ -44,6 +44,7 @@ export function Component() {
       onSignOut={handleSignOut}
       showIntro={false}
       footerLabel="OMNIA · Operaciones internas"
-    /></>
+      notificationBadge={<NotificationBadge />}
+    />
   )
 }

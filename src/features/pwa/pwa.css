@@ -3,6 +3,7 @@
 .pwa-status p { margin: 0; }
 .pwa-update { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; justify-content: space-between; }
 .device-page { width: min(100%, 60rem); margin-inline: auto; }
+.device-page h1 { margin: 0; font-family: var(--font-display); font-size: var(--font-size-2xl); font-weight: var(--font-weight-medium); }
 .device-settings { color: var(--theme-text-primary); padding-block: 1rem; }
 .device-settings h2, .device-settings h3 { font-family: var(--font-display); font-weight: 500; }
 .device-settings h3 { margin: 0; font-size: 1.1rem; }
